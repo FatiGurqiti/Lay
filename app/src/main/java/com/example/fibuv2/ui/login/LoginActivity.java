@@ -30,6 +30,11 @@ import com.example.fibuv2.CreateAccount;
 import com.example.fibuv2.MainLoggedIn;
 import com.example.fibuv2.PasswordForgot;
 import com.example.fibuv2.R;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -41,6 +46,7 @@ public class LoginActivity extends AppCompatActivity {
     private ProgressBar progressBar;
     private TextView forgot;
 
+    private FirebaseAuth mAuth;
 
 
 
@@ -90,7 +96,7 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View v) {
                 progressBar.setVisibility(View.VISIBLE);
 
-                GirisEmailSifreKullanici(sifre.getText().toString().trim(), Email.getText().toString().trim());
+                GirisEmailSifreKullanici(Email.getText().toString().trim(),sifre.getText().toString().trim());
 
 
 
@@ -102,7 +108,7 @@ public class LoginActivity extends AppCompatActivity {
         startActivity(new Intent(LoginActivity.this,CreateAccount.class));
         progressBar.setVisibility(View.INVISIBLE);
     }
-    private void  GirisEmailSifreKullanici(final String email, String Sifre){
+    private void  GirisEmailSifreKullanici(final String email, String password){
 
         if(email.toString().contentEquals("admin")){
 
@@ -110,11 +116,34 @@ public class LoginActivity extends AppCompatActivity {
             progressBar.setVisibility(View.INVISIBLE);
         }
 
-        else if(!TextUtils.isEmpty(email)
-                && !TextUtils.isEmpty(Sifre)){
-            //here you log in
+        else if(TextUtils.isEmpty(email) &&
+                TextUtils.isEmpty(password) ){
 
+            Log.d("Input Status", "Inputs are empty");
+            Toast.makeText(LoginActivity.this, "Would you mind if you fill the inputs?",
+                    Toast.LENGTH_LONG).show();
+        }
+        else {
+            Log.d("Input Status", "Inputs are filled");
 
+            mAuth = FirebaseAuth.getInstance();
+
+            mAuth.signInWithEmailAndPassword(email, password)
+                    .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                        @Override
+                        public void onComplete(@NonNull Task<AuthResult> task) {
+                            if (task.isSuccessful()) {
+                                // Sign in success, update UI with the signed-in user's information
+                                Log.d("Sign in status", "signInWithEmail:success");
+                                FirebaseUser user = mAuth.getCurrentUser();
+                            } else {
+                                // If sign in fails, display a message to the user.
+                                Log.w("Sign in status", "signInWithEmail:failure", task.getException());
+                                Toast.makeText(LoginActivity.this, "Authentication failed.",
+                                        Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    });
         }
 
 

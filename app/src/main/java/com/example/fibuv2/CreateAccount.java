@@ -3,6 +3,7 @@ package com.example.fibuv2;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
@@ -11,6 +12,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.fibuv2.ui.login.LoginActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -67,6 +69,9 @@ public class CreateAccount extends AppCompatActivity {
                     Log.d("Input Status", "Inputs are filled");
                     createAccount(emailString,passwordString);
                     userData(emailString,passwordString,usernameString);
+                    Intent intent = new Intent(CreateAccount.this, LoginActivity.class);
+                    startActivity(intent);
+                    finish();
                 }
             }
         });

@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "937997351563",
+    "project_id": "fibuv2",
+    "storage_bucket": "fibuv2.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:937997351563:android:fc95a9b147355715c0b28e",
+        "android_client_info": {
+          "package_name": "com.example.fibuv2"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "937997351563-ldj80ebfi5bfgjn2eokqdirdd0t7itq6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDBuqzdA2-JbJwGGbveji1rmwkM0E6zzrw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "937997351563-ldj80ebfi5bfgjn2eokqdirdd0t7itq6.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

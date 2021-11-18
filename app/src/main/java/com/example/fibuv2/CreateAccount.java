@@ -12,10 +12,18 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class CreateAccount extends AppCompatActivity {
 
@@ -25,6 +33,7 @@ public class CreateAccount extends AppCompatActivity {
 
     private boolean canclick = false;
     private FirebaseAuth mAuth  = FirebaseAuth.getInstance();
+    private FirebaseUser user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,6 +66,7 @@ public class CreateAccount extends AppCompatActivity {
                 else {
                     Log.d("Input Status", "Inputs are filled");
                     createAccount(emailString,passwordString);
+                    userData(emailString,passwordString,usernameString);
                 }
             }
         });
@@ -74,7 +84,7 @@ public class CreateAccount extends AppCompatActivity {
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d("Create User Status", "createUserWithEmail:success");
-                            FirebaseUser user = mAuth.getCurrentUser();
+                             user = mAuth.getCurrentUser();
 
                         } else {
                             // If sign in fails, display a message to the user.
@@ -86,6 +96,32 @@ public class CreateAccount extends AppCompatActivity {
                     }
                 });
     }
-    private void userData(String email,String password,String username){}
+    private void userData(String email,String password,String username){
+
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        CollectionReference users = db.collection("users");
+
+        Map<String, Object> user = new HashMap<>();
+        user.put("userID", mAuth.getUid().toString());
+        user.put("username", username);
+        user.put("email", email);
+        user.put("password", password);
+        users.document(mAuth.getUid().toString()).set(user);
+
+        db.collection("users")
+                .add(user)
+                .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                    @Override
+                    public void onSuccess(DocumentReference documentReference) {
+                        Log.d("Document status", "DocumentSnapshot added with ID: " + documentReference.getId());
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.w("Document status", "Error adding document", e);
+                    }
+                });
+    }
 
 }

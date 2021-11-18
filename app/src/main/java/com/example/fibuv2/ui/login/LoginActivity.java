@@ -38,11 +38,11 @@ import com.google.firebase.auth.FirebaseUser;
 
 public class LoginActivity extends AppCompatActivity {
 
-    private Button HesapAcButton;
-    private Button GirisButton;
+    private Button SignUp;
+    private Button Login;
     private Button DevelopersByPass;
     private AutoCompleteTextView Email;
-    private EditText sifre;
+    private EditText passwordinput;
     private ProgressBar progressBar;
     private TextView forgot;
 
@@ -55,11 +55,10 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-      //  firebaseAuth = FirebaseAuth.getInstance();
-        HesapAcButton = findViewById(R.id.create_acct_button);
-        GirisButton = findViewById(R.id.login);
+        SignUp = findViewById(R.id.create_acct_button);
+        Login = findViewById(R.id.login);
         Email= findViewById(R.id.username);
-        sifre = findViewById(R.id.password);
+        passwordinput = findViewById(R.id.password);
         progressBar= findViewById(R.id.loading);
         DevelopersByPass = findViewById(R.id.byPass);
         forgot = findViewById(R.id.forgotpassword);
@@ -83,20 +82,23 @@ public class LoginActivity extends AppCompatActivity {
         });
 
 
-        HesapAcButton.setOnClickListener(new View.OnClickListener() {
+        SignUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 progressBar.setVisibility(View.VISIBLE);
-                HESAPAC();
+                createUser();
             }
         });
 
-        GirisButton.setOnClickListener(new View.OnClickListener() {
+        Login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 progressBar.setVisibility(View.VISIBLE);
 
-                GirisEmailSifreKullanici(Email.getText().toString().trim(),sifre.getText().toString().trim());
+                String emailString = Email.getText().toString().trim();
+                String passwordString =passwordinput.getText().toString().trim();
+
+                userLogin(emailString,passwordString);
 
 
 
@@ -104,11 +106,11 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
-    private void HESAPAC(){
+    private void createUser(){
         startActivity(new Intent(LoginActivity.this,CreateAccount.class));
         progressBar.setVisibility(View.INVISIBLE);
     }
-    private void  GirisEmailSifreKullanici(final String email, String password){
+    private void  userLogin(final String email, String password){
 
         if(email.toString().contentEquals("admin")){
 

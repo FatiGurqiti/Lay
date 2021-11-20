@@ -11,7 +11,9 @@
         android:theme="@style/Theme.Fibuv2">
         <activity
             android:name=".MainLoggedIn"
-            android:label="@string/title_activity_main_logged_in"></activity>
+            android:label="@string/title_activity_main_logged_in"
+            android:screenOrientation="portrait"
+            ></activity>
         <activity android:name=".Admin" />
         <activity android:name=".CreateAccount" />
         <activity android:name=".PasswordForgot" />

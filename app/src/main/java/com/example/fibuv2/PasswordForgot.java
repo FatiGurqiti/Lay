@@ -44,7 +44,7 @@ public class PasswordForgot extends AppCompatActivity {
 
                 FirebaseAuth mAuth;
 
-                String password = sifre.getText().toString();
+                String password = resetpassword.getText().toString();
 
 
                 FirebaseAuth.getInstance().sendPasswordResetEmail(password)
@@ -56,7 +56,7 @@ public class PasswordForgot extends AppCompatActivity {
                                 }
                                 else{
 
-                                    Log.d("EmailStatus", "Email gönderilmedi");
+                                    Log.d("EmailStatus", "Email isn't sent");
                                     afterText.setText("No such user");
                                 }
                             }
@@ -66,4 +66,3 @@ public class PasswordForgot extends AppCompatActivity {
         });
     }
     }
-}

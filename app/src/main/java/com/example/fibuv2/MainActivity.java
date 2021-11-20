@@ -27,7 +27,7 @@ public class MainActivity extends AppCompatActivity {
                                finish();
                            }
                        }
-                ,200  //later to be set to 2500
+                ,2500  //later to be set to 2500
         );
 
 

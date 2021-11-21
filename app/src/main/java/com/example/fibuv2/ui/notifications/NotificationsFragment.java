@@ -19,6 +19,7 @@ import com.example.fibuv2.MainLoggedIn;
 import com.example.fibuv2.R;
 import com.example.fibuv2.ui.login.LoginActivity;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class NotificationsFragment extends Fragment {
 
@@ -30,7 +31,7 @@ public class NotificationsFragment extends Fragment {
         notificationsViewModel =
                 new ViewModelProvider(this).get(NotificationsViewModel.class);
         View root = inflater.inflate(R.layout.fragment_notifications, container, false);
-        final TextView textView = root.findViewById(R.id.text_notifications);
+        final TextView textView = root.findViewById(R.id.text_email);
         final Button logout = root.findViewById(R.id.logoutbtn);
 
 
@@ -50,6 +51,10 @@ public class NotificationsFragment extends Fragment {
 
                 textView.setText(mAuth.getCurrentUser().getUid().toString());
 
+                mAuth = FirebaseAuth.getInstance();
+                FirebaseUser user = mAuth.getCurrentUser();
+                assert user != null;
+                Log.d("User ID in notofocation", user.getUid().toString());
 
             }
         });

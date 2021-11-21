@@ -35,7 +35,15 @@ public class CreateAccount extends AppCompatActivity {
 
     private boolean canclick = false;
     private FirebaseAuth mAuth  = FirebaseAuth.getInstance();
-    private FirebaseUser user;
+    private FirebaseUser userF;
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        // Check if user is signed in (non-null) and update UI accordingly.
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+        updateUI(currentUser);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,8 +75,9 @@ public class CreateAccount extends AppCompatActivity {
                 }
                 else {
                     Log.d("Input Status", "Inputs are filled");
-                    createAccount(emailString,passwordString);
+
                     userData(emailString,passwordString,usernameString);
+                    createAccount(emailString,passwordString);
                     Intent intent = new Intent(CreateAccount.this, LoginActivity.class);
                     startActivity(intent);
                     finish();
@@ -89,44 +98,41 @@ public class CreateAccount extends AppCompatActivity {
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d("Create User Status", "createUserWithEmail:success");
-                             user = mAuth.getCurrentUser();
+
+                            FirebaseUser user = mAuth.getCurrentUser();
+                            updateUI(user);
 
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w("Create User Status", "createUserWithEmail:failure", task.getException());
                             Toast.makeText(CreateAccount.this, "Authentication failed.",
                                     Toast.LENGTH_SHORT).show();
+                            updateUI(null);
+
 
                         }
                     }
                 });
     }
+
+    private void updateUI(FirebaseUser user) {
+        userF = user;
+    }
+
     private void userData(String email,String password,String username){
 
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         CollectionReference users = db.collection("users");
 
+
         Map<String, Object> user = new HashMap<>();
-        user.put("userID", mAuth.getUid().toString());
+        //user.put("userID", userF.getUid().toString());
         user.put("username", username);
         user.put("email", email);
         user.put("password", password);
-        users.document(mAuth.getUid().toString()).set(user);
 
-        db.collection("users")
-                .add(user)
-                .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-                    @Override
-                    public void onSuccess(DocumentReference documentReference) {
-                        Log.d("Document status", "DocumentSnapshot added with ID: " + documentReference.getId());
-                    }
-                })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Log.w("Document status", "Error adding document", e);
-                    }
-                });
+        db.collection("users").document(email)
+                .set(user);
     }
 
 }

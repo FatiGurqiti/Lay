@@ -14,13 +14,22 @@
             android:label="@string/title_activity_main_logged_in"
             android:screenOrientation="portrait"
             ></activity>
-        <activity android:name=".Admin" />
-        <activity android:name=".CreateAccount" />
-        <activity android:name=".PasswordForgot" />
+        <activity android:name=".Admin"
+            android:screenOrientation="portrait"
+            />
+        <activity android:name=".CreateAccount"
+            android:screenOrientation="portrait"
+            />
+        <activity android:name=".PasswordForgot"
+            android:screenOrientation="portrait"
+            />
         <activity
             android:name=".ui.login.LoginActivity"
+            android:screenOrientation="portrait"
             android:label="@string/title_activity_login" />
-        <activity android:name=".MainActivity">
+        <activity android:name=".MainActivity"
+            android:screenOrientation="portrait"
+            >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

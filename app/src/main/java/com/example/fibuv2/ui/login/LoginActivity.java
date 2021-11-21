@@ -129,6 +129,7 @@ public class LoginActivity extends AppCompatActivity {
             Log.d("Input Status", "Inputs are filled");
 
             mAuth = FirebaseAuth.getInstance();
+            FirebaseUser user = mAuth.getCurrentUser();
 
             mAuth.signInWithEmailAndPassword(email, password)
                     .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
@@ -137,11 +138,12 @@ public class LoginActivity extends AppCompatActivity {
                             if (task.isSuccessful()) {
                                 // Sign in success, update UI with the signed-in user's information
                                 Log.d("Sign in status", "signInWithEmail:success");
-                                FirebaseUser user = mAuth.getCurrentUser();
+
+                                assert user != null;
                                 Log.d("User ID", user.getUid().toString());
 
                                 Intent intent = new Intent(LoginActivity.this,MainLoggedIn.class);
-                                intent.putExtra("userId",user.getUid().toString());
+                                intent.putExtra("email",email);
                                 startActivity(intent);
                                 finish();
                             } else {

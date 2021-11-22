@@ -18,20 +18,32 @@ import androidx.lifecycle.ViewModelProvider;
 import com.example.fibuv2.MainLoggedIn;
 import com.example.fibuv2.R;
 import com.example.fibuv2.ui.login.LoginActivity;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.EventListener;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
 public class NotificationsFragment extends Fragment {
 
     private NotificationsViewModel notificationsViewModel;
     private FirebaseAuth mAuth = FirebaseAuth.getInstance();
 
+    private FirebaseFirestore db = FirebaseFirestore.getInstance();
+    private CollectionReference collectionReference = db.collection("users");
+
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         notificationsViewModel =
                 new ViewModelProvider(this).get(NotificationsViewModel.class);
         View root = inflater.inflate(R.layout.fragment_notifications, container, false);
-        final TextView textView = root.findViewById(R.id.text_email);
+        final TextView username = root.findViewById(R.id.text_username);
+        final TextView email = root.findViewById(R.id.text_email);
         final Button logout = root.findViewById(R.id.logoutbtn);
 
 
@@ -49,15 +61,41 @@ public class NotificationsFragment extends Fragment {
             @Override
             public void onChanged(@Nullable String s) {
 
-                textView.setText(mAuth.getCurrentUser().getUid().toString());
+                email.setText("E-mail: " + mAuth.getCurrentUser().getEmail().toString());
 
                 mAuth = FirebaseAuth.getInstance();
                 FirebaseUser user = mAuth.getCurrentUser();
                 assert user != null;
-                Log.d("User ID in notofocation", user.getUid().toString());
+                Log.d("User ID logged in", user.getUid().toString());
+                Log.d("User mail logged in", user.getEmail().toString());
+
+
+
+
+                collectionReference
+                        .whereEqualTo("email", user.getEmail().toString())
+                        .addSnapshotListener(new EventListener<QuerySnapshot>() {
+                            @Override
+                            public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
+
+                                assert value != null;
+                                if (!value.isEmpty()) {
+
+                                    for (QueryDocumentSnapshot snapshot : value) {
+                                        username.setText("Username: " + snapshot.getString("username"));
+
+                                        Log.d("Username logged in", snapshot.getString("username"));
+
+
+                                    }  } }
+
+                        });
 
             }
         });
         return root;
     }
+
+
+
 }

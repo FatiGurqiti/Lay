@@ -17,6 +17,7 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.example.fibuv2.MainLoggedIn;
 import com.example.fibuv2.R;
+import com.example.fibuv2.ResetPassword;
 import com.example.fibuv2.ui.login.LoginActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -45,14 +46,25 @@ public class NotificationsFragment extends Fragment {
         final TextView username = root.findViewById(R.id.text_username);
         final TextView email = root.findViewById(R.id.text_email);
         final Button logout = root.findViewById(R.id.logoutbtn);
+        final TextView reset = root.findViewById(R.id.change_password);
 
+
+
+        reset.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(),ResetPassword.class);
+                startActivity(intent);
+            }
+        });
 
         logout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 mAuth = FirebaseAuth.getInstance();
                 FirebaseAuth.getInstance().signOut();
-
+                FirebaseUser user = mAuth.getCurrentUser();
+                user = null;
                 System.exit(0);
             }
         });

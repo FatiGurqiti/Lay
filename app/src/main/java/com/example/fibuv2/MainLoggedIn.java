@@ -18,11 +18,13 @@ import androidx.navigation.ui.NavigationUI;
 
 public class MainLoggedIn extends AppCompatActivity {
 
-    private FirebaseAuth mAuth;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_logged_in);
+
+
 
         BottomNavigationView navView = findViewById(R.id.nav_view);
         // Passing each menu ID as a set of Ids because each

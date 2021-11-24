@@ -60,17 +60,10 @@ public class LoginActivity extends AppCompatActivity {
         Email= findViewById(R.id.username);
         passwordinput = findViewById(R.id.password);
         progressBar= findViewById(R.id.loading);
-        DevelopersByPass = findViewById(R.id.byPass);
         forgot = findViewById(R.id.forgotpassword);
 
 
-        DevelopersByPass.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(LoginActivity.this, MainLoggedIn.class);
-                startActivity(intent);
-            }
-        });
+
 
 
         forgot.setOnClickListener(new View.OnClickListener() {

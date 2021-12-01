@@ -1,22 +1,97 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<RelativeLayout xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
     android:layout_height="match_parent"
+    android:adjustViewBounds="true"
     tools:context=".ui.dashboard.DashboardFragment">
 
     <TextView
-        android:id="@+id/text_dashboard"
+        android:id="@+id/textView2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="5dp"
         android:textAlignment="center"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:textColor="@color/white"
+        android:textSize="18dp"
+        android:translationZ="1dp"
+        android:text="Search through the movie world!" />
+
+    <EditText
+        android:id="@+id/search_bar"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="50dp"
+        android:layout_marginEnd="50dp"
+        android:hint="Search.."
+        android:paddingLeft="20dp"
+        android:paddingRight="65dp"
+        android:maxLines="1"
+        android:background="@drawable/searchbar"
+        android:translationZ="1dp"
+        android:layout_marginTop="50dp"/>
+
+    <ImageButton
+        android:id="@+id/coolsearchbtn"
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:layout_alignRight="@id/search_bar"
+        android:background="@android:color/transparent"
+        android:src="@drawable/searchbarbtn"
+        android:layout_marginTop="50dp"
+        android:translationZ="2dp" />
+
+    <ImageView
+        android:id="@+id/imageView7"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:src="@drawable/mainbackground"
+        android:translationZ="0dp" />
+
+    <ImageView
+        android:id="@+id/notFoundImage"
+        android:layout_width="match_parent"
+        android:layout_height="370dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_centerInParent="true"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="80dp"
+        android:layout_marginEnd="1dp"
+        android:src="@drawable/notfound" />
+
+    <TextView
+        android:id="@+id/notFoundText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="500dp"
+        android:text="Yeah... About the thing that you're looking for \n
+Listen pal, we may not have it.\n
+But you can contribute us, by adding it yourself.\n
+Just click the button down below."
+        android:textAlignment="center" />
+
+    <Button
+        android:id="@+id/coolbutton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="580dp"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/coolbtnbackground"
+        android:textColor="@color/white"
+        android:paddingRight="20dp"
+        android:paddingLeft="20dp"
+        android:text="Button that makes you cool!" />
+
+
+
 </RelativeLayout>

@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -48,6 +49,23 @@ public class NotificationsFragment extends Fragment {
         final Button logout = root.findViewById(R.id.logoutbtn);
         final TextView reset = root.findViewById(R.id.change_password);
 
+         ImageView notfoundIMAGE = root.findViewById(R.id.notFoundImage);
+         TextView notfoundText = root.findViewById(R.id.notFoundText);
+         Button coolBtn = root.findViewById(R.id.coolbutton);
+         Button coolsearchBtn = root.findViewById(R.id.coolsearchbtn);
+
+
+
+
+        coolsearchBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                notfoundIMAGE.setVisibility(View.INVISIBLE);
+                notfoundText.setVisibility(View.INVISIBLE);
+                coolBtn.setVisibility(View.INVISIBLE);
+            }
+        });
 
 
         reset.setOnClickListener(new View.OnClickListener() {
@@ -61,11 +79,11 @@ public class NotificationsFragment extends Fragment {
         logout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mAuth = FirebaseAuth.getInstance();
                 FirebaseAuth.getInstance().signOut();
-                FirebaseUser user = mAuth.getCurrentUser();
-                user = null;
-                System.exit(0);
+                Log.d("isLoggedOut","logged out");
+                Intent intent = new Intent(getActivity(), LoginActivity.class);
+                startActivity(intent);
+
             }
         });
 
@@ -73,7 +91,7 @@ public class NotificationsFragment extends Fragment {
             @Override
             public void onChanged(@Nullable String s) {
 
-                email.setText("E-mail: " + mAuth.getCurrentUser().getEmail().toString());
+                email.setText(mAuth.getCurrentUser().getEmail().toString());
 
                 mAuth = FirebaseAuth.getInstance();
                 FirebaseUser user = mAuth.getCurrentUser();
@@ -94,7 +112,7 @@ public class NotificationsFragment extends Fragment {
                                 if (!value.isEmpty()) {
 
                                     for (QueryDocumentSnapshot snapshot : value) {
-                                        username.setText("Username: " + snapshot.getString("username"));
+                                        username.setText( snapshot.getString("username"));
 
                                         Log.d("Username logged in", snapshot.getString("username"));
 

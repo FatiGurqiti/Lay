@@ -4,10 +4,14 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Users/fati-/AndroidStudioProjects/Fibuv2/app/src/main/res/drawable/coolbtnbackground.xml" value="0.1707236842105263" />
+        <entry key="..\:/Users/fati-/AndroidStudioProjects/Fibuv2/app/src/main/res/drawable/greenctangle.xml" value="0.1707236842105263" />
         <entry key="..\:/Users/fati-/AndroidStudioProjects/Fibuv2/app/src/main/res/drawable/login_background.xml" value="0.2703125" />
         <entry key="..\:/Users/fati-/AndroidStudioProjects/Fibuv2/app/src/main/res/drawable/mainbackground.xml" value="0.1707236842105263" />
         <entry key="..\:/Users/fati-/AndroidStudioProjects/Fibuv2/app/src/main/res/drawable/profile_top_background.xml" value="0.2703125" />
+        <entry key="..\:/Users/fati-/AndroidStudioProjects/Fibuv2/app/src/main/res/drawable/purplerectangle.xml" value="0.1707236842105263" />
+        <entry key="..\:/Users/fati-/AndroidStudioProjects/Fibuv2/app/src/main/res/drawable/redrectangle.xml" value="0.1707236842105263" />
         <entry key="..\:/Users/fati-/AndroidStudioProjects/Fibuv2/app/src/main/res/drawable/searchbar.xml" value="0.1707236842105263" />
+        <entry key="..\:/Users/fati-/AndroidStudioProjects/Fibuv2/app/src/main/res/drawable/yellowrectangle.xml" value="0.1707236842105263" />
         <entry key="..\:/Users/fati-/AndroidStudioProjects/Fibuv2/app/src/main/res/layout/activity_admin.xml" value="0.1118421052631579" />
         <entry key="..\:/Users/fati-/AndroidStudioProjects/Fibuv2/app/src/main/res/layout/activity_create_account.xml" value="0.13269927536231885" />
         <entry key="..\:/Users/fati-/AndroidStudioProjects/Fibuv2/app/src/main/res/layout/activity_login.xml" value="0.13451086956521738" />

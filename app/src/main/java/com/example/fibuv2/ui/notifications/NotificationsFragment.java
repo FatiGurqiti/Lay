@@ -46,26 +46,8 @@ public class NotificationsFragment extends Fragment {
         View root = inflater.inflate(R.layout.fragment_notifications, container, false);
         final TextView username = root.findViewById(R.id.text_username);
         final TextView email = root.findViewById(R.id.text_email);
-        final Button logout = root.findViewById(R.id.logoutbtn);
         final TextView reset = root.findViewById(R.id.change_password);
 
-         ImageView notfoundIMAGE = root.findViewById(R.id.notFoundImage);
-         TextView notfoundText = root.findViewById(R.id.notFoundText);
-         Button coolBtn = root.findViewById(R.id.coolbutton);
-         Button coolsearchBtn = root.findViewById(R.id.coolsearchbtn);
-
-
-
-
-        coolsearchBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                notfoundIMAGE.setVisibility(View.INVISIBLE);
-                notfoundText.setVisibility(View.INVISIBLE);
-                coolBtn.setVisibility(View.INVISIBLE);
-            }
-        });
 
 
         reset.setOnClickListener(new View.OnClickListener() {
@@ -76,18 +58,9 @@ public class NotificationsFragment extends Fragment {
             }
         });
 
-        logout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                FirebaseAuth.getInstance().signOut();
-                Log.d("isLoggedOut","logged out");
-                Intent intent = new Intent(getActivity(), LoginActivity.class);
-                startActivity(intent);
 
-            }
-        });
 
-        notificationsViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
+            notificationsViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
             @Override
             public void onChanged(@Nullable String s) {
 

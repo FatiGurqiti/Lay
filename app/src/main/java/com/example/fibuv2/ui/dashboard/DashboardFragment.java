@@ -3,6 +3,7 @@ package com.example.fibuv2.ui.dashboard;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,10 +23,19 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.example.fibuv2.Admin;
 import com.example.fibuv2.R;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 public class DashboardFragment extends Fragment {
 
     private DashboardViewModel dashboardViewModel;
+    FirebaseFirestore db = FirebaseFirestore.getInstance();
+    private boolean ifmoviexists = false;
+    private TextView moviedetail;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -46,6 +56,8 @@ public class DashboardFragment extends Fragment {
         CardView red = root.findViewById(R.id.redCard);
 
 
+        moviedetail = root.findViewById(R.id.movieDetails);
+
 
 
         notfoundIMAGE.setVisibility(View.INVISIBLE);
@@ -63,17 +75,32 @@ public class DashboardFragment extends Fragment {
                     progressBar.setVisibility(View.VISIBLE);
 
 
+                    ifdataexists(searchBar.getText().toString());
+
                     blue.setVisibility(View.INVISIBLE);
                     yellow.setVisibility(View.INVISIBLE);
                     green.setVisibility(View.INVISIBLE);
                     red.setVisibility(View.INVISIBLE);
 
+                    if(ifmoviexists){
+
+                        //Movie does not exist
                 notfoundIMAGE.setVisibility(View.VISIBLE);
                 notfoundText.setVisibility(View.VISIBLE);
                 coolBtn.setVisibility(View.VISIBLE);
+                Log.d("doesMovieExit","Movie Doesn't Exit");
+                    }
+                    else
+                    {
+                        Log.d("doesMovieExit","Movie Exits");
+                        //Movie exits
+                        moviedetail.setVisibility(View.VISIBLE);
+                        searchBar.setText(null);
+                    }
 
                 progressBar.setVisibility(View.INVISIBLE);
                 }
+
 
             }
         });
@@ -93,5 +120,32 @@ public class DashboardFragment extends Fragment {
             }
         });
         return root;
+    }
+
+    private void ifdataexists(String search){
+
+
+
+        DocumentReference docRef = db.collection("movies").document(search);
+        docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if (task.isSuccessful()) {
+                    DocumentSnapshot document = task.getResult();
+                    if (document.exists()) {
+                        Log.d("ifDataExists", "DocumentSnapshot data: " + document.getString("name"));
+                        ifmoviexists=true;
+                        moviedetail.setText(document.getData().toString());
+
+                    } else {
+                        Log.d("ifDataExists", "No such document");
+
+                    }
+                } else {
+                    Log.d("ifDataExists", "get failed with ", task.getException());
+                }
+            }
+        });
+
     }
 }

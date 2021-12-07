@@ -22,6 +22,7 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.fibuv2.Admin;
+import com.example.fibuv2.MovieDetails;
 import com.example.fibuv2.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -50,10 +51,16 @@ public class DashboardFragment extends Fragment {
         ImageButton coolsearchBtn = root.findViewById(R.id.coolsearchbtn);
         EditText searchBar = root.findViewById(R.id.search_bar);
         ProgressBar progressBar = root.findViewById(R.id.searchProgressBar);
+
         CardView blue = root.findViewById(R.id.blueCard);
         CardView yellow = root.findViewById(R.id.yellowCard);
         CardView green = root.findViewById(R.id.greenCard);
         CardView red = root.findViewById(R.id.redCard);
+
+        TextView blueText = root.findViewById(R.id.blueCardText);
+        TextView yellowText = root.findViewById(R.id.yellowCardText);
+        TextView greenText = root.findViewById(R.id.greenCardText);
+        TextView redText = root.findViewById(R.id.redCardText);
 
 
         moviedetail = root.findViewById(R.id.movieDetails);
@@ -105,11 +112,37 @@ public class DashboardFragment extends Fragment {
             }
         });
 
+
         coolBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), Admin.class);
                 startActivity(intent);
+            }
+        });
+
+        blue.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openMovieDetail("The Lord of the Rings");
+            }
+        });
+        yellow.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openMovieDetail("Avengers");
+            }
+        });
+        green.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openMovieDetail("Fight Club");
+            }
+        });
+        red.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openMovieDetail("Dune");
             }
         });
 
@@ -121,6 +154,13 @@ public class DashboardFragment extends Fragment {
         });
         return root;
     }
+
+    private void openMovieDetail(String movieName){
+        Intent intent = new Intent(getActivity(), MovieDetails.class);
+        intent.putExtra("movieName",movieName);
+        startActivity(intent);
+    }
+
 
     private void ifdataexists(String search){
 

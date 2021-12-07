@@ -177,7 +177,7 @@ Just click the button down below"
         android:outlineAmbientShadowColor="@color/black"
         android:outlineSpotShadowColor="@color/black"
         android:translationZ="1dp"
-        app:cardBackgroundColor="#11FF00"
+        app:cardBackgroundColor="#1bc22c"
         app:cardCornerRadius="15dp">
 
         <TextView

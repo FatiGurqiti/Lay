@@ -77,23 +77,10 @@
         android:layout_marginTop="440dp"
         android:text="Yeah... About the thing that you're looking for \n
 Listen pal, we may not have it.\n
-But you can contribute us, by adding it yourself!\n
-Just click the button down below"
+And you just have to deal with it"
         android:visibility="invisible"
         android:textAlignment="center" />
 
-    <Button
-        android:id="@+id/coolbutton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="550dp"
-        android:background="@drawable/coolbtnbackground"
-        android:paddingLeft="20dp"
-        android:paddingRight="20dp"
-        android:text="Button that makes you cool!"
-        android:visibility="invisible"
-        android:textColor="@color/white" />
 
     <ProgressBar
         android:id="@+id/searchProgressBar"

@@ -24,6 +24,7 @@ import androidx.lifecycle.ViewModelProvider;
 import com.example.fibuv2.Admin;
 import com.example.fibuv2.MovieDetails;
 import com.example.fibuv2.R;
+import com.example.fibuv2.api.MovieAPI;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.CollectionReference;
@@ -31,11 +32,13 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.io.IOException;
+
 public class DashboardFragment extends Fragment {
 
     private DashboardViewModel dashboardViewModel;
     FirebaseFirestore db = FirebaseFirestore.getInstance();
-    private boolean ifmoviexists = false;
+    private boolean ifmoviexists = true;
     private TextView moviedetail;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -47,7 +50,6 @@ public class DashboardFragment extends Fragment {
 
         ImageView notfoundIMAGE = root.findViewById(R.id.notFoundImage);
         TextView notfoundText = root.findViewById(R.id.notFoundText);
-        Button coolBtn = root.findViewById(R.id.coolbutton);
         ImageButton coolsearchBtn = root.findViewById(R.id.coolsearchbtn);
         EditText searchBar = root.findViewById(R.id.search_bar);
         ProgressBar progressBar = root.findViewById(R.id.searchProgressBar);
@@ -69,7 +71,6 @@ public class DashboardFragment extends Fragment {
 
         notfoundIMAGE.setVisibility(View.INVISIBLE);
         notfoundText.setVisibility(View.INVISIBLE);
-        coolBtn.setVisibility(View.INVISIBLE);
         progressBar.setVisibility(View.INVISIBLE);
 
 
@@ -82,28 +83,38 @@ public class DashboardFragment extends Fragment {
                     progressBar.setVisibility(View.VISIBLE);
 
 
-                    ifdataexists(searchBar.getText().toString());
-
                     blue.setVisibility(View.INVISIBLE);
                     yellow.setVisibility(View.INVISIBLE);
                     green.setVisibility(View.INVISIBLE);
                     red.setVisibility(View.INVISIBLE);
 
-                    if(ifmoviexists){
+                    moviedetail.setVisibility(View.VISIBLE);
+                    moviedetail.setText("hello");
 
-                        //Movie does not exist
-                notfoundIMAGE.setVisibility(View.VISIBLE);
-                notfoundText.setVisibility(View.VISIBLE);
-                coolBtn.setVisibility(View.VISIBLE);
-                Log.d("doesMovieExit","Movie Doesn't Exit");
-                    }
-                    else
-                    {
-                        Log.d("doesMovieExit","Movie Exits");
-                        //Movie exits
-                        moviedetail.setVisibility(View.VISIBLE);
-                        searchBar.setText(null);
-                    }
+
+
+                        String details = null;
+                        try {
+                            details= (MovieAPI.get("https://imdb8.p.rapidapi.com/auto-complete?q=",searchBar.getText().toString(),"title",0)
+
+
+                            );
+
+                            Log.d("Search Result: ", details);
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                            Log.d("Api status:", e.toString());
+                        }
+                        if(!details.equals("Error") || !details.isEmpty())
+                        {
+                            moviedetail.setText(details);
+                        }
+                        else{
+                            //Movie does not exist
+                            notfoundIMAGE.setVisibility(View.VISIBLE);
+                            notfoundText.setVisibility(View.VISIBLE);
+                       }
+
 
                 progressBar.setVisibility(View.INVISIBLE);
                 }
@@ -113,13 +124,7 @@ public class DashboardFragment extends Fragment {
         });
 
 
-        coolBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), Admin.class);
-                startActivity(intent);
-            }
-        });
+
 
         blue.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -162,30 +167,4 @@ public class DashboardFragment extends Fragment {
     }
 
 
-    private void ifdataexists(String search){
-
-
-
-        DocumentReference docRef = db.collection("movies").document(search);
-        docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                if (task.isSuccessful()) {
-                    DocumentSnapshot document = task.getResult();
-                    if (document.exists()) {
-                        Log.d("ifDataExists", "DocumentSnapshot data: " + document.getString("name"));
-                        ifmoviexists=true;
-                        moviedetail.setText(document.getData().toString());
-
-                    } else {
-                        Log.d("ifDataExists", "No such document");
-
-                    }
-                } else {
-                    Log.d("ifDataExists", "get failed with ", task.getException());
-                }
-            }
-        });
-
-    }
 }

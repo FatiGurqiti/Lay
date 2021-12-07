@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.StrictMode;
 import android.text.TextUtils;
 import android.util.Log;
 import android.widget.TextView;
@@ -21,6 +22,8 @@ import java.util.TimerTask;
 import java.time.DateTimeException;
 
 public class MainActivity extends AppCompatActivity {
+
+
     Timer timer;
     TextView welcomeText;
     private FirebaseAuth mAuth;
@@ -29,6 +32,14 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+
+        if (android.os.Build.VERSION.SDK_INT > 9)
+        {
+                    StrictMode.ThreadPolicy policy = new
+                    StrictMode.ThreadPolicy.Builder().permitAll().build();
+                    StrictMode.setThreadPolicy(policy);
+        }
 
         mAuth = FirebaseAuth.getInstance();
         FirebaseUser user = mAuth.getCurrentUser();
@@ -43,7 +54,7 @@ public class MainActivity extends AppCompatActivity {
                            @Override
                            public void run() {
 
-                                   Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+                                   Intent intent = new Intent(MainActivity.this, MainLoggedIn.class);
 
                                    startActivity(intent);
                                    finish();

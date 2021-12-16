@@ -40,6 +40,6 @@ private TextView movieingeneral;
             }
         });
 
-        movieingeneral = findViewById(R.id.movie_in_general);
+        //movieingeneral = findViewById(R.id.movie_in_general);
     }
 }

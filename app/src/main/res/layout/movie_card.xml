@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/include"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/movie_card"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="100dp"
+        android:layout_marginEnd="30dp"
+        android:layout_marginBottom="50dp"
+        android:background="@android:color/transparent"
+        android:elevation="0dp"
+        app:cardCornerRadius="22dp">
+
+        <TextView
+            android:id="@+id/movieTitle"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="150dp"
+            android:elevation="3dp"
+            android:gravity="bottom"
+            android:paddingStart="3dp"
+            android:paddingEnd="3dp"
+            android:text="Title"
+            android:textAlignment="textStart"
+            android:textColor="@color/white"
+            android:textSize="25dp"
+            android:translationZ="3dp" />
+
+
+        <TextView
+            android:id="@+id/movieDirector"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="65dp"
+            android:elevation="3dp"
+            android:gravity="bottom"
+            android:paddingStart="4dp"
+            android:text="Director"
+            android:textAlignment="textStart"
+            android:textColor="@color/white"
+            android:textSize="20dp"
+            android:translationZ="3dp" />
+
+        <TextView
+            android:id="@+id/movieCast"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="20dp"
+            android:elevation="3dp"
+            android:gravity="bottom"
+            android:paddingStart="5dp"
+            android:text="Cast Cast, Cast cast"
+            android:textAlignment="textStart"
+            android:textColor="@color/white"
+            android:textSize="20dp"
+            android:translationZ="3dp" />
+
+        <ImageView
+            android:id="@+id/movie_thumbnail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="top"
+            android:src="@drawable/lotr"
+            android:elevation="1dp" />
+
+        <ImageView
+            android:id="@+id/blackFilter"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:elevation="2dp"
+            android:src="@drawable/black_filter"
+            android:translationZ="2dp" />
+    </androidx.cardview.widget.CardView>
+
+
+</RelativeLayout>

@@ -21,7 +21,7 @@ public class MovieAPI {
                 .url(url+querry)
                 .get()
                 .addHeader("x-rapidapi-host", "imdb8.p.rapidapi.com")
-                .addHeader("x-rapidapi-key", "97ed938c4cmsh18bd1d0c55ad892p17617cjsn2add5599122b")
+                .addHeader("x-rapidapi-key", "ba1a7a4182mshd780c0eb859bfbcp16a349jsn307fcc77a0f2")
                 .build();
 
         try (Response response = client.newCall(request).execute()) {
@@ -33,7 +33,7 @@ public class MovieAPI {
             query = query.replaceAll("s :", "cast:");
             query = query.replaceAll("y :", "year:");
             query = query.replaceAll("imageUrtitle:", "imageUrl:");
-            query = query.replaceAll("width :", "");
+            query = query.replaceAll("width :", "width:");
             query = query.replaceAll("id : ", "idOfTheMovie:");
 
             // System.out.println(query);   //prints the whole body
@@ -61,12 +61,12 @@ public class MovieAPI {
         int j;
         for (int i = 0; i < text.length(); i++) {
             if (arr[i] == ',') {
-                j = i;
+                j = i+1;
                 while (true) {
                     myList.add(String.valueOf(arr[j]));
                     j++;
                     try {
-                        if (arr[j + 1] == ',') {
+                        if (arr[j] == ',') {
 
                             result = myList.toString();
                             result = result.replaceAll(",,", "");
@@ -86,8 +86,8 @@ public class MovieAPI {
                                 // System.out.print(result);
                                 movie.add(result);
 
-
                             }
+
                             myList.clear();
                             break;
                         }
@@ -100,6 +100,10 @@ public class MovieAPI {
             }
 
             j = i;
+
+            if(count >= 10){
+                break;
+            }
 
         }
 

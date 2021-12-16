@@ -54,14 +54,14 @@ public class MainActivity extends AppCompatActivity {
                            @Override
                            public void run() {
 
-                                   Intent intent = new Intent(MainActivity.this, MainLoggedIn.class);
+                                   Intent intent = new Intent(MainActivity.this, Search.class);
 
                                    startActivity(intent);
                                    finish();
 
                            }
                        }
-                ,2500  //later to be set to 2500
+                ,0  //later to be set to 2500
         );
 
 

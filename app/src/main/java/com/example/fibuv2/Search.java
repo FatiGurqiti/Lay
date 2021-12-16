@@ -15,7 +15,10 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.example.fibuv2.api.MovieAPITest;
 import com.squareup.picasso.Picasso;
+
+import java.io.IOException;
 
 public class Search extends AppCompatActivity {
 
@@ -25,15 +28,23 @@ public class Search extends AppCompatActivity {
         setContentView(R.layout.activity_search);
 
 
+        try {
+            MovieAPITest.get("https://imdb8.p.rapidapi.com/auto-complete?q=","return of the king");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        int limit = MovieAPITest.movieYear.size();
+
         RelativeLayout layout = (RelativeLayout) findViewById(R.id.Scroll_Relative) ;
-        for(int i=10;i>0;i--)
+        for(int i=0;i<limit;i++)
         {
             ImageView image = new ImageView(this);
             image.setLayoutParams(new ViewGroup.LayoutParams(1100,1100));
             image.setId(i);
-            Picasso.get().load("http://i.imgur.com/DvpvklR.png").fit().into(image);
+            Picasso.get().load(MovieAPITest.movieAll[i][4].trim()).fit().into(image);
+            Log.d("url", MovieAPITest.movieAll[i][4]);
             layout.addView(image);
-            setMargins(image,i*1300,100,1,1);
+            setMargins(image,i*1300,200,1,1);
         }
 
 

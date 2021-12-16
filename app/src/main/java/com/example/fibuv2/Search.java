@@ -41,7 +41,7 @@ public class Search extends AppCompatActivity {
             ImageView image = new ImageView(this);
             image.setLayoutParams(new ViewGroup.LayoutParams(1100,1100));
             image.setId(i);
-            Picasso.get().load(MovieAPITest.movieAll[i][4].trim()).fit().into(image);
+            Picasso.get().load(MovieAPITest.movieAll[i][4].trim()).resize(1100,1100).centerCrop(0).into(image);
             Log.d("url", MovieAPITest.movieAll[i][4]);
             layout.addView(image);
             setMargins(image,i*1300,200,1,1);

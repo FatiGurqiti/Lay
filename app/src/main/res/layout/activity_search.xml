@@ -7,36 +7,22 @@
     android:id="@+id/search"
     tools:context=".Search">
 
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginStart="12dp"
-        android:layout_marginTop="5dp"
-        android:textAlignment="center"
-        android:textColor="@color/white"
-        android:textSize="18dp"
-        android:translationZ="1dp"
-        android:text="Search through the movie world!" />
-
     <EditText
         android:id="@+id/search_bar"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:layout_marginStart="20dp"
-        android:layout_marginEnd="20dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="19dp"
+        android:layout_marginEnd="12dp"
+        android:paddingStart="12dp"
+        android:background="@drawable/searchbar"
         android:hint="Search.."
-        android:paddingLeft="20dp"
-        android:paddingRight="55dp"
         android:inputType="textAutoComplete"
         android:maxLines="1"
-        android:background="@drawable/searchbar"
-        android:translationZ="1dp"
-        android:layout_marginTop="50dp"/>
+        android:translationZ="1dp" />
 
     <ImageButton
         android:id="@+id/coolsearchbtn"
@@ -45,38 +31,53 @@
         android:layout_alignRight="@id/search_bar"
         android:background="@android:color/transparent"
         android:src="@drawable/searchbarbtn"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="19dp"
         android:translationZ="2dp" />
 
     <ImageView
         android:id="@+id/imageView7"
         android:layout_width="match_parent"
-        android:layout_height="150dp"
+        android:layout_height="100dp"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:src="@drawable/mainbackground"
         android:translationZ="0dp" />
 
+    <TextView
+        android:id="@+id/resultText"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:textColor="@color/black_overlay"
+        android:paddingStart="15dp"
+        android:paddingTop="15dp"
+        android:layout_marginTop="100dp"
+        android:text="There are this amount of results" />
 
-    <HorizontalScrollView
+
+    <ScrollView
         android:id="@+id/scrollViewofSearch"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_alignParentStart="true"
+        android:layout_height="614dp"
+        android:layout_alignParentTop="true"
         android:layout_alignParentBottom="true"
         android:layout_centerVertical="true"
-        android:layout_marginTop="150dp"
-        >
+        android:layout_marginTop="150dp">
+
 
         <RelativeLayout
             android:id="@+id/Scroll_Relative"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="vertical" >
+            android:orientation="vertical">
 
 
         </RelativeLayout>
-    </HorizontalScrollView>
+    </ScrollView>
+
+
 
 
 </RelativeLayout>

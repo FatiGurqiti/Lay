@@ -1,0 +1,282 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    tools:context=".MovieDetails">
+
+
+    <ScrollView
+        android:id="@+id/scrollViewofSearch"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_centerVertical="true">
+
+
+        <RelativeLayout
+            android:id="@+id/Scroll_Relative"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+
+            <ImageView
+                android:id="@+id/imageView14"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginStart="35dp"
+                android:layout_marginTop="386dp"
+                android:translationZ="1dp"
+                app:srcCompat="@drawable/time" />
+
+            <ImageView
+                android:id="@+id/imageThumbnailinDetails"
+                android:layout_width="match_parent"
+                android:layout_height="487dp"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentEnd="true"
+                android:layout_marginTop="-10dp"
+                android:layout_marginEnd="0dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                tools:layout_editor_absoluteY="2dp"
+                tools:srcCompat="@tools:sample/backgrounds/scenic[3]" />
+
+            <ImageView
+                android:id="@+id/imageView11"
+                android:layout_width="match_parent"
+                android:layout_height="487dp"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentEnd="true"
+                android:layout_marginTop="-10dp"
+                android:layout_marginEnd="0dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:srcCompat="@drawable/black_filter"
+                tools:layout_editor_absoluteY="2dp" />
+
+            <TextView
+                android:id="@+id/rate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_marginStart="258dp"
+                android:layout_marginTop="20dp"
+                android:layout_toEndOf="@+id/imageView14"
+                android:fontFamily="@font/davidlibre_regular"
+                android:text="8,7"
+                android:textColor="@color/white"
+                android:textSize="28dp" />
+
+            <TextView
+                android:id="@+id/firstText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/imageThumbnailinDetails"
+                android:layout_alignParentEnd="true"
+                android:layout_marginTop="44dp"
+                android:layout_marginEnd="25dp"
+                android:layout_marginStart="30dp"
+                android:textColor="#000000"
+                android:fontFamily="@font/davidlibre_regular"
+                android:textSize="18sp"
+                android:text="While Frodo and Sam edge closer to Mordor with
+the help of the shifty Gollum, the divided fellows
+hip makes a stand against Sauron's new ally,
+Saruman, and his hordes of Isengard." />
+
+            <TextView
+                android:id="@+id/readMore"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/firstText"
+                android:layout_marginTop="30dp"
+                android:textAlignment="textEnd"
+                android:textStyle="bold"
+                android:textColor="#A9A904"
+                android:fontFamily="@font/davidlibre_regular"
+                android:layout_marginEnd="25dp"
+                android:textSize="20dp"
+                android:text="Read More..." />
+
+
+            <TextView
+                android:id="@+id/secondText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/firstText"
+                android:layout_alignParentEnd="true"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="25dp"
+                android:layout_marginStart="30dp"
+                android:textColor="#000000"
+                android:textSize="18sp"
+                android:fontFamily="@font/davidlibre_regular"
+                android:text="The continuing quest of Frodo and the Fellowship
+ to destroy the One Ring. Frodo and Sam discover
+ they are being followed by the mysterious Gollum.
+ Aragorn, the Elf archer Legolas, and Gimli the
+ Dwarf encounter the besieged Rohan kingdom,
+ whose once great King Theoden has fallen under
+ Saruman's deadly spell." />
+
+            <TextView
+                android:id="@+id/products"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/secondText"
+                android:layout_marginTop="30dp"
+                android:textAlignment="textStart"
+                android:textStyle="bold"
+                android:textColor="#4B0082"
+                android:layout_marginStart="25dp"
+                android:fontFamily="@font/davidlibre_bold"
+                android:textSize="20dp"
+                android:text="Products you might be intresed" />
+
+
+            <ImageView
+                android:id="@+id/morelikethisimage3"
+                android:layout_width="101dp"
+                android:layout_height="100dp"
+                android:layout_below="@+id/products"
+                android:layout_alignParentStart="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="50dp"
+                android:layout_marginBottom="15dp"
+                android:layout_marginStart="291dp"
+                android:outlineSpotShadowColor="@android:color/black"
+                android:outlineAmbientShadowColor="@android:color/black"
+                tools:srcCompat="@tools:sample/avatars" />
+
+            <ImageView
+                android:id="@+id/morelikethisimage2"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_centerHorizontal="true"
+                android:layout_below="@+id/products"
+                android:layout_marginStart="158dp"
+                android:layout_marginTop="50dp"
+                android:layout_marginBottom="15dp"
+                tools:srcCompat="@tools:sample/avatars" />
+
+            <ImageView
+                android:id="@+id/morelikethisimage1"
+                android:layout_width="101dp"
+                android:layout_height="100dp"
+                android:layout_alignParentStart="true"
+                android:layout_below="@+id/products"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="50dp"
+                android:layout_marginBottom="15dp"
+                tools:srcCompat="@tools:sample/avatars" />
+
+            <ImageView
+                android:id="@+id/save"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentEnd="true"
+                android:layout_marginTop="420dp"
+                android:layout_marginEnd="20dp"
+                app:srcCompat="@drawable/save" />
+
+            <ImageView
+                android:id="@+id/saved"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentEnd="true"
+                android:layout_marginTop="420dp"
+                android:layout_marginEnd="20dp"
+                app:srcCompat="@drawable/saved" />
+
+            <TextView
+                android:id="@+id/type"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@+id/imageThumbnailinDetails"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginStart="40dp"
+                android:layout_marginTop="430dp"
+                android:layout_marginEnd="50dp"
+                android:layout_marginBottom="19dp"
+                android:fontFamily="@font/davidlibre_regular"
+                android:text="Action, Adventure, Drama, Frantasy"
+                android:textColor="#FFFFFF"
+                android:textSize="18dp"
+                android:translationZ="1dp" />
+
+            <TextView
+                android:id="@+id/time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_marginStart="14dp"
+                android:layout_marginTop="382dp"
+                android:layout_toEndOf="@+id/imageView14"
+                android:fontFamily="@font/davidlibre_regular"
+                android:text="2h 59m"
+                android:textColor="@color/white"
+                android:textSize="20dp" />
+
+            <TextView
+                android:id="@+id/year"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_marginStart="13dp"
+                android:layout_marginTop="340dp"
+                android:layout_toEndOf="@+id/imageView14"
+                android:fontFamily="@font/davidlibre_regular"
+                android:text="2002"
+                android:textColor="@color/white"
+                android:textSize="20dp" />
+
+            <ImageView
+                android:id="@+id/imageView16"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginStart="35dp"
+                android:layout_marginTop="348dp"
+                app:srcCompat="@drawable/calendar" />
+
+            <TextView
+                android:id="@+id/title"
+                android:layout_width="301dp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginStart="35dp"
+                android:layout_marginTop="176dp"
+                android:layout_marginEnd="70dp"
+                android:fontFamily="@font/davidlibre_bold"
+                android:lineSpacingExtra="10dp"
+                android:text="The Lord of the Rings: the Return of the King"
+                android:textColor="@color/white"
+                android:textSize="30dp" />
+
+            <ImageView
+                android:id="@+id/imageView17"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentEnd="true"
+                android:layout_marginTop="28dp"
+                android:layout_marginEnd="19dp"
+                app:srcCompat="@drawable/star" />
+
+
+        </RelativeLayout>
+    </ScrollView>
+
+
+</RelativeLayout>

@@ -9,9 +9,7 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.ProgressBar;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -23,6 +21,7 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.example.fibuv2.MovieDetails;
 import com.example.fibuv2.R;
+import com.example.fibuv2.Search;
 import com.example.fibuv2.api.MovieAPI;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.squareup.picasso.Picasso;
@@ -53,35 +52,23 @@ public class DashboardFragment extends Fragment {
 
         ImageButton coolsearchBtn = root.findViewById(R.id.coolsearchbtn);
         EditText searchBar = root.findViewById(R.id.search_bar);
-        pg = root.findViewById(R.id.progressBar2);
 
         CardView blue = root.findViewById(R.id.blueCard);
         CardView yellow = root.findViewById(R.id.yellowCard);
         CardView green = root.findViewById(R.id.greenCard);
         CardView red = root.findViewById(R.id.redCard);
-        CardView moviecard = root.findViewById(R.id.movieCard);
 
         TextView blueText = root.findViewById(R.id.blueCardText);
         TextView yellowText = root.findViewById(R.id.yellowCardText);
         TextView greenText = root.findViewById(R.id.greenCardText);
         TextView redText = root.findViewById(R.id.redCardText);
 
-        TextView resultQuantity = root.findViewById(R.id.resultquntity);
-
-
-        movietitle = root.findViewById(R.id.movieTitle);
-        moviedirector = root.findViewById(R.id.movieDirector);
-        moviecast = root.findViewById(R.id.movieCast);
 
         notfoundIMAGE.setVisibility(View.INVISIBLE);
         notfoundText.setVisibility(View.INVISIBLE);
+
+        ProgressBar pg = root.findViewById(R.id.progressBarInMainDashBorad);
         pg.setVisibility(View.INVISIBLE);
-        resultQuantity.setVisibility(View.INVISIBLE);
-
-        moviecard.setVisibility(View.GONE);
-
-        ImageView thumbnail = root.findViewById(R.id.movieThumbnail);
-
 
 
 
@@ -91,67 +78,23 @@ public class DashboardFragment extends Fragment {
             public void onClick(View v) {
 
                 pg.setVisibility(View.VISIBLE);
+
                 String searchbarText=searchBar.getText().toString();
+
+
+
                 if(!searchbarText.isEmpty()){
 
+                    Intent intent = new Intent(getActivity(), Search.class);
 
-                    blue.setVisibility(View.INVISIBLE);
-                    yellow.setVisibility(View.INVISIBLE);
-                    green.setVisibility(View.INVISIBLE);
-                    red.setVisibility(View.INVISIBLE);
-
-
-                        String details = null;
-                        try {
-                            movie.put("imageUrl",MovieAPI.get("https://imdb8.p.rapidapi.com/auto-complete?q=",searchbarText,"imageUrl",0));
-                            movie.put("idOfTheMovie",MovieAPI.get("https://imdb8.p.rapidapi.com/auto-complete?q=",searchbarText,"idOfTheMovie",0));
-                            movie.put("title",MovieAPI.get("https://imdb8.p.rapidapi.com/auto-complete?q=",searchbarText,"title",0));
-                            movie.put("year",MovieAPI.get("https://imdb8.p.rapidapi.com/auto-complete?q=",searchbarText,"year",0));
-                            movie.put("cast",MovieAPI.get("https://imdb8.p.rapidapi.com/auto-complete?q=",searchbarText,"cast",0));
-                            movie.put("height",MovieAPI.get("https://imdb8.p.rapidapi.com/auto-complete?q=",searchbarText,"height",0));
-                            movie.put("width",MovieAPI.get("https://imdb8.p.rapidapi.com/auto-complete?q=",searchbarText,"width",0));
-
-
-                            details = movie.get("title") + "\n" +movie.get("year") + "\n" + movie.get("cast");
-                                    Log.d("Search Result: ", details);
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                            Log.d("Api status:", e.toString());
-                            notfoundIMAGE.setVisibility(View.VISIBLE);
-                            notfoundText.setVisibility(View.VISIBLE);
-                        }
-                        if(!details.equals("Error"))
-                        {
-                            //Movie exits
-                            resultQuantity.setText("There are " + String.valueOf(MovieAPI.totalResult) + " results");
-                            resultQuantity.setVisibility(View.VISIBLE);
-
-                            Picasso.get().load(movie.get("imageUrl").trim()).into(thumbnail);
-                            movietitle.setText(movie.get("title") + "\n" + movie.get("year"));
-                            moviedirector.setText("working on the director");
-                            moviecast.setText(movie.get("cast"));
-
-                            moviecard.setVisibility(View.VISIBLE);
-//                            RelativeLayout.LayoutParams parms = new RelativeLayout.LayoutParams(width,500);
-//                            moviecard.setLayoutParams(parms);
-
-                        }
-                        else{
-                            //Movie doesn't exist
-                            notfoundIMAGE.setVisibility(View.VISIBLE);
-                            notfoundText.setVisibility(View.VISIBLE);
-                       }
-
-
-                    pg.setVisibility(View.GONE);
+                    Log.d("SearchContent",searchbarText);
+                    intent.putExtra("searchContent",searchbarText);
+                    startActivity(intent);
                 }
 
-
+                pg.setVisibility(View.INVISIBLE);
             }
         });
-
-
-
 
         blue.setOnClickListener(new View.OnClickListener() {
             @Override

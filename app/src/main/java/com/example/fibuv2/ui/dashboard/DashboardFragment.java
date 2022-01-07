@@ -22,11 +22,8 @@ import androidx.lifecycle.ViewModelProvider;
 import com.example.fibuv2.MovieDetails;
 import com.example.fibuv2.R;
 import com.example.fibuv2.Search;
-import com.example.fibuv2.api.MovieAPI;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.squareup.picasso.Picasso;
 
-import java.io.IOException;
 import java.util.HashMap;
 
 public class DashboardFragment extends Fragment {

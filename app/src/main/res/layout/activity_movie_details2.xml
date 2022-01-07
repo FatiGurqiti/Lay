@@ -79,16 +79,16 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/imageThumbnailinDetails"
                 android:layout_alignParentEnd="true"
+                android:layout_marginStart="30dp"
                 android:layout_marginTop="44dp"
                 android:layout_marginEnd="25dp"
-                android:layout_marginStart="30dp"
-                android:textColor="#000000"
                 android:fontFamily="@font/davidlibre_regular"
-                android:textSize="18sp"
                 android:text="While Frodo and Sam edge closer to Mordor with
 the help of the shifty Gollum, the divided fellows
 hip makes a stand against Sauron's new ally,
-Saruman, and his hordes of Isengard." />
+Saruman, and his hordes of Isengard."
+                android:textColor="#000000"
+                android:textSize="18sp" />
 
             <TextView
                 android:id="@+id/readMore"

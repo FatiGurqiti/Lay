@@ -14,6 +14,22 @@ import com.squareup.picasso.Picasso;
 
 public class MovieDetails extends AppCompatActivity {
 
+
+    private static int hours;
+    private static int minutes;
+
+
+    private static void minutesToHours(int time) {
+        int hour = 0;
+
+        while (time > 59) {
+            time = time - 60;
+            hour++;
+        }
+        hours = hour;
+        minutes = time;
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,7 +63,8 @@ public class MovieDetails extends AppCompatActivity {
 
         title.setText(movieTitle);
         year.setText(movieYear);
-        time.setText(DetailsAPI.runningTimeInMinutes);
+        minutesToHours(Integer.parseInt(DetailsAPI.runningTimeInMinutes));
+        time.setText(hours + "h " + minutes + "m");
         type.setText(DetailsAPI.genresList);
         firstText.setText(DetailsAPI.plotOutlineList.get(0));
         secondText.setText(DetailsAPI.plotOutlineList.get(1));

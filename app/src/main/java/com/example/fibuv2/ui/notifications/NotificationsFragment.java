@@ -31,6 +31,8 @@ import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import java.util.Objects;
+
 public class NotificationsFragment extends Fragment {
 
     private NotificationsViewModel notificationsViewModel;
@@ -64,35 +66,37 @@ public class NotificationsFragment extends Fragment {
             @Override
             public void onChanged(@Nullable String s) {
 
-                email.setText(mAuth.getCurrentUser().getEmail().toString());
+                email.setText(Objects.requireNonNull(mAuth.getCurrentUser()).getEmail());
 
                 mAuth = FirebaseAuth.getInstance();
                 FirebaseUser user = mAuth.getCurrentUser();
                 assert user != null;
-                Log.d("User ID logged in", user.getUid().toString());
-                Log.d("User mail logged in", user.getEmail().toString());
+                Log.d("User ID logged in", user.getUid());
+                Log.d("User mail logged in", user.getEmail());
 
 
 
-
-                collectionReference
-                        .whereEqualTo("email", user.getEmail().toString())
-                        .addSnapshotListener(new EventListener<QuerySnapshot>() {
-                            @Override
-                            public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
-
-                                assert value != null;
-                                if (!value.isEmpty()) {
-
-                                    for (QueryDocumentSnapshot snapshot : value) {
-                                        username.setText( snapshot.getString("username"));
-
-                                        Log.d("Username logged in", snapshot.getString("username"));
+//There's a problem is that is causing the app to crash
 
 
-                                    }  } }
-
-                        });
+//                collectionReference
+//                        .whereEqualTo("email", user.getEmail().toString())
+//                        .addSnapshotListener(new EventListener<QuerySnapshot>() {
+//                            @Override
+//                            public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
+//
+//                                assert value != null;
+//                                if (!value.isEmpty()) {
+//
+//                                    for (QueryDocumentSnapshot snapshot : value) {
+//                                        username.setText( snapshot.getString("username"));
+//
+//                                        Log.d("Username logged in", snapshot.getString("username"));
+//
+//
+//                                    }  } }
+//
+//                        });
 
             }
         });

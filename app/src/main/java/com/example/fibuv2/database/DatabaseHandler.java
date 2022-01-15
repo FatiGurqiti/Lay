@@ -5,6 +5,8 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,6 +22,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     public DatabaseHandler(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
         //3rd argument to be passed is CursorFactory instance
+
+       // context.deleteDatabase("LayDB"); // deletes database
     }
 
     // Creating Tables
@@ -30,6 +34,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 + KEY_FIRST + " INTEGER ,"
                 + KEY_LOGGED_IN + " INTEGER " + ")";
         db.execSQL(CREATE_ACCOUNTS_TABLE);
+
+
     }
 
 
@@ -128,6 +134,38 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
         // return count
         return cursor.getCount();
+    }
+    // Getting if it's the users first time
+    public boolean getIsFirtsTime() {
+        String countQuery = "SELECT FirstTime FROM " + TABLE_ACCOUNTS;
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(countQuery, null);
+
+        Log.d("FirstTimeResult", String.valueOf(cursor.moveToFirst()));
+
+        if(String.valueOf(cursor.moveToFirst()).equals("true"))
+        {
+            return true;
+        }
+        else
+            return false;
+
+    }
+
+    // Getting if the user logged in
+    public int getIsLoggedIn() {
+        String countQuery = "SELECT LoggedIn FROM " + TABLE_ACCOUNTS + " WHERE id = 1";
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        Cursor cursor = db.rawQuery(countQuery, null);
+
+        Log.d("LoggedInResult", String.valueOf(cursor.getColumnIndex("LoggedIn")));
+
+        return Integer.parseInt(String.valueOf(cursor.getColumnIndex("LoggedIn")));
+
+
+
+
     }
 
 }

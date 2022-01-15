@@ -14,6 +14,12 @@
         android:theme="@style/Theme.Fibuv2"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".FirstTime"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:exported="false"
+            android:label="@string/title_activity_first_time"
+            android:theme="@style/Theme.Fibuv2.Fullscreen" />
+        <activity
             android:name=".ThumbnailFullScreen"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:exported="false"

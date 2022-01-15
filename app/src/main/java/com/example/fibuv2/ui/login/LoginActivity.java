@@ -40,7 +40,6 @@ public class LoginActivity extends AppCompatActivity {
 
     private Button SignUp;
     private Button Login;
-    private Button DevelopersByPass;
     private AutoCompleteTextView Email;
     private EditText passwordinput;
     private ProgressBar progressBar;
@@ -142,6 +141,7 @@ public class LoginActivity extends AppCompatActivity {
                             } else {
                                 // If sign in fails, display a message to the user.
                                 Log.w("Sign in status", "signInWithEmail:failure", task.getException());
+                                progressBar.setVisibility(View.INVISIBLE);
                                 Toast.makeText(LoginActivity.this, "Authentication failed.",
                                         Toast.LENGTH_SHORT).show();
                             }

@@ -3,6 +3,7 @@ package com.example.fibuv2;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
@@ -28,71 +29,24 @@ public class MainActivity extends AppCompatActivity {
     Timer timer;
     TextView welcomeText;
     private FirebaseAuth mAuth;
+    private boolean firsttime;
+    private boolean loggedin;
+    private DatabaseHandler db = new DatabaseHandler(this);
+
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        DatabaseHandler db = new DatabaseHandler(this);
 
+        userStatus();
 
-        Log.d("account number ", String.valueOf(db.getaccountsCount()));
-
-
-
-        if(db.getaccountsCount() == 0){  //if the it's users first time, it creates
-
-            db.addaccount(new Account(1,1,0));
-            //send to first time page
-        }
-        else if (db.getaccountsCount() > 1){ // to delete accounts in case if there's more than one
-            for(int i =0; i> db.getaccountsCount();i++)
-                try{
-            db.deleteaccount(new Account(i,0,0));
-                }
-            catch (Exception e) {
-                db.deleteaccount(new Account(i,1,0));
-                Log.d("Delete Status", e.toString());}
-        }
-        else{ //it's not users first time
-
-            // set first time 0
-        }
-
-
-        //get accout count
-        //if account count = 0 create one
-        // if not query for is first time
-        // than query for is logged in
-
-        // Inserting Contacts
-        Log.d("Insert: ", "Inserting ..");
-
-
-
-        // Reading all contacts
-        Log.d("Reading: ", "Reading all contacts..");
-        List<Account> contacts = db.getAllaccounts();
-
-        for (Account cn : contacts) {
-            String log = "Id: " + cn.getId() + " ,Name: " + cn.getIsFirstTime() + " ,Phone: " +
-                    cn.getIsLoggedIn();
-            // Writing Contacts to log
-            Log.d("Name: ", log);
-        }
-
-
-
-
-
-        if (Build.VERSION.SDK_INT > 9)
-        {
-                    StrictMode.ThreadPolicy policy = new
+        if (Build.VERSION.SDK_INT > 9) {
+            StrictMode.ThreadPolicy policy = new
                     StrictMode.ThreadPolicy.Builder().permitAll().build();
-                    StrictMode.setThreadPolicy(policy);
+            StrictMode.setThreadPolicy(policy);
         }
-
 
 
         welcome();
@@ -102,48 +56,95 @@ public class MainActivity extends AppCompatActivity {
                            @Override
                            public void run() {
                                Intent intent;
-                               FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-                               if (user != null) {
-                                   Log.d("Status",user.toString());
+
+
+                               Log.d("account number ", String.valueOf(db.getaccountsCount()));
+                               Log.d("IsFirstTimeMainMenu", String.valueOf(db.getIsFirtsTime()));
+                               Log.d("IsLoggedInMainMenu", String.valueOf(db.getIsLoggedIn()));
+
+                               if (firsttime == true) // User's first time opening the app
+                               {
+                                   intent = new Intent(MainActivity.this, FirstTime.class);
+                               } else if (loggedin == true) {  // User hasn't logged in
                                    intent = new Intent(MainActivity.this, MainLoggedIn.class);
-                               } else {
-                                   // No user is signed in
-                                   Log.d("Status",user.toString());
-                                   intent = new Intent(MainActivity.this, MainActivity.class);
+                               } else { // User hasn't logged in
+                                   intent = new Intent(MainActivity.this, LoginActivity.class);
                                }
 
 
-                                   startActivity(intent);
-                                   finish();
+                               startActivity(intent);
+                               finish();
 
                            }
                        }
-                ,2500
+                , 2500
         );
-
 
 
     }
 
+
+    private void userStatus() {
+
+
+        //  Log.d("firsttimeinboolean", String.valueOf(db.getIsFirtsTime()));
+
+        if (db.getaccountsCount() == 0) {
+            //It's there is no data created in account table it's first time and it creates the account table in sqlite
+            db.addaccount(new Account(1, 1, 0));
+            firsttime = true;
+
+        } else if (db.getaccountsCount() > 1) {
+            // to delete accounts in case if there's more than one
+            for (int i = 0; i > db.getaccountsCount(); i++)
+                try {
+                    db.deleteaccount(new Account(i, 0, 0));
+                } catch (Exception e) {
+                    db.deleteaccount(new Account(i, 1, 0));
+                    Log.d("Delete Status", e.toString());
+                }
+
+        } else if (db.getIsFirtsTime()) firsttime = true;
+        else firsttime = false;
+
+        Log.d("log status", String.valueOf(db.getIsLoggedIn()));
+
+        if (db.getIsLoggedIn() == 0) {
+            // user isn't logged in
+            loggedin = false;
+        } else {
+            //user is logged in
+            loggedin = true;
+        }
+    }
+
+
     @RequiresApi(api = Build.VERSION_CODES.O)
-    private void welcome(){
+    private void welcome() {
 
         Calendar rightNow = Calendar.getInstance();
         int hour = rightNow.get(Calendar.HOUR_OF_DAY);
 
 
         String time = String.valueOf(hour);
-        welcomeText  = findViewById(R.id.creativeText);;
+        welcomeText = findViewById(R.id.creativeText);
+        ;
 
-       Log.d("Time: ", time);
+        Log.d("Time: ", time);
 
-       String WelcomeText = null;
+        String WelcomeText = null;
 
-       if(hour < 12 && hour > 5){ WelcomeText = "Good Morning";}
-       else if (hour > 12 && hour < 18){ WelcomeText = "Good Afternoon";}
-       else { WelcomeText = "Good Evening";}
+        if (hour < 12 && hour > 5) {
+            WelcomeText = "Good Morning";
+        } else if (hour > 12 && hour < 18) {
+            WelcomeText = "Good Afternoon";
+        } else {
+            WelcomeText = "Good Evening";
+        }
 
-       welcomeText.setText(WelcomeText);
+        welcomeText.setText(WelcomeText);
 
     }
+
+
 }

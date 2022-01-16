@@ -109,4 +109,9 @@
     <string name="title_activity_search">Search</string>
     <string name="title_activity_thumbnail_full_screen">ThumbnailFullScreen</string>
     <string name="title_activity_first_time">FirstTime</string>
+    <string name="title_activity_first_time2">FirstTime2</string>
+    <string name="tab_text_1">Tab 1</string>
+    <string name="tab_text_2">Tab 2</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

@@ -9,13 +9,16 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.util.Log;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.fibuv2.api.SearchAPI;
 import com.example.fibuv2.database.Account;
 import com.example.fibuv2.database.DatabaseHandler;
 import com.example.fibuv2.ui.login.LoginActivity;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.squareup.picasso.Picasso;
 
 import java.util.Calendar;
 import java.util.List;
@@ -34,6 +37,9 @@ public class MainActivity extends AppCompatActivity {
     private DatabaseHandler db = new DatabaseHandler(this);
 
     @RequiresApi(api = Build.VERSION_CODES.O)
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -64,7 +70,7 @@ public class MainActivity extends AppCompatActivity {
 
                                if (firsttime == true) // User's first time opening the app
                                {
-                                   intent = new Intent(MainActivity.this, FirstTime.class);
+                                   intent = new Intent(MainActivity.this, FirstTime2.class);
                                } else if (loggedin == true) {  // User hasn't logged in
                                    intent = new Intent(MainActivity.this, MainLoggedIn.class);
                                } else { // User hasn't logged in
@@ -77,7 +83,7 @@ public class MainActivity extends AppCompatActivity {
 
                            }
                        }
-                , 2500
+                , 0
         );
 
 

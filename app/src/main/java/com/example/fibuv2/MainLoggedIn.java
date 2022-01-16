@@ -41,5 +41,6 @@ public class MainLoggedIn extends AppCompatActivity {
 
 
     }
+    public void onBackPressed() {}
 
 }

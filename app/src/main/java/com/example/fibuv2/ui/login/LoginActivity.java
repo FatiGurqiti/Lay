@@ -98,6 +98,9 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
+    @Override
+    public void onBackPressed() {}
+
     private void createUser(){
         startActivity(new Intent(LoginActivity.this,CreateAccount.class));
         progressBar.setVisibility(View.INVISIBLE);

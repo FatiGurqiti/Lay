@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#133462"
+    tools:context=".SecondFragment">
+
+    <ImageView
+        android:id="@+id/imageView6"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="0dp"
+        android:layout_marginTop="0dp"
+        android:src="@drawable/black_filter" />
+
+    <ImageView
+        android:id="@+id/imageView8"
+        android:layout_width="1000dp"
+        android:layout_height="633dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="-280dp"
+        android:layout_marginRight="-300dp"
+        android:src="@drawable/yellow_circle" />
+
+    <ImageView
+        android:id="@+id/imageView9"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="210dp"
+        android:src="@drawable/preview2" />
+
+    <TextView
+        android:id="@+id/slidertitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="74dp"
+        android:layout_marginTop="61dp"
+        android:layout_marginEnd="-1dp"
+        android:fontFamily="@font/comicsans"
+        android:text="WHERE YOU NEVER LOSE
+YOUR LIST OF MOVIES!"
+        android:textAlignment="center"
+        android:textColor="#FFFFFF"
+        android:textSize="28dp" />
+
+    <TextView
+        android:id="@+id/sliderbottomtext"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/imageView9"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginTop="50dp"
+        android:layout_marginEnd="0dp"
+        android:fontFamily="@font/comicsans"
+        android:text="Search your movie or
+TV show through the endless void!"
+        android:textAlignment="center"
+        android:textColor="#FFFFFF"
+        android:textSize="25dp" />
+
+    <ImageView
+        android:id="@+id/firstball"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_alignTop="@+id/sliderbottomtext"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="200dp"
+        android:layout_marginTop="50dp"
+        android:elevation="1dp"
+        android:src="@drawable/circle"
+        android:translationZ="1dp" />
+
+    <ImageView
+        android:id="@+id/secondball"
+        android:layout_width="15dp"
+        android:layout_height="15dp"
+        android:layout_alignTop="@+id/sliderbottomtext"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="100dp"
+        android:layout_marginTop="50dp"
+        android:elevation="1dp"
+        android:src="@drawable/circle"
+        android:translationZ="1dp" />
+
+    <ImageView
+        android:id="@+id/third"
+        android:layout_width="15dp"
+        android:layout_height="15dp"
+        android:layout_alignTop="@+id/sliderbottomtext"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="300dp"
+        android:layout_marginTop="50dp"
+        android:elevation="1dp"
+        android:translationZ="1dp"
+        android:src="@drawable/circle" />
+
+</RelativeLayout>

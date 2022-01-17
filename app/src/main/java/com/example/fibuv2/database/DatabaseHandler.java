@@ -12,18 +12,19 @@ import java.util.List;
 
 
 public class DatabaseHandler extends SQLiteOpenHelper {
-    private static final int DATABASE_VERSION = 10;
+    private static final int DATABASE_VERSION = 11;
     private static final String DATABASE_NAME = "LayDB";
     private static final String TABLE_ACCOUNTS = "account";
     private static final String KEY_ID = "id";
     private static final String KEY_FIRST = "FirstTime";
     private static final String KEY_LOGGED_IN = "LoggedIn";
+    private static final String KEY_LITEMODE = "LiteMode";
 
     public DatabaseHandler(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
         //3rd argument to be passed is CursorFactory instance
 
-      //  context.deleteDatabase("LayDB"); // deletes database
+     //  context.deleteDatabase("LayDB"); // deletes database
     }
 
     // Creating Tables
@@ -32,7 +33,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         String CREATE_ACCOUNTS_TABLE = "CREATE TABLE " + TABLE_ACCOUNTS + "("
                 + KEY_ID + " INTEGER PRIMARY KEY ,"
                 + KEY_FIRST + " INTEGER ,"
-                + KEY_LOGGED_IN + " INTEGER " + ")";
+                + KEY_LOGGED_IN + " INTEGER, "
+                + KEY_LITEMODE + " INTEGER "
+                + ")";
         db.execSQL(CREATE_ACCOUNTS_TABLE);
 
 
@@ -54,8 +57,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
-        values.put(KEY_FIRST, account.getIsFirstTime()); // account Name
-        values.put(KEY_LOGGED_IN, account.getIsLoggedIn()); // account Phone
+        values.put(KEY_FIRST, account.getIsFirstTime()); // account first time
+        values.put(KEY_LOGGED_IN, account.getIsLoggedIn()); // account is logged in
+        values.put(KEY_LITEMODE, account.getLitemode()); // account is using the lite mode
 
         // Inserting Row
         db.insert(TABLE_ACCOUNTS, null, values);
@@ -68,13 +72,16 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getReadableDatabase();
 
         Cursor cursor = db.query(TABLE_ACCOUNTS, new String[] { KEY_ID,
-                        KEY_FIRST, KEY_LOGGED_IN }, KEY_ID + "=?",
+                        KEY_FIRST, KEY_LOGGED_IN, KEY_LITEMODE }, KEY_ID + "=?",
                 new String[] { String.valueOf(id) }, null, null, null, null);
         if (cursor != null)
             cursor.moveToFirst();
 
-        Account account = new Account(Integer.parseInt(cursor.getString(0)),
-                Integer.parseInt(cursor.getString(1)), Integer.parseInt(cursor.getString(2)));
+        Account account = new Account(
+                Integer.parseInt(cursor.getString(0)),
+                Integer.parseInt(cursor.getString(1)),
+                Integer.parseInt(cursor.getString(2)),
+                Integer.parseInt(cursor.getString(3))  );
         // return account
         return account;
     }
@@ -95,6 +102,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 account.setId(Integer.parseInt(cursor.getString(0)));
                 account.setIsFirstTime(Integer.parseInt(cursor.getString(1)));
                 account.setIsLoggedIn (Integer.parseInt(cursor.getString(2)));
+                account.setLitemode (Integer.parseInt(cursor.getString(3)));
                 // Adding account to list
                 accountList.add(account);
             } while (cursor.moveToNext());
@@ -174,6 +182,28 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     }
 
+
+    // Getting if lite mode status
+    public boolean getIsLiteMode() {
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        Cursor cursor = db.query(TABLE_ACCOUNTS, new String[] {
+                        KEY_LITEMODE}, KEY_ID + "=?",
+                new String[] { String.valueOf(1) }, null, null, null, null);
+        if (cursor != null)
+            cursor.moveToFirst();
+
+        Log.d("isLoggedInDBHandler", cursor.getString(0));
+
+        if(cursor.getString(0).equals("1"))
+        {
+            return true;
+        }
+        else
+            return false;
+
+    }
+
     // set user's first time false
     public void setFirstTimeFalse() {
         SQLiteDatabase db = this.getWritableDatabase();
@@ -191,6 +221,39 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
         ContentValues values = new ContentValues();
         values.put(KEY_LOGGED_IN, 1);
+
+        // updating row
+        db.update(TABLE_ACCOUNTS, values, "id=?", new String[]{"1"});
+        db.close();
+    }
+
+    public void setLoginFalse() {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put(KEY_LOGGED_IN, 0);
+
+        // updating row
+        db.update(TABLE_ACCOUNTS, values, "id=?", new String[]{"1"});
+        db.close();
+    }
+
+    public void setLiteModeOn() {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put(KEY_LITEMODE, 1);
+
+        // updating row
+        db.update(TABLE_ACCOUNTS, values, "id=?", new String[]{"1"});
+        db.close();
+    }
+
+    public void setLiteModeOff() {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put(KEY_LITEMODE, 0);
 
         // updating row
         db.update(TABLE_ACCOUNTS, values, "id=?", new String[]{"1"});

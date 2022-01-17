@@ -97,16 +97,16 @@ public class MainActivity extends AppCompatActivity {
 
         if (db.getaccountsCount() == 0) {
             //It's there is no data created in account table it's first time and it creates the account table in sqlite
-            db.addaccount(new Account(1, 1, 0));
+            db.addaccount(new Account(1, 1, 0,0));
             firsttime = true;
 
         } else if (db.getaccountsCount() > 1) {
             // to delete accounts in case if there's more than one
             for (int i = 0; i > db.getaccountsCount(); i++)
                 try {
-                    db.deleteaccount(new Account(i, 0, 0));
+                    db.deleteaccount(new Account(i, 0, 0,0));
                 } catch (Exception e) {
-                    db.deleteaccount(new Account(i, 1, 0));
+                    db.deleteaccount(new Account(i, 1, 0,0));
                     Log.d("Delete Status", e.toString());
                 }
 

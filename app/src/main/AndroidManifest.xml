@@ -14,6 +14,9 @@
         android:theme="@style/Theme.Fibuv2"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".FAQ"
+            android:exported="false" />
+        <activity
             android:name=".FirstTime2"
             android:exported="false"
             android:label="@string/title_activity_first_time2"

@@ -5,13 +5,15 @@ public class Account {
     int id;
     int isFirstTime;
     int isLoggedIn;
+    int litemode;
 
     public Account() {
     }
-    public Account(int id, int isFirstTime, int isLoggedIn) {
+    public Account(int id, int isFirstTime, int isLoggedIn, int litemode) {
         this.id= id;
         this.isFirstTime = isFirstTime;
         this.isLoggedIn = isLoggedIn;
+        this.litemode = litemode;
     }
 
 
@@ -39,7 +41,13 @@ public class Account {
         this.isLoggedIn = isLoggedIn;
     }
 
+    public int getLitemode() {
+        return litemode;
+    }
 
+    public void setLitemode(int litemode) {
+        this.litemode = litemode;
+    }
 
 
 

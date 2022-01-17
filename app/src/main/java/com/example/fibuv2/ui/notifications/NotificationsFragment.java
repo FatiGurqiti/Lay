@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.Switch;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -16,9 +17,11 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.example.fibuv2.FAQ;
 import com.example.fibuv2.MainLoggedIn;
 import com.example.fibuv2.R;
 import com.example.fibuv2.ResetPassword;
+import com.example.fibuv2.database.DatabaseHandler;
 import com.example.fibuv2.ui.login.LoginActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -39,7 +42,6 @@ public class NotificationsFragment extends Fragment {
     private FirebaseAuth mAuth = FirebaseAuth.getInstance();
 
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
-    private CollectionReference collectionReference = db.collection("users");
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -49,6 +51,52 @@ public class NotificationsFragment extends Fragment {
         final TextView username = root.findViewById(R.id.text_username);
         final TextView email = root.findViewById(R.id.text_email);
         final TextView reset = root.findViewById(R.id.change_password);
+        final TextView logout = root.findViewById(R.id.logout);
+        final TextView FAQ = root.findViewById(R.id.faq);
+        final Switch litemode = root.findViewById(R.id.switch1);
+
+
+        //Get's lite mode status and set's the switch widget according to that
+        DatabaseHandler db = new DatabaseHandler(getContext());
+
+        if(db.getIsLiteMode()) litemode.setChecked(true);
+        else litemode.setChecked(false);
+
+        Log.d("litemode", String.valueOf(db.getIsLiteMode()));
+        litemode.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(db.getIsLiteMode()) // if the lite mode is on
+                {
+                    db.setLiteModeOff(); //set it off
+                }
+                else
+                {
+                    db.setLiteModeOn(); // set it on
+                }
+
+            }
+        });
+
+        FAQ.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), com.example.fibuv2.FAQ.class);
+                startActivity(intent);
+            }
+        });
+
+        logout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                DatabaseHandler db = new DatabaseHandler(getContext());
+                db.setLoginFalse(); // sign's with sqlite
+
+                Intent intent = new Intent(getActivity(),LoginActivity.class);
+                startActivity(intent);
+            }
+        });
 
 
 

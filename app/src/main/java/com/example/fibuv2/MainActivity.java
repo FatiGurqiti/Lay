@@ -71,7 +71,7 @@ public class MainActivity extends AppCompatActivity {
                                if (firsttime == true) // User's first time opening the app
                                {
                                    intent = new Intent(MainActivity.this, FirstTime2.class);
-                               } else if (loggedin == true) {  // User hasn't logged in
+                               } else if (db.getIsLoggedIn()) {  // User hasn't logged in
                                    intent = new Intent(MainActivity.this, MainLoggedIn.class);
                                } else { // User hasn't logged in
                                    intent = new Intent(MainActivity.this, LoginActivity.class);
@@ -115,13 +115,6 @@ public class MainActivity extends AppCompatActivity {
 
         Log.d("log status", String.valueOf(db.getIsLoggedIn()));
 
-        if (db.getIsLoggedIn() == 0) {
-            // user isn't logged in
-            loggedin = false;
-        } else {
-            //user is logged in
-            loggedin = true;
-        }
     }
 
 

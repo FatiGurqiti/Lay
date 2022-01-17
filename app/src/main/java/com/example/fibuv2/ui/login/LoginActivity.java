@@ -30,6 +30,7 @@ import com.example.fibuv2.CreateAccount;
 import com.example.fibuv2.MainLoggedIn;
 import com.example.fibuv2.PasswordForgot;
 import com.example.fibuv2.R;
+import com.example.fibuv2.database.DatabaseHandler;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -131,6 +132,12 @@ public class LoginActivity extends AppCompatActivity {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if (task.isSuccessful()) {
+
+
+                                //Set's the log in true. So, the user won't have to sign in again
+                                DatabaseHandler db = new DatabaseHandler(LoginActivity.this);
+                                db.setLoginTrue();
+
                                 // Sign in success, update UI with the signed-in user's information
                                 Log.d("Sign in status", "signInWithEmail:success");
 

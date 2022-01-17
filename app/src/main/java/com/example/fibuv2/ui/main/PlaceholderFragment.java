@@ -17,6 +17,8 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.fibuv2.R;
+import com.example.fibuv2.database.Account;
+import com.example.fibuv2.database.DatabaseHandler;
 import com.example.fibuv2.databinding.FragmentFirstTime2Binding;
 import com.example.fibuv2.ui.login.LoginActivity;
 
@@ -70,6 +72,11 @@ public class PlaceholderFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Log.d("endbtn","clicked");
+
+                DatabaseHandler db = new DatabaseHandler(getContext());
+
+
+                db.setFirstTimeFalse();
 
                 Intent intent = new Intent(getActivity(), LoginActivity.class);
                 startActivity(intent);

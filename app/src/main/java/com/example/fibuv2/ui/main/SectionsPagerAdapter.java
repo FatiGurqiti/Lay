@@ -8,9 +8,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 
-import com.example.fibuv2.FirstFragment;
 import com.example.fibuv2.R;
-import com.example.fibuv2.SecondFragment;
 
 /**
  * A [FragmentPagerAdapter] that returns a fragment corresponding to

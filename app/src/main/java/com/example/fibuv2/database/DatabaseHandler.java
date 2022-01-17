@@ -23,7 +23,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
         //3rd argument to be passed is CursorFactory instance
 
-       // context.deleteDatabase("LayDB"); // deletes database
+      //  context.deleteDatabase("LayDB"); // deletes database
     }
 
     // Creating Tables
@@ -143,7 +143,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
         Log.d("FirstTimeResult", String.valueOf(cursor.moveToFirst()));
 
-        if(String.valueOf(cursor.moveToFirst()).equals("true"))
+        if(String.valueOf(cursor.moveToFirst()).equals("1"))
         {
             return true;
         }
@@ -153,19 +153,48 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     }
 
     // Getting if the user logged in
-    public int getIsLoggedIn() {
-        String countQuery = "SELECT LoggedIn FROM " + TABLE_ACCOUNTS + " WHERE id = 1";
+    public boolean getIsLoggedIn() {
+
         SQLiteDatabase db = this.getReadableDatabase();
 
-        Cursor cursor = db.rawQuery(countQuery, null);
+        Cursor cursor = db.query(TABLE_ACCOUNTS, new String[] {
+                        KEY_LOGGED_IN}, KEY_ID + "=?",
+                new String[] { String.valueOf(1) }, null, null, null, null);
+        if (cursor != null)
+            cursor.moveToFirst();
 
-        Log.d("LoggedInResult", String.valueOf(cursor.getColumnIndex("LoggedIn")));
+        Log.d("isLoggedInDBHandler", cursor.getString(0));
 
-        return Integer.parseInt(String.valueOf(cursor.getColumnIndex("LoggedIn")));
+        if(cursor.getString(0).equals("1"))
+        {
+            return true;
+        }
+        else
+            return false;
 
+    }
 
+    // set user's first time false
+    public void setFirstTimeFalse() {
+        SQLiteDatabase db = this.getWritableDatabase();
 
+        ContentValues values = new ContentValues();
+        values.put(KEY_FIRST, 0);
 
+        // updating row
+        db.update(TABLE_ACCOUNTS, values, "id=?", new String[]{"1"});
+        db.close();
+    }
+
+    public void setLoginTrue() {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put(KEY_LOGGED_IN, 1);
+
+        // updating row
+        db.update(TABLE_ACCOUNTS, values, "id=?", new String[]{"1"});
+        db.close();
     }
 
 }

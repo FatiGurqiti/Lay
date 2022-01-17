@@ -42,6 +42,7 @@ public class NotificationsFragment extends Fragment {
     private FirebaseAuth mAuth = FirebaseAuth.getInstance();
 
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
+    private CollectionReference collectionReference = db.collection("users");
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -57,22 +58,22 @@ public class NotificationsFragment extends Fragment {
 
 
         //Get's lite mode status and set's the switch widget according to that
-        DatabaseHandler db = new DatabaseHandler(getContext());
+        DatabaseHandler sqldb = new DatabaseHandler(getContext());
 
-        if(db.getIsLiteMode()) litemode.setChecked(true);
+        if(sqldb.getIsLiteMode()) litemode.setChecked(true);
         else litemode.setChecked(false);
 
-        Log.d("litemode", String.valueOf(db.getIsLiteMode()));
+        Log.d("litemode", String.valueOf(sqldb.getIsLiteMode()));
         litemode.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(db.getIsLiteMode()) // if the lite mode is on
+                if(sqldb.getIsLiteMode()) // if the lite mode is on
                 {
-                    db.setLiteModeOff(); //set it off
+                    sqldb.setLiteModeOff(); //set it off
                 }
                 else
                 {
-                    db.setLiteModeOn(); // set it on
+                    sqldb.setLiteModeOn(); // set it on
                 }
 
             }
@@ -108,46 +109,25 @@ public class NotificationsFragment extends Fragment {
             }
         });
 
+        email.setText(Objects.requireNonNull(mAuth.getCurrentUser()).getEmail());
 
 
-            notificationsViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
-            @Override
-            public void onChanged(@Nullable String s) {
-
-                email.setText(Objects.requireNonNull(mAuth.getCurrentUser()).getEmail());
-
-                mAuth = FirebaseAuth.getInstance();
-                FirebaseUser user = mAuth.getCurrentUser();
-                assert user != null;
-                Log.d("User ID logged in", user.getUid());
-                Log.d("User mail logged in", user.getEmail());
-
-
-
-//There's a problem is that is causing the app to crash
-
-
-//                collectionReference
-//                        .whereEqualTo("email", user.getEmail().toString())
-//                        .addSnapshotListener(new EventListener<QuerySnapshot>() {
-//                            @Override
-//                            public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
-//
-//                                assert value != null;
-//                                if (!value.isEmpty()) {
-//
-//                                    for (QueryDocumentSnapshot snapshot : value) {
-//                                        username.setText( snapshot.getString("username"));
-//
-//                                        Log.d("Username logged in", snapshot.getString("username"));
-//
-//
-//                                    }  } }
-//
-//                        });
-
-            }
-        });
+        db.collection("users")
+                .whereEqualTo("email", mAuth.getCurrentUser().getEmail())
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                Log.d("Username", document.getId() + " => " + document.getData());
+                                username.setText(document.getString("username"));
+                            }
+                        } else {
+                            Log.d("Username", "Error getting documents: ", task.getException());
+                        }
+                    }
+                });
         return root;
     }
 

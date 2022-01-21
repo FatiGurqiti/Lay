@@ -132,11 +132,9 @@ public class MovieDetails extends AppCompatActivity {
         secondText.setVisibility(View.INVISIBLE);
 
 
-        saved.setVisibility(View.GONE);
-       // isMovieSaved();
 
+        Log.d("currentID",movieID);
         intianalizeOldData();
-
 
 
         save.setOnClickListener(new View.OnClickListener() {
@@ -145,7 +143,7 @@ public class MovieDetails extends AppCompatActivity {
                 saved.setVisibility(View.VISIBLE);
                 save.setVisibility(View.INVISIBLE);
 
-               // intianalizeOldData();
+
                 saveMovie();
 
                 Toast toast = Toast.makeText(getApplicationContext(),
@@ -266,6 +264,8 @@ public class MovieDetails extends AppCompatActivity {
                             Log.d("mapData ", "" + mapduration  .get(i));
                         }
 
+                        isMovieSaved(mapid.size());
+
                     } else {
                         Log.d(TAG, "No such document");
                     }
@@ -331,43 +331,20 @@ public class MovieDetails extends AppCompatActivity {
                 .set(favouriteMovie);
     }
 
-    private void isMovieSaved(){
+    private void isMovieSaved(int size){
 
-        String TAG ="iduuno";
-        Firedb.collection("MovieLists")
-                .get()
-                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+        saved.setVisibility(View.GONE);
+        save.setVisibility(View.VISIBLE);
 
+        for (int i=0;i< size;i++)
+        {
+            // to prevent saving the same data
+            if(String.valueOf(mapid.get(i)).equals(movieID)) {
+                Log.d("ismoviesaved","movie is saved");
+                save.setVisibility(View.GONE);
+                saved.setVisibility(View.VISIBLE);
+            }
 
-                    @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        if (task.isSuccessful()) {
-                            for (QueryDocumentSnapshot document : task.getResult()) {
-                                //Log.d(TAG, document.getId() + " => " + document.getData());
-                                Log.d(TAG, document.getId() + " => " + document.get("id"));
-
-                                String a = "[" + movieID + "]";
-
-                                Log.d("idunno1", a);
-                                Log.d("idunno2", String.valueOf(document.get("id")   ));
-                                if( a.equals( String.valueOf(document.get("id")))) {
-
-                                    save.setVisibility(View.GONE);
-                                    saved.setVisibility(View.VISIBLE);
-                                }
-
-                                else {
-                                    saved.setVisibility(View.GONE);
-                                    save.setVisibility(View.VISIBLE);
-                                }
-
-                            }
-                        } else {
-                            Log.w(TAG, "Error getting documents.", task.getException());
-                        }
-                    }
-                });
-    }
+    }}}
 
 
-}

@@ -30,10 +30,6 @@ public class DashboardFragment extends Fragment {
 
     private DashboardViewModel dashboardViewModel;
     FirebaseFirestore db = FirebaseFirestore.getInstance();
-    private TextView movietitle;
-    private TextView movieyear;
-    private TextView moviedirector;
-    private TextView moviecast;
     private ProgressBar pg;
     private HashMap<String,String> movie = new HashMap<String,String>();
 
@@ -44,8 +40,7 @@ public class DashboardFragment extends Fragment {
         View root = inflater.inflate(R.layout.fragment_dashboard, container, false);
         final TextView textView = root.findViewById(R.id.text_dashboard);
 
-        ImageView notfoundIMAGE = root.findViewById(R.id.notFoundImage);
-        TextView notfoundText = root.findViewById(R.id.notFoundText);
+
 
         ImageButton coolsearchBtn = root.findViewById(R.id.coolsearchbtn);
         EditText searchBar = root.findViewById(R.id.search_bar);
@@ -61,8 +56,7 @@ public class DashboardFragment extends Fragment {
         TextView redText = root.findViewById(R.id.redCardText);
 
 
-        notfoundIMAGE.setVisibility(View.INVISIBLE);
-        notfoundText.setVisibility(View.INVISIBLE);
+
 
         ProgressBar pg = root.findViewById(R.id.progressBarInMainDashBorad);
         pg.setVisibility(View.INVISIBLE);

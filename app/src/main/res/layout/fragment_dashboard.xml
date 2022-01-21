@@ -57,30 +57,6 @@
         android:src="@drawable/mainbackground"
         android:translationZ="0dp" />
 
-    <ImageView
-        android:id="@+id/notFoundImage"
-        android:layout_width="match_parent"
-        android:layout_height="280dp"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true"
-        android:layout_centerInParent="true"
-        android:layout_marginStart="12dp"
-        android:layout_marginTop="110dp"
-        android:layout_marginEnd="1dp"
-        android:src="@drawable/notfound"
-        android:visibility="invisible" />
-
-    <TextView
-        android:id="@+id/notFoundText"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="440dp"
-        android:text="Yeah... About the thing that you're looking for \n
-Listen pal, we may not have it.\n
-And you just have to deal with it"
-        android:visibility="invisible"
-        android:textAlignment="center" />
 
 
 

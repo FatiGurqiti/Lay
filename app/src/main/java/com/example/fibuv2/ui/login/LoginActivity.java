@@ -1,15 +1,10 @@
 package com.example.fibuv2.ui.login;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.Editable;
 import android.text.TextUtils;
-import android.text.TextWatcher;
 import android.util.Log;
-import android.view.KeyEvent;
 import android.view.View;
-import android.view.inputmethod.EditorInfo;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
@@ -18,14 +13,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.annotation.StringRes;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProviders;
-import androidx.lifecycle.HasDefaultViewModelProviderFactory;
 
-import com.example.fibuv2.Admin;
 import com.example.fibuv2.CreateAccount;
 import com.example.fibuv2.MainLoggedIn;
 import com.example.fibuv2.PasswordForgot;
@@ -108,13 +97,9 @@ public class LoginActivity extends AppCompatActivity {
     }
     private void  userLogin(final String email, String password){
 
-        if(email.toString().contentEquals("admin")){
 
-            startActivity(new Intent(LoginActivity.this, Admin.class));
-            progressBar.setVisibility(View.INVISIBLE);
-        }
 
-        else if(TextUtils.isEmpty(email) &&
+         if(TextUtils.isEmpty(email) &&
                 TextUtils.isEmpty(password) ){
 
             Log.d("Input Status", "Inputs are empty");

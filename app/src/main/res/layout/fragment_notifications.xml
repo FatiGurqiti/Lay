@@ -42,74 +42,42 @@
         android:layout_marginEnd="8dp"
         android:textAlignment="textStart" />
 
-    <TextView
-        android:id="@+id/text_username"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="320dp"
-        android:layout_marginEnd="8dp"
-        android:text="Username"
-        android:textColor="@color/black"
-        android:textAlignment="textEnd"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
         android:id="@+id/usernameicon"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="325dp"
+        android:layout_marginTop="320dp"
         android:layout_marginEnd="8dp"
         android:src="@drawable/username"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/text_username1"
+        android:id="@+id/text_username"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="320dp"
+        android:layout_marginTop="315dp"
         android:layout_marginEnd="8dp"
         android:layout_toEndOf="@+id/usernameicon"
-        android:text="Username"
         android:textAlignment="textStart"
+        android:textColor="@color/black"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/text_email1"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="400dp"
-        android:layout_marginEnd="8dp"
-        android:text="Email"
-        android:layout_marginStart="8dp"
-        android:layout_toEndOf="@+id/emailicon"
-        android:textAlignment="textStart"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
         android:id="@+id/emailicon"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="408dp"
+        android:layout_marginTop="370dp"
         android:layout_marginEnd="8dp"
         android:src="@drawable/mail"
         app:layout_constraintStart_toStartOf="parent"
@@ -122,10 +90,10 @@
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="400dp"
+        android:layout_marginTop="365dp"
         android:layout_marginEnd="8dp"
-        android:text="userEmail"
-        android:textAlignment="textEnd"
+        android:layout_toEndOf="@+id/usernameicon"
+        android:textAlignment="textStart"
         android:textColor="@color/black"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -135,44 +103,11 @@
 
 
     <ImageView
-        android:id="@+id/faqicon"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="480dp"
-        android:layout_marginEnd="8dp"
-        android:src="@drawable/info"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-
-    <TextView
-        android:id="@+id/faq"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="477dp"
-        android:layout_marginEnd="8dp"
-        android:layout_toEndOf="@+id/faqicon"
-        android:text="FAQ"
-        android:textAlignment="textStart"
-        android:textColor="#4CBB17"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-
-
-    <ImageView
         android:id="@+id/changepasswordicon"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="560dp"
+        android:layout_marginTop="440dp"
         android:layout_marginEnd="8dp"
         android:src="@drawable/lock"
         app:layout_constraintStart_toStartOf="parent"
@@ -184,7 +119,7 @@
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="557dp"
+        android:layout_marginTop="440dp"
         android:layout_marginEnd="8dp"
         android:layout_toEndOf="@+id/logouticon"
         android:text="Change Password"
@@ -202,7 +137,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="640dp"
+        android:layout_marginTop="500dp"
         android:layout_marginEnd="8dp"
         android:src="@drawable/logout"
         app:layout_constraintStart_toStartOf="parent"
@@ -213,7 +148,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="637dp"
+        android:layout_marginTop="500dp"
         android:layout_toEndOf="@+id/logouticon"
         android:text="Log out"
         android:textColor="#DE3448"

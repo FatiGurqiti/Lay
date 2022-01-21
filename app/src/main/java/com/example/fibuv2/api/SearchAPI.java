@@ -24,20 +24,12 @@ public class SearchAPI {
     public static List<String> movieImageUrl = new ArrayList<>();
     public static List<String> movieTitle = new ArrayList<>();
     public static List<String> movieType = new ArrayList<>();
+    public static List<String> movieQ = new ArrayList<>();
 
     public static void main(String[] args) {
 
         autoCompleteAPI("q");
 
-        for (int z = 0; z < 13; z++) {
-
-            System.out.println(movieID.get(z));
-            System.out.println(movieImageUrl.get(z));
-            System.out.println(movieTitle.get(z));
-            System.out.println(movieType.get(z));
-
-            System.out.println("\n --------------------------------- \n");
-        }
 
     }
 
@@ -59,6 +51,7 @@ public class SearchAPI {
                 movieImageUrl.add(movie.getImageUrl());
                 movieTitle.add(movie.getL());
                 movieType.add(movie.getS());
+                movieQ.add(movie.getQ());
             }
 
 
@@ -126,6 +119,7 @@ public class SearchAPI {
         private String type;
         private String id;
         private String s;
+        private String q;
 
         public Movie() {
         }
@@ -171,8 +165,17 @@ public class SearchAPI {
         }
 
 
+        public String getQ() {
+            return q;
+        }
+
+        public void setQ(String q) {
+            this.q = q;
+        }
+
+
         public String toString() {
-            return "Movie [ \nimageUrl: " + imageUrl + " \nid: " + id + "  \ntitle: " + l + "  \ntype: " + s + "   \n]";
+            return "Movie [ \nimageUrl: " + imageUrl + " \nid: " + id + "  \ntitle: " + l + "  \ntype: " + s +"  \nq: " + q + "   \n]";
         }
 
     }

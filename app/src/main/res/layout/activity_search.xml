@@ -50,11 +50,40 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:textColor="@color/black_overlay"
+        android:layout_marginTop="100dp"
         android:paddingStart="15dp"
         android:paddingTop="15dp"
-        android:layout_marginTop="100dp"
-        android:text="There are this amount of results" />
+        android:textColor="@color/black_overlay" />
+
+    <ImageView
+        android:id="@+id/notFoundImage"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_centerInParent="true"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="110dp"
+        android:layout_marginEnd="1dp"
+        android:src="@drawable/notfound" />
+
+    <TextView
+        android:id="@+id/notFoundText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/notFoundImage"
+        android:layout_marginTop="50dp"
+        android:lineSpacingExtra="5dp"
+
+        android:text="Yeah... About the thing that you're looking for, \n
+It's either we don't have it (which is super unlikely) or, \n
+You ran out of your daily quota.
+\n Please try again later. \n Bye \n \n Remember, your quota renews in every 24 hours.
+\n  Beep boop beep... \n { some robot noices }
+
+"
+        android:textAlignment="center" />
 
 
     <ScrollView

@@ -126,7 +126,6 @@ public class CreateAccount extends AppCompatActivity {
 
 
         Map<String, Object> user = new HashMap<>();
-        //user.put("userID", userF.getUid().toString());
         user.put("username", username);
         user.put("email", email);
         user.put("password", password);

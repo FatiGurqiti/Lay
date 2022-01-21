@@ -26,6 +26,7 @@
         <entry key="..\:/Users/fati-/AndroidStudioProjects/Fibuv2/app/src/main/res/font/david_libre.xml" value="0.1778501628664495" />
         <entry key="..\:/Users/fati-/AndroidStudioProjects/Fibuv2/app/src/main/res/layout/activity_admin.xml" value="0.1118421052631579" />
         <entry key="..\:/Users/fati-/AndroidStudioProjects/Fibuv2/app/src/main/res/layout/activity_create_account.xml" value="0.13269927536231885" />
+        <entry key="..\:/Users/fati-/AndroidStudioProjects/Fibuv2/app/src/main/res/layout/activity_faq.xml" value="0.136" />
         <entry key="..\:/Users/fati-/AndroidStudioProjects/Fibuv2/app/src/main/res/layout/activity_first_time.xml" value="0.1" />
         <entry key="..\:/Users/fati-/AndroidStudioProjects/Fibuv2/app/src/main/res/layout/activity_first_time2.xml" value="0.16052631578947368" />
         <entry key="..\:/Users/fati-/AndroidStudioProjects/Fibuv2/app/src/main/res/layout/activity_login.xml" value="0.13451086956521738" />
@@ -47,6 +48,8 @@
         <entry key="..\:/Users/fati-/AndroidStudioProjects/Fibuv2/app/src/main/res/layout/fragment_second.xml" value="0.152" />
         <entry key="..\:/Users/fati-/AndroidStudioProjects/Fibuv2/app/src/main/res/layout/movie_card.xml" value="0.1" />
         <entry key="..\:/Users/fati-/AndroidStudioProjects/Fibuv2/app/src/main/res/menu/bottom_nav_menu.xml" value="0.15895765472312703" />
+        <entry key="..\:/Users/fati-/AndroidStudioProjects/Fibuv2/app/src/main/res/menu/menu_movie_details.xml" value="0.10208333333333333" />
+        <entry key="..\:/Users/fati-/AndroidStudioProjects/Fibuv2/app/src/main/res/menu/menu_search.xml" value="0.10208333333333333" />
         <entry key="..\:/Users/fati-/AndroidStudioProjects/Fibuv2/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.10394736842105264" />
         <entry key="..\:/Users/fati-/AndroidStudioProjects/Fibuv2/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.10394736842105264" />
         <entry key="..\:/Users/fati-/AndroidStudioProjects/Fibuv2/app/src/main/res/mipmap-anydpi-v26/launcherlogo.xml" value="0.10394736842105264" />

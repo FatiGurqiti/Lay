@@ -14,9 +14,6 @@
         android:theme="@style/Theme.Fibuv2"
         android:usesCleartextTraffic="true">
         <activity
-            android:name=".FAQ"
-            android:exported="false" />
-        <activity
             android:name=".FirstTime2"
             android:exported="false"
             android:label="@string/title_activity_first_time2"
@@ -34,9 +31,6 @@
             android:name=".Search"
             android:exported="false" />
         <activity android:name=".ResetPassword" />
-        <activity
-            android:name=".Admin"
-            android:screenOrientation="portrait" />
         <activity
             android:name=".MainLoggedIn"
             android:screenOrientation="portrait" />

@@ -93,7 +93,6 @@ public class MainActivity extends AppCompatActivity {
     private void userStatus() {
 
 
-        //  Log.d("firsttimeinboolean", String.valueOf(db.getIsFirtsTime()));
 
         if (db.getaccountsCount() == 0) {
             //It's there is no data created in account table it's first time and it creates the account table in sqlite

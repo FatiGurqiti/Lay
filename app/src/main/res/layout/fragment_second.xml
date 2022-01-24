@@ -93,7 +93,7 @@ TV show through the endless void!"
         android:layout_marginStart="100dp"
         android:layout_marginTop="50dp"
         android:elevation="1dp"
-        android:src="@drawable/circle"
+        android:src="@drawable/faded_circle"
         android:translationZ="1dp" />
 
     <ImageView
@@ -107,6 +107,6 @@ TV show through the endless void!"
         android:layout_marginTop="50dp"
         android:elevation="1dp"
         android:translationZ="1dp"
-        android:src="@drawable/circle" />
+        android:src="@drawable/faded_circle" />
 
 </RelativeLayout>

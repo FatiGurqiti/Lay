@@ -15,6 +15,7 @@ import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.example.fibuv2.MainLoggedIn;
 import com.example.fibuv2.R;
 import com.example.fibuv2.ResetPassword;
 import com.example.fibuv2.database.DatabaseHandler;
@@ -46,6 +47,11 @@ public class NotificationsFragment extends Fragment {
         final Switch litemode = root.findViewById(R.id.switch1);
 
 
+
+        email.setText(Objects.requireNonNull(mAuth.getCurrentUser()).getEmail());
+        username.setText(MainLoggedIn.getUsername());
+
+        
         //Get's lite mode status and set's the switch widget according to that
         DatabaseHandler sqldb = new DatabaseHandler(getContext());
 
@@ -93,30 +99,10 @@ public class NotificationsFragment extends Fragment {
 
 
 
-        db.collection("users")
-                .whereEqualTo("email", mAuth.getCurrentUser().getEmail())
-                .get()
-                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                    @RequiresApi(api = Build.VERSION_CODES.O)
-                    @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        if (task.isSuccessful()) {
-                            for (QueryDocumentSnapshot document : task.getResult()) {
-                                Log.d("Username", document.getId() + " => " + document.getData());
-                                username.setText(document.getString("username"));
 
 
 
 
-                            }
-                        } else {
-                            Log.d("Username", "Error getting documents: ", task.getException());
-                        }
-                    }
-                });
-
-
-        email.setText(Objects.requireNonNull(mAuth.getCurrentUser()).getEmail());
         return root;
     }
 

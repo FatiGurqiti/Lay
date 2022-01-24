@@ -9,6 +9,7 @@
         <entry key="..\:/Users/fati-/AndroidStudioProjects/Fibuv2/app/src/main/res/drawable/circle.xml" value="0.1" />
         <entry key="..\:/Users/fati-/AndroidStudioProjects/Fibuv2/app/src/main/res/drawable/coolbtnbackground.xml" value="0.1707236842105263" />
         <entry key="..\:/Users/fati-/AndroidStudioProjects/Fibuv2/app/src/main/res/drawable/create_account_background.xml" value="0.1707236842105263" />
+        <entry key="..\:/Users/fati-/AndroidStudioProjects/Fibuv2/app/src/main/res/drawable/faded_circle.xml" value="0.10230263157894737" />
         <entry key="..\:/Users/fati-/AndroidStudioProjects/Fibuv2/app/src/main/res/drawable/frame.xml" value="0.16905537459283387" />
         <entry key="..\:/Users/fati-/AndroidStudioProjects/Fibuv2/app/src/main/res/drawable/greenctangle.xml" value="0.1707236842105263" />
         <entry key="..\:/Users/fati-/AndroidStudioProjects/Fibuv2/app/src/main/res/drawable/login_background.xml" value="0.2703125" />
@@ -45,7 +46,7 @@
         <entry key="..\:/Users/fati-/AndroidStudioProjects/Fibuv2/app/src/main/res/layout/fragment_first_time2.xml" value="0.16" />
         <entry key="..\:/Users/fati-/AndroidStudioProjects/Fibuv2/app/src/main/res/layout/fragment_home.xml" value="0.1" />
         <entry key="..\:/Users/fati-/AndroidStudioProjects/Fibuv2/app/src/main/res/layout/fragment_notifications.xml" value="0.2" />
-        <entry key="..\:/Users/fati-/AndroidStudioProjects/Fibuv2/app/src/main/res/layout/fragment_second.xml" value="0.152" />
+        <entry key="..\:/Users/fati-/AndroidStudioProjects/Fibuv2/app/src/main/res/layout/fragment_second.xml" value="0.264" />
         <entry key="..\:/Users/fati-/AndroidStudioProjects/Fibuv2/app/src/main/res/layout/movie_card.xml" value="0.1" />
         <entry key="..\:/Users/fati-/AndroidStudioProjects/Fibuv2/app/src/main/res/menu/bottom_nav_menu.xml" value="0.15895765472312703" />
         <entry key="..\:/Users/fati-/AndroidStudioProjects/Fibuv2/app/src/main/res/menu/menu_movie_details.xml" value="0.10208333333333333" />

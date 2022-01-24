@@ -259,10 +259,8 @@ public class MovieDetails extends AppCompatActivity {
 
         // addd new array list to the old one
 
-        if(mapid != null)
+        if(mapid != null) // User has previously saved data
         {
-        Log.d("sizeofmapid", "" + String.valueOf(mapid.size()));
-
         for (int i=0;i< mapid.size();i++)
         {
 
@@ -311,8 +309,7 @@ public class MovieDetails extends AppCompatActivity {
 
 
 }
-else
-{
+else { // User does not have previously saved data
     SetMovieSaved();
 
     id          .add( movieID );

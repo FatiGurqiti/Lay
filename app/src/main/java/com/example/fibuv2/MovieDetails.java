@@ -83,18 +83,32 @@ public class MovieDetails extends AppCompatActivity {
 
         DetailsAPI.getDetails("{\"id\":\"/title/tt0167261/\",\"title\":{\"@type\":\"imdb.api.title.title\",\"id\":\"/title/tt0167261/\",\"image\":{\"height\":1500,\"id\":\"/title/tt0167261/images/rm306845440\",\"url\":\"https://m.media-amazon.com/images/M/MV5BZGMxZTdjZmYtMmE2Ni00ZTdkLWI5NTgtNjlmMjBiNzU2MmI5XkEyXkFqcGdeQXVyNjU0OTQ0OTY@._V1_.jpg\",\"width\":964},\"runningTimeInMinutes\":179,\"title\":\"The Lord of the Rings: The Two Towers\",\"titleType\":\"movie\",\"year\":2002},\"certificates\":{\"US\":[{\"attributes\":[\"Preview Short\"],\"certificate\":\"PG\",\"certificateNumber\":38927,\"ratingsBody\":\"MPAA\",\"country\":\"US\"}]},\"ratings\":{\"canRate\":true,\"rating\":8.7,\"ratingCount\":1571278,\"topRank\":14},\"genres\":[\"Action\",\"Adventure\",\"Drama\",\"Fantasy\"],\"releaseDate\":\"2002-12-18\",\"plotOutline\":{\"id\":\"/title/tt0167261/plot/po0952965\",\"text\":\"While Frodo and Sam edge closer to Mordor with the help of the shifty Gollum, the divided fellowship makes a stand against Sauron's new ally, Saruman, and his hordes of Isengard.\"},\"plotSummary\":{\"author\":\"Jwelch5742\",\"id\":\"/title/tt0167261/plot/ps2971820\",\"text\":\"The continuing quest of Frodo and the Fellowship to destroy the One Ring. Frodo and Sam discover they are being followed by the mysterious Gollum. Aragorn, the Elf archer Legolas, and Gimli the Dwarf encounter the besieged Rohan kingdom, whose once great King Theoden has fallen under Saruman's deadly spell.\"}}");
 
+
         //Get's data from last page
         Bundle extras = getIntent().getExtras();
-        movieID = extras.getString("movieID");
-        moviePhoto = extras.getString("moviePhoto");
 
-        //Get's data from API
+        movieID = extras.getString("MovieID");
+        moviePhoto = extras.getString("MoviePhoto");
+        boolean isSaved = extras.getBoolean("IsSaved");
+
+        if(isSaved){ //if movie is already saved get data from FireBase
+
+         movieTitle = extras.getString("MovieTitle");
+         movieYear =  extras.getString("MovieYear");
+         Runingtime =  extras.getString("MovieDuration");
+         Type =  extras.getString("MovieType");
+         FistText =  extras.getString("MovieFirstText");
+         SecondText = extras.getString("MovieSecondText");
+
+        }
+        else{ //If movie isn't saved get data from API
         movieTitle = DetailsAPI.name;
         movieYear = DetailsAPI.year;
         Runingtime = DetailsAPI.runningTimeInMinutes;
         Type = DetailsAPI.genresList;
         FistText = DetailsAPI.plotOutlineList.get(0);
         SecondText = DetailsAPI.plotOutlineList.get(1);
+        }
 
         if (db.getIsLiteMode() == false) setSuggestionDetails(movieID);
 
@@ -245,14 +259,13 @@ public class MovieDetails extends AppCompatActivity {
 
     private void saveMovie() {
 
-        // addd new array list to the old one
-
+        // add new array list to the old one
         if (mapid != null) // User has previously saved data
         {
             for (int i = 0; i < mapid.size(); i++) {
 
                 Log.d("mapsize", String.valueOf(mapid.size()));
-                if (!String.valueOf(mapid.get(i)).equals(movieID)) {   // to prevent saving the same data
+                if (!String.valueOf(mapid.get(i)).equals(movieID)) {
 
                     id.add(String.valueOf(mapid.get(i)));
                     img.add(String.valueOf(mapimg.get(i)));
@@ -267,7 +280,6 @@ public class MovieDetails extends AppCompatActivity {
 
 
             //adding this data to top of existing data
-
             id.add(movieID);
             img.add(moviePhoto);
             title.add(movieTitle);
@@ -278,7 +290,7 @@ public class MovieDetails extends AppCompatActivity {
             secondText.add(SecondText);
 
             Log.d("arrayidstat", String.valueOf(id));
-            
+
             //Removes duplicated data
             for (int i =0;i<id.size();i++)
             {
@@ -299,7 +311,6 @@ public class MovieDetails extends AppCompatActivity {
 
 
             //add the arraylist to FireStore
-
             Map<String, List<String>> favouriteMovie = new HashMap<>();
             favouriteMovie.put("id", id);
             favouriteMovie.put("img", img);

@@ -28,16 +28,14 @@ import com.squareup.picasso.Picasso;
 public class Search extends AppCompatActivity {
 
     private String searchContent;
-
-
     @RequiresApi(api = Build.VERSION_CODES.S)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
 
-        Typeface face = getResources().getFont(R.font.davidlibre_regular);   // Font-Family
-        Typeface boldface = getResources().getFont(R.font.davidlibre_bold);   // Font-Family
+        Typeface face = getResources().getFont(R.font.plusjakartatextregular);   // Font-Family
+        Typeface boldface = getResources().getFont(R.font.plusjakartatexbold);  // Font-Family
 
         Bundle extra = getIntent().getExtras();
 
@@ -103,7 +101,7 @@ public class Search extends AppCompatActivity {
             image.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    openMovieDetail(SearchAPI.movieID.get(finalI), SearchAPI.movieTitle.get(finalI), null, SearchAPI.movieImageUrl.get(finalI).trim());
+                    openMovieDetail(SearchAPI.movieID.get(finalI), SearchAPI.movieImageUrl.get(finalI).trim());
                 }
             });
 
@@ -164,16 +162,15 @@ public class Search extends AppCompatActivity {
 
 
 
-    private void openMovieDetail(String movieID,String movieTitle,String movieYear,String moviePhoto){
+    private void openMovieDetail(String MovieID,String MoviePhoto){
         Intent intent = new Intent(Search.this, MovieDetails.class);
-        intent.putExtra("movieID",movieID);
-        intent.putExtra("movieTitle",movieTitle);
-        intent.putExtra("movieYear",movieYear);
-        intent.putExtra("moviePhoto",moviePhoto);
+        intent.putExtra("MovieID",MovieID);
+        intent.putExtra("MoviePhoto",MoviePhoto);
+        intent.putExtra("IsSaved",false);
         startActivity(intent);
     }
 
-    public void setMargins (View v, int l, int t, int r, int b) {
+    public static void setMargins(View v, int l, int t, int r, int b) {
         if (v.getLayoutParams() instanceof ViewGroup.MarginLayoutParams) {
             ViewGroup.MarginLayoutParams p = (ViewGroup.MarginLayoutParams) v.getLayoutParams();
             p.setMargins(l, t, r, b);
@@ -191,7 +188,7 @@ public class Search extends AppCompatActivity {
         return height;
     }
 
-    public  int getScreenWidth(Context context) {
+    public int getScreenWidth(Context context) {
         DisplayMetrics displayMetrics = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
         int width = displayMetrics.widthPixels;

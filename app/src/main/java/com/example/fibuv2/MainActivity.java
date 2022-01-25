@@ -72,7 +72,7 @@ public class MainActivity extends AppCompatActivity {
                                {
                                    intent = new Intent(MainActivity.this, FirstTime2.class);
                                } else if (db.getIsLoggedIn()) {  // User hasn't logged in
-                                   intent = new Intent(MainActivity.this, Search.class);
+                                   intent = new Intent(MainActivity.this, MainLoggedIn.class);
                                } else { // User hasn't logged in
                                    intent = new Intent(MainActivity.this, LoginActivity.class);
                                }

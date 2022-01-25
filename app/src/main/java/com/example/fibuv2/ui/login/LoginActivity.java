@@ -105,6 +105,7 @@ public class LoginActivity extends AppCompatActivity {
             Log.d("Input Status", "Inputs are empty");
             Toast.makeText(LoginActivity.this, "Would you mind if you fill the inputs?",
                     Toast.LENGTH_LONG).show();
+            progressBar.setVisibility(View.INVISIBLE);
         }
         else {
             Log.d("Input Status", "Inputs are filled");

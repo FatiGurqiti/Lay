@@ -277,6 +277,26 @@ public class MovieDetails extends AppCompatActivity {
             firstText.add(FistText);
             secondText.add(SecondText);
 
+            Log.d("arrayidstat", String.valueOf(id));
+            
+            //Removes duplicated data
+            for (int i =0;i<id.size();i++)
+            {
+                if(i+1 < id.size()){
+                    if(id.get(i).equals(id.get(i+1)))
+                    {
+                        id         .remove(i+1);
+                        img        .remove(i+1);
+                        title      .remove(i+1);
+                        year       .remove(i+1);
+                        duration   .remove(i+1);
+                        type       .remove(i+1);
+                        firstText  .remove(i+1);
+                        secondText .remove(i+1);
+                        }
+                }
+            }
+
 
             //add the arraylist to FireStore
 

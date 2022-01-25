@@ -10,6 +10,8 @@ import android.graphics.Typeface;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.ContactsContract;
+import android.text.Html;
+import android.text.method.LinkMovementMethod;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
@@ -28,6 +30,7 @@ import com.squareup.picasso.Picasso;
 public class Search extends AppCompatActivity {
 
     private String searchContent;
+    private TextView SecondTextReference;
     @RequiresApi(api = Build.VERSION_CODES.S)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +49,7 @@ public class Search extends AppCompatActivity {
 
         ImageView notfoundIMAGE = findViewById(R.id.notFoundImage);
         TextView notfoundText = findViewById(R.id.notFoundText);
+        SecondTextReference = findViewById(R.id.secondTextReference);
 
         progressBar.setVisibility(View.INVISIBLE);
 
@@ -155,6 +159,7 @@ public class Search extends AppCompatActivity {
             // There are no results
             notfoundIMAGE.setVisibility(View.VISIBLE);
             notfoundText.setVisibility(View.VISIBLE);
+            SecondTextReference.setVisibility(View.VISIBLE);
         }
 
 

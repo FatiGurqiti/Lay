@@ -12,14 +12,17 @@ import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
@@ -30,6 +33,7 @@ import com.example.fibuv2.R;
 import com.example.fibuv2.RoundedTransformation;
 import com.example.fibuv2.Search;
 import com.example.fibuv2.api.SearchAPI;
+import com.example.fibuv2.ui.login.LoginActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -44,6 +48,8 @@ import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class HomeFragment extends Fragment {
 
@@ -58,6 +64,16 @@ public class HomeFragment extends Fragment {
     private ArrayList<String> firstText = new ArrayList<>();
     private ArrayList<String> secondText = new ArrayList<>();
 
+    private CardView pop;
+    private CardView popafter;
+    private ImageView blackbg;
+    private ImageButton likeButton;
+    private ImageButton dislikeButton;
+
+    private ImageView CuteRobot;
+    private TextView NoFavouriteText;
+    private TextView FirstReference;
+
     @RequiresApi(api = Build.VERSION_CODES.O)
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -68,8 +84,17 @@ public class HomeFragment extends Fragment {
         Typeface face = getResources().getFont(R.font.plusjakartatextregular);   // Font-Family
         Typeface boldface = getResources().getFont(R.font.plusjakartatexbold);  // Font-Family
 
+        pop = (CardView) root.findViewById(R.id.ratepop);
+        popafter = (CardView) root.findViewById(R.id.afterRate);
+        blackbg = (ImageView) root.findViewById(R.id.homeBlackFilter);
+        ImageButton likeButton = (ImageButton) root.findViewById(R.id.likeButton);
+        ImageButton dislikeButton = (ImageButton) root.findViewById(R.id.dislikeButton);
+        CuteRobot = (ImageView) root.findViewById(R.id.cuteRobot);
+        NoFavouriteText = (TextView) root.findViewById(R.id.noFavouriteText);
+        FirstReference = (TextView) root.findViewById(R.id.firstReference);
+
         TextView WelcomeText = (TextView) root.findViewById(R.id.welcomeText);
-        WelcomeText.setText(" \t Welcome "+ MainLoggedIn.getUsername() + ", here's your favourite list");
+        WelcomeText.setText(" \t Welcome " + MainLoggedIn.getUsername() + ", here's your favourite list");
 
         String TAG = "HomeDataStatus";
         FirebaseFirestore Firedb = FirebaseFirestore.getInstance();
@@ -110,7 +135,7 @@ public class HomeFragment extends Fragment {
                                 Picasso.get().load(img.get(i).trim())
                                         .transform(new RoundedTransformation(50, 0)).fit().centerCrop(700).into(image);
                                 layout.addView(image);
-                                Search.setMargins(image, 25, (int) (i * (sizeheight) * .75 ), 25, 1);
+                                Search.setMargins(image, 25, (int) (i * (sizeheight) * .75), 25, 1);
 
 
                                 int finalI = i;
@@ -146,7 +171,42 @@ public class HomeFragment extends Fragment {
                                 titleText.bringToFront();
                                 layout.addView(titleText);
                                 Search.setMargins(titleText, 25, (int) (i * (sizeheight) * .75), 25, 1);
-                                titleText.setPadding(25, 200, 50, 0);
+                                titleText.setPadding(25, (int) (sizewidth * .2), 50, 0);
+
+                                ImageView seenicon = new ImageView(getContext());
+                                Picasso.get().load(R.drawable.seen).into(seenicon);
+                                seenicon.bringToFront();
+                                layout.addView(seenicon);
+                                Search.setMargins(seenicon,  25, (int) (i * (sizeheight) * .75), 25, 1);
+                                seenicon.setPadding((int) ( (sizewidth) *.3), (int) (sizewidth * .5), 50, 0);
+
+
+
+
+                                TextView seenText = new TextView(getContext());
+                                seenText.setText("Set as seen");
+                                seenText.setTypeface(face);
+                                seenText.setTextColor(Color.WHITE);
+                                seenText.setPadding(25, 250, 25, 0);
+                                seenText.setTextSize(16);
+                                seenText.bringToFront();
+                                layout.addView(seenText);
+                                Search.setMargins(seenText, (int) ((sizewidth) * .4), (int) (i * (sizeheight) * .75), 25, 1);
+                                seenText.setPadding(25, (int) (sizewidth * .5), 50, 0);
+
+                                seenicon.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View v) {
+                                        setmovieSeen();
+                                    }
+                                });
+
+                                seenText.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View v) {
+                                        setmovieSeen();
+                                    }
+                                });
 
 
                             }
@@ -155,6 +215,9 @@ public class HomeFragment extends Fragment {
 
                     } else {
                         Log.d(TAG, "No such document");
+                        CuteRobot.setVisibility(View.VISIBLE);
+                        NoFavouriteText.setVisibility(View.VISIBLE);
+                        FirstReference.setVisibility(View.VISIBLE);
                     }
                 } else {
                     Log.d(TAG, "get failed with ", task.getException());
@@ -162,7 +225,30 @@ public class HomeFragment extends Fragment {
             }
         });
 
+
+        likeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                afterRate();
+            }
+        });
+
+        dislikeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                afterRate();
+            }
+        });
+
         return root;
+    }
+
+
+
+
+    private void setmovieSeen(){
+        pop.setVisibility(View.VISIBLE);
+        blackbg.setVisibility(View.VISIBLE);
     }
 
     private void openMovieDetail(String MovieID, String MoviePhoto, String MovieTitle, String MovieType, String MovieYear, String MovieFirstText, String MovieSecondText, String MovieDuration) {
@@ -176,7 +262,7 @@ public class HomeFragment extends Fragment {
         intent.putExtra("MovieFirstText", MovieFirstText);
         intent.putExtra("MovieSecondText", MovieSecondText);
         intent.putExtra("MovieDuration", MovieDuration);
-        intent.putExtra("IsSaved",true);
+        intent.putExtra("IsSaved", true);
         startActivity(intent);
     }
 
@@ -197,4 +283,21 @@ public class HomeFragment extends Fragment {
 
         return width;
     }
-}
+
+    private void afterRate(){
+
+        popafter.setVisibility(View.VISIBLE);
+        pop.setVisibility(View.INVISIBLE);
+        Timer timer = new Timer();
+        timer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                popafter.setVisibility(View.INVISIBLE);
+                blackbg.setVisibility(View.INVISIBLE);
+            }
+                       }
+                , 1000
+        );
+        }
+
+    }

@@ -58,7 +58,7 @@
     <ImageView
         android:id="@+id/notFoundImage"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="300dp"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
@@ -66,6 +66,7 @@
         android:layout_marginStart="12dp"
         android:layout_marginTop="110dp"
         android:layout_marginEnd="1dp"
+        android:visibility="invisible"
         android:src="@drawable/notfound" />
 
     <TextView
@@ -75,7 +76,7 @@
         android:layout_below="@+id/notFoundImage"
         android:layout_marginTop="50dp"
         android:lineSpacingExtra="5dp"
-
+        android:visibility="invisible"
         android:text="Yeah... About the thing that you're looking for, \n
 It's either we don't have it (which is super unlikely) or, \n
 You ran out of your daily quota.
@@ -84,6 +85,18 @@ You ran out of your daily quota.
 
 "
         android:textAlignment="center" />
+
+    <TextView
+        android:id="@+id/secondTextReference"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:autoLink="web"
+        android:text="@string/hyperlink2"
+        android:textAlignment="center"
+        android:visibility="invisible"
+        android:layout_marginBottom="20dp"
+        />
 
 
     <ScrollView

@@ -38,6 +38,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -46,6 +47,7 @@ import com.google.firebase.firestore.QuerySnapshot;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Timer;
@@ -117,7 +119,6 @@ public class HomeFragment extends Fragment {
                         secondText = (ArrayList<String>) document.get("secondText");
                         duration = (ArrayList<String>) document.get("duration");
 
-                        Log.d("HomeDataStatus2", String.valueOf(id.size()));
 
                         int limit = id.size();
                         if (limit > 0) {
@@ -177,10 +178,8 @@ public class HomeFragment extends Fragment {
                                 Picasso.get().load(R.drawable.seen).into(seenicon);
                                 seenicon.bringToFront();
                                 layout.addView(seenicon);
-                                Search.setMargins(seenicon,  25, (int) (i * (sizeheight) * .75), 25, 1);
-                                seenicon.setPadding((int) ( (sizewidth) *.3), (int) (sizewidth * .5), 50, 0);
-
-
+                                Search.setMargins(seenicon, 25, (int) (i * (sizeheight) * .75), 25, 1);
+                                seenicon.setPadding((int) ((sizewidth) * .3), (int) (sizewidth * .5), 50, 0);
 
 
                                 TextView seenText = new TextView(getContext());
@@ -208,6 +207,20 @@ public class HomeFragment extends Fragment {
                                     }
                                 });
 
+                                int finalI1 = i;
+                                likeButton.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View v) {
+                                        like(id.get(finalI1), title.get(finalI1), img.get(finalI1), true);
+                                    }
+                                });
+
+                                dislikeButton.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View v) {
+                                        like(id.get(finalI1), title.get(finalI1), img.get(finalI1), false);
+                                    }
+                                });
 
                             }
 
@@ -226,27 +239,59 @@ public class HomeFragment extends Fragment {
         });
 
 
-        likeButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                afterRate();
-            }
-        });
-
-        dislikeButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                afterRate();
-            }
-        });
-
         return root;
     }
 
 
+    private void like(String id, String name, String img, Boolean like) {
 
 
-    private void setmovieSeen(){
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        CollectionReference movieRate = db.collection("MovieRate");
+
+
+        String TAG = "rateMovie";
+        DocumentReference docRef = db.collection("MovieRate").document(id);
+        docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if (task.isSuccessful()) {
+                    DocumentSnapshot document = task.getResult();
+                    if (document.exists()) {
+                        Log.d(TAG, "DocumentSnapshot data: " + document.getData());
+                        int rate = document.getLong("rate").intValue();
+
+                        if (like) docRef.update("rate", rate+1);
+                        else {
+                            if (rate > 1) docRef.update("rate", rate-1);
+                        }
+
+                    } else {
+                        Log.d(TAG, "No such document");
+
+                        Map<String, String> MovieRate = new HashMap<>();
+                        MovieRate.put("id", id);
+                        MovieRate.put("name", name);
+                        MovieRate.put("img", img);
+                        if (like) MovieRate.put("rate", "1");
+
+                        db.collection("MovieRate").document(id)
+                                .set(MovieRate);
+
+                        docRef.update("rate", 1);
+                    }
+                } else {
+                    Log.d(TAG, "get failed with ", task.getException());
+                }
+            }
+        });
+
+
+        afterRate();
+    }
+
+
+    private void setmovieSeen() {
         pop.setVisibility(View.VISIBLE);
         blackbg.setVisibility(View.VISIBLE);
     }
@@ -284,20 +329,20 @@ public class HomeFragment extends Fragment {
         return width;
     }
 
-    private void afterRate(){
+    private void afterRate() {
 
         popafter.setVisibility(View.VISIBLE);
         pop.setVisibility(View.INVISIBLE);
         Timer timer = new Timer();
         timer.schedule(new TimerTask() {
-            @Override
-            public void run() {
-                popafter.setVisibility(View.INVISIBLE);
-                blackbg.setVisibility(View.INVISIBLE);
-            }
+                           @Override
+                           public void run() {
+                               popafter.setVisibility(View.INVISIBLE);
+                               blackbg.setVisibility(View.INVISIBLE);
+                           }
                        }
                 , 1000
         );
-        }
-
     }
+
+}

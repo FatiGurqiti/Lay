@@ -361,10 +361,6 @@ public class MovieDetails extends AppCompatActivity {
 
         // addd new array list to the old one
 
-
-
-
-
         if (mapid != null) // User has previously saved data
         {
             for (int i = 0; i < mapid.size(); i++) {

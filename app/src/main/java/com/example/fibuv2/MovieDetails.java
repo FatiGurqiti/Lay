@@ -26,6 +26,7 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firebase.firestore.SetOptions;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -39,11 +40,11 @@ public class MovieDetails extends AppCompatActivity {
     private static int minutes;
     private ArrayList<String> SuggestionImg = new ArrayList<>();
 
-    private  DatabaseHandler db = new DatabaseHandler(MovieDetails.this);
+    private DatabaseHandler db = new DatabaseHandler(MovieDetails.this);
 
     private FirebaseFirestore Firedb = FirebaseFirestore.getInstance();
     FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-    private  DocumentReference docRef = Firedb.collection("MovieLists").document(user.getUid());
+    private DocumentReference docRef = Firedb.collection("MovieLists").document(user.getUid());
 
     private String movieID;
     private String moviePhoto;
@@ -54,14 +55,14 @@ public class MovieDetails extends AppCompatActivity {
     private String FistText;
     private String SecondText;
 
-    private List<Map<String, ArrayList>> mapid        ;
-    private List<Map<String, ArrayList>> mapimg       ;
-    private List<Map<String, ArrayList>> maptitle     ;
-    private List<Map<String, ArrayList>> maptype      ;
-    private List<Map<String, ArrayList>> mapyear      ;
-    private List<Map<String, ArrayList>> mapfirstText ;
+    private List<Map<String, ArrayList>> mapid;
+    private List<Map<String, ArrayList>> mapimg;
+    private List<Map<String, ArrayList>> maptitle;
+    private List<Map<String, ArrayList>> maptype;
+    private List<Map<String, ArrayList>> mapyear;
+    private List<Map<String, ArrayList>> mapfirstText;
     private List<Map<String, ArrayList>> mapsecondText;
-    private List<Map<String, ArrayList>> mapduration  ;
+    private List<Map<String, ArrayList>> mapduration;
 
     private ArrayList<String> id = new ArrayList<>();
     private ArrayList<String> img = new ArrayList<>();
@@ -72,7 +73,7 @@ public class MovieDetails extends AppCompatActivity {
     private ArrayList<String> firstText = new ArrayList<>();
     private ArrayList<String> secondText = new ArrayList<>();
 
-    private ImageView save ;
+    private ImageView save;
     private ImageView saved;
 
     @Override
@@ -84,18 +85,18 @@ public class MovieDetails extends AppCompatActivity {
 
         //Get's data from last page
         Bundle extras = getIntent().getExtras();
-        movieID      = extras.getString("movieID");
-        moviePhoto   = extras.getString("moviePhoto");
+        movieID = extras.getString("movieID");
+        moviePhoto = extras.getString("moviePhoto");
 
         //Get's data from API
-        movieTitle   = DetailsAPI.name;
-        movieYear    = DetailsAPI.year;
-        Runingtime   = DetailsAPI.runningTimeInMinutes;
-        Type         = DetailsAPI.genresList;
-        FistText     = DetailsAPI.plotOutlineList.get(0);
-        SecondText   = DetailsAPI.plotOutlineList.get(1);
+        movieTitle = DetailsAPI.name;
+        movieYear = DetailsAPI.year;
+        Runingtime = DetailsAPI.runningTimeInMinutes;
+        Type = DetailsAPI.genresList;
+        FistText = DetailsAPI.plotOutlineList.get(0);
+        SecondText = DetailsAPI.plotOutlineList.get(1);
 
-        if(db.getIsLiteMode() == false)   setSuggestionDetails(movieID);
+        if (db.getIsLiteMode() == false) setSuggestionDetails(movieID);
 
         ImageView detailsThumbnail = (ImageView) findViewById(R.id.imageThumbnailinDetails);
         ImageView moreLikeThisPicture1 = (ImageView) findViewById(R.id.morelikethisimage1);
@@ -121,7 +122,7 @@ public class MovieDetails extends AppCompatActivity {
         secondText.setText(SecondText);
         secondText.setVisibility(View.INVISIBLE);
 
-        Log.d("currentID",movieID);
+        Log.d("currentID", movieID);
         intianalizeOldData();
 
         save.setOnClickListener(new View.OnClickListener() {
@@ -134,17 +135,22 @@ public class MovieDetails extends AppCompatActivity {
                         movieTitle + " is added to your list",
                         Toast.LENGTH_SHORT);
                 toast.show();
+
+                finish();
+                startActivity(getIntent());
             }
         });
         saved.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                SetMovieNotSaved();
-
+                SetMovieNotSaved();  //Set's icon unsaved
+                unSaveMovie();      //Unsaves movie
                 Toast toast = Toast.makeText(getApplicationContext(),
                         movieTitle + " is removed from your list",
                         Toast.LENGTH_SHORT);
                 toast.show();
+
+
             }
         });
 
@@ -159,12 +165,11 @@ public class MovieDetails extends AppCompatActivity {
         Picasso.get().load(moviePhoto).transform(new RoundedTransformation(25, 0)).fit().centerCrop(700).into(detailsThumbnail);
 
         // Don't show suggestions if lite mode is on
-        if(!db.getIsLiteMode()){
+        if (!db.getIsLiteMode()) {
             Picasso.get().load(SuggestionImg.get(0)).transform(new RoundedTransformation(50, 0)).into(moreLikeThisPicture1);
             Picasso.get().load(SuggestionImg.get(1)).transform(new RoundedTransformation(50, 0)).into(moreLikeThisPicture2);
             Picasso.get().load(SuggestionImg.get(2)).transform(new RoundedTransformation(50, 0)).into(moreLikeThisPicture3);
-        }
-        else{
+        } else {
             Products.setVisibility(View.GONE);
             moreLikeThisPicture1.setVisibility(View.GONE);
             moreLikeThisPicture2.setVisibility(View.GONE);
@@ -175,12 +180,13 @@ public class MovieDetails extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MovieDetails.this, ThumbnailFullScreen.class);
-                intent.putExtra("moviePhoto",moviePhoto);
+                intent.putExtra("moviePhoto", moviePhoto);
                 startActivity(intent);
             }
         });
 
     }
+
     private static void minutesToHours(int time) {
         int hour = 0;
 
@@ -192,19 +198,17 @@ public class MovieDetails extends AppCompatActivity {
         minutes = time;
     }
 
-    private void setSuggestionDetails(String movieID)
-    {
-        GetMoreLikeThisAPI.  getmorelikethiss("[\"/title/tt0167261/\",\"/title/tt0120737/\",\"/title/tt0468569/\",\"/title/tt0110912/\",\"/title/tt1375666/\",\"/title/tt0109830/\",\"/title/tt0080684/\",\"/title/tt0108052/\",\"/title/tt0137523/\",\"/title/tt0111161/\",\"/title/tt0068646/\",\"/title/tt0071562/\",\"/title/tt0076759/\",\"/title/tt0903624/\",\"/title/tt0172495/\"]");
+    private void setSuggestionDetails(String movieID) {
+        GetMoreLikeThisAPI.getmorelikethiss("[\"/title/tt0167261/\",\"/title/tt0120737/\",\"/title/tt0468569/\",\"/title/tt0110912/\",\"/title/tt1375666/\",\"/title/tt0109830/\",\"/title/tt0080684/\",\"/title/tt0108052/\",\"/title/tt0137523/\",\"/title/tt0111161/\",\"/title/tt0068646/\",\"/title/tt0071562/\",\"/title/tt0076759/\",\"/title/tt0903624/\",\"/title/tt0172495/\"]");
 
-        for(int i =0;i<3;i++){
+        for (int i = 0; i < 3; i++) {
             SearchAPI.autoCompleteAPI(GetMoreLikeThisAPI.morelikethis.get(0));
-            Log.d("more",  SearchAPI.movieImageUrl.get(i));
+            Log.d("more", SearchAPI.movieImageUrl.get(i));
             SuggestionImg.add(SearchAPI.movieImageUrl.get(i));
         }
     }
 
-    private void intianalizeOldData()
-    {
+    private void intianalizeOldData() {
         String TAG = "TAG";
 
         docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
@@ -216,30 +220,14 @@ public class MovieDetails extends AppCompatActivity {
                         Log.d(TAG, "DocumentSnapshot data: " + document.getData());
                         Log.d(TAG, "DocumentSnapshot data: " + document.get("id"));
 
-                        // Mapping data
-                        mapid          = (List<Map<String, ArrayList>>) document.get("id");
-                        mapimg         = (List<Map<String, ArrayList>>) document.get("img");
-                        maptitle       = (List<Map<String, ArrayList>>) document.get("title");
-                        maptype        = (List<Map<String, ArrayList>>) document.get("type");
-                        mapyear        = (List<Map<String, ArrayList>>) document.get("year");
-                        mapfirstText   = (List<Map<String, ArrayList>>) document.get("firstText");
-                        mapsecondText  = (List<Map<String, ArrayList>>) document.get("secondText");
-                        mapduration    = (List<Map<String, ArrayList>>) document.get("duration");
-
-
-
-                        for (int i =0 ; i <mapid.size();i++)
-                        {
-
-                            Log.d("mapData ", "" + mapid        .get(i));
-                            Log.d("mapData ", "" + mapimg       .get(i));
-                            Log.d("mapData ", "" + maptitle     .get(i));
-                            Log.d("mapData ", "" + maptype      .get(i));
-                            Log.d("mapData ", "" + mapyear      .get(i));
-                            Log.d("mapData ", "" + mapfirstText .get(i));
-                            Log.d("mapData ", "" + mapsecondText.get(i));
-                            Log.d("mapData ", "" + mapduration  .get(i));
-                        }
+                        mapid = (List<Map<String, ArrayList>>) document.get("id");
+                        mapimg = (List<Map<String, ArrayList>>) document.get("img");
+                        maptitle = (List<Map<String, ArrayList>>) document.get("title");
+                        maptype = (List<Map<String, ArrayList>>) document.get("type");
+                        mapyear = (List<Map<String, ArrayList>>) document.get("year");
+                        mapfirstText = (List<Map<String, ArrayList>>) document.get("firstText");
+                        mapsecondText = (List<Map<String, ArrayList>>) document.get("secondText");
+                        mapduration = (List<Map<String, ArrayList>>) document.get("duration");
 
                         isMovieSaved(mapid.size());
                         Log.d("IDSIZE", "" + mapid.size());
@@ -255,117 +243,166 @@ public class MovieDetails extends AppCompatActivity {
         });
     }
 
-    private void saveMovie(){
+    private void saveMovie() {
 
         // addd new array list to the old one
 
-        if(mapid != null) // User has previously saved data
+        if (mapid != null) // User has previously saved data
         {
-        for (int i=0;i< mapid.size();i++)
-        {
+            for (int i = 0; i < mapid.size(); i++) {
 
-            if(!String.valueOf(mapid.get(i)).equals(movieID)) {   // to prevent saving the same data
+                Log.d("mapsize", String.valueOf(mapid.size()));
+                if (!String.valueOf(mapid.get(i)).equals(movieID)) {   // to prevent saving the same data
 
-                id          .add(String.valueOf(mapid.get(i) )         );
-                img         .add(String.valueOf(mapimg.get(i))         );
-                title       .add(String.valueOf(maptitle.get(i))       );
-                year        .add(String.valueOf(mapyear.get(i))        );
-                duration    .add(String.valueOf(mapduration.get(i))    );
-                type        .add(String.valueOf(maptype.get(i))        );
-                firstText   .add(String.valueOf(mapfirstText.get(i))   );
-                secondText  .add(String.valueOf(mapsecondText.get(i))  );
+                    id.add(String.valueOf(mapid.get(i)));
+                    img.add(String.valueOf(mapimg.get(i)));
+                    title.add(String.valueOf(maptitle.get(i)));
+                    year.add(String.valueOf(mapyear.get(i)));
+                    duration.add(String.valueOf(mapduration.get(i)));
+                    type.add(String.valueOf(maptype.get(i)));
+                    firstText.add(String.valueOf(mapfirstText.get(i)));
+                    secondText.add(String.valueOf(mapsecondText.get(i)));
+                }
             }
+
+
+            //adding this data to top of existing data
+
+            id.add(movieID);
+            img.add(moviePhoto);
+            title.add(movieTitle);
+            year.add(movieYear);
+            duration.add(Runingtime);
+            type.add(Type);
+            firstText.add(FistText);
+            secondText.add(SecondText);
+
+
+            //add the arraylist to FireStore
+
+            Map<String, List<String>> favouriteMovie = new HashMap<>();
+            favouriteMovie.put("id", id);
+            favouriteMovie.put("img", img);
+            favouriteMovie.put("title", title);
+            favouriteMovie.put("year", year);
+            favouriteMovie.put("duration", duration);
+            favouriteMovie.put("type", type);
+            favouriteMovie.put("firstText", firstText);
+            favouriteMovie.put("secondText", secondText);
+
+            Firedb.collection("MovieLists")
+                    .document(user.getUid())
+                    .set(favouriteMovie);
+
+
+        } else { // User does not have previously saved data
+            SetMovieSaved();
+
+            id.add(movieID);
+            img.add(moviePhoto);
+            title.add(movieTitle);
+            year.add(movieYear);
+            duration.add(Runingtime);
+            type.add(Type);
+            firstText.add(FistText);
+            secondText.add(SecondText);
+
+            //add the arraylist to FireStore
+
+            Map<String, List<String>> favouriteMovie = new HashMap<>();
+            favouriteMovie.put("id", id);
+            favouriteMovie.put("img", img);
+            favouriteMovie.put("title", title);
+            favouriteMovie.put("year", year);
+            favouriteMovie.put("duration", duration);
+            favouriteMovie.put("type", type);
+            favouriteMovie.put("firstText", firstText);
+            favouriteMovie.put("secondText", secondText);
+
+            Firedb.collection("MovieLists").document(user.getUid())
+                    .set(favouriteMovie);
+
+
+        }
+    }
+
+    private void unSaveMovie() {
+
+        // addd new array list to the old one
+
+
+
+
+
+        if (mapid != null) // User has previously saved data
+        {
+            for (int i = 0; i < mapid.size(); i++) {
+
+                if (!String.valueOf(mapid.get(i)).equals(movieID)) {   // to prevent saving the same data
+
+                    id.add(String.valueOf(mapid.get(i)));
+                    img.add(String.valueOf(mapimg.get(i)));
+                    title.add(String.valueOf(maptitle.get(i)));
+                    year.add(String.valueOf(mapyear.get(i)));
+                    duration.add(String.valueOf(mapduration.get(i)));
+                    type.add(String.valueOf(maptype.get(i)));
+                    firstText.add(String.valueOf(mapfirstText.get(i)));
+                    secondText.add(String.valueOf(mapsecondText.get(i)));
+                }
+            }
+
+            Log.d("ArrayList",id.toString());
+            Log.d("idStatus", String.valueOf(id));
+
+            Map<String, Object> data = new HashMap<>();
+
+            data.put("id", id);
+            data.put("img", img);
+            data.put("title", title);
+            data.put("year", year);
+            data.put("duration", duration);
+            data.put("type", type);
+            data.put("firstText", firstText);
+            data.put("secondText", secondText);
+
+            Firedb.collection("MovieLists")
+                    .document(user.getUid())
+                    .set(data, SetOptions.merge());
+
+
+
+
         }
 
 
-        //adding this data to top of existing data
 
-        id          .add( movieID);
-        img         .add( moviePhoto);
-        title       .add( movieTitle);
-        year        .add( movieYear);
-        duration    .add(Runingtime);
-        type        .add( Type);
-        firstText   .add( FistText);
-        secondText  .add( SecondText);
-
-
-        //add the arraylist to FireStore
-
-        Map<String, List<String>> favouriteMovie = new HashMap<>();
-        favouriteMovie.put("id", id);
-        favouriteMovie.put("img", img);
-        favouriteMovie.put("title", title);
-        favouriteMovie.put("year", year);
-        favouriteMovie.put("duration", duration);
-        favouriteMovie.put("type", type);
-        favouriteMovie.put("firstText", firstText);
-        favouriteMovie.put("secondText", secondText);
-
-        Firedb.collection("MovieLists")
-                .document(user.getUid())
-                .set(favouriteMovie);
-
-
-
-}
-else { // User does not have previously saved data
-    SetMovieSaved();
-
-    id          .add( movieID );
-    img         .add( moviePhoto );
-    title       .add( movieTitle );
-    year        .add( movieYear );
-    duration    .add( Runingtime );
-    type        .add( Type );
-    firstText   .add( FistText );
-    secondText  .add( SecondText );
-
-    //add the arraylist to FireStore
-
-    Map<String, List<String>> favouriteMovie = new HashMap<>();
-    favouriteMovie.put("id", id);
-    favouriteMovie.put("img", img);
-    favouriteMovie.put("title", title);
-    favouriteMovie.put("year", year);
-    favouriteMovie.put("duration", duration);
-    favouriteMovie.put("type", type);
-    favouriteMovie.put("firstText", firstText);
-    favouriteMovie.put("secondText", secondText);
-
-    Firedb.collection("MovieLists").document(user.getUid())
-            .set(favouriteMovie);
-
-
-}
     }
 
-    private void isMovieSaved(int size){
+    private void isMovieSaved(int size) {
 
 
         SetMovieNotSaved();
 
-        for (int i=0;i< size;i++)
-        {
+        for (int i = 0; i < size; i++) {
 
-            if(String.valueOf(mapid.get(i)).equals(movieID)) {
-                Log.d("ismoviesaved","movie is saved");
+            if (String.valueOf(mapid.get(i)).equals(movieID)) {
+                Log.d("ismoviesaved", "movie is saved");
                 SetMovieSaved();
             }
 
-        }}
-
-
-        private void SetMovieSaved(){
-            saved.setVisibility(View.VISIBLE);
-            save.setVisibility(View.GONE);
         }
-
-        private void SetMovieNotSaved(){
-            save.setVisibility(View.VISIBLE);
-            saved.setVisibility(View.GONE);
-        }
-
-
     }
 
+
+    private void SetMovieSaved() {
+        saved.setVisibility(View.VISIBLE);
+        save.setVisibility(View.GONE);
+    }
+
+    private void SetMovieNotSaved() {
+        save.setVisibility(View.VISIBLE);
+        saved.setVisibility(View.GONE);
+    }
+
+
+}

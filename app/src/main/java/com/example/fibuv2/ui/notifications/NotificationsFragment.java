@@ -1,6 +1,7 @@
 package com.example.fibuv2.ui.notifications;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
@@ -44,31 +45,34 @@ public class NotificationsFragment extends Fragment {
         final TextView email = root.findViewById(R.id.text_email);
         final TextView reset = root.findViewById(R.id.change_password);
         final TextView logout = root.findViewById(R.id.logout);
+        final TextView liemodeText = root.findViewById(R.id.text_litemode);
         final Switch litemode = root.findViewById(R.id.switch1);
-
 
 
         email.setText(Objects.requireNonNull(mAuth.getCurrentUser()).getEmail());
         username.setText(MainLoggedIn.getUsername());
 
-        
+
         //Get's lite mode status and set's the switch widget according to that
         DatabaseHandler sqldb = new DatabaseHandler(getContext());
 
-        if(sqldb.getIsLiteMode()) litemode.setChecked(true);
-        else litemode.setChecked(false);
+        if (sqldb.getIsLiteMode())  //check if lite mode is on
+        {
+            litemode.setChecked(true);
+            liemodeText.setTextColor(Color.parseColor("#00B612"));
+        } else litemode.setChecked(false);
 
         Log.d("litemode", String.valueOf(sqldb.getIsLiteMode()));
         litemode.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(sqldb.getIsLiteMode()) // if the lite mode is on
+                if (sqldb.getIsLiteMode()) // if the lite mode is on
                 {
                     sqldb.setLiteModeOff(); //set it off
-                }
-                else
-                {
+                    liemodeText.setTextColor(Color.parseColor("#66000000"));
+                } else {
                     sqldb.setLiteModeOn(); // set it on
+                    liemodeText.setTextColor(Color.parseColor("#00B612"));
                 }
 
             }
@@ -82,30 +86,23 @@ public class NotificationsFragment extends Fragment {
                 DatabaseHandler db = new DatabaseHandler(getContext());
                 db.setLoginFalse(); // sign in with sqlite
 
-                Intent intent = new Intent(getActivity(),LoginActivity.class);
+                Intent intent = new Intent(getActivity(), LoginActivity.class);
                 startActivity(intent);
             }
         });
-
 
 
         reset.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getActivity(),ResetPassword.class);
+                Intent intent = new Intent(getActivity(), ResetPassword.class);
                 startActivity(intent);
             }
         });
 
 
-
-
-
-
-
         return root;
     }
-
 
 
 }

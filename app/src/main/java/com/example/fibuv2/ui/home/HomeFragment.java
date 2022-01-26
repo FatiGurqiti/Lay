@@ -67,8 +67,8 @@ public class HomeFragment extends Fragment {
     private ArrayList<String> firstText = new ArrayList<>();
     private ArrayList<String> secondText = new ArrayList<>();
 
-    private ArrayList <String> arrayList = new ArrayList<>();
-    private ArrayList <String> localarrayList = new ArrayList<>();
+    private ArrayList<String> arrayList = new ArrayList<>();
+    private ArrayList<String> localarrayList = new ArrayList<>();
 
     private CardView pop;
     private CardView popafter;
@@ -84,9 +84,13 @@ public class HomeFragment extends Fragment {
     private String currentname;
     private String currentimg;
 
+
+    private IsMovieSaved localSeenStatus = new IsMovieSaved();
+
     @RequiresApi(api = Build.VERSION_CODES.O)
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
+        getSeenMovies();
         homeViewModel =
                 new ViewModelProvider(this).get(HomeViewModel.class);
         View root = inflater.inflate(R.layout.fragment_home, container, false);
@@ -107,13 +111,14 @@ public class HomeFragment extends Fragment {
         WelcomeText.setText(" \t Welcome " + MainLoggedIn.getUsername() + ", here's your favourite list");
 
 
-
-
-
         String TAG = "HomeDataStatus";
         FirebaseFirestore Firedb = FirebaseFirestore.getInstance();
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         DocumentReference docRef = Firedb.collection("MovieLists").document(user.getUid());
+
+
+
+
         docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
@@ -137,6 +142,10 @@ public class HomeFragment extends Fragment {
 
                             // There are results
 
+
+                            Log.d("GetSeenMoviesFirebaseStatusOnStart", String.valueOf(localSeenStatus.getSeenMovies()));
+                            Log.d("GetSeenMoviesFirebaseStatusOnStart1", String.valueOf(localarrayList));
+
                             RelativeLayout layout = (RelativeLayout) root.findViewById(R.id.Scroll_Relative);
                             for (int i = 0; i < limit; i++) {
 
@@ -152,8 +161,6 @@ public class HomeFragment extends Fragment {
                                         .transform(new RoundedTransformation(50, 0)).fit().centerCrop(700).into(image);
                                 layout.addView(image);
                                 Search.setMargins(image, 25, (int) (i * (sizeheight) * .75), 25, 1);
-
-
 
 
                                 ImageView filter = new ImageView(getContext());
@@ -212,7 +219,6 @@ public class HomeFragment extends Fragment {
                                 seenText.setPadding(25, (int) (sizewidth * .5), 50, 0);
 
 
-
                                 seenicon.setOnClickListener(new View.OnClickListener() {
                                     @Override
                                     public void onClick(View v) {
@@ -246,15 +252,14 @@ public class HomeFragment extends Fragment {
                                 });
 
 
-
                                 likeButton.setOnClickListener(new View.OnClickListener() {
                                     @Override
                                     public void onClick(View v) {
 
 
                                         Log.d("CurrentIDStatus", currentid);
-                                         like(currentid, currentname, currentimg, true);
-                                         addSeenMovies(currentid);
+                                        like(currentid, currentname, currentimg, true);
+                                        addSeenMovies(currentid);
 
                                     }
                                 });
@@ -309,9 +314,9 @@ public class HomeFragment extends Fragment {
                         Log.d(TAG, "DocumentSnapshot data: " + document.getData());
                         int rate = document.getLong("rate").intValue();
 
-                        if (like) docRef.update("rate", rate+1);
+                        if (like) docRef.update("rate", rate + 1);
                         else {
-                            if (rate > 1) docRef.update("rate", rate-1);
+                            if (rate > 1) docRef.update("rate", rate - 1);
                         }
 
                     } else {
@@ -393,8 +398,7 @@ public class HomeFragment extends Fragment {
         );
     }
 
-    private void getSeenMovies()
-    {
+    private void getSeenMovies() {
 
         String TAG = "GetSeenMoviesFirebaseStatus";
         FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -411,6 +415,8 @@ public class HomeFragment extends Fragment {
                         Log.d(TAG, "DocumentSnapshot data: " + document.getData());
                         localarrayList = (ArrayList<String>) document.get("id");
                         Log.d(TAG, "SeenMoviesInLoop: " + localarrayList);
+                        localSeenStatus.setSeenMovies(localarrayList);
+                        Log.d("GetSeenMoviesFirebaseStatusOnLoop", String.valueOf(localSeenStatus.getSeenMovies()));
 
 
                     } else {
@@ -423,8 +429,7 @@ public class HomeFragment extends Fragment {
         });
     }
 
-    private void addSeenMovies(String id)
-    {
+    private void addSeenMovies(String id) {
 
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
@@ -460,26 +465,20 @@ public class HomeFragment extends Fragment {
                     Log.d(TAG, "get failed with ", task.getException());
                 }
 
-
                 Log.d(TAG, "ListOut" + arrayList);
-                if(arrayList.size() > 0)
-                {
-                    for(int i =0; i< arrayList.size();i++)
-                    {
+                if (arrayList.size() > 0) {
+                    for (int i = 0; i < arrayList.size(); i++) {
                         Log.d(TAG, "ListInLoop " + arrayList.get(i));
                         Log.d(TAG, "IDInLoop " + id);
-                        if(!arrayList.get(i).equals(id)  )
-                        {
+                        if (!arrayList.get(i).equals(id)) {
                             arrayList.add(id);
-                        }
-                        else{
+                        } else {
 
                         }
                         //Removes duplicated data
-                        if(i+1 < arrayList.size()){
-                            if(arrayList.get(i).equals(arrayList.get(i+1)))
-                            {
-                                arrayList.remove(i+1);
+                        if (i + 1 < arrayList.size()) {
+                            if (arrayList.get(i).equals(arrayList.get(i + 1))) {
+                                arrayList.remove(i + 1);
                             }
                         }
                     }
@@ -494,12 +493,8 @@ public class HomeFragment extends Fragment {
                 }
 
 
-
             }
         });
-
-
-
 
 
     }

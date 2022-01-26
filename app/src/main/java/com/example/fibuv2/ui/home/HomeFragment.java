@@ -44,6 +44,7 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firebase.firestore.SetOptions;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -65,6 +66,9 @@ public class HomeFragment extends Fragment {
     private ArrayList<String> type = new ArrayList<>();
     private ArrayList<String> firstText = new ArrayList<>();
     private ArrayList<String> secondText = new ArrayList<>();
+
+    private ArrayList <String> arrayList = new ArrayList<>();
+    private ArrayList <String> localarrayList = new ArrayList<>();
 
     private CardView pop;
     private CardView popafter;
@@ -102,6 +106,10 @@ public class HomeFragment extends Fragment {
         TextView WelcomeText = (TextView) root.findViewById(R.id.welcomeText);
         WelcomeText.setText(" \t Welcome " + MainLoggedIn.getUsername() + ", here's your favourite list");
 
+
+
+
+
         String TAG = "HomeDataStatus";
         FirebaseFirestore Firedb = FirebaseFirestore.getInstance();
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
@@ -131,8 +139,11 @@ public class HomeFragment extends Fragment {
 
                             RelativeLayout layout = (RelativeLayout) root.findViewById(R.id.Scroll_Relative);
                             for (int i = 0; i < limit; i++) {
+
                                 int sizeheight = (int) (getScreenHeight(getContext()) * 0.5);
                                 int sizewidth = (int) (getScreenWidth(getContext()));
+
+                                int finalI = i;
 
 
                                 ImageView image = new ImageView(getContext());
@@ -143,8 +154,30 @@ public class HomeFragment extends Fragment {
                                 Search.setMargins(image, 25, (int) (i * (sizeheight) * .75), 25, 1);
 
 
-                                int finalI = i;
-                                image.setOnClickListener(new View.OnClickListener() {
+
+
+                                ImageView filter = new ImageView(getContext());
+                                filter.setLayoutParams(new ViewGroup.LayoutParams(1400, (int) ((int) (sizeheight) * .6)));
+                                Picasso.get().load(R.drawable.black_filer_resource).transform(new RoundedTransformation(50, 0)).fit().centerCrop(700).into(filter);
+                                filter.bringToFront();
+                                layout.addView(filter);
+                                Search.setMargins(filter, 25, (int) (i * (sizeheight) * .75), 25, 1);
+
+
+                                TextView titleText = new TextView(getContext());
+                                titleText.setText(title.get(i) + " " + id.get(finalI));
+                                titleText.setTypeface(boldface);
+                                titleText.setTextColor(Color.WHITE);
+                                titleText.setPadding(25, 250, 25, 0);
+                                titleText.setTextSize(22);
+                                titleText.bringToFront();
+                                titleText.setTranslationZ(1);
+                                layout.addView(titleText);
+                                Search.setMargins(titleText, 25, (int) (i * (sizeheight) * .75), 25, 1);
+                                titleText.setPadding(25, (int) (sizewidth * .2), 50, 0);
+
+
+                                titleText.setOnClickListener(new View.OnClickListener() {
                                     @Override
                                     public void onClick(View v) {
                                         openMovieDetail(
@@ -158,25 +191,6 @@ public class HomeFragment extends Fragment {
                                                 duration.get(finalI));
                                     }
                                 });
-
-                                ImageView filter = new ImageView(getContext());
-                                filter.setLayoutParams(new ViewGroup.LayoutParams(1400, (int) ((int) (sizeheight) * .6)));
-                                Picasso.get().load(R.drawable.black_filer_resource).transform(new RoundedTransformation(50, 0)).fit().centerCrop(700).into(filter);
-                                filter.bringToFront();
-                                layout.addView(filter);
-                                Search.setMargins(filter, 25, (int) (i * (sizeheight) * .75), 25, 1);
-
-
-                                TextView titleText = new TextView(getContext());
-                                titleText.setText(title.get(i));
-                                titleText.setTypeface(boldface);
-                                titleText.setTextColor(Color.WHITE);
-                                titleText.setPadding(25, 250, 25, 0);
-                                titleText.setTextSize(22);
-                                titleText.bringToFront();
-                                layout.addView(titleText);
-                                Search.setMargins(titleText, 25, (int) (i * (sizeheight) * .75), 25, 1);
-                                titleText.setPadding(25, (int) (sizewidth * .2), 50, 0);
 
                                 ImageView seenicon = new ImageView(getContext());
                                 Picasso.get().load(R.drawable.seen).into(seenicon);
@@ -212,7 +226,6 @@ public class HomeFragment extends Fragment {
                                         seenText.setText("Seen");
                                         seenText.setEnabled(false);
 
-
                                     }
                                 });
 
@@ -220,6 +233,7 @@ public class HomeFragment extends Fragment {
                                     @Override
                                     public void onClick(View v) {
                                         setmovieSeen();
+
                                         currentid = id.get(finalI);
                                         currentname = title.get(finalI);
                                         currentimg = img.get(finalI);
@@ -231,10 +245,16 @@ public class HomeFragment extends Fragment {
                                     }
                                 });
 
+
+
                                 likeButton.setOnClickListener(new View.OnClickListener() {
                                     @Override
                                     public void onClick(View v) {
+
+
+                                        Log.d("CurrentIDStatus", currentid);
                                          like(currentid, currentname, currentimg, true);
+                                         addSeenMovies(currentid);
 
                                     }
                                 });
@@ -242,8 +262,12 @@ public class HomeFragment extends Fragment {
                                 dislikeButton.setOnClickListener(new View.OnClickListener() {
                                     @Override
                                     public void onClick(View v) {
+
                                         like(currentid, currentname, currentimg, false);
+                                        addSeenMovies(currentid);
+
                                     }
+
                                 });
 
                             }
@@ -367,6 +391,117 @@ public class HomeFragment extends Fragment {
                        }
                 , 1000
         );
+    }
+
+    private void getSeenMovies()
+    {
+
+        String TAG = "GetSeenMoviesFirebaseStatus";
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+
+        DocumentReference docRef = db.collection("SeenMovies").document(user.getUid());
+        docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+
+                if (task.isSuccessful()) {
+                    DocumentSnapshot document = task.getResult();
+                    if (document.exists()) {
+                        Log.d(TAG, "DocumentSnapshot data: " + document.getData());
+                        localarrayList = (ArrayList<String>) document.get("id");
+                        Log.d(TAG, "SeenMoviesInLoop: " + localarrayList);
+
+
+                    } else {
+                        Log.d(TAG, "No such document");
+                    }
+                } else {
+                    Log.d(TAG, "get failed with ", task.getException());
+                }
+            }
+        });
+    }
+
+    private void addSeenMovies(String id)
+    {
+
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+
+        String TAG = "SeenMoviesFirebaseStatus";
+        DocumentReference docRef = db.collection("SeenMovies").document(user.getUid());
+
+        //Get previous data
+        docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+
+                if (task.isSuccessful()) {
+                    DocumentSnapshot document = task.getResult();
+                    if (document.exists()) {
+                        Log.d(TAG, "DocumentSnapshot data: " + document.getData());
+                        arrayList = (ArrayList<String>) document.get("id");
+
+                    } else {
+                        Log.d(TAG, "No such document");
+
+                        arrayList.add(id);
+                        Log.d(TAG, "ArrayInFirstSave" + arrayList);
+
+                        Map<String, ArrayList> seenMovie = new HashMap<>();
+                        seenMovie.put("id", arrayList);
+
+                        db.collection("SeenMovies")
+                                .document(user.getUid())
+                                .set(seenMovie);
+                    }
+                } else {
+                    Log.d(TAG, "get failed with ", task.getException());
+                }
+
+
+                Log.d(TAG, "ListOut" + arrayList);
+                if(arrayList.size() > 0)
+                {
+                    for(int i =0; i< arrayList.size();i++)
+                    {
+                        Log.d(TAG, "ListInLoop " + arrayList.get(i));
+                        Log.d(TAG, "IDInLoop " + id);
+                        if(!arrayList.get(i).equals(id)  )
+                        {
+                            arrayList.add(id);
+                        }
+                        else{
+
+                        }
+                        //Removes duplicated data
+                        if(i+1 < arrayList.size()){
+                            if(arrayList.get(i).equals(arrayList.get(i+1)))
+                            {
+                                arrayList.remove(i+1);
+                            }
+                        }
+                    }
+
+                    Log.d(TAG, "ListOut2" + arrayList);
+                    Map<String, ArrayList> data = new HashMap<>();
+                    data.put("id", arrayList);
+
+                    db.collection("SeenMovies").document(user.getUid())
+                            .set(data, SetOptions.merge());
+
+                }
+
+
+
+            }
+        });
+
+
+
+
+
     }
 
 }

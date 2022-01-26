@@ -76,6 +76,8 @@ public class MovieDetails extends AppCompatActivity {
     private ImageView save;
     private ImageView saved;
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -90,6 +92,7 @@ public class MovieDetails extends AppCompatActivity {
         movieID = extras.getString("MovieID");
         moviePhoto = extras.getString("MoviePhoto");
         boolean isSaved = extras.getBoolean("IsSaved");
+        boolean shouldUnsave = extras.getBoolean("ShouldUnSave");
 
         if(isSaved){ //if movie is already saved get data from FireBase
 
@@ -109,6 +112,8 @@ public class MovieDetails extends AppCompatActivity {
         FistText = DetailsAPI.plotOutlineList.get(0);
         SecondText = DetailsAPI.plotOutlineList.get(1);
         }
+
+
 
         if (db.getIsLiteMode() == false) setSuggestionDetails(movieID);
 
@@ -136,8 +141,20 @@ public class MovieDetails extends AppCompatActivity {
         secondText.setText(SecondText);
         secondText.setVisibility(View.INVISIBLE);
 
+
+
+
         Log.d("currentID", movieID);
         intianalizeOldData();
+
+        Log.d("Unsave", String.valueOf(shouldUnsave));
+        if(shouldUnsave) {
+
+            SetMovieNotSaved();  //Set's icon unsaved
+            //  unSaveMovie();      //Unsaves movie
+        }
+
+
 
         save.setOnClickListener(new View.OnClickListener() {
             @Override

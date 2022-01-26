@@ -76,6 +76,10 @@ public class HomeFragment extends Fragment {
     private TextView NoFavouriteText;
     private TextView FirstReference;
 
+    private String currentid;
+    private String currentname;
+    private String currentimg;
+
     @RequiresApi(api = Build.VERSION_CODES.O)
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -193,10 +197,22 @@ public class HomeFragment extends Fragment {
                                 Search.setMargins(seenText, (int) ((sizewidth) * .4), (int) (i * (sizeheight) * .75), 25, 1);
                                 seenText.setPadding(25, (int) (sizewidth * .5), 50, 0);
 
+
+
                                 seenicon.setOnClickListener(new View.OnClickListener() {
                                     @Override
                                     public void onClick(View v) {
                                         setmovieSeen();
+                                        currentid = id.get(finalI);
+                                        currentname = title.get(finalI);
+                                        currentimg = img.get(finalI);
+
+                                        Picasso.get().load(R.drawable.check).into(seenicon);
+                                        seenicon.setEnabled(false);
+                                        seenText.setText("Seen");
+                                        seenText.setEnabled(false);
+
+
                                     }
                                 });
 
@@ -204,21 +220,29 @@ public class HomeFragment extends Fragment {
                                     @Override
                                     public void onClick(View v) {
                                         setmovieSeen();
+                                        currentid = id.get(finalI);
+                                        currentname = title.get(finalI);
+                                        currentimg = img.get(finalI);
+
+                                        Picasso.get().load(R.drawable.check).into(seenicon);
+                                        seenicon.setEnabled(false);
+                                        seenText.setText("Seen");
+                                        seenText.setEnabled(false);
                                     }
                                 });
 
-                                int finalI1 = i;
                                 likeButton.setOnClickListener(new View.OnClickListener() {
                                     @Override
                                     public void onClick(View v) {
-                                        like(id.get(finalI1), title.get(finalI1), img.get(finalI1), true);
+                                         like(currentid, currentname, currentimg, true);
+
                                     }
                                 });
 
                                 dislikeButton.setOnClickListener(new View.OnClickListener() {
                                     @Override
                                     public void onClick(View v) {
-                                        like(id.get(finalI1), title.get(finalI1), img.get(finalI1), false);
+                                        like(currentid, currentname, currentimg, false);
                                     }
                                 });
 

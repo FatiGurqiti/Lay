@@ -168,7 +168,9 @@ public class MovieDetails extends AppCompatActivity {
                 toast.show();
 
                 finish();
+                overridePendingTransition(0, 0);
                 startActivity(getIntent());
+                overridePendingTransition(0, 0);
             }
         });
         saved.setOnClickListener(new View.OnClickListener() {

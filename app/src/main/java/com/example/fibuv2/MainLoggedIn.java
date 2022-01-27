@@ -38,13 +38,6 @@ public class MainLoggedIn extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_logged_in);
-
-        if(MainLoggedIn.getUsername() == null) {
-            finish();
-            overridePendingTransition(0, 0);
-            startActivity(getIntent());
-            overridePendingTransition(0, 0);
-        }
         usernameQuery();
 
         BottomNavigationView navView = findViewById(R.id.nav_view);

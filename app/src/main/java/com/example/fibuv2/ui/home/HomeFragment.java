@@ -106,7 +106,11 @@ public class HomeFragment extends Fragment {
 
         TextView WelcomeText = (TextView) root.findViewById(R.id.welcomeText);
 
-        WelcomeText.setText(" \t Welcome " + MainLoggedIn.getUsername() + ", here's your favourite list");
+        if(MainLoggedIn.getUsername() == null)
+            WelcomeText.setText(" \t Welcome, here's your favourite list");
+        else
+            WelcomeText.setText(" \t Hi " + MainLoggedIn.getUsername() + ", here's your favourite list");
+
 
 
         String TAG = "HomeDataStatus";

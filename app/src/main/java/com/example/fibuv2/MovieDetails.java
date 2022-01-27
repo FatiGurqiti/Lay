@@ -15,6 +15,7 @@ import android.widget.Toast;
 
 import com.example.fibuv2.api.DetailsAPI;
 import com.example.fibuv2.api.GetMoreLikeThisAPI;
+import com.example.fibuv2.api.RateAPI;
 import com.example.fibuv2.api.SearchAPI;
 import com.example.fibuv2.database.DatabaseHandler;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -117,7 +118,12 @@ public class MovieDetails extends AppCompatActivity {
         }
 
 
-        if (db.getIsLiteMode() == false) setSuggestionDetails(movieID);
+        if (db.getIsLiteMode() == false)
+        {
+            //Lite mode is off
+            setSuggestionDetails(movieID);
+            RateAPI.rate(movieID);
+        }
 
         ImageView detailsThumbnail = (ImageView) findViewById(R.id.imageThumbnailinDetails);
         ImageView moreLikeThisPicture1 = (ImageView) findViewById(R.id.morelikethisimage1);
@@ -147,7 +153,8 @@ public class MovieDetails extends AppCompatActivity {
         secondText.setVisibility(View.INVISIBLE);
 
 
-        Log.d("currentID", movieID);
+        rateText.setText(RateAPI.contentRate);
+        if(Type.isEmpty() && !db.getIsLiteMode()) type.setText(RateAPI.contentType); //If SearchAPI doesn't contain the type, get it from RateAPI
         intianalizeOldData();
 
         Log.d("Unsave", String.valueOf(shouldUnsave));

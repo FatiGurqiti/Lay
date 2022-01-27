@@ -17,6 +17,17 @@
         android:elevation="1dp"
         />
 
+    <ProgressBar
+        android:id="@+id/progressbarinMyList"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginLeft="150dp"
+        android:layout_marginTop="400dp"
+        android:elevation="1dp"
+        android:translationZ="1dp"
+        android:visibility="invisible" />
+
+
 
     <TextView
         android:id="@+id/noFavouriteText"

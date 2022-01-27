@@ -38,7 +38,12 @@ public class MovieDetails extends AppCompatActivity {
 
     private static int hours;
     private static int minutes;
-    private ArrayList<String> SuggestionImg = new ArrayList<>();
+    private String SuggestionImg;
+    private String SuggestionTitle;
+
+    private TextView SuggestionTitleText;
+    private TextView  rateText;
+    private ImageView rateStar;
 
     private DatabaseHandler db = new DatabaseHandler(MovieDetails.this);
 
@@ -77,13 +82,10 @@ public class MovieDetails extends AppCompatActivity {
     private ImageView saved;
 
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_movie_details2);
-
-        DetailsAPI.getDetails("{\"id\":\"/title/tt0167261/\",\"title\":{\"@type\":\"imdb.api.title.title\",\"id\":\"/title/tt0167261/\",\"image\":{\"height\":1500,\"id\":\"/title/tt0167261/images/rm306845440\",\"url\":\"https://m.media-amazon.com/images/M/MV5BZGMxZTdjZmYtMmE2Ni00ZTdkLWI5NTgtNjlmMjBiNzU2MmI5XkEyXkFqcGdeQXVyNjU0OTQ0OTY@._V1_.jpg\",\"width\":964},\"runningTimeInMinutes\":179,\"title\":\"The Lord of the Rings: The Two Towers\",\"titleType\":\"movie\",\"year\":2002},\"certificates\":{\"US\":[{\"attributes\":[\"Preview Short\"],\"certificate\":\"PG\",\"certificateNumber\":38927,\"ratingsBody\":\"MPAA\",\"country\":\"US\"}]},\"ratings\":{\"canRate\":true,\"rating\":8.7,\"ratingCount\":1571278,\"topRank\":14},\"genres\":[\"Action\",\"Adventure\",\"Drama\",\"Fantasy\"],\"releaseDate\":\"2002-12-18\",\"plotOutline\":{\"id\":\"/title/tt0167261/plot/po0952965\",\"text\":\"While Frodo and Sam edge closer to Mordor with the help of the shifty Gollum, the divided fellowship makes a stand against Sauron's new ally, Saruman, and his hordes of Isengard.\"},\"plotSummary\":{\"author\":\"Jwelch5742\",\"id\":\"/title/tt0167261/plot/ps2971820\",\"text\":\"The continuing quest of Frodo and the Fellowship to destroy the One Ring. Frodo and Sam discover they are being followed by the mysterious Gollum. Aragorn, the Elf archer Legolas, and Gimli the Dwarf encounter the besieged Rohan kingdom, whose once great King Theoden has fallen under Saruman's deadly spell.\"}}");
 
 
         //Get's data from last page
@@ -94,35 +96,38 @@ public class MovieDetails extends AppCompatActivity {
         boolean isSaved = extras.getBoolean("IsSaved");
         boolean shouldUnsave = extras.getBoolean("ShouldUnSave");
 
-        if(isSaved){ //if movie is already saved get data from FireBase
+        DetailsAPI.getDetails(movieID);
 
-         movieTitle = extras.getString("MovieTitle");
-         movieYear =  extras.getString("MovieYear");
-         Runingtime =  extras.getString("MovieDuration");
-         Type =  extras.getString("MovieType");
-         FistText =  extras.getString("MovieFirstText");
-         SecondText = extras.getString("MovieSecondText");
+        if (isSaved) { //if movie is already saved get data from FireBase
 
+            movieTitle = extras.getString("MovieTitle");
+            movieYear = extras.getString("MovieYear");
+            Runingtime = extras.getString("MovieDuration");
+            Type = extras.getString("MovieType");
+            FistText = extras.getString("MovieFirstText");
+            SecondText = extras.getString("MovieSecondText");
+
+        } else { //If movie isn't saved get data from API
+            movieTitle = DetailsAPI.name;
+            movieYear = DetailsAPI.year;
+            Runingtime = DetailsAPI.runningTimeInMinutes;
+            Type = DetailsAPI.genresList;
+            FistText = DetailsAPI.plotOutlineList.get(0);
+            SecondText = DetailsAPI.plotOutlineList.get(1);
         }
-        else{ //If movie isn't saved get data from API
-        movieTitle = DetailsAPI.name;
-        movieYear = DetailsAPI.year;
-        Runingtime = DetailsAPI.runningTimeInMinutes;
-        Type = DetailsAPI.genresList;
-        FistText = DetailsAPI.plotOutlineList.get(0);
-        SecondText = DetailsAPI.plotOutlineList.get(1);
-        }
-
 
 
         if (db.getIsLiteMode() == false) setSuggestionDetails(movieID);
 
         ImageView detailsThumbnail = (ImageView) findViewById(R.id.imageThumbnailinDetails);
         ImageView moreLikeThisPicture1 = (ImageView) findViewById(R.id.morelikethisimage1);
-        ImageView moreLikeThisPicture2 = (ImageView) findViewById(R.id.morelikethisimage2);
-        ImageView moreLikeThisPicture3 = (ImageView) findViewById(R.id.morelikethisimage3);
         save = (ImageView) findViewById(R.id.save);
         saved = (ImageView) findViewById(R.id.saved);
+        SuggestionTitleText = findViewById(R.id.morelikethisTitle);
+        rateText = findViewById(R.id.rate);
+        rateStar = findViewById(R.id.star);
+
+
         TextView Products = (TextView) findViewById(R.id.products);
         TextView readMore = (TextView) findViewById(R.id.readMore);
         TextView firstText = (TextView) findViewById(R.id.firstText);
@@ -142,18 +147,15 @@ public class MovieDetails extends AppCompatActivity {
         secondText.setVisibility(View.INVISIBLE);
 
 
-
-
         Log.d("currentID", movieID);
         intianalizeOldData();
 
         Log.d("Unsave", String.valueOf(shouldUnsave));
-        if(shouldUnsave) {
+        if (shouldUnsave) {
 
             SetMovieNotSaved();  //Set's icon unsaved
             //  unSaveMovie();      //Unsaves movie
         }
-
 
 
         save.setOnClickListener(new View.OnClickListener() {
@@ -197,14 +199,19 @@ public class MovieDetails extends AppCompatActivity {
 
         // Don't show suggestions if lite mode is on
         if (!db.getIsLiteMode()) {
-            Picasso.get().load(SuggestionImg.get(0)).transform(new RoundedTransformation(50, 0)).into(moreLikeThisPicture1);
-            Picasso.get().load(SuggestionImg.get(1)).transform(new RoundedTransformation(50, 0)).into(moreLikeThisPicture2);
-            Picasso.get().load(SuggestionImg.get(2)).transform(new RoundedTransformation(50, 0)).into(moreLikeThisPicture3);
+            // Lite mode is off
+
+            Picasso.get().load(SuggestionImg).transform(new RoundedTransformation(50, 0)).fit().centerCrop(300).into(moreLikeThisPicture1);
+            SuggestionTitleText.setText(SuggestionTitle);
         } else {
+            //Lite Mode is On
+
             Products.setVisibility(View.GONE);
             moreLikeThisPicture1.setVisibility(View.GONE);
-            moreLikeThisPicture2.setVisibility(View.GONE);
-            moreLikeThisPicture3.setVisibility(View.GONE);
+            SuggestionTitleText.setVisibility(View.GONE);
+
+            rateText.setVisibility(View.GONE);
+            rateStar.setVisibility(View.GONE);
         }
 
         detailsThumbnail.setOnClickListener(new View.OnClickListener() {
@@ -230,13 +237,11 @@ public class MovieDetails extends AppCompatActivity {
     }
 
     private void setSuggestionDetails(String movieID) {
-        GetMoreLikeThisAPI.getmorelikethiss("[\"/title/tt0167261/\",\"/title/tt0120737/\",\"/title/tt0468569/\",\"/title/tt0110912/\",\"/title/tt1375666/\",\"/title/tt0109830/\",\"/title/tt0080684/\",\"/title/tt0108052/\",\"/title/tt0137523/\",\"/title/tt0111161/\",\"/title/tt0068646/\",\"/title/tt0071562/\",\"/title/tt0076759/\",\"/title/tt0903624/\",\"/title/tt0172495/\"]");
+        GetMoreLikeThisAPI.getmorelikethiss(movieID);
+        SearchAPI.autoCompleteAPI(GetMoreLikeThisAPI.morelikethis.get(0));
+        SuggestionImg = SearchAPI.movieImageUrl.get(0);
+        SuggestionTitle = SearchAPI.movieTitle.get(0);
 
-        for (int i = 0; i < 3; i++) {
-            SearchAPI.autoCompleteAPI(GetMoreLikeThisAPI.morelikethis.get(0));
-            Log.d("more", SearchAPI.movieImageUrl.get(i));
-            SuggestionImg.add(SearchAPI.movieImageUrl.get(i));
-        }
     }
 
     private void intianalizeOldData() {
@@ -309,20 +314,18 @@ public class MovieDetails extends AppCompatActivity {
             Log.d("arrayidstat", String.valueOf(id));
 
             //Removes duplicated data
-            for (int i =0;i<id.size();i++)
-            {
-                if(i+1 < id.size()){
-                    if(id.get(i).equals(id.get(i+1)))
-                    {
-                        id         .remove(i+1);
-                        img        .remove(i+1);
-                        title      .remove(i+1);
-                        year       .remove(i+1);
-                        duration   .remove(i+1);
-                        type       .remove(i+1);
-                        firstText  .remove(i+1);
-                        secondText .remove(i+1);
-                        }
+            for (int i = 0; i < id.size(); i++) {
+                if (i + 1 < id.size()) {
+                    if (id.get(i).equals(id.get(i + 1))) {
+                        id.remove(i + 1);
+                        img.remove(i + 1);
+                        title.remove(i + 1);
+                        year.remove(i + 1);
+                        duration.remove(i + 1);
+                        type.remove(i + 1);
+                        firstText.remove(i + 1);
+                        secondText.remove(i + 1);
+                    }
                 }
             }
 
@@ -395,7 +398,7 @@ public class MovieDetails extends AppCompatActivity {
                 }
             }
 
-            Log.d("ArrayList",id.toString());
+            Log.d("ArrayList", id.toString());
             Log.d("idStatus", String.valueOf(id));
 
             Map<String, Object> data = new HashMap<>();
@@ -414,10 +417,7 @@ public class MovieDetails extends AppCompatActivity {
                     .set(data, SetOptions.merge());
 
 
-
-
         }
-
 
 
     }

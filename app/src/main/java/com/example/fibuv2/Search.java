@@ -31,6 +31,9 @@ public class Search extends AppCompatActivity {
 
     private String searchContent;
     private TextView SecondTextReference;
+
+    private ImageView blackfilter;
+    private  ProgressBar progressBar;
     @RequiresApi(api = Build.VERSION_CODES.S)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,13 +48,20 @@ public class Search extends AppCompatActivity {
         TextView result = (TextView) findViewById(R.id.resultText);
         ImageButton coolSearchButtonInSearch = (ImageButton) findViewById(R.id.coolsearchbtnInSearch);
         EditText searchBarInSearch = findViewById(R.id.search_barInSearch);
-        ProgressBar progressBar = findViewById(R.id.progressBarInSearch);
+        progressBar = findViewById(R.id.progressBarInSearch2);
+        blackfilter = findViewById(R.id.BlackFilterInSearch2);
 
         ImageView notfoundIMAGE = findViewById(R.id.notFoundImage);
         TextView notfoundText = findViewById(R.id.notFoundText);
         SecondTextReference = findViewById(R.id.secondTextReference);
 
         progressBar.setVisibility(View.INVISIBLE);
+
+        searchContent = extra.getString("coolsearchBtn");
+        SearchAPI.autoCompleteAPI(searchContent);
+        Log.d("fafafaInSearch",searchContent);
+        int limit = SearchAPI.total;
+        Log.d("Limitin", String.valueOf(limit));
 
         coolSearchButtonInSearch.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -60,17 +70,16 @@ public class Search extends AppCompatActivity {
                 if (!search.isEmpty()) {
                     searchContent = search;
                     Log.d("SearchContent", searchContent);
+
+                    //Run the API
+                    SearchAPI.autoCompleteAPI(searchContent);
+                    int limit = SearchAPI.total;
+                    Log.d("Limitin", String.valueOf(limit));
+
                 }
             }
         });
 
-        searchContent = "something to change later";
-        Log.d("SearchContent", searchContent);
-
-
-        SearchAPI.autoCompleteAPI("q");
-
-        int limit = SearchAPI.total;
 
         DatabaseHandler db = new DatabaseHandler(Search.this);
         if (db.getIsLiteMode())  // if lite mode is on
@@ -78,7 +87,6 @@ public class Search extends AppCompatActivity {
             if (limit > 3) limit = 3;
         }
 
-        //limit =0;
         if (limit > 0) {
 
             // There are results
@@ -90,7 +98,6 @@ public class Search extends AppCompatActivity {
         RelativeLayout layout = (RelativeLayout) findViewById(R.id.Scroll_Relative);
         for (int i = 0; i < limit; i++) {
             int sizeheight = (int) (getScreenHeight(Search.this) * 0.5);
-            int sizewidth = (int) (getScreenWidth(Search.this));
 
 
             ImageView image = new ImageView(this);
@@ -105,7 +112,11 @@ public class Search extends AppCompatActivity {
             image.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    progressBar.setVisibility(View.VISIBLE);
+                    blackfilter.setVisibility(View.VISIBLE);
                     openMovieDetail(SearchAPI.movieID.get(finalI), SearchAPI.movieImageUrl.get(finalI).trim());
+                    progressBar.setVisibility(View.INVISIBLE);
+                    blackfilter.setVisibility(View.INVISIBLE);
                 }
             });
 

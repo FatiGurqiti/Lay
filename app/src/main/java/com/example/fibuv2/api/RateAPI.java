@@ -13,19 +13,7 @@ public class RateAPI {
     public static ArrayList<String> splittedJson = new ArrayList<String>();
     public static List<String> contentType = new ArrayList<>();
     public static List<String> contentRate = new ArrayList<>();
-    public static List<String> contentYear = new ArrayList<>();
-    public static int totalResult;
 
-    public static void main(String[] args) {
-
-        rate("q");
-
-        System.out.println(contentType.get(0));
-        System.out.println(contentRate.get(0));
-        System.out.println(contentYear.get(0));
-
-
-    }
 
     public static void rate(String query) {
 
@@ -40,7 +28,6 @@ public class RateAPI {
 
             contentType.add(movierate.getTitleType());
             contentRate.add(movierate.getRating());
-            contentYear.add(movierate.getYear());
 
 
         } catch (Exception e) {

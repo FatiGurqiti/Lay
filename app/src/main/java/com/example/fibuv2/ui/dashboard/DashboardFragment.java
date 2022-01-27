@@ -23,6 +23,7 @@ import com.example.fibuv2.MainLoggedIn;
 import com.example.fibuv2.MovieDetails;
 import com.example.fibuv2.R;
 import com.example.fibuv2.Search;
+import com.example.fibuv2.database.DatabaseHandler;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -43,16 +44,22 @@ import java.util.Map;
 public class DashboardFragment extends Fragment {
 
     private DashboardViewModel dashboardViewModel;
-    FirebaseFirestore db = FirebaseFirestore.getInstance();
-    private ProgressBar pg;
+
     private static ArrayList<String> id = new ArrayList<>();
     private static ArrayList<String> img = new ArrayList<>();
     private static ArrayList<String> name = new ArrayList<>();
     private static ArrayList<String> rate = new ArrayList<>();
 
 
+    private ProgressBar pg;
+    private ImageView blackfilter;
+
+
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
+
+        MainLoggedIn mainLoggedIn = new MainLoggedIn();
+
         dashboardViewModel =
                 new ViewModelProvider(this).get(DashboardViewModel.class);
         View root = inflater.inflate(R.layout.fragment_dashboard, container, false);
@@ -77,9 +84,10 @@ public class DashboardFragment extends Fragment {
         TextView greenRate  = root.findViewById(R.id.greenCardRateText);
         TextView redRate    = root.findViewById(R.id.redCardRateText);
 
+        pg = root.findViewById(R.id.progressBarInSearch);
+        blackfilter = root.findViewById(R.id.homeBlackFilterInSearch);
 
-        ProgressBar pg = root.findViewById(R.id.progressBarInMainDashBorad);
-        pg.setVisibility(View.INVISIBLE);
+
 
         Log.d("rateMovie", "IdListinLoop" +   MainLoggedIn.getTopRatedId  ());
         Log.d("rateMovie", "ImgListinLoop" +  MainLoggedIn.getTopRatedImg ());
@@ -103,28 +111,6 @@ public class DashboardFragment extends Fragment {
         yellowRate .setText(rate.get(1));
         greenRate  .setText(rate.get(2));
         redRate    .setText(rate.get(3));
-
-        coolsearchBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                pg.setVisibility(View.VISIBLE);
-
-                String searchbarText = searchBar.getText().toString();
-
-
-                if (!searchbarText.isEmpty()) {
-
-                    Intent intent = new Intent(getActivity(), Search.class);
-
-                    Log.d("SearchContent", searchbarText);
-                    intent.putExtra("searchContent", searchbarText);
-                    startActivity(intent);
-                }
-
-                pg.setVisibility(View.INVISIBLE);
-            }
-        });
 
         blue.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -151,6 +137,33 @@ public class DashboardFragment extends Fragment {
             }
         });
 
+
+
+
+        coolsearchBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                pg.setVisibility(View.VISIBLE);
+                blackfilter.setVisibility(View.VISIBLE);
+
+                String searchbarText = searchBar.getText().toString();
+
+
+                if (!searchbarText.isEmpty()) {
+
+                    Intent intent = new Intent(getActivity(), Search.class);
+                    Log.d("SearchContent", searchbarText);
+                    intent.putExtra("coolsearchBtn", searchbarText);
+                    startActivity(intent);
+                }
+                pg.setVisibility(View.INVISIBLE);
+                blackfilter.setVisibility(View.INVISIBLE);
+            }
+        });
+
+
+
         dashboardViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
             @Override
             public void onChanged(@Nullable String s) {
@@ -161,6 +174,7 @@ public class DashboardFragment extends Fragment {
     }
 
     private void openMovieDetail(String MovieID,String MoviePhoto){
+
         Intent intent = new Intent(getContext(), MovieDetails.class);
         intent.putExtra("MovieID",MovieID);
         intent.putExtra("MoviePhoto",MoviePhoto);

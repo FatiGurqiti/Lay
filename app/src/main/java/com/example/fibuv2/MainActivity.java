@@ -57,6 +57,9 @@ public class MainActivity extends AppCompatActivity {
 
         welcome();
 
+        int delay;
+        if(db.getIsLiteMode()) delay =0;
+        else delay = 2000;
         timer = new Timer();
         timer.schedule(new TimerTask() {
                            @Override
@@ -83,7 +86,7 @@ public class MainActivity extends AppCompatActivity {
 
                            }
                        }
-                , 0
+                , delay
         );
 
 

@@ -83,7 +83,7 @@
                 android:layout_marginStart="30dp"
                 android:layout_marginTop="44dp"
                 android:layout_marginEnd="25dp"
-                android:fontFamily="@font/davidlibre_regular"
+                android:fontFamily="@font/plusjakartatextregular"
                 android:text="While Frodo and Sam edge closer to Mordor with
 the help of the shifty Gollum, the divided fellows
 hip makes a stand against Sauron's new ally,
@@ -112,70 +112,61 @@ Saruman, and his hordes of Isengard."
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/firstText"
                 android:layout_alignParentEnd="true"
+                android:layout_marginStart="30dp"
                 android:layout_marginTop="20dp"
                 android:layout_marginEnd="25dp"
-                android:layout_marginStart="30dp"
-                android:textColor="#000000"
-                android:textSize="18sp"
-                android:fontFamily="@font/davidlibre_regular"
+                android:fontFamily="@font/plusjakartatextregular"
                 android:text="The continuing quest of Frodo and the Fellowship
  to destroy the One Ring. Frodo and Sam discover
  they are being followed by the mysterious Gollum.
  Aragorn, the Elf archer Legolas, and Gimli the
  Dwarf encounter the besieged Rohan kingdom,
  whose once great King Theoden has fallen under
- Saruman's deadly spell." />
+ Saruman's deadly spell."
+                android:textColor="#000000"
+                android:textSize="18sp" />
 
             <TextView
                 android:id="@+id/products"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/secondText"
-                android:layout_marginStart="25dp"
-                android:layout_marginTop="30dp"
-                android:fontFamily="@font/davidlibre_bold"
-                android:text="Products you might be intresed"
+                android:layout_marginTop="40dp"
+                android:fontFamily="@font/plusjakartatextregular"
+                android:text="Something you might be intresed"
                 android:textAlignment="textStart"
+                android:layout_marginStart="15dp"
                 android:textColor="#4B0082"
-                android:textSize="20dp"
+                android:textSize="16dp"
                 android:textStyle="bold" />
 
 
             <ImageView
-                android:id="@+id/morelikethisimage3"
-                android:layout_width="101dp"
-                android:layout_height="100dp"
-                android:layout_below="@+id/products"
-                android:layout_alignParentStart="true"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="50dp"
-                android:layout_marginBottom="15dp"
-                android:layout_marginStart="291dp"
-                android:outlineSpotShadowColor="@android:color/black"
-                android:outlineAmbientShadowColor="@android:color/black"
-                tools:srcCompat="@tools:sample/avatars" />
-
-            <ImageView
-                android:id="@+id/morelikethisimage2"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                android:layout_centerHorizontal="true"
-                android:layout_below="@+id/products"
-                android:layout_marginStart="158dp"
-                android:layout_marginTop="50dp"
-                android:layout_marginBottom="15dp"
-                tools:srcCompat="@tools:sample/avatars" />
-
-            <ImageView
                 android:id="@+id/morelikethisimage1"
-                android:layout_width="101dp"
-                android:layout_height="100dp"
-                android:layout_alignParentStart="true"
+                android:layout_width="300dp"
+                android:layout_height="200dp"
                 android:layout_below="@+id/products"
-                android:layout_marginStart="32dp"
-                android:layout_marginTop="50dp"
+                android:layout_alignParentStart="true"
+                android:layout_marginLeft="60dp"
+                android:layout_marginTop="30dp"
                 android:layout_marginBottom="15dp"
                 tools:srcCompat="@tools:sample/avatars" />
+
+            <TextView
+                android:id="@+id/morelikethisTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Lord of the rings"
+                android:fontFamily="@font/plusjakartatexbold"
+                android:layout_below="@+id/morelikethisimage1"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:textSize="22dp"
+                android:textColor="@color/black"
+                android:textAlignment="center"
+                android:translationZ="1dp"
+                android:elevation="1dp"
+                />
 
             <ImageView
                 android:id="@+id/save"
@@ -268,7 +259,7 @@ Saruman, and his hordes of Isengard."
                 android:textSize="30dp" />
 
             <ImageView
-                android:id="@+id/imageView17"
+                android:id="@+id/star"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"

@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -75,6 +76,7 @@ public class HomeFragment extends Fragment {
     private ImageView blackbg;
     private ImageButton likeButton;
     private ImageButton dislikeButton;
+    private ProgressBar progressBar;
 
     private ImageView CuteRobot;
     private TextView NoFavouriteText;
@@ -98,6 +100,7 @@ public class HomeFragment extends Fragment {
         pop = (CardView) root.findViewById(R.id.ratepop);
         popafter = (CardView) root.findViewById(R.id.afterRate);
         blackbg = (ImageView) root.findViewById(R.id.homeBlackFilter);
+        progressBar = root.findViewById(R.id.progressbarinMyList);
         ImageButton likeButton = (ImageButton) root.findViewById(R.id.likeButton);
         ImageButton dislikeButton = (ImageButton) root.findViewById(R.id.dislikeButton);
         CuteRobot = (ImageView) root.findViewById(R.id.cuteRobot);
@@ -110,7 +113,6 @@ public class HomeFragment extends Fragment {
             WelcomeText.setText(" \t Welcome, here's your favourite list");
         else
             WelcomeText.setText(" \t Hi " + MainLoggedIn.getUsername() + ", here's your favourite list");
-
 
 
         String TAG = "HomeDataStatus";
@@ -168,6 +170,7 @@ public class HomeFragment extends Fragment {
                                 filter.setLayoutParams(new ViewGroup.LayoutParams(1400, (int) ((int) (sizeheight) * .6)));
                                 Picasso.get().load(R.drawable.black_filer_resource).transform(new RoundedTransformation(50, 0)).fit().centerCrop(700).into(filter);
                                 filter.bringToFront();
+                                filter.setTranslationZ(1);
                                 layout.addView(filter);
                                 Search.setMargins(filter, 25, (int) (i * (sizeheight) * .75), 25, 1);
 
@@ -179,6 +182,7 @@ public class HomeFragment extends Fragment {
                                 titleText.setPadding(25, 250, 25, 0);
                                 titleText.setTextSize(22);
                                 titleText.bringToFront();
+                                titleText.setHeight(500);
                                 titleText.setTranslationZ(1);
                                 layout.addView(titleText);
                                 Search.setMargins(titleText, 25, (int) (i * (sizeheight) * .75), 25, 1);
@@ -375,6 +379,9 @@ public class HomeFragment extends Fragment {
 
     private void openMovieDetail(String MovieID, String MoviePhoto, String MovieTitle, String MovieType, String MovieYear, String MovieFirstText, String MovieSecondText, String MovieDuration) {
 
+        blackbg.setVisibility(View.VISIBLE);
+        progressBar.setVisibility(View.VISIBLE);
+
         Intent intent = new Intent(getContext(), MovieDetails.class);
         intent.putExtra("MovieID", MovieID);
         intent.putExtra("MoviePhoto", MoviePhoto);
@@ -386,6 +393,9 @@ public class HomeFragment extends Fragment {
         intent.putExtra("MovieDuration", MovieDuration);
         intent.putExtra("IsSaved", true);
         startActivity(intent);
+
+        blackbg.setVisibility(View.INVISIBLE);
+        progressBar.setVisibility(View.INVISIBLE);
     }
 
     public int getScreenHeight(Context context) {

@@ -7,6 +7,25 @@
     android:id="@+id/search"
     tools:context=".Search">
 
+    <ImageView
+        android:id="@+id/BlackFilterInSearch2"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:elevation="3dp"
+        android:src="@drawable/full_black_filter"
+        android:translationZ="3dp"
+        android:visibility="invisible" />
+
+    <ProgressBar
+        android:id="@+id/progressBarInSearch2"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginLeft="150dp"
+        android:layout_marginTop="400dp"
+        android:elevation="4dp"
+        android:translationZ="4dp"
+        android:visibility="invisible" />
+
     <EditText
         android:id="@+id/search_barInSearch"
         android:layout_width="match_parent"
@@ -119,16 +138,6 @@ You ran out of your daily quota.
         </RelativeLayout>
     </ScrollView>
 
-    <ProgressBar
-        android:id="@+id/progressBarInSearch"
-        style="?android:attr/progressBarStyle"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginStart="170dp"
-        android:layout_marginTop="300dp" />
 
 
 </RelativeLayout>

@@ -1,8 +1,11 @@
 package com.example.fibuv2.api;
 
+import android.util.Log;
+
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.stream.JsonReader;
+
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
@@ -26,20 +29,24 @@ public class SearchAPI {
     public static List<String> movieType = new ArrayList<>();
     public static List<String> movieQ = new ArrayList<>();
 
-    public static void main(String[] args) {
 
-        autoCompleteAPI("q");
+    public static void autoCompleteAPI(String querry){
 
+        String url = "https://imdb8.p.rapidapi.com/auto-complete?q=";
 
-    }
+        OkHttpClient client = new OkHttpClient();
+        Request request = new Request.Builder()
+                .url(url+querry)
+                .get()
+                .addHeader("x-rapidapi-host", "imdb8.p.rapidapi.com")
+                .addHeader("x-rapidapi-key", "ba1a7a4182mshd780c0eb859bfbcp16a349jsn307fcc77a0f2")
+                .build();
 
-    public static void autoCompleteAPI(String query) {
+        try (Response response = client.newCall(request).execute()) {
 
-        try {
+            String result = response.body().string();
 
-            String jsonString = "{\"d\":[{\"i\":{\"height\":2936,\"imageUrl\":\"https://m.media-amazon.com/images/M/MV5BN2EyZjM3NzUtNWUzMi00MTgxLWI0NTctMzY4M2VlOTdjZWRiXkEyXkFqcGdeQXVyNDUzOTQ5MjY@._V1_.jpg\",\"width\":1978},\"id\":\"tt0120737\",\"l\":\"The Lord of the Rings: The Fellowship of the Ring\",\"q\":\"feature\",\"rank\":158,\"s\":\"Elijah Wood, Ian McKellen\",\"v\":[{\"i\":{\"height\":1080,\"imageUrl\":\"https://m.media-amazon.com/images/M/MV5BMzQ2YjI2YzgtZmNmMy00ZjUyLWE0NGItY2Y3NjUzZWM4NmM3XkEyXkFqcGdeQWxiaWFtb250._V1_.jpg\",\"width\":1920},\"id\":\"vi684573465\",\"l\":\"Official Trailer\",\"s\":\"1:54\"},{\"i\":{\"height\":1080,\"imageUrl\":\"https://m.media-amazon.com/images/M/MV5BNzkzYzNmOTYtMTE1Yi00Yzg0LWE4OTgtY2QxOGZkNWQ2ODdiXkEyXkFqcGdeQWxpenpp._V1_.jpg\",\"width\":1920},\"id\":\"vi2108539673\",\"l\":\"Does Andy Serkis Know How Many Times He's Played Gollum?\",\"s\":\"3:01\"},{\"i\":{\"height\":480,\"imageUrl\":\"https://m.media-amazon.com/images/M/MV5BODk1MzkwNTA4N15BMl5BanBnXkFtZTgwOTU1ODY3MjI@._V1_.jpg\",\"width\":640},\"id\":\"vi2073101337\",\"l\":\"The Lord of the Rings Trilogy on Blu-ray\",\"s\":\"2:02\"}],\"vt\":10,\"y\":2001},{\"i\":{\"height\":1185,\"imageUrl\":\"https://m.media-amazon.com/images/M/MV5BNzA5ZDNlZWMtM2NhNS00NDJjLTk4NDItYTRmY2EwMWZlMTY3XkEyXkFqcGdeQXVyNzkwMjQ5NzM@._V1_.jpg\",\"width\":800},\"id\":\"tt0167260\",\"l\":\"The Lord of the Rings: The Return of the King\",\"q\":\"feature\",\"rank\":322,\"s\":\"Elijah Wood, Viggo Mortensen\",\"v\":[{\"i\":{\"height\":1080,\"imageUrl\":\"https://m.media-amazon.com/images/M/MV5BNDRmNjQxOWItNTY3MS00M2ExLWJiYWYtNGQ2OTI5MWRkYWFlXkEyXkFqcGdeQWxiaWFtb250._V1_.jpg\",\"width\":1920},\"id\":\"vi718127897\",\"l\":\"Official Trailer\",\"s\":\"1:41\"},{\"i\":{\"height\":1080,\"imageUrl\":\"https://m.media-amazon.com/images/M/MV5BNzkzYzNmOTYtMTE1Yi00Yzg0LWE4OTgtY2QxOGZkNWQ2ODdiXkEyXkFqcGdeQWxpenpp._V1_.jpg\",\"width\":1920},\"id\":\"vi2108539673\",\"l\":\"Does Andy Serkis Know How Many Times He's Played Gollum?\",\"s\":\"3:01\"},{\"i\":{\"height\":480,\"imageUrl\":\"https://m.media-amazon.com/images/M/MV5BODk1MzkwNTA4N15BMl5BanBnXkFtZTgwOTU1ODY3MjI@._V1_.jpg\",\"width\":640},\"id\":\"vi2073101337\",\"l\":\"The Lord of the Rings Trilogy on Blu-ray\",\"s\":\"2:02\"}],\"vt\":11,\"y\":2003},{\"i\":{\"height\":1500,\"imageUrl\":\"https://m.media-amazon.com/images/M/MV5BZGMxZTdjZmYtMmE2Ni00ZTdkLWI5NTgtNjlmMjBiNzU2MmI5XkEyXkFqcGdeQXVyNjU0OTQ0OTY@._V1_.jpg\",\"width\":964},\"id\":\"tt0167261\",\"l\":\"The Lord of the Rings: The Two Towers\",\"q\":\"feature\",\"rank\":403,\"s\":\"Elijah Wood, Ian McKellen\",\"y\":2002},{\"i\":{\"height\":994,\"imageUrl\":\"https://m.media-amazon.com/images/M/MV5BMjM0ZDM1YzQtMjlmYy00YThlLTk2MmItNTM3NWRiZmUwYWViXkEyXkFqcGdeQXVyNzg5MzIyOA@@._V1_.jpg\",\"width\":994},\"id\":\"tt7631058\",\"l\":\"The Lord of the Rings\",\"q\":\"TV series\",\"rank\":415,\"s\":\"Benjamin Walker, Peter Mullan\",\"y\":2022,\"yr\":\"2022-\"},{\"i\":{\"height\":1500,\"imageUrl\":\"https://m.media-amazon.com/images/M/MV5BOGMyNWJhZmYtNGQxYi00Y2ZjLWJmNjktNTgzZWJjOTg4YjM3L2ltYWdlXkEyXkFqcGdeQXVyNTAyODkwOQ@@._V1_.jpg\",\"width\":979},\"id\":\"tt0077869\",\"l\":\"The Lord of the Rings\",\"q\":\"feature\",\"rank\":5647,\"s\":\"Christopher Guard, William Squire\",\"y\":1978},{\"id\":\"nm1648230\",\"l\":\"Hank Kaplan\",\"rank\":448608,\"s\":\"Self, Ring of Fire: The Emile Griffith Story (2005)\"},{\"i\":{\"height\":503,\"imageUrl\":\"https://m.media-amazon.com/images/M/MV5BNWU1NjZiODktMjc4Ni00Yjg4LWEzMzUtNTJiMzM0ZDQ5NWYzXkEyXkFqcGdeQXVyMTMzNTYwMjAz._V1_.jpg\",\"width\":755},\"id\":\"tt14824600\",\"l\":\"The Lord of the Rings: The War of the Rohirrim\",\"q\":\"feature\",\"rank\":26262},{\"i\":{\"height\":455,\"imageUrl\":\"https://m.media-amazon.com/images/M/MV5BNDEzNDJhNzctMjNhZC00MThiLWFjN2EtZGJlZTM5Yjg1MGY0XkEyXkFqcGdeQXVyODE1OTI0Mjg@._V1_.jpg\",\"width\":808},\"id\":\"tt12789698\",\"l\":\"The Lord of the Rings: Gollum\",\"q\":\"video game\",\"rank\":28979,\"s\":\"Action, Adventure, Drama\",\"y\":2022}],\"q\":\"the lord of the ring\",\"v\":1}";
-
-            fixjson(jsonString);       //The data result has more than one respose, this splits them all to a list in order to use them all
+            fixjson(result);       //The data result has more than one respose, this splits them all to a list in order to use them all
 
             for (int i = 0; i < total; i++) {
                 Gson gson = new Gson();
@@ -52,11 +59,13 @@ public class SearchAPI {
                 movieTitle.add(movie.getL());
                 movieType.add(movie.getS());
                 movieQ.add(movie.getQ());
+
+
             }
 
-
+            Log.d("fafafa", String.valueOf(movieImageUrl));
         } catch (Exception e) {
-            System.out.println(e.toString());
+            total = 0;
         }
 
     }
@@ -175,7 +184,7 @@ public class SearchAPI {
 
 
         public String toString() {
-            return "Movie [ \nimageUrl: " + imageUrl + " \nid: " + id + "  \ntitle: " + l + "  \ntype: " + s +"  \nq: " + q + "   \n]";
+            return "Movie [ \nimageUrl: " + imageUrl + " \nid: " + id + "  \ntitle: " + l + "  \ntype: " + s + "  \nq: " + q + "   \n]";
         }
 
     }

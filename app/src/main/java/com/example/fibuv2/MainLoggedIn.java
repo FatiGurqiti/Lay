@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
+import com.example.fibuv2.database.DatabaseHandler;
 import com.example.fibuv2.ui.login.LoginActivity;
 import com.example.fibuv2.ui.notifications.NotificationsFragment;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -59,10 +60,6 @@ public class MainLoggedIn extends AppCompatActivity {
                 .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         NavigationUI.setupWithNavController(navView, navController);
-
-
-
-
 
     }
 

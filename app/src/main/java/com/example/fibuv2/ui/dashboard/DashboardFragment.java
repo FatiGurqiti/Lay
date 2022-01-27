@@ -19,6 +19,7 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.example.fibuv2.MainLoggedIn;
 import com.example.fibuv2.MovieDetails;
 import com.example.fibuv2.R;
 import com.example.fibuv2.Search;
@@ -44,8 +45,10 @@ public class DashboardFragment extends Fragment {
     private DashboardViewModel dashboardViewModel;
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     private ProgressBar pg;
-    private ArrayList<String> id = new ArrayList<>();
-
+    private static ArrayList<String> id = new ArrayList<>();
+    private static ArrayList<String> img = new ArrayList<>();
+    private static ArrayList<String> name = new ArrayList<>();
+    private static ArrayList<String> rate = new ArrayList<>();
 
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -64,50 +67,42 @@ public class DashboardFragment extends Fragment {
         CardView green = root.findViewById(R.id.greenCard);
         CardView red = root.findViewById(R.id.redCard);
 
-        TextView blueText = root.findViewById(R.id.blueCardText);
+        TextView blueText   = root.findViewById(R.id.blueCardText);
         TextView yellowText = root.findViewById(R.id.yellowCardText);
-        TextView greenText = root.findViewById(R.id.greenCardText);
-        TextView redText = root.findViewById(R.id.redCardText);
+        TextView greenText  = root.findViewById(R.id.greenCardText);
+        TextView redText    = root.findViewById(R.id.redCardText);
+
+        TextView blueRate   = root.findViewById(R.id.blueCardRateText);
+        TextView yellowRate = root.findViewById(R.id.yellowCardRateText);
+        TextView greenRate  = root.findViewById(R.id.greenCardRateText);
+        TextView redRate    = root.findViewById(R.id.redCardRateText);
 
 
         ProgressBar pg = root.findViewById(R.id.progressBarInMainDashBorad);
         pg.setVisibility(View.INVISIBLE);
 
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        CollectionReference movieRate = db.collection("MovieRate");
+        Log.d("rateMovie", "IdListinLoop" +   MainLoggedIn.getTopRatedId  ());
+        Log.d("rateMovie", "ImgListinLoop" +  MainLoggedIn.getTopRatedImg ());
+        Log.d("rateMovie", "NameListinLoop" + MainLoggedIn.getTopRatedName());
+        Log.d("rateMovie", "RateListinLoop" + MainLoggedIn.getTopRatedRate());
 
 
-        String TAG = "rateMovie";
-        DocumentReference docRef = db.collection("MovieRate").document(user.getUid());
-        CollectionReference collectionReference = db.collection("MovieRates");
-        //collectionReference.orderBy("rate").limit(4);
-        collectionReference.whereGreaterThan("rate", 1).orderBy("rate");
-
-        Log.d(TAG, String.valueOf(collectionReference.orderBy("rate").limit(4)));
-
+        id = MainLoggedIn.getTopRatedId  ();
+        img =MainLoggedIn.getTopRatedImg ();
+        name=MainLoggedIn.getTopRatedName();
+        rate=MainLoggedIn.getTopRatedRate();
 
 
 
-        CollectionReference collectionRef = db.collection("MovieRate");
-        collectionRef.orderBy("rate", Query.Direction.DESCENDING).limit(4)
-                .get()
-                .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
-                    @Override
-                    public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-                        for (int i =0;i<5;i++){
-                        Log.d(TAG, String.valueOf(queryDocumentSnapshots.getDocuments().get(0).get("id")));
-                        Log.d(TAG, String.valueOf(queryDocumentSnapshots.getDocuments().get(0).get("img")));
-                        Log.d(TAG, String.valueOf(queryDocumentSnapshots.getDocuments().get(0).get("name")));
-                        Log.d(TAG, String.valueOf(queryDocumentSnapshots.getDocuments().get(0).get("rate")));
+        blueText   .setText(name.get(0));
+        yellowText .setText(name.get(1));
+        greenText  .setText(name.get(2));
+        redText    .setText(name.get(3));
 
-                        id.add(String.valueOf(queryDocumentSnapshots.getDocuments().get(i).get("id")));
-                            Log.d(TAG, "IdListinLoop" + String.valueOf(id));
-                        }
-
-                    }
-                });
-
+        blueRate   .setText(rate.get(0));
+        yellowRate .setText(rate.get(1));
+        greenRate  .setText(rate.get(2));
+        redRate    .setText(rate.get(3));
 
         coolsearchBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -134,25 +129,25 @@ public class DashboardFragment extends Fragment {
         blue.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                openMovieDetail("The Lord of the Rings");
+                openMovieDetail(id.get(0),img.get(0));
             }
         });
         yellow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                openMovieDetail("Avengers");
+                openMovieDetail(id.get(1),img.get(1));
             }
         });
         green.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                openMovieDetail("Fight Club");
+                openMovieDetail(id.get(2),img.get(2));
             }
         });
         red.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                openMovieDetail("Dune");
+                openMovieDetail(id.get(3),img.get(3));
             }
         });
 
@@ -165,9 +160,11 @@ public class DashboardFragment extends Fragment {
         return root;
     }
 
-    private void openMovieDetail(String movieName) {
-        Intent intent = new Intent(getActivity(), MovieDetails.class);
-        intent.putExtra("movieName", movieName);
+    private void openMovieDetail(String MovieID,String MoviePhoto){
+        Intent intent = new Intent(getContext(), MovieDetails.class);
+        intent.putExtra("MovieID",MovieID);
+        intent.putExtra("MoviePhoto",MoviePhoto);
+        intent.putExtra("IsSaved",false);
         startActivity(intent);
     }
 

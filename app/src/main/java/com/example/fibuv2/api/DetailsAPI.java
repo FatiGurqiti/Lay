@@ -1,5 +1,8 @@
 package com.example.fibuv2.api;
 
+import android.util.Log;
+
+import com.example.fibuv2.MainActivity;
 import com.google.gson.*;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
@@ -21,7 +24,6 @@ public class DetailsAPI {
     public static String genresList;
     public static String year;
     public static List<String> plotOutlineList = new ArrayList<>();
-    public static int totalResult;
 
 
     public static void getDetails(String jsonString) {
@@ -33,7 +35,7 @@ public class DetailsAPI {
                     .url(url+jsonString)
                     .get()
                     .addHeader("x-rapidapi-host", "imdb8.p.rapidapi.com")
-                    .addHeader("x-rapidapi-key", "74f75c29e8mshddc4a4f5ad1f5e3p158145jsn38393a1db087")
+                    .addHeader("x-rapidapi-key", MainActivity.getToken())
                     .build();
 
 
@@ -45,6 +47,8 @@ public class DetailsAPI {
 
             MovieDetails movieDetails;
             movieDetails = gson.fromJson(result, MovieDetails.class);
+
+
 
             plotOutlineList.add(movieDetails.getPlotOutline().text);
             plotOutlineList.add(movieDetails.getPlotSummary().text);
@@ -67,7 +71,12 @@ public class DetailsAPI {
 
                 genresList = stringGengres;
 
-
+            }
+            else
+            {
+                Title title;
+                title = gson.fromJson(result, Title.class);
+                genresList = title.titleType;
             }
 
 

@@ -23,23 +23,9 @@ import com.example.fibuv2.MainLoggedIn;
 import com.example.fibuv2.MovieDetails;
 import com.example.fibuv2.R;
 import com.example.fibuv2.Search;
-import com.example.fibuv2.database.DatabaseHandler;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.firestore.CollectionReference;
-import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.Query;
-import com.google.firebase.firestore.QuerySnapshot;
+import com.example.fibuv2.api.SearchAPI;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 
 public class DashboardFragment extends Fragment {
 
@@ -58,12 +44,9 @@ public class DashboardFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
 
-        MainLoggedIn mainLoggedIn = new MainLoggedIn();
-
         dashboardViewModel =
                 new ViewModelProvider(this).get(DashboardViewModel.class);
         View root = inflater.inflate(R.layout.fragment_dashboard, container, false);
-        final TextView textView = root.findViewById(R.id.text_dashboard);
 
 
         ImageButton coolsearchBtn = root.findViewById(R.id.coolsearchbtn);
@@ -74,82 +57,70 @@ public class DashboardFragment extends Fragment {
         CardView green = root.findViewById(R.id.greenCard);
         CardView red = root.findViewById(R.id.redCard);
 
-        TextView blueText   = root.findViewById(R.id.blueCardText);
+        TextView blueText = root.findViewById(R.id.blueCardText);
         TextView yellowText = root.findViewById(R.id.yellowCardText);
-        TextView greenText  = root.findViewById(R.id.greenCardText);
-        TextView redText    = root.findViewById(R.id.redCardText);
+        TextView greenText = root.findViewById(R.id.greenCardText);
+        TextView redText = root.findViewById(R.id.redCardText);
 
-        TextView blueRate   = root.findViewById(R.id.blueCardRateText);
+        TextView blueRate = root.findViewById(R.id.blueCardRateText);
         TextView yellowRate = root.findViewById(R.id.yellowCardRateText);
-        TextView greenRate  = root.findViewById(R.id.greenCardRateText);
-        TextView redRate    = root.findViewById(R.id.redCardRateText);
+        TextView greenRate = root.findViewById(R.id.greenCardRateText);
+        TextView redRate = root.findViewById(R.id.redCardRateText);
 
         pg = root.findViewById(R.id.progressBarInSearch);
         blackfilter = root.findViewById(R.id.homeBlackFilterInSearch);
 
 
-
-        Log.d("rateMovie", "IdListinLoop" +   MainLoggedIn.getTopRatedId  ());
-        Log.d("rateMovie", "ImgListinLoop" +  MainLoggedIn.getTopRatedImg ());
+        Log.d("rateMovie", "IdListinLoop" + MainLoggedIn.getTopRatedId());
+        Log.d("rateMovie", "ImgListinLoop" + MainLoggedIn.getTopRatedImg());
         Log.d("rateMovie", "NameListinLoop" + MainLoggedIn.getTopRatedName());
         Log.d("rateMovie", "RateListinLoop" + MainLoggedIn.getTopRatedRate());
 
 
-        id = MainLoggedIn.getTopRatedId  ();
-        img =MainLoggedIn.getTopRatedImg ();
-        name=MainLoggedIn.getTopRatedName();
-        rate=MainLoggedIn.getTopRatedRate();
+        id = MainLoggedIn.getTopRatedId();
+        img = MainLoggedIn.getTopRatedImg();
+        name = MainLoggedIn.getTopRatedName();
+        rate = MainLoggedIn.getTopRatedRate();
 
 
+        blueText.setText(name.get(0));
+        yellowText.setText(name.get(1));
+        greenText.setText(name.get(2));
+        redText.setText(name.get(3));
 
-        blueText   .setText(name.get(0));
-        yellowText .setText(name.get(1));
-        greenText  .setText(name.get(2));
-        redText    .setText(name.get(3));
+        blueRate.setText(rate.get(0));
+        yellowRate.setText(rate.get(1));
+        greenRate.setText(rate.get(2));
+        redRate.setText(rate.get(3));
 
-        blueRate   .setText(rate.get(0));
-        yellowRate .setText(rate.get(1));
-        greenRate  .setText(rate.get(2));
-        redRate    .setText(rate.get(3));
-
-        blue.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                openMovieDetail(id.get(0),img.get(0));
-            }
-        });
-        yellow.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                openMovieDetail(id.get(1),img.get(1));
-            }
-        });
-        green.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                openMovieDetail(id.get(2),img.get(2));
-            }
-        });
-        red.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                openMovieDetail(id.get(3),img.get(3));
-            }
+        blue.setOnClickListener(v -> {
+            activateLoad();
+            openMovieDetail(id.get(0), img.get(0));
         });
 
+        yellow.setOnClickListener(v -> {
+            activateLoad();
+            openMovieDetail(id.get(1), img.get(1));
+        });
 
+        green.setOnClickListener(v -> {
+            activateLoad();
+            openMovieDetail(id.get(2), img.get(2));
+        });
+
+        red.setOnClickListener(v -> {
+            activateLoad();
+            openMovieDetail(id.get(3), img.get(3));
+        });
 
 
         coolsearchBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                pg.setVisibility(View.VISIBLE);
-                blackfilter.setVisibility(View.VISIBLE);
+                activateLoad();
 
                 String searchbarText = searchBar.getText().toString();
-
-
                 if (!searchbarText.isEmpty()) {
 
                     Intent intent = new Intent(getActivity(), Search.class);
@@ -157,11 +128,8 @@ public class DashboardFragment extends Fragment {
                     intent.putExtra("coolsearchBtn", searchbarText);
                     startActivity(intent);
                 }
-                pg.setVisibility(View.INVISIBLE);
-                blackfilter.setVisibility(View.INVISIBLE);
             }
         });
-
 
 
         dashboardViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
@@ -173,12 +141,27 @@ public class DashboardFragment extends Fragment {
         return root;
     }
 
-    private void openMovieDetail(String MovieID,String MoviePhoto){
+    @Override
+    public void onResume() {
+        super.onResume();
+        blackfilter.setVisibility(View.INVISIBLE);
+        pg.setVisibility(View.INVISIBLE);
+
+    }
+
+
+
+    private void activateLoad() {
+        pg.setVisibility(View.VISIBLE);
+        blackfilter.setVisibility(View.VISIBLE);
+    }
+
+    private void openMovieDetail(String MovieID, String MoviePhoto) {
 
         Intent intent = new Intent(getContext(), MovieDetails.class);
-        intent.putExtra("MovieID",MovieID);
-        intent.putExtra("MoviePhoto",MoviePhoto);
-        intent.putExtra("IsSaved",false);
+        intent.putExtra("MovieID", MovieID);
+        intent.putExtra("MoviePhoto", MoviePhoto);
+        intent.putExtra("IsSaved", false);
         startActivity(intent);
     }
 

@@ -3,6 +3,7 @@ package com.example.fibuv2.api;
 
 import android.util.Log;
 
+import com.example.fibuv2.MainActivity;
 import com.google.gson.Gson;
 import com.google.gson.stream.JsonReader;
 
@@ -29,7 +30,7 @@ public class RateAPI {
                 .url(url+jsonString)
                 .get()
                 .addHeader("x-rapidapi-host", "imdb8.p.rapidapi.com")
-                .addHeader("x-rapidapi-key", "ba1a7a4182mshd780c0eb859bfbcp16a349jsn307fcc77a0f2")
+                .addHeader("x-rapidapi-key", MainActivity.getToken())
                 .build();
 
         try (Response response = client.newCall(request).execute()) {

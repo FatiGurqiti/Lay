@@ -4,12 +4,13 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -25,8 +26,6 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.firestore.SetOptions;
 import com.squareup.picasso.Picasso;
 
@@ -37,20 +36,27 @@ import java.util.Map;
 
 public class MovieDetails extends AppCompatActivity {
 
+    private DatabaseHandler db = new DatabaseHandler(MovieDetails.this);
+    private FirebaseFirestore Firedb = FirebaseFirestore.getInstance();
+    FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+    private DocumentReference docRef = Firedb.collection("MovieLists").document(user.getUid());
+
+
     private static int hours;
     private static int minutes;
     private String SuggestionImg;
     private String SuggestionTitle;
+    private String SuggestionID;
 
     private TextView SuggestionTitleText;
-    private TextView  rateText;
+    private TextView rateText;
     private ImageView rateStar;
+    private ProgressBar progressBar;
+    private ImageView blackFilter;
+    private ImageView moreLikeThisPicture1;
+    private ImageView MoreLikeThisFilter;
+    private TextView Products;
 
-    private DatabaseHandler db = new DatabaseHandler(MovieDetails.this);
-
-    private FirebaseFirestore Firedb = FirebaseFirestore.getInstance();
-    FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-    private DocumentReference docRef = Firedb.collection("MovieLists").document(user.getUid());
 
     private String movieID;
     private String moviePhoto;
@@ -88,19 +94,20 @@ public class MovieDetails extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_movie_details2);
 
-
         //Get's data from last page
         Bundle extras = getIntent().getExtras();
 
         movieID = extras.getString("MovieID");
         moviePhoto = extras.getString("MoviePhoto");
         boolean isSaved = extras.getBoolean("IsSaved");
-        boolean shouldUnsave = extras.getBoolean("ShouldUnSave");
+        boolean isSuggestionPage = extras.getBoolean("IsSuggestedMovie");
+
+        Log.d("isSuggestion", String.valueOf(isSuggestionPage));
+        Log.d("MovieID", movieID);
 
         DetailsAPI.getDetails(movieID);
 
         if (isSaved) { //if movie is already saved get data from FireBase
-
             movieTitle = extras.getString("MovieTitle");
             movieYear = extras.getString("MovieYear");
             Runingtime = extras.getString("MovieDuration");
@@ -109,39 +116,48 @@ public class MovieDetails extends AppCompatActivity {
             SecondText = extras.getString("MovieSecondText");
 
         } else { //If movie isn't saved get data from API
-            movieTitle = DetailsAPI.name;
-            movieYear = DetailsAPI.year;
-            Runingtime = DetailsAPI.runningTimeInMinutes;
-            Type = DetailsAPI.genresList;
-            FistText = DetailsAPI.plotOutlineList.get(0);
-            SecondText = DetailsAPI.plotOutlineList.get(1);
+
+
+            movieTitle = isNull(DetailsAPI.name);
+            movieYear = isNull(DetailsAPI.year);
+            Runingtime = isNull(DetailsAPI.runningTimeInMinutes);
+            Type = isNull(DetailsAPI.genresList);
+
+
+            if (DetailsAPI.plotOutlineList.size() > 0) {
+                FistText = isNull(DetailsAPI.plotOutlineList.get(0));
+                SecondText = isNull(DetailsAPI.plotOutlineList.get(1));
+
+                DetailsAPI.plotOutlineList.clear(); //Clear source data after using it
+
+            } else {
+                FistText = "";
+                SecondText = "";
+            }
         }
 
 
-        if (db.getIsLiteMode() == false)
-        {
-            //Lite mode is off
-            setSuggestionDetails(movieID);
-            RateAPI.rate(movieID);
-        }
+        ImageView detailsThumbnail = findViewById(R.id.imageThumbnailinDetails);
+        moreLikeThisPicture1 = findViewById(R.id.morelikethisimage1);
+        MoreLikeThisFilter = findViewById(R.id.morelikethisfilter);
+        progressBar = findViewById(R.id.progressbarindetail);
+        blackFilter = findViewById(R.id.detailBlackFilter);
 
-        ImageView detailsThumbnail = (ImageView) findViewById(R.id.imageThumbnailinDetails);
-        ImageView moreLikeThisPicture1 = (ImageView) findViewById(R.id.morelikethisimage1);
-        save = (ImageView) findViewById(R.id.save);
-        saved = (ImageView) findViewById(R.id.saved);
+        save = findViewById(R.id.save);
+        saved = findViewById(R.id.saved);
         SuggestionTitleText = findViewById(R.id.morelikethisTitle);
         rateText = findViewById(R.id.rate);
         rateStar = findViewById(R.id.star);
 
 
-        TextView Products = (TextView) findViewById(R.id.products);
-        TextView readMore = (TextView) findViewById(R.id.readMore);
-        TextView firstText = (TextView) findViewById(R.id.firstText);
-        TextView secondText = (TextView) findViewById(R.id.secondText);
-        TextView title = (TextView) findViewById(R.id.title);
-        TextView year = (TextView) findViewById(R.id.year);
-        TextView time = (TextView) findViewById(R.id.time);
-        TextView type = (TextView) findViewById(R.id.type);
+        Products = findViewById(R.id.products);
+        TextView readMore = findViewById(R.id.readMore);
+        TextView firstText = findViewById(R.id.firstText);
+        TextView secondText = findViewById(R.id.secondText);
+        TextView title = findViewById(R.id.title);
+        TextView year = findViewById(R.id.year);
+        TextView time = findViewById(R.id.time);
+        TextView type = findViewById(R.id.type);
 
         title.setText(movieTitle);
         year.setText(movieYear);
@@ -152,83 +168,131 @@ public class MovieDetails extends AppCompatActivity {
         secondText.setText(SecondText);
         secondText.setVisibility(View.INVISIBLE);
 
+        if (!db.getIsLiteMode() || !isSuggestionPage) {
+            //Lite mode is off
+            //And this isn't a suggestion page
+            //I don't want the user to jump from one suggestion to another
 
-        rateText.setText(RateAPI.contentRate);
-        if(Type.isEmpty() && !db.getIsLiteMode()) type.setText(RateAPI.contentType); //If SearchAPI doesn't contain the type, get it from RateAPI
-        intianalizeOldData();
+            Log.d("IsThisSuggestionPage", "Nope");
 
-        Log.d("Unsave", String.valueOf(shouldUnsave));
-        if (shouldUnsave) {
+            try {
+                setSuggestionDetails(movieID);
+                RateAPI.rate(movieID);
 
-            SetMovieNotSaved();  //Set's icon unsaved
-            //  unSaveMovie();      //Unsaves movie
+            } catch (Exception e) {
+                Log.d("APIStatus", e.toString());
+            }
         }
 
 
-        save.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        if(SearchAPI.movieImageUrl.isEmpty()) //Don't show suggestion if it's unavailable
+        {
+            Products.setVisibility(View.GONE);
+            moreLikeThisPicture1.setVisibility(View.GONE);
+            MoreLikeThisFilter.setVisibility(View.GONE);
+            SuggestionTitleText.setVisibility(View.GONE);
+        }
 
-                saveMovie();
-                SetMovieSaved();
-                Toast toast = Toast.makeText(getApplicationContext(),
-                        movieTitle + " is added to your list",
-                        Toast.LENGTH_SHORT);
-                toast.show();
 
-                finish();
-                startActivity(getIntent());
-            }
+        intianalizeOldData();
+
+
+        save.setOnClickListener(v -> {
+
+            saveMovie();
+            SetMovieSaved();
+            Toast toast = Toast.makeText(getApplicationContext(),
+                    movieTitle + " is added to your list",
+                    Toast.LENGTH_SHORT);
+            toast.show();
+
+            finish();
+            startActivity(getIntent());
         });
-        saved.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                SetMovieNotSaved();  //Set's icon unsaved
-                unSaveMovie();      //Unsaves movie
-                Toast toast = Toast.makeText(getApplicationContext(),
-                        movieTitle + " is removed from your list",
-                        Toast.LENGTH_SHORT);
-                toast.show();
+        saved.setOnClickListener(v -> {
+            SetMovieNotSaved();  //Set's icon unsaved
+            unSaveMovie();      //Unsaves movie
+            Toast toast = Toast.makeText(getApplicationContext(),
+                    movieTitle + " is removed from your list",
+                    Toast.LENGTH_SHORT);
+            toast.show();
 
 
-            }
         });
 
-        readMore.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                secondText.setVisibility(View.VISIBLE);
-                readMore.setVisibility(View.INVISIBLE);
-            }
+        readMore.setOnClickListener(v -> {
+            secondText.setVisibility(View.VISIBLE);
+            readMore.setVisibility(View.INVISIBLE);
         });
 
         Picasso.get().load(moviePhoto).transform(new RoundedTransformation(25, 0)).fit().centerCrop(700).into(detailsThumbnail);
 
         // Don't show suggestions if lite mode is on
+        // Or this is a suggestion page
+        Log.d("isSuggestion2", String.valueOf(isSuggestionPage));
+
+
         if (!db.getIsLiteMode()) {
             // Lite mode is off
-
             Picasso.get().load(SuggestionImg).transform(new RoundedTransformation(50, 0)).fit().centerCrop(300).into(moreLikeThisPicture1);
+            Picasso.get().load(R.drawable.black_filer_resource).transform(new RoundedTransformation(55, 0)).fit().centerCrop(700).into(MoreLikeThisFilter);
             SuggestionTitleText.setText(SuggestionTitle);
+
+            moreLikeThisPicture1.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    progressBar.setVisibility(View.VISIBLE);
+                    blackFilter.setVisibility(View.VISIBLE);
+                    openMovieDetail(SuggestionID, SuggestionImg);
+                }
+            });
         } else {
             //Lite Mode is On
 
             Products.setVisibility(View.GONE);
             moreLikeThisPicture1.setVisibility(View.GONE);
+            MoreLikeThisFilter.setVisibility(View.GONE);
             SuggestionTitleText.setVisibility(View.GONE);
 
             rateText.setVisibility(View.GONE);
             rateStar.setVisibility(View.GONE);
         }
 
-        detailsThumbnail.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MovieDetails.this, ThumbnailFullScreen.class);
-                intent.putExtra("moviePhoto", moviePhoto);
-                startActivity(intent);
-            }
+        if (isSuggestionPage) {
+            Products.setVisibility(View.GONE);
+            moreLikeThisPicture1.setVisibility(View.GONE);
+            SuggestionTitleText.setVisibility(View.GONE);
+            MoreLikeThisFilter.setVisibility(View.GONE);
+        }
+
+        detailsThumbnail.setOnClickListener(v -> {
+            Intent intent = new Intent(MovieDetails.this, ThumbnailFullScreen.class);
+            intent.putExtra("moviePhoto", moviePhoto);
+            startActivity(intent);
         });
+
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Log.d("ActivityStatus", "Resume");
+
+        progressBar.setVisibility(View.INVISIBLE);
+        blackFilter.setVisibility(View.INVISIBLE);
+
+        Bundle extras = getIntent().getExtras();
+        movieID = extras.getString("MovieID");
+
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        Log.d("ActivityStatus", "Destroy");
+        SearchAPI.movieImageUrl.clear();
+        SearchAPI.movieTitle.clear();
+        movieID = null;
 
     }
 
@@ -244,44 +308,51 @@ public class MovieDetails extends AppCompatActivity {
     }
 
     private void setSuggestionDetails(String movieID) {
+        //Run the API
         GetMoreLikeThisAPI.getmorelikethiss(movieID);
-        SearchAPI.autoCompleteAPI(GetMoreLikeThisAPI.morelikethis.get(0));
-        SuggestionImg = SearchAPI.movieImageUrl.get(0);
-        SuggestionTitle = SearchAPI.movieTitle.get(0);
+        SearchAPI.autoCompleteAPI(GetMoreLikeThisAPI.morelikethis);
+
+        Log.d("APIStatus", "MovieID :" + movieID);
+        Log.d("APIStatus", "Movie url :" + SearchAPI.movieImageUrl);
+        Log.d("APIStatus", "Movie suggestion " + GetMoreLikeThisAPI.morelikethis);
+
+        //Get data
+        SuggestionImg =    SearchAPI.movieImageUrl.get(0);
+        SuggestionTitle =  SearchAPI.movieTitle.get(0);
+        SuggestionID =     GetMoreLikeThisAPI.morelikethis;
 
     }
+
+
 
     private void intianalizeOldData() {
         String TAG = "TAG";
 
-        docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                if (task.isSuccessful()) {
-                    DocumentSnapshot document = task.getResult();
-                    if (document.exists()) {
-                        Log.d(TAG, "DocumentSnapshot data: " + document.getData());
-                        Log.d(TAG, "DocumentSnapshot data: " + document.get("id"));
+        docRef.get().addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                DocumentSnapshot document = task.getResult();
+                if (document.exists()) {
+                    Log.d(TAG, "DocumentSnapshot data: " + document.getData());
+                    Log.d(TAG, "DocumentSnapshot data: " + document.get("id"));
 
-                        mapid = (List<Map<String, ArrayList>>) document.get("id");
-                        mapimg = (List<Map<String, ArrayList>>) document.get("img");
-                        maptitle = (List<Map<String, ArrayList>>) document.get("title");
-                        maptype = (List<Map<String, ArrayList>>) document.get("type");
-                        mapyear = (List<Map<String, ArrayList>>) document.get("year");
-                        mapfirstText = (List<Map<String, ArrayList>>) document.get("firstText");
-                        mapsecondText = (List<Map<String, ArrayList>>) document.get("secondText");
-                        mapduration = (List<Map<String, ArrayList>>) document.get("duration");
+                    mapid = (List<Map<String, ArrayList>>) document.get("id");
+                    mapimg = (List<Map<String, ArrayList>>) document.get("img");
+                    maptitle = (List<Map<String, ArrayList>>) document.get("title");
+                    maptype = (List<Map<String, ArrayList>>) document.get("type");
+                    mapyear = (List<Map<String, ArrayList>>) document.get("year");
+                    mapfirstText = (List<Map<String, ArrayList>>) document.get("firstText");
+                    mapsecondText = (List<Map<String, ArrayList>>) document.get("secondText");
+                    mapduration = (List<Map<String, ArrayList>>) document.get("duration");
 
-                        isMovieSaved(mapid.size());
-                        Log.d("IDSIZE", "" + mapid.size());
+                    isMovieSaved(mapid.size());
+                    Log.d("IDSIZE", "" + mapid.size());
 
-                    } else {
-                        Log.d(TAG, "No such document");
-                        SetMovieNotSaved();
-                    }
                 } else {
-                    Log.d(TAG, "get failed with ", task.getException());
+                    Log.d(TAG, "No such document");
+                    SetMovieNotSaved();
                 }
+            } else {
+                Log.d(TAG, "get failed with ", task.getException());
             }
         });
     }
@@ -442,8 +513,9 @@ public class MovieDetails extends AppCompatActivity {
             }
 
         }
-    }
 
+
+    }
 
     private void SetMovieSaved() {
         saved.setVisibility(View.VISIBLE);
@@ -453,6 +525,22 @@ public class MovieDetails extends AppCompatActivity {
     private void SetMovieNotSaved() {
         save.setVisibility(View.VISIBLE);
         saved.setVisibility(View.GONE);
+    }
+
+    private void openMovieDetail(String MovieID, String MoviePhoto) {
+        Intent intent = new Intent(MovieDetails.this, MovieDetails.class);
+        intent.putExtra("MovieID", MovieID);
+        intent.putExtra("MoviePhoto", MoviePhoto);
+        intent.putExtra("IsSaved", false);
+        intent.putExtra("IsSuggestedMovie", true); //For not showing more suggestion in next page
+        startActivity(intent);
+    }
+
+    private String isNull(String text) {
+        if (TextUtils.isEmpty(text)) return "";
+
+        else return text;
+
     }
 
 

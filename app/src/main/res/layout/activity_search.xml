@@ -21,46 +21,13 @@
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:layout_marginLeft="150dp"
-        android:layout_marginTop="400dp"
+        android:layout_marginTop="300dp"
         android:elevation="4dp"
         android:translationZ="4dp"
         android:visibility="invisible" />
 
-    <EditText
-        android:id="@+id/search_barInSearch"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginStart="12dp"
-        android:layout_marginTop="19dp"
-        android:layout_marginEnd="12dp"
-        android:paddingStart="12dp"
-        android:background="@drawable/searchbar"
-        android:hint="Search.."
-        android:inputType="textAutoComplete"
-        android:maxLines="1"
-        android:translationZ="1dp" />
 
-    <ImageButton
-        android:id="@+id/coolsearchbtnInSearch"
-        android:layout_width="wrap_content"
-        android:layout_height="50dp"
-        android:layout_alignRight="@id/search_barInSearch"
-        android:background="@android:color/transparent"
-        android:src="@drawable/searchbarbtn"
-        android:layout_marginTop="19dp"
-        android:translationZ="2dp" />
 
-    <ImageView
-        android:id="@+id/imageView7"
-        android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:src="@drawable/mainbackground"
-        android:translationZ="0dp" />
 
     <TextView
         android:id="@+id/resultText"
@@ -69,9 +36,10 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="100dp"
+        android:layout_marginTop="10dp"
         android:paddingStart="15dp"
         android:paddingTop="15dp"
+        android:layout_marginBottom="15dp"
         android:textColor="@color/black_overlay" />
 
     <ImageView
@@ -125,7 +93,8 @@ You ran out of your daily quota.
         android:layout_alignParentTop="true"
         android:layout_alignParentBottom="true"
         android:layout_centerVertical="true"
-        android:layout_marginTop="150dp">
+        android:layout_below="@id/resultText"
+        android:layout_marginTop="50dp">
 
 
         <RelativeLayout

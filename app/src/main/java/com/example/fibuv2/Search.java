@@ -41,13 +41,11 @@ public class Search extends AppCompatActivity {
         setContentView(R.layout.activity_search);
 
         Typeface face = getResources().getFont(R.font.plusjakartatextregular);   // Font-Family
-        Typeface boldface = getResources().getFont(R.font.plusjakartatexbold);  // Font-Family
+        Typeface boldface = getResources().getFont(R.font.plusjakartatexbold);   // Font-Family
 
         Bundle extra = getIntent().getExtras();
 
-        TextView result = (TextView) findViewById(R.id.resultText);
-        ImageButton coolSearchButtonInSearch = (ImageButton) findViewById(R.id.coolsearchbtnInSearch);
-        EditText searchBarInSearch = findViewById(R.id.search_barInSearch);
+        TextView result = findViewById(R.id.resultText);
         progressBar = findViewById(R.id.progressBarInSearch2);
         blackfilter = findViewById(R.id.BlackFilterInSearch2);
 
@@ -63,22 +61,6 @@ public class Search extends AppCompatActivity {
         int limit = SearchAPI.total;
         Log.d("Limitin", String.valueOf(limit));
 
-        coolSearchButtonInSearch.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String search = searchBarInSearch.getText().toString();
-                if (!search.isEmpty()) {
-                    searchContent = search;
-                    Log.d("SearchContent", searchContent);
-
-                    //Run the API
-                    SearchAPI.autoCompleteAPI(searchContent);
-                    int limit = SearchAPI.total;
-                    Log.d("Limitin", String.valueOf(limit));
-
-                }
-            }
-        });
 
 
         DatabaseHandler db = new DatabaseHandler(Search.this);
@@ -112,13 +94,15 @@ public class Search extends AppCompatActivity {
             image.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+
+
+
                     progressBar.setVisibility(View.VISIBLE);
                     blackfilter.setVisibility(View.VISIBLE);
                     openMovieDetail(SearchAPI.movieID.get(finalI), SearchAPI.movieImageUrl.get(finalI).trim());
-                    progressBar.setVisibility(View.INVISIBLE);
-                    blackfilter.setVisibility(View.INVISIBLE);
                 }
             });
+
 
             ImageView filter = new ImageView(this);
             filter.setLayoutParams(new ViewGroup.LayoutParams(1400, (int) (sizeheight)));
@@ -176,9 +160,26 @@ public class Search extends AppCompatActivity {
 
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        progressBar.setVisibility(View.INVISIBLE);
+        blackfilter.setVisibility(View.INVISIBLE);
+    }
 
+    @Override
+    protected void onPause() {
+        super.onPause();
+        SearchAPI.total = 0;
+        SearchAPI.movieImageUrl.clear();
+        SearchAPI.movieQ.clear();
+        SearchAPI.movieTitle.clear();
+        SearchAPI.movieID.clear();
+        SearchAPI.movieType.clear();
+        SearchAPI.splittedJson.clear();
+    }
 
-    private void openMovieDetail(String MovieID,String MoviePhoto){
+    private void openMovieDetail(String MovieID, String MoviePhoto){
         Intent intent = new Intent(Search.this, MovieDetails.class);
         intent.putExtra("MovieID",MovieID);
         intent.putExtra("MoviePhoto",MoviePhoto);

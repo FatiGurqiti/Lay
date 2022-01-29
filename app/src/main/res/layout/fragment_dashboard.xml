@@ -21,7 +21,7 @@
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:layout_marginLeft="150dp"
-        android:layout_marginTop="400dp"
+        android:layout_marginTop="300dp"
         android:elevation="4dp"
         android:translationZ="4dp"
         android:visibility="invisible" />
@@ -52,7 +52,7 @@
         android:hint="Search.."
         android:fontFamily="@font/plusjakartatextregular"
         android:paddingLeft="20dp"
-        android:paddingRight="55dp"
+        android:paddingRight="75dp"
         android:inputType="textAutoComplete"
         android:maxLines="1"
         android:background="@drawable/searchbar"
@@ -103,7 +103,7 @@
         android:elevation="2dp"
         android:outlineAmbientShadowColor="@color/black"
         android:outlineSpotShadowColor="@color/black"
-        app:cardBackgroundColor="#0244FA"
+        app:cardBackgroundColor="#700B97"
         app:cardCornerRadius="15dp">
 
         <TextView
@@ -127,14 +127,14 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="115dp"
-            android:layout_marginRight="40dp"
+            android:layout_marginRight="30dp"
             android:src="@drawable/up" />
 
         <TextView
             android:id="@+id/blueCardRateText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="80dp"
+            android:layout_marginLeft="90dp"
             android:layout_marginTop="110dp"
             android:fontFamily="@font/plusjakartatextregular"
             android:text="445"
@@ -153,7 +153,7 @@
         android:layout_marginTop="280dp"
         android:outlineAmbientShadowColor="@color/black"
         android:outlineSpotShadowColor="@color/black"
-        app:cardBackgroundColor="#FFDF00"
+        app:cardBackgroundColor="#020cab"
         app:cardCornerRadius="15dp">
 
         <TextView
@@ -177,14 +177,14 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="115dp"
-            android:layout_marginRight="40dp"
+            android:layout_marginRight="30dp"
             android:src="@drawable/up" />
 
         <TextView
             android:id="@+id/yellowCardRateText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="80dp"
+            android:layout_marginLeft="90dp"
             android:layout_marginTop="110dp"
             android:fontFamily="@font/plusjakartatextregular"
             android:text="445"
@@ -205,7 +205,7 @@
         android:layout_marginEnd="106dp"
         android:outlineAmbientShadowColor="@color/black"
         android:outlineSpotShadowColor="@color/black"
-        app:cardBackgroundColor="#1bc22c"
+        app:cardBackgroundColor="#2c7811"
         app:cardCornerRadius="15dp">
 
         <TextView
@@ -229,14 +229,14 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="115dp"
-            android:layout_marginRight="40dp"
+            android:layout_marginRight="30dp"
             android:src="@drawable/up" />
 
         <TextView
             android:id="@+id/greenCardRateText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="80dp"
+            android:layout_marginLeft="90dp"
             android:layout_marginTop="110dp"
             android:fontFamily="@font/plusjakartatextregular"
             android:text="445"
@@ -255,7 +255,7 @@
         android:layout_marginTop="480dp"
         android:outlineAmbientShadowColor="@color/black"
         android:outlineSpotShadowColor="@color/black"
-        app:cardBackgroundColor="#FD2222"
+        app:cardBackgroundColor="#c2004a"
         app:cardCornerRadius="15dp">
 
         <TextView
@@ -265,8 +265,8 @@
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
             android:layout_marginStart="12dp"
-            android:layout_marginEnd="12dp"
             android:layout_marginTop="12dp"
+            android:layout_marginEnd="12dp"
             android:layout_marginBottom="40dp"
             android:fontFamily="@font/plusjakartatextregular"
             android:text="Dune"
@@ -279,20 +279,20 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="115dp"
-            android:layout_marginRight="40dp"
+            android:layout_marginRight="30dp"
             android:src="@drawable/up" />
 
         <TextView
             android:id="@+id/redCardRateText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="90dp"
             android:layout_marginTop="110dp"
-            android:layout_marginLeft="80dp"
-            android:textAlignment="textStart"
             android:fontFamily="@font/plusjakartatextregular"
             android:text="445"
-            android:textSize="20sp"
-            android:textColor="@color/white"/>
+            android:textAlignment="textStart"
+            android:textColor="@color/white"
+            android:textSize="20sp" />
 
     </androidx.cardview.widget.CardView>
 

@@ -3,38 +3,31 @@ package com.example.fibuv2;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.util.Log;
-import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.fibuv2.api.SearchAPI;
 import com.example.fibuv2.database.Account;
 import com.example.fibuv2.database.DatabaseHandler;
 import com.example.fibuv2.ui.login.LoginActivity;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.squareup.picasso.Picasso;
 
 import java.util.Calendar;
-import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
-import java.time.DateTimeException;
 
 public class MainActivity extends AppCompatActivity {
 
 
     Timer timer;
     TextView welcomeText;
-    private FirebaseAuth mAuth;
     private boolean firsttime;
     private boolean loggedin;
     private DatabaseHandler db = new DatabaseHandler(this);
+    private static String APItoken;
 
     @RequiresApi(api = Build.VERSION_CODES.O)
 
@@ -45,6 +38,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        APItoken="97ed938c4cmsh18bd1d0c55ad892p17617cjsn2add5599122b";
 
         userStatus();
 
@@ -59,7 +53,7 @@ public class MainActivity extends AppCompatActivity {
 
         int delay;
         if(db.getIsLiteMode()) delay =0;
-        else delay = 2000;
+        else delay = 1200;
         timer = new Timer();
         timer.schedule(new TimerTask() {
                            @Override
@@ -99,16 +93,16 @@ public class MainActivity extends AppCompatActivity {
 
         if (db.getaccountsCount() == 0) {
             //It's there is no data created in account table it's first time and it creates the account table in sqlite
-            db.addaccount(new Account(1, 1, 0,0));
+            db.addaccount(new Account(1, 1, 0,1));
             firsttime = true;
 
         } else if (db.getaccountsCount() > 1) {
-            // to delete accounts in case if there's more than one
+            // to delete extra accounts in case if there's more than one
             for (int i = 0; i > db.getaccountsCount(); i++)
                 try {
-                    db.deleteaccount(new Account(i, 0, 0,0));
+                    db.deleteaccount(new Account(i, 0, 0,1));
                 } catch (Exception e) {
-                    db.deleteaccount(new Account(i, 1, 0,0));
+                    db.deleteaccount(new Account(i, 1, 0,1));
                     Log.d("Delete Status", e.toString());
                 }
 
@@ -148,4 +142,5 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
+    public static String getToken(){ return APItoken;}
 }

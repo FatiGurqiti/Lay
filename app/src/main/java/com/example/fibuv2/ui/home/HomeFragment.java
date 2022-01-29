@@ -192,6 +192,11 @@ public class HomeFragment extends Fragment {
                                 titleText.setOnClickListener(new View.OnClickListener() {
                                     @Override
                                     public void onClick(View v) {
+
+                                        blackbg.setVisibility(View.VISIBLE);
+                                        progressBar.setVisibility(View.VISIBLE);
+
+
                                         openMovieDetail(
                                                 id.get(finalI),
                                                 img.get(finalI),
@@ -201,6 +206,7 @@ public class HomeFragment extends Fragment {
                                                 firstText.get(finalI),
                                                 secondText.get(finalI),
                                                 duration.get(finalI));
+
                                     }
                                 });
 
@@ -235,6 +241,7 @@ public class HomeFragment extends Fragment {
                                         seenText.setTextColor(Color.WHITE);
                                         seenText.setPadding(25, 250, 25, 0);
                                         seenText.setTextSize(16);
+                                        seenText.setHeight(500);
                                         seenText.bringToFront();
                                         layout.addView(seenText);
                                         Search.setMargins(seenText, (int) ((sizewidth) * .4), (int) (i * (sizeheight) * .75), 25, 1);
@@ -324,6 +331,13 @@ public class HomeFragment extends Fragment {
     }
 
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        blackbg.setVisibility(View.INVISIBLE);
+        progressBar.setVisibility(View.INVISIBLE);
+    }
+
     private void like(String id, String name, String img, Boolean like) {
 
 
@@ -379,8 +393,7 @@ public class HomeFragment extends Fragment {
 
     private void openMovieDetail(String MovieID, String MoviePhoto, String MovieTitle, String MovieType, String MovieYear, String MovieFirstText, String MovieSecondText, String MovieDuration) {
 
-        blackbg.setVisibility(View.VISIBLE);
-        progressBar.setVisibility(View.VISIBLE);
+
 
         Intent intent = new Intent(getContext(), MovieDetails.class);
         intent.putExtra("MovieID", MovieID);
@@ -392,10 +405,9 @@ public class HomeFragment extends Fragment {
         intent.putExtra("MovieSecondText", MovieSecondText);
         intent.putExtra("MovieDuration", MovieDuration);
         intent.putExtra("IsSaved", true);
+        intent.putExtra("isSuggestionPage", false);
         startActivity(intent);
 
-        blackbg.setVisibility(View.INVISIBLE);
-        progressBar.setVisibility(View.INVISIBLE);
     }
 
     public int getScreenHeight(Context context) {

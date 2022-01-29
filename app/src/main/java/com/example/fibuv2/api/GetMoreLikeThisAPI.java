@@ -2,6 +2,8 @@ package com.example.fibuv2.api;
 
 import android.util.Log;
 
+import com.example.fibuv2.MainActivity;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,7 +14,7 @@ import okhttp3.Response;
 public class GetMoreLikeThisAPI {
 
 
-    public static List<String> morelikethis = new ArrayList<>();
+    public static String morelikethis;
 
 
     public static void getmorelikethiss(String jsonString) {
@@ -25,7 +27,7 @@ public class GetMoreLikeThisAPI {
                 .url(url + jsonString)
                 .get()
                 .addHeader("x-rapidapi-host", "imdb8.p.rapidapi.com")
-                .addHeader("x-rapidapi-key", "74f75c29e8mshddc4a4f5ad1f5e3p158145jsn38393a1db087")
+                .addHeader("x-rapidapi-key", MainActivity.getToken())
                 .build();
 
 
@@ -47,17 +49,7 @@ public class GetMoreLikeThisAPI {
             for (int i = 0; i < 9; i++) {
                 arr[i] = querry.charAt(i);
             }
-            morelikethis.add(String.valueOf(arr));
-
-            for (int i = 9; i < 18; i++) {
-                arr[i - 9] = querry.charAt(i);
-            }
-            morelikethis.add(String.valueOf(arr));
-
-            for (int i = 18; i < 27; i++) {
-                arr[i - 18] = querry.charAt(i);
-            }
-            morelikethis.add(String.valueOf(arr));
+            morelikethis = (String.valueOf(arr));
 
 
         }

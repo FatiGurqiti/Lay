@@ -55,6 +55,7 @@ public class SearchAPI {
                 reader.setLenient(true);                                                       // to get the null results
                 Movie movie = gson.fromJson(reader, Movie.class);
 
+
                 movieID.add(movie.getId());
                 movieImageUrl.add(movie.getImageUrl());
                 movieTitle.add(movie.getL());

@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
+import com.example.fibuv2.api.SearchAPI;
 import com.example.fibuv2.database.DatabaseHandler;
 import com.example.fibuv2.ui.login.LoginActivity;
 import com.example.fibuv2.ui.notifications.NotificationsFragment;
@@ -49,6 +50,8 @@ public class MainLoggedIn extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_logged_in);
+
+
         usernameQuery();
         topRateQuery();
 
@@ -64,6 +67,9 @@ public class MainLoggedIn extends AppCompatActivity {
     }
 
     public void onBackPressed() {}
+
+
+
 
     String TAG = "rateMovie";
     private void topRateQuery(){

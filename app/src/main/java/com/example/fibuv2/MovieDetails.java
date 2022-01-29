@@ -64,6 +64,7 @@ public class MovieDetails extends AppCompatActivity {
     private String movieYear;
     private String Runingtime;
     private String Type;
+    private String Rate;
     private String FistText;
     private String SecondText;
 
@@ -121,7 +122,7 @@ public class MovieDetails extends AppCompatActivity {
             movieTitle = isNull(DetailsAPI.name);
             movieYear = isNull(DetailsAPI.year);
             Runingtime = isNull(DetailsAPI.runningTimeInMinutes);
-            Type = isNull(DetailsAPI.genresList);
+
 
 
             if (DetailsAPI.plotOutlineList.size() > 0) {
@@ -133,6 +134,34 @@ public class MovieDetails extends AppCompatActivity {
             } else {
                 FistText = "";
                 SecondText = "";
+            }
+            if (!db.getIsLiteMode() || !isSuggestionPage) {
+                //Lite mode is off
+                //And this isn't a suggestion page
+                //I don't want the user to jump from one suggestion to another
+
+                Log.d("IsThisSuggestionPage", "Nope");
+
+                try {
+                    //Load Rate Data
+                    RateAPI.rate(movieID);
+
+                    //Load Suggestion Data
+                    GetMoreLikeThisAPI.getmorelikethiss(movieID);
+                    SearchAPI.autoCompleteAPI(GetMoreLikeThisAPI.morelikethis);
+
+                    Log.d("APIStatus", "MovieID :" + movieID);
+                    Log.d("APIStatus", "Movie url :" + SearchAPI.movieImageUrl);
+                    Log.d("APIStatus", "Movie suggestion " + GetMoreLikeThisAPI.morelikethis);
+
+                    //Get data
+                    SuggestionImg =    SearchAPI.movieImageUrl.get(0);
+                    SuggestionTitle =  SearchAPI.movieTitle.get(0);
+                    SuggestionID =     GetMoreLikeThisAPI.morelikethis;
+
+                } catch (Exception e) {
+                    Log.d("APIStatus", e.toString());
+                }
             }
         }
 
@@ -161,29 +190,13 @@ public class MovieDetails extends AppCompatActivity {
 
         title.setText(movieTitle);
         year.setText(movieYear);
+        rateText.setText(RateAPI.contentRate);
         minutesToHours(Integer.parseInt(Runingtime));
         time.setText(hours + "h " + minutes + "m");
         type.setText(Type);
         firstText.setText(FistText);
         secondText.setText(SecondText);
         secondText.setVisibility(View.INVISIBLE);
-
-        if (!db.getIsLiteMode() || !isSuggestionPage) {
-            //Lite mode is off
-            //And this isn't a suggestion page
-            //I don't want the user to jump from one suggestion to another
-
-            Log.d("IsThisSuggestionPage", "Nope");
-
-            try {
-                setSuggestionDetails(movieID);
-                RateAPI.rate(movieID);
-
-            } catch (Exception e) {
-                Log.d("APIStatus", e.toString());
-            }
-        }
-
 
         if(SearchAPI.movieImageUrl.isEmpty()) //Don't show suggestion if it's unavailable
         {
@@ -290,8 +303,6 @@ public class MovieDetails extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
         Log.d("ActivityStatus", "Destroy");
-        SearchAPI.movieImageUrl.clear();
-        SearchAPI.movieTitle.clear();
         movieID = null;
 
     }
@@ -307,21 +318,6 @@ public class MovieDetails extends AppCompatActivity {
         minutes = time;
     }
 
-    private void setSuggestionDetails(String movieID) {
-        //Run the API
-        GetMoreLikeThisAPI.getmorelikethiss(movieID);
-        SearchAPI.autoCompleteAPI(GetMoreLikeThisAPI.morelikethis);
-
-        Log.d("APIStatus", "MovieID :" + movieID);
-        Log.d("APIStatus", "Movie url :" + SearchAPI.movieImageUrl);
-        Log.d("APIStatus", "Movie suggestion " + GetMoreLikeThisAPI.morelikethis);
-
-        //Get data
-        SuggestionImg =    SearchAPI.movieImageUrl.get(0);
-        SuggestionTitle =  SearchAPI.movieTitle.get(0);
-        SuggestionID =     GetMoreLikeThisAPI.morelikethis;
-
-    }
 
 
 

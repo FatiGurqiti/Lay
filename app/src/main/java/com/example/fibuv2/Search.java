@@ -57,7 +57,7 @@ public class Search extends AppCompatActivity {
 
         searchContent = extra.getString("coolsearchBtn");
         SearchAPI.autoCompleteAPI(searchContent);
-        Log.d("fafafaInSearch",searchContent);
+        Log.d("Search Value",searchContent);
         int limit = SearchAPI.total;
         Log.d("Limitin", String.valueOf(limit));
 
@@ -76,10 +76,14 @@ public class Search extends AppCompatActivity {
             notfoundIMAGE.setVisibility(View.INVISIBLE);
             notfoundText.setVisibility(View.INVISIBLE);
 
-            result.setText("There are " + String.valueOf(SearchAPI.total) + " results");
+
         RelativeLayout layout = (RelativeLayout) findViewById(R.id.Scroll_Relative);
+        int j = -1;
         for (int i = 0; i < limit; i++) {
             int sizeheight = (int) (getScreenHeight(Search.this) * 0.5);
+
+            if (SearchAPI.movieQ.get(i) != null) { //Prevents loading useless contents like: trailer, review, etc..
+                j++;
 
 
             ImageView image = new ImageView(this);
@@ -87,14 +91,13 @@ public class Search extends AppCompatActivity {
             Picasso.get().load(SearchAPI.movieImageUrl.get(i).trim())
                     .transform(new RoundedTransformation(50, 0)).fit().centerCrop(700).into(image);
             layout.addView(image);
-            setMargins(image, 25, (int) (i * (sizeheight) * 1.2), 25, 1);
+            setMargins(image, 25, (int) (j * (sizeheight) * 1.2), 25, 1);
 
 
             int finalI = i;
             image.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-
 
 
                     progressBar.setVisibility(View.VISIBLE);
@@ -109,7 +112,7 @@ public class Search extends AppCompatActivity {
             Picasso.get().load(R.drawable.black_filer_resource).transform(new RoundedTransformation(50, 0)).fit().centerCrop(700).into(filter);
             filter.bringToFront();
             layout.addView(filter);
-            setMargins(filter, 25, (int) (i * (sizeheight) * 1.2), 25, 1);
+            setMargins(filter, 25, (int) (j * (sizeheight) * 1.2), 25, 50);
 
 
             TextView title = new TextView(this);
@@ -120,7 +123,7 @@ public class Search extends AppCompatActivity {
             title.setTextSize(22);
             title.bringToFront();
             layout.addView(title);
-            setMargins(title, 25, (int) (i * (sizeheight) * 1.2), 25, 1);
+            setMargins(title, 25, (int) (j * (sizeheight) * 1.2), 25, 1);
             title.setPadding(25, (int) (sizeheight * .5), 50, 0);
 
 
@@ -132,7 +135,7 @@ public class Search extends AppCompatActivity {
             type.setTextSize(18);
             type.bringToFront();
             layout.addView(type);
-            setMargins(type, 25, (int) ((int) (i * (sizeheight) * 1.2) + (sizeheight * 0.25)), 25, 1);
+            setMargins(type, 25, (int) ((int) (j * (sizeheight) * 1.2) + (sizeheight * 0.25)), 25, 1);
             type.setPadding(25, (int) (sizeheight * .5), 50, 0);
 
             TextView cast = new TextView(this);
@@ -143,11 +146,15 @@ public class Search extends AppCompatActivity {
             cast.setTextSize(16);
             cast.bringToFront();
             layout.addView(cast);
-            setMargins(cast, 25, (int) ((int) (i * (sizeheight) * 1.2) + (sizeheight * 0.35)), 25, 1);
+            setMargins(cast, 25, (int) ((int) (j * (sizeheight) * 1.2) + (sizeheight * 0.35)), 25, 1);
             cast.setPadding(25, (int) (sizeheight * .5), 50, 0);
 
+        }
 
         }
+
+        int totalResult = j+1;
+            result.setText("There are " + totalResult  + " results");
 
     }
         else{

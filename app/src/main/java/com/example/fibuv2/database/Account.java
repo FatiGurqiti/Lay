@@ -7,13 +7,18 @@ public class Account {
     int isLoggedIn;
     int litemode;
 
+
+    int showSeenContents;
+
     public Account() {
     }
-    public Account(int id, int isFirstTime, int isLoggedIn, int litemode) {
-        this.id= id;
+
+    public Account(int id, int isFirstTime, int isLoggedIn, int litemode, int showSeenContents) {
+        this.id = id;
         this.isFirstTime = isFirstTime;
         this.isLoggedIn = isLoggedIn;
         this.litemode = litemode;
+        this.showSeenContents = showSeenContents;
     }
 
 
@@ -49,6 +54,12 @@ public class Account {
         this.litemode = litemode;
     }
 
+    public int getShowSeenContents() {
+        return showSeenContents;
+    }
 
+    public void setShowSeenContents(int showSeenContents) {
+        this.showSeenContents = showSeenContents;
+    }
 
 }

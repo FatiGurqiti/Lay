@@ -42,13 +42,39 @@
         android:layout_marginEnd="8dp"
         android:textAlignment="textStart" />
 
+    <TextView
+        android:id="@+id/seen_content_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="290dp"
+        android:layout_marginEnd="8dp"
+        android:text="Show Seen Contents"
+        android:textAlignment="textStart"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Switch
+        android:id="@+id/switch_saved_content"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="290dp"
+        android:layout_marginEnd="8dp"
+        android:textAlignment="textStart" />
+
 
     <ImageView
         android:id="@+id/usernameicon"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="320dp"
+        android:layout_marginTop="370dp"
         android:layout_marginEnd="8dp"
         android:src="@drawable/username"
         app:layout_constraintStart_toStartOf="parent"
@@ -56,37 +82,6 @@
 
     <TextView
         android:id="@+id/text_username"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="312dp"
-        android:layout_marginEnd="8dp"
-        android:layout_toEndOf="@+id/usernameicon"
-        android:fontFamily="@font/davidlibre_regular"
-        android:textAlignment="textStart"
-        android:textColor="@color/black"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-
-    <ImageView
-        android:id="@+id/emailicon"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="370dp"
-        android:layout_marginEnd="8dp"
-        android:src="@drawable/mail"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-
-    <TextView
-        android:id="@+id/text_email"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
@@ -105,11 +100,42 @@
 
 
     <ImageView
+        android:id="@+id/emailicon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="420dp"
+        android:layout_marginEnd="8dp"
+        android:src="@drawable/mail"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <TextView
+        android:id="@+id/text_email"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="412dp"
+        android:layout_marginEnd="8dp"
+        android:layout_toEndOf="@+id/usernameicon"
+        android:fontFamily="@font/davidlibre_regular"
+        android:textAlignment="textStart"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <ImageView
         android:id="@+id/changepasswordicon"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="440dp"
+        android:layout_marginTop="490dp"
         android:layout_marginEnd="8dp"
         android:src="@drawable/lock"
         app:layout_constraintStart_toStartOf="parent"
@@ -121,7 +147,7 @@
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="437dp"
+        android:layout_marginTop="487dp"
         android:layout_marginEnd="8dp"
         android:layout_toEndOf="@+id/logouticon"
         android:text="Change Password"
@@ -139,7 +165,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="500dp"
+        android:layout_marginTop="550dp"
         android:layout_marginEnd="8dp"
         android:src="@drawable/logout"
         app:layout_constraintStart_toStartOf="parent"
@@ -150,7 +176,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="497dp"
+        android:layout_marginTop="547dp"
         android:layout_toEndOf="@+id/logouticon"
         android:text="Log out"
         android:textColor="#DE3448"

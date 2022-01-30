@@ -19,12 +19,11 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private static final String KEY_FIRST = "FirstTime";
     private static final String KEY_LOGGED_IN = "LoggedIn";
     private static final String KEY_LITEMODE = "LiteMode";
+    private static final String KEY_SEEN = "ShowSeenContents";
 
     public DatabaseHandler(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
-        //3rd argument to be passed is CursorFactory instance
 
-     //  context.deleteDatabase("LayDB"); // deletes database
     }
 
     // Creating Tables
@@ -34,7 +33,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 + KEY_ID + " INTEGER PRIMARY KEY ,"
                 + KEY_FIRST + " INTEGER ,"
                 + KEY_LOGGED_IN + " INTEGER, "
-                + KEY_LITEMODE + " INTEGER "
+                + KEY_LITEMODE + " INTEGER, "
+                + KEY_SEEN + " INTEGER "
                 + ")";
         db.execSQL(CREATE_ACCOUNTS_TABLE);
 
@@ -60,6 +60,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         values.put(KEY_FIRST, account.getIsFirstTime()); // account first time
         values.put(KEY_LOGGED_IN, account.getIsLoggedIn()); // account is logged in
         values.put(KEY_LITEMODE, account.getLitemode()); // account is using the lite mode
+        values.put(KEY_SEEN, account.getShowSeenContents()); // should show already seen contents
 
         // Inserting Row
         db.insert(TABLE_ACCOUNTS, null, values);
@@ -72,7 +73,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getReadableDatabase();
 
         Cursor cursor = db.query(TABLE_ACCOUNTS, new String[] { KEY_ID,
-                        KEY_FIRST, KEY_LOGGED_IN, KEY_LITEMODE }, KEY_ID + "=?",
+                        KEY_FIRST, KEY_LOGGED_IN, KEY_LITEMODE,KEY_SEEN }, KEY_ID + "=?",
                 new String[] { String.valueOf(id) }, null, null, null, null);
         if (cursor != null)
             cursor.moveToFirst();
@@ -81,7 +82,10 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 Integer.parseInt(cursor.getString(0)),
                 Integer.parseInt(cursor.getString(1)),
                 Integer.parseInt(cursor.getString(2)),
-                Integer.parseInt(cursor.getString(3))  );
+                Integer.parseInt(cursor.getString(3)),
+                Integer.parseInt(cursor.getString(4))
+
+        );
         // return account
         return account;
     }
@@ -203,6 +207,26 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             return false;
 
     }
+    // Getting if lite mode status
+    public boolean getShowSeenContents() {
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        Cursor cursor = db.query(TABLE_ACCOUNTS, new String[] {
+                        KEY_SEEN}, KEY_ID + "=?",
+                new String[] { String.valueOf(1) }, null, null, null, null);
+        if (cursor != null)
+            cursor.moveToFirst();
+
+        Log.d("SeenContents", cursor.getString(0));
+
+        if(cursor.getString(0).equals("1"))
+        {
+            return true;
+        }
+        else
+            return false;
+
+    }
 
     // set user's first time false
     public void setFirstTimeFalse() {
@@ -254,6 +278,28 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
         ContentValues values = new ContentValues();
         values.put(KEY_LITEMODE, 0);
+
+        // updating row
+        db.update(TABLE_ACCOUNTS, values, "id=?", new String[]{"1"});
+        db.close();
+    }
+
+    public void setShowSeenContentsOn() {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put(KEY_SEEN, 1);
+
+        // updating row
+        db.update(TABLE_ACCOUNTS, values, "id=?", new String[]{"1"});
+        db.close();
+    }
+
+    public void setShowSeenContentsOff() {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put(KEY_SEEN, 0);
 
         // updating row
         db.update(TABLE_ACCOUNTS, values, "id=?", new String[]{"1"});

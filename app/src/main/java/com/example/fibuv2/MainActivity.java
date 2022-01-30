@@ -32,13 +32,12 @@ public class MainActivity extends AppCompatActivity {
     @RequiresApi(api = Build.VERSION_CODES.O)
 
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        APItoken="b30730a0eemshc261b3851f67015p123219jsnca66e69443cf";
+        APItoken = "b30730a0eemshc261b3851f67015p123219jsnca66e69443cf";
 
         userStatus();
 
@@ -52,7 +51,7 @@ public class MainActivity extends AppCompatActivity {
         welcome();
 
         int delay;
-        if(db.getIsLiteMode()) delay =0;
+        if (db.getIsLiteMode()) delay = 0;
         else delay = 1200;
         timer = new Timer();
         timer.schedule(new TimerTask() {
@@ -90,19 +89,18 @@ public class MainActivity extends AppCompatActivity {
     private void userStatus() {
 
 
-
         if (db.getaccountsCount() == 0) {
             //It's there is no data created in account table it's first time and it creates the account table in sqlite
-            db.addaccount(new Account(1, 1, 0,1));
+            db.addaccount(new Account(1, 1, 0, 1, 1));
             firsttime = true;
 
         } else if (db.getaccountsCount() > 1) {
             // to delete extra accounts in case if there's more than one
             for (int i = 0; i > db.getaccountsCount(); i++)
                 try {
-                    db.deleteaccount(new Account(i, 0, 0,1));
+                    db.deleteaccount(new Account(i, 0, 0, 1, 1));
                 } catch (Exception e) {
-                    db.deleteaccount(new Account(i, 1, 0,1));
+                    db.deleteaccount(new Account(i, 1, 0, 1, 1));
                     Log.d("Delete Status", e.toString());
                 }
 
@@ -123,7 +121,6 @@ public class MainActivity extends AppCompatActivity {
 
         String time = String.valueOf(hour);
         welcomeText = findViewById(R.id.creativeText);
-        ;
 
         Log.d("Time: ", time);
 
@@ -142,5 +139,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    public static String getToken(){ return APItoken;}
+    public static String getToken() {
+        return APItoken;
+    }
 }

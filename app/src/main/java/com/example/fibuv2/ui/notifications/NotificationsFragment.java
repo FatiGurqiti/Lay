@@ -47,6 +47,8 @@ public class NotificationsFragment extends Fragment {
         final TextView logout = root.findViewById(R.id.logout);
         final TextView liemodeText = root.findViewById(R.id.text_litemode);
         final Switch litemode = root.findViewById(R.id.switch1);
+        final TextView showSeenText = root.findViewById(R.id.seen_content_text);
+        final Switch showSeenSwitch = root.findViewById(R.id.switch_saved_content);
 
 
         email.setText(Objects.requireNonNull(mAuth.getCurrentUser()).getEmail());
@@ -56,6 +58,31 @@ public class NotificationsFragment extends Fragment {
         //Get's lite mode status and set's the switch widget according to that
         DatabaseHandler sqldb = new DatabaseHandler(getContext());
 
+
+        //Get if show seen content is on
+        if(sqldb.getShowSeenContents())
+        {
+            showSeenSwitch.setChecked(true);
+            showSeenText.setTextColor(Color.parseColor("#b00768"));
+        }
+        else  showSeenSwitch.setChecked(false);
+        Log.d("showSeenContent", String.valueOf(sqldb.getIsLiteMode()));
+
+
+
+        showSeenSwitch.setOnClickListener(v -> {
+            if (sqldb.getShowSeenContents()) // if the show seen content is on
+            {
+                sqldb.setShowSeenContentsOff(); //set it off
+                showSeenText.setTextColor(Color.parseColor("#66000000"));
+            } else {
+                sqldb.setShowSeenContentsOn(); // set it on
+                showSeenText.setTextColor(Color.parseColor("#b00768"));
+            }
+        });
+
+
+
         if (sqldb.getIsLiteMode())  //check if lite mode is on
         {
             litemode.setChecked(true);
@@ -63,19 +90,16 @@ public class NotificationsFragment extends Fragment {
         } else litemode.setChecked(false);
 
         Log.d("litemode", String.valueOf(sqldb.getIsLiteMode()));
-        litemode.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (sqldb.getIsLiteMode()) // if the lite mode is on
-                {
-                    sqldb.setLiteModeOff(); //set it off
-                    liemodeText.setTextColor(Color.parseColor("#66000000"));
-                } else {
-                    sqldb.setLiteModeOn(); // set it on
-                    liemodeText.setTextColor(Color.parseColor("#00B612"));
-                }
-
+        litemode.setOnClickListener(v -> {
+            if (sqldb.getIsLiteMode()) // if the lite mode is on
+            {
+                sqldb.setLiteModeOff(); //set it off
+                liemodeText.setTextColor(Color.parseColor("#66000000"));
+            } else {
+                sqldb.setLiteModeOn(); // set it on
+                liemodeText.setTextColor(Color.parseColor("#00B612"));
             }
+
         });
 
 

@@ -22,9 +22,11 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.fibuv2.api.SearchAPI;
 import com.example.fibuv2.database.DatabaseHandler;
+import com.example.fibuv2.ui.dashboard.DashboardFragment;
 import com.squareup.picasso.Picasso;
 
 public class Search extends AppCompatActivity {
@@ -34,11 +36,32 @@ public class Search extends AppCompatActivity {
 
     private ImageView blackfilter;
     private  ProgressBar progressBar;
+
+    private boolean canSearch;
+
+    private boolean canClick() {
+        if(canSearch)
+        {return true;}
+        else {
+            Toast.makeText(Search.this, "Sorry, you are out of your daily quota. Try again tomorrow",
+                    Toast.LENGTH_SHORT).show();
+            return false;
+        }
+    }
+
     @RequiresApi(api = Build.VERSION_CODES.S)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
+
+        if(MainLoggedIn.getQuota() > 0 ) canSearch = true;
+        else canSearch = false;
+
+        Log.d("QuotaInPreSearch", String.valueOf(MainLoggedIn.getQuota()));
+        Log.d("QuotaInPreSearch", String.valueOf(canSearch));
+
+        MainLoggedIn.lowerQuota();
 
         Typeface face = getResources().getFont(R.font.plusjakartatextregular);   // Font-Family
         Typeface boldface = getResources().getFont(R.font.plusjakartatexbold);   // Font-Family
@@ -99,10 +122,11 @@ public class Search extends AppCompatActivity {
                 @Override
                 public void onClick(View v) {
 
-
+                    if(canClick()){ //Don't open if out of quota
                     progressBar.setVisibility(View.VISIBLE);
                     blackfilter.setVisibility(View.VISIBLE);
                     openMovieDetail(SearchAPI.movieID.get(finalI), SearchAPI.movieImageUrl.get(finalI).trim());
+                    }
                 }
             });
 
@@ -212,12 +236,6 @@ public class Search extends AppCompatActivity {
         return height;
     }
 
-    public int getScreenWidth(Context context) {
-        DisplayMetrics displayMetrics = new DisplayMetrics();
-        getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
-        int width = displayMetrics.widthPixels;
 
-        return width;
-    }
 
 }

@@ -55,6 +55,9 @@ public class NotificationsFragment extends Fragment {
         username.setText(MainLoggedIn.getUsername());
 
 
+
+
+
         //Get's lite mode status and set's the switch widget according to that
         DatabaseHandler sqldb = new DatabaseHandler(getContext());
 

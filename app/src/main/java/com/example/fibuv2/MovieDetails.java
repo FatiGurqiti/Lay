@@ -1,10 +1,12 @@
 package com.example.fibuv2;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
@@ -91,6 +93,7 @@ public class MovieDetails extends AppCompatActivity {
 
     private boolean isSaved;
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -119,6 +122,7 @@ public class MovieDetails extends AppCompatActivity {
 
         } else { //If movie isn't saved get data from API
 
+            MainLoggedIn.lowerQuota();
 
             movieTitle = isNull(DetailsAPI.name);
             movieYear = isNull(DetailsAPI.year);

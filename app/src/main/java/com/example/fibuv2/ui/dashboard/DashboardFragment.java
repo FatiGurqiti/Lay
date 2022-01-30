@@ -11,6 +11,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -19,6 +20,7 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.example.fibuv2.CreateAccount;
 import com.example.fibuv2.MainLoggedIn;
 import com.example.fibuv2.MovieDetails;
 import com.example.fibuv2.R;
@@ -36,13 +38,18 @@ public class DashboardFragment extends Fragment {
     private static ArrayList<String> name = new ArrayList<>();
     private static ArrayList<String> rate = new ArrayList<>();
 
-
     private ProgressBar pg;
     private ImageView blackfilter;
-
+    private boolean canSearch;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
+
+        if(MainLoggedIn.getQuota() > 0 ) canSearch = true;
+        else canSearch = false;
+
+        Log.d("QuotaInPreSearch", String.valueOf(MainLoggedIn.getQuota()));
+        Log.d("QuotaInPreSearch", String.valueOf(canSearch));
 
         dashboardViewModel =
                 new ViewModelProvider(this).get(DashboardViewModel.class);
@@ -93,43 +100,48 @@ public class DashboardFragment extends Fragment {
         greenRate.setText(rate.get(2));
         redRate.setText(rate.get(3));
 
-        blue.setOnClickListener(v -> {
-            activateLoad();
-            openMovieDetail(id.get(0), img.get(0));
-        });
-
-        yellow.setOnClickListener(v -> {
-            activateLoad();
-            openMovieDetail(id.get(1), img.get(1));
-        });
-
-        green.setOnClickListener(v -> {
-            activateLoad();
-            openMovieDetail(id.get(2), img.get(2));
-        });
-
-        red.setOnClickListener(v -> {
-            activateLoad();
-            openMovieDetail(id.get(3), img.get(3));
-        });
-
-
-        coolsearchBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                activateLoad();
-
-                String searchbarText = searchBar.getText().toString();
-                if (!searchbarText.isEmpty()) {
-
-                    Intent intent = new Intent(getActivity(), Search.class);
-                    Log.d("SearchContent", searchbarText);
-                    intent.putExtra("coolsearchBtn", searchbarText);
-                    startActivity(intent);
+            blue.setOnClickListener(v -> {
+                if(canClick()) {
+                    activateLoad();
+                    openMovieDetail(id.get(0), img.get(0));
                 }
-            }
-        });
+            });
+
+            yellow.setOnClickListener(v -> {
+                if(canClick()) {
+                    activateLoad();
+                    openMovieDetail(id.get(1), img.get(1));
+                }
+            });
+
+            green.setOnClickListener(v -> {
+                if(canClick()) {
+                    activateLoad();
+                    openMovieDetail(id.get(2), img.get(2));
+                }
+            });
+
+            red.setOnClickListener(v -> {
+                if(canClick()) {
+                    activateLoad();
+                    openMovieDetail(id.get(3), img.get(3));
+                }
+            });
+
+            coolsearchBtn.setOnClickListener(v -> {
+                if(canClick()) {
+                    activateLoad();
+                    String searchbarText = searchBar.getText().toString();
+                    if (!searchbarText.isEmpty()) {
+
+                        Intent intent = new Intent(getActivity(), Search.class);
+                        Log.d("SearchContent", searchbarText);
+                        intent.putExtra("coolsearchBtn", searchbarText);
+                        startActivity(intent);
+                    }
+                }
+            });
+
 
 
         dashboardViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
@@ -150,6 +162,15 @@ public class DashboardFragment extends Fragment {
     }
 
 
+    boolean canClick(){
+        if(canSearch)
+        {return true;}
+        else {
+            Toast.makeText(getContext(), "Sorry, you are out of your daily quota. Try again tomorrow",
+                    Toast.LENGTH_SHORT).show();
+            return false;
+        }
+     }
 
     private void activateLoad() {
         pg.setVisibility(View.VISIBLE);

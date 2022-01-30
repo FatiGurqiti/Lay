@@ -17,6 +17,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.Timestamp;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -24,8 +25,12 @@ import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.sql.Time;
+import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Timer;
 
 public class CreateAccount extends AppCompatActivity {
 
@@ -42,7 +47,6 @@ public class CreateAccount extends AppCompatActivity {
         super.onStart();
         // Check if user is signed in (non-null) and update UI accordingly.
         FirebaseUser currentUser = mAuth.getCurrentUser();
-        updateUI(currentUser);
     }
 
     @Override
@@ -100,14 +104,12 @@ public class CreateAccount extends AppCompatActivity {
                             Log.d("Create User Status", "createUserWithEmail:success");
 
                             FirebaseUser user = mAuth.getCurrentUser();
-                            updateUI(user);
 
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w("Create User Status", "createUserWithEmail:failure", task.getException());
                             Toast.makeText(CreateAccount.this, "Authentication failed.",
                                     Toast.LENGTH_SHORT).show();
-                            updateUI(null);
 
 
                         }
@@ -115,20 +117,21 @@ public class CreateAccount extends AppCompatActivity {
                 });
     }
 
-    private void updateUI(FirebaseUser user) {
-        userF = user;
-    }
-
     private void userData(String email,String password,String username){
 
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
-        CollectionReference users = db.collection("users");
+        Calendar rightNow = Calendar.getInstance();
+        int month = rightNow.get(Calendar.MONTH);
+        int day = rightNow.get(Calendar.DAY_OF_MONTH);
 
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
 
         Map<String, Object> user = new HashMap<>();
         user.put("username", username);
         user.put("email", email);
         user.put("password", password);
+        user.put("quota", 10);
+        user.put("last_update_month", month);
+        user.put("last_update_day", day);
 
         db.collection("users").document(email)
                 .set(user);

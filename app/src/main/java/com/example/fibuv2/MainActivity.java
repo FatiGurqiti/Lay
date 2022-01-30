@@ -1,5 +1,6 @@
 package com.example.fibuv2;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -13,7 +14,12 @@ import android.widget.TextView;
 import com.example.fibuv2.database.Account;
 import com.example.fibuv2.database.DatabaseHandler;
 import com.example.fibuv2.ui.login.LoginActivity;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.Calendar;
 import java.util.Timer;
@@ -41,6 +47,7 @@ public class MainActivity extends AppCompatActivity {
 
         userStatus();
 
+
         if (Build.VERSION.SDK_INT > 9) {
             StrictMode.ThreadPolicy policy = new
                     StrictMode.ThreadPolicy.Builder().permitAll().build();
@@ -65,9 +72,8 @@ public class MainActivity extends AppCompatActivity {
                                Log.d("IsLoggedInMainMenu", String.valueOf(db.getIsLoggedIn()));
 
                                if (firsttime == true) // User's first time opening the app
-                               {
-                                   intent = new Intent(MainActivity.this, FirstTime2.class);
-                               } else if (db.getIsLoggedIn()) {  // User hasn't logged in
+                               { intent = new Intent(MainActivity.this, FirstTime2.class);
+                               } else if (db.getIsLoggedIn()) {  // User has logged in
                                    intent = new Intent(MainActivity.this, MainLoggedIn.class);
                                } else { // User hasn't logged in
                                    intent = new Intent(MainActivity.this, LoginActivity.class);
@@ -117,7 +123,6 @@ public class MainActivity extends AppCompatActivity {
 
         Calendar rightNow = Calendar.getInstance();
         int hour = rightNow.get(Calendar.HOUR_OF_DAY);
-
 
         String time = String.valueOf(hour);
         welcomeText = findViewById(R.id.creativeText);

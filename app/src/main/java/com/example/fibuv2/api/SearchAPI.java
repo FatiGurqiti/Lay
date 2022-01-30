@@ -63,9 +63,11 @@ public class SearchAPI {
                 movieQ.add(movie.getQ());
 
 
-            }
 
-            Log.d("fafafa", String.valueOf(movieImageUrl));
+
+            }
+            Log.d("SearchAPIData", "Movie Photo" + movieImageUrl);
+
         } catch (Exception e) {
             total = 0;
         }

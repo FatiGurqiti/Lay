@@ -21,7 +21,7 @@ public class DetailsAPI {
 
     public static String name;
     public static String runningTimeInMinutes;
-    public static String genresList;
+    public static ArrayList genresList;
     public static String year;
     public static List<String> plotOutlineList = new ArrayList<>();
 
@@ -55,30 +55,9 @@ public class DetailsAPI {
             runningTimeInMinutes = movieDetails.getTitle().runningTimeInMinutes;
             year = movieDetails.getTitle().year;
             name = movieDetails.getTitle().title;
+            genresList = movieDetails.getGenres();
 
-            JsonParser parser = new JsonParser();
-            JsonElement rootNode = parser.parse(jsonString);
-
-            if (rootNode.isJsonObject()) {
-                JsonObject details = rootNode.getAsJsonObject();
-                JsonArray genres = details.getAsJsonArray("genres");
-
-                String stringGengres = genres.toString();
-                stringGengres = stringGengres.replaceAll("\\[", "");
-                stringGengres = stringGengres.replaceAll("\\]", "");
-                stringGengres = stringGengres.replaceAll("\"", "");
-                stringGengres = stringGengres.replaceAll(",", ", ");
-
-                genresList = stringGengres;
-
-            }
-            else
-            {
-                Title title;
-                title = gson.fromJson(result, Title.class);
-                genresList = title.titleType;
-            }
-
+            Log.d("DetailsAPIStatus","GenresList : " + genresList);
 
         } catch (Exception e) {
             System.out.println(e.toString());
@@ -112,6 +91,16 @@ public class DetailsAPI {
         private PlotSummary plotSummary;
         private Title title;
 
+        public ArrayList getGenres() {
+            return genres;
+        }
+
+        public void setGenres(ArrayList genres) {
+            this.genres = genres;
+        }
+
+        private ArrayList genres;
+
         public Title getTitle() {
             return title;
         }
@@ -121,8 +110,7 @@ public class DetailsAPI {
         }
 
 
-        public MovieDetails() {
-        }
+        public MovieDetails() { }
 
         public PlotOutline getPlotOutline() {
             return plotOutline;

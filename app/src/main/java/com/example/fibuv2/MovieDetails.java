@@ -122,7 +122,11 @@ public class MovieDetails extends AppCompatActivity {
             movieTitle = isNull(DetailsAPI.name);
             movieYear = isNull(DetailsAPI.year);
             Runingtime = isNull(DetailsAPI.runningTimeInMinutes);
-
+            Type = isNull(DetailsAPI.genresList.get(0).toString());
+            for (int j=1;j < DetailsAPI.genresList.size(); j++)
+            {
+                Type = Type + DetailsAPI.genresList.get(j).toString() + ", ";
+            }
 
 
             if (DetailsAPI.plotOutlineList.size() > 0) {

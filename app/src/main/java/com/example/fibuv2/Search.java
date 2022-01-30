@@ -39,15 +39,7 @@ public class Search extends AppCompatActivity {
 
     private boolean canSearch;
 
-    private boolean canClick() {
-        if(canSearch)
-        {return true;}
-        else {
-            Toast.makeText(Search.this, "Sorry, you are out of your daily quota. Try again tomorrow",
-                    Toast.LENGTH_SHORT).show();
-            return false;
-        }
-    }
+
 
     @RequiresApi(api = Build.VERSION_CODES.S)
     @Override
@@ -55,13 +47,15 @@ public class Search extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
 
+
+        MainLoggedIn.lowerQuota();
+        MainLoggedIn.quotaQuery();
+
         if(MainLoggedIn.getQuota() > 0 ) canSearch = true;
         else canSearch = false;
 
         Log.d("QuotaInPreSearch", String.valueOf(MainLoggedIn.getQuota()));
         Log.d("QuotaInPreSearch", String.valueOf(canSearch));
-
-        MainLoggedIn.lowerQuota();
 
         Typeface face = getResources().getFont(R.font.plusjakartatextregular);   // Font-Family
         Typeface boldface = getResources().getFont(R.font.plusjakartatexbold);   // Font-Family
@@ -194,6 +188,13 @@ public class Search extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            MainLoggedIn.quotaQuery();
+        }
+        if(MainLoggedIn.getQuota() > 0 ) canSearch = true;
+        else canSearch = false;
+
         progressBar.setVisibility(View.INVISIBLE);
         blackfilter.setVisibility(View.INVISIBLE);
     }
@@ -208,6 +209,16 @@ public class Search extends AppCompatActivity {
         SearchAPI.movieID.clear();
         SearchAPI.movieType.clear();
         SearchAPI.splittedJson.clear();
+    }
+
+    private boolean canClick() {
+        if(canSearch)
+        {return true;}
+        else {
+            Toast.makeText(Search.this, "Sorry, you are out of your daily quota. Try again tomorrow",
+                    Toast.LENGTH_SHORT).show();
+            return false;
+        }
     }
 
     private void openMovieDetail(String MovieID, String MoviePhoto){

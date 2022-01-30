@@ -1,6 +1,7 @@
 package com.example.fibuv2.ui.dashboard;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -15,6 +16,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
@@ -42,8 +44,12 @@ public class DashboardFragment extends Fragment {
     private ImageView blackfilter;
     private boolean canSearch;
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
+
+
+        MainLoggedIn.quotaQuery();
 
         if(MainLoggedIn.getQuota() > 0 ) canSearch = true;
         else canSearch = false;
@@ -156,6 +162,13 @@ public class DashboardFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            MainLoggedIn.quotaQuery();
+
+            if(MainLoggedIn.getQuota() > 0 ) canSearch = true;
+            else canSearch = false;
+        }
         blackfilter.setVisibility(View.INVISIBLE);
         pg.setVisibility(View.INVISIBLE);
 

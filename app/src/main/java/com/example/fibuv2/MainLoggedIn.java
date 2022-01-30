@@ -114,7 +114,9 @@ public class MainLoggedIn extends AppCompatActivity {
 
 
     @RequiresApi(api = Build.VERSION_CODES.N)
-    private void quotaQuery(){
+    public static void quotaQuery(){
+        FirebaseAuth mAuth = FirebaseAuth.getInstance();
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
         db.collection("users")
                 .whereEqualTo("email", mAuth.getCurrentUser().getEmail())
                 .get()
@@ -144,6 +146,7 @@ public class MainLoggedIn extends AppCompatActivity {
                         for (QueryDocumentSnapshot document : task.getResult()) {
                             quota = Math.toIntExact((document.getLong("quota")));
                             Log.d("QuotainLoop", String.valueOf(quota));
+                            if(quota >0)
                             quota --;
 
                             Map<String, Object> user = new HashMap<>();
@@ -151,6 +154,8 @@ public class MainLoggedIn extends AppCompatActivity {
 
                             db.collection("users").document(mAuth.getCurrentUser().getEmail())
                                     .set(user, SetOptions.merge());
+
+
                         }
                     } else {
                         Log.d("Username", "Error getting documents: ", task.getException());

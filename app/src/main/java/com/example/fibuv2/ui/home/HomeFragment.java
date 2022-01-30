@@ -34,6 +34,7 @@ import com.example.fibuv2.R;
 import com.example.fibuv2.RoundedTransformation;
 import com.example.fibuv2.Search;
 import com.example.fibuv2.api.SearchAPI;
+import com.example.fibuv2.database.DatabaseHandler;
 import com.example.fibuv2.ui.login.LoginActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -86,6 +87,9 @@ public class HomeFragment extends Fragment {
     private String currentname;
     private String currentimg;
 
+    private Boolean ShouldShowSeenContent;
+    private Boolean showCurrentContent;
+
     @RequiresApi(api = Build.VERSION_CODES.O)
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -97,19 +101,25 @@ public class HomeFragment extends Fragment {
         Typeface face = getResources().getFont(R.font.plusjakartatextregular);   // Font-Family
         Typeface boldface = getResources().getFont(R.font.plusjakartatexbold);  // Font-Family
 
-        pop = (CardView) root.findViewById(R.id.ratepop);
-        popafter = (CardView) root.findViewById(R.id.afterRate);
-        blackbg = (ImageView) root.findViewById(R.id.homeBlackFilter);
+        pop = root.findViewById(R.id.ratepop);
+        popafter = root.findViewById(R.id.afterRate);
+        blackbg = root.findViewById(R.id.homeBlackFilter);
         progressBar = root.findViewById(R.id.progressbarinMyList);
-        ImageButton likeButton = (ImageButton) root.findViewById(R.id.likeButton);
-        ImageButton dislikeButton = (ImageButton) root.findViewById(R.id.dislikeButton);
-        CuteRobot = (ImageView) root.findViewById(R.id.cuteRobot);
-        NoFavouriteText = (TextView) root.findViewById(R.id.noFavouriteText);
-        FirstReference = (TextView) root.findViewById(R.id.firstReference);
+        ImageButton likeButton = root.findViewById(R.id.likeButton);
+        ImageButton dislikeButton = root.findViewById(R.id.dislikeButton);
+        CuteRobot = root.findViewById(R.id.cuteRobot);
+        NoFavouriteText = root.findViewById(R.id.noFavouriteText);
+        FirstReference = root.findViewById(R.id.firstReference);
+        TextView WelcomeText = root.findViewById(R.id.welcomeText);
 
-        TextView WelcomeText = (TextView) root.findViewById(R.id.welcomeText);
 
-        if(MainLoggedIn.getUsername() == null)
+        //Get status of showing content that are already seen
+        DatabaseHandler sqldb = new DatabaseHandler(getContext());
+        if (sqldb.getShowSeenContents()) ShouldShowSeenContent = true;
+        else ShouldShowSeenContent = false;
+
+
+        if (MainLoggedIn.getUsername() == null)
             WelcomeText.setText(" \t Welcome, here's your favourite list");
         else
             WelcomeText.setText(" \t Hi " + MainLoggedIn.getUsername() + ", here's your favourite list");
@@ -121,49 +131,53 @@ public class HomeFragment extends Fragment {
         DocumentReference docRef = Firedb.collection("MovieLists").document(user.getUid());
 
 
+        docRef.get().addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                DocumentSnapshot document = task.getResult();
+                if (document.exists()) {
+                    Log.d(TAG, "DocumentSnapshot data: " + document.getData());
+
+                    id = (ArrayList<String>) document.get("id");
+                    img = (ArrayList<String>) document.get("img");
+                    title = (ArrayList<String>) document.get("title");
+                    type = (ArrayList<String>) document.get("type");
+                    year = (ArrayList<String>) document.get("year");
+                    firstText = (ArrayList<String>) document.get("firstText");
+                    secondText = (ArrayList<String>) document.get("secondText");
+                    duration = (ArrayList<String>) document.get("duration");
+
+                    int limit = id.size();
+                    if (limit > 0) {
+
+                        // There are results
+                        Log.d("GetSeenMoviesFirebaseStatusOnStart", String.valueOf(localarrayList));
+
+                        RelativeLayout layout = root.findViewById(R.id.Scroll_Relative);
+                        int j = -1;
+                        for (int i = 0; i < limit; i++) {
+
+                            int sizeheight = (int) (getScreenHeight(getContext()) * 0.5);
+                            int sizewidth = (getScreenWidth(getContext()));
+                            int finalI = i;
 
 
-        docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                if (task.isSuccessful()) {
-                    DocumentSnapshot document = task.getResult();
-                    if (document.exists()) {
-                        Log.d(TAG, "DocumentSnapshot data: " + document.getData());
+                            //Don't show contents that are already seen if the mode is off
+                            if (!ShouldShowSeenContent && isSeen(id.get(finalI))) {
+                                showCurrentContent = false;
+                            } else showCurrentContent = true; //Show Seen Content is on, So show everything
 
-                        id = (ArrayList<String>) document.get("id");
-                        img = (ArrayList<String>) document.get("img");
-                        title = (ArrayList<String>) document.get("title");
-                        type = (ArrayList<String>) document.get("type");
-                        year = (ArrayList<String>) document.get("year");
-                        firstText = (ArrayList<String>) document.get("firstText");
-                        secondText = (ArrayList<String>) document.get("secondText");
-                        duration = (ArrayList<String>) document.get("duration");
-
-
-                        int limit = id.size();
-                        if (limit > 0) {
-
-                            // There are results
-
-
-                            Log.d("GetSeenMoviesFirebaseStatusOnStart", String.valueOf(localarrayList));
-
-                            RelativeLayout layout = (RelativeLayout) root.findViewById(R.id.Scroll_Relative);
-                            for (int i = 0; i < limit; i++) {
-
-                                int sizeheight = (int) (getScreenHeight(getContext()) * 0.5);
-                                int sizewidth = (int) (getScreenWidth(getContext()));
-
-                                int finalI = i;
-
-
+                            if (showCurrentContent) {
+                                j++;
                                 ImageView image = new ImageView(getContext());
                                 image.setLayoutParams(new ViewGroup.LayoutParams(1400, (int) ((int) (sizeheight) * .6)));
                                 Picasso.get().load(img.get(i).trim())
-                                        .transform(new RoundedTransformation(50, 0)).fit().centerCrop(700).into(image);
+                                        .transform(new RoundedTransformation(50, 0))
+                                        .fit()
+                                        .centerCrop(700)
+                                        .into(image);
+
                                 layout.addView(image);
-                                Search.setMargins(image, 25, (int) (i * (sizeheight) * .75), 25, 1);
+                                Search.setMargins(image, 25, (int) (j * (sizeheight) * .75), 25, 1);
 
 
                                 ImageView filter = new ImageView(getContext());
@@ -172,7 +186,7 @@ public class HomeFragment extends Fragment {
                                 filter.bringToFront();
                                 filter.setTranslationZ(1);
                                 layout.addView(filter);
-                                Search.setMargins(filter, 25, (int) (i * (sizeheight) * .75), 25, 1);
+                                Search.setMargins(filter, 25, (int) (j * (sizeheight) * .75), 25, 1);
 
 
                                 TextView titleText = new TextView(getContext());
@@ -182,10 +196,10 @@ public class HomeFragment extends Fragment {
                                 titleText.setPadding(25, 250, 25, 0);
                                 titleText.setTextSize(22);
                                 titleText.bringToFront();
-                                titleText.setHeight(500);
+                                titleText.setHeight(300);
                                 titleText.setTranslationZ(1);
                                 layout.addView(titleText);
-                                Search.setMargins(titleText, 25, (int) (i * (sizeheight) * .75), 25, 1);
+                                Search.setMargins(titleText, 25, (int) (j * (sizeheight) * .75), 25, 1);
                                 titleText.setPadding(25, (int) (sizewidth * .2), 50, 0);
 
 
@@ -211,80 +225,69 @@ public class HomeFragment extends Fragment {
                                 });
 
 
-
-                                        ImageView seenicon = new ImageView(getContext());
-                                        if(isSeen(id.get(finalI))){
-                                            Picasso.get().load(R.drawable.check).into(seenicon);
-                                            seenicon.setEnabled(false);
-                                        }
-                                        else
-                                        {
-                                            Picasso.get().load(R.drawable.seen).into(seenicon);
-                                        }
-                                        seenicon.bringToFront();
-                                        layout.addView(seenicon);
-                                        Search.setMargins(seenicon, 25, (int) (i * (sizeheight) * .75), 25, 1);
-                                        seenicon.setPadding((int) ((sizewidth) * .3), (int) (sizewidth * .5), 50, 0);
+                                ImageView seenicon = new ImageView(getContext());
+                                if (isSeen(id.get(finalI))) {
+                                    Picasso.get().load(R.drawable.check).into(seenicon);
+                                    seenicon.setEnabled(false);
+                                } else {
+                                    Picasso.get().load(R.drawable.seen).into(seenicon);
+                                }
+                                seenicon.bringToFront();
+                                layout.addView(seenicon);
+                                Search.setMargins(seenicon, 25, (int) (j * (sizeheight) * .75), 25, 1);
+                                seenicon.setPadding((int) ((sizewidth) * .3), (int) (sizewidth * .5), 50, 0);
 
 
-                                        TextView seenText = new TextView(getContext());
-                                        if(isSeen(id.get(finalI))){
-                                            seenText.setText("Seen");
-                                            seenText.setEnabled(false);
-                                        }
-                                        else
-                                        {
-                                            seenText.setText("Set as seen");
-                                        }
+                                TextView seenText = new TextView(getContext());
+                                if (isSeen(id.get(finalI))) {
+                                    seenText.setText("Seen");
+                                    seenText.setEnabled(false);
+                                } else {
+                                    seenText.setText("Set as seen");
+                                }
 
-                                        seenText.setTypeface(face);
-                                        seenText.setTextColor(Color.WHITE);
-                                        seenText.setPadding(25, 250, 25, 0);
-                                        seenText.setTextSize(16);
-                                        seenText.setHeight(500);
-                                        seenText.bringToFront();
-                                        layout.addView(seenText);
-                                        Search.setMargins(seenText, (int) ((sizewidth) * .4), (int) (i * (sizeheight) * .75), 25, 1);
-                                        seenText.setPadding(25, (int) (sizewidth * .5), 50, 0);
+                                seenText.setTypeface(face);
+                                seenText.setTextColor(Color.WHITE);
+                                seenText.setPadding(25, 250, 25, 0);
+                                seenText.setTextSize(16);
+                                seenText.setHeight(500);
+                                seenText.bringToFront();
+                                layout.addView(seenText);
+                                Search.setMargins(seenText, (int) ((sizewidth) * .4), (int) (j * (sizeheight) * .75), 25, 1);
+                                seenText.setPadding(25, (int) (sizewidth * .5), 50, 0);
 
 
-                                        seenicon.setOnClickListener(new View.OnClickListener() {
-                                            @Override
-                                            public void onClick(View v) {
-                                                setmovieSeen();
-                                                currentid = id.get(finalI);
-                                                currentname = title.get(finalI);
-                                                currentimg = img.get(finalI);
+                                seenicon.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View v) {
+                                        setmovieSeen();
+                                        currentid = id.get(finalI);
+                                        currentname = title.get(finalI);
+                                        currentimg = img.get(finalI);
 
-                                                Picasso.get().load(R.drawable.check).into(seenicon);
-                                                seenicon.setEnabled(false);
-                                                seenText.setText("Seen");
-                                                seenText.setEnabled(false);
+                                        Picasso.get().load(R.drawable.check).into(seenicon);
+                                        seenicon.setEnabled(false);
+                                        seenText.setText("Seen");
+                                        seenText.setEnabled(false);
 
-                                            }
-                                        });
+                                    }
+                                });
 
-                                        seenText.setOnClickListener(new View.OnClickListener() {
-                                            @Override
-                                            public void onClick(View v) {
-                                                setmovieSeen();
+                                seenText.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View v) {
+                                        setmovieSeen();
 
-                                                currentid = id.get(finalI);
-                                                currentname = title.get(finalI);
-                                                currentimg = img.get(finalI);
+                                        currentid = id.get(finalI);
+                                        currentname = title.get(finalI);
+                                        currentimg = img.get(finalI);
 
-                                                Picasso.get().load(R.drawable.check).into(seenicon);
-                                                seenicon.setEnabled(false);
-                                                seenText.setText("Seen");
-                                                seenText.setEnabled(false);
-                                            }
-                                        });
-
-
-
-
-
-
+                                        Picasso.get().load(R.drawable.check).into(seenicon);
+                                        seenicon.setEnabled(false);
+                                        seenText.setText("Seen");
+                                        seenText.setEnabled(false);
+                                    }
+                                });
 
 
                                 likeButton.setOnClickListener(new View.OnClickListener() {
@@ -314,15 +317,16 @@ public class HomeFragment extends Fragment {
 
                         }
 
-                    } else {
-                        Log.d(TAG, "No such document");
-                        CuteRobot.setVisibility(View.VISIBLE);
-                        NoFavouriteText.setVisibility(View.VISIBLE);
-                        FirstReference.setVisibility(View.VISIBLE);
                     }
+
                 } else {
-                    Log.d(TAG, "get failed with ", task.getException());
+                    Log.d(TAG, "No such document");
+                    CuteRobot.setVisibility(View.VISIBLE);
+                    NoFavouriteText.setVisibility(View.VISIBLE);
+                    FirstReference.setVisibility(View.VISIBLE);
                 }
+            } else {
+                Log.d(TAG, "get failed with ", task.getException());
             }
         });
 
@@ -392,7 +396,6 @@ public class HomeFragment extends Fragment {
     }
 
     private void openMovieDetail(String MovieID, String MoviePhoto, String MovieTitle, String MovieType, String MovieYear, String MovieFirstText, String MovieSecondText, String MovieDuration) {
-
 
 
         Intent intent = new Intent(getContext(), MovieDetails.class);
@@ -543,12 +546,10 @@ public class HomeFragment extends Fragment {
 
     }
 
-    private boolean isSeen(String id){
+    private boolean isSeen(String id) {
         boolean result = false;
-        for(int i = 0; i< localarrayList.size();i++)
-        {
-            if(id.equals(localarrayList.get(i)))
-            {
+        for (int i = 0; i < localarrayList.size(); i++) {
+            if (id.equals(localarrayList.get(i))) {
                 result = true;
             }
         }

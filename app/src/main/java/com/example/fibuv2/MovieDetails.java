@@ -89,6 +89,7 @@ public class MovieDetails extends AppCompatActivity {
     private ImageView save;
     private ImageView saved;
 
+    private boolean isSaved;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -100,7 +101,7 @@ public class MovieDetails extends AppCompatActivity {
 
         movieID = extras.getString("MovieID");
         moviePhoto = extras.getString("MoviePhoto");
-        boolean isSaved = extras.getBoolean("IsSaved");
+        isSaved = extras.getBoolean("IsSaved");
         boolean isSuggestionPage = extras.getBoolean("IsSuggestedMovie");
 
         Log.d("isSuggestion", String.valueOf(isSuggestionPage));
@@ -139,9 +140,11 @@ public class MovieDetails extends AppCompatActivity {
                 FistText = "";
                 SecondText = "";
             }
-            if (!db.getIsLiteMode() || !isSuggestionPage) {
+            if (!db.getIsLiteMode() || !isSuggestionPage || !isSaved) {
                 //Lite mode is off
-                //And this isn't a suggestion page
+                //This isn't a suggestion page
+                //And This isn't a page that is saved by user
+
                 //I don't want the user to jump from one suggestion to another
 
                 Log.d("IsThisSuggestionPage", "Nope");
@@ -275,7 +278,7 @@ public class MovieDetails extends AppCompatActivity {
             rateStar.setVisibility(View.GONE);
         }
 
-        if (isSuggestionPage) {
+        if (isSuggestionPage || isSaved) {
             Products.setVisibility(View.GONE);
             moreLikeThisPicture1.setVisibility(View.GONE);
             SuggestionTitleText.setVisibility(View.GONE);

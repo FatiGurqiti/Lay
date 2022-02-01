@@ -55,7 +55,7 @@ public class MovieDetails extends AppCompatActivity {
     private ImageView rateStar;
     private ProgressBar progressBar;
     private ImageView blackFilter;
-    private ImageView moreLikeThisPicture1;
+    private ImageView moreLikeThisPicture;
     private ImageView MoreLikeThisFilter;
     private TextView Products;
 
@@ -178,7 +178,7 @@ public class MovieDetails extends AppCompatActivity {
 
 
         ImageView detailsThumbnail = findViewById(R.id.imageThumbnailinDetails);
-        moreLikeThisPicture1 = findViewById(R.id.morelikethisimage1);
+        moreLikeThisPicture = findViewById(R.id.morelikethisimage1);
         MoreLikeThisFilter = findViewById(R.id.morelikethisfilter);
         progressBar = findViewById(R.id.progressbarindetail);
         blackFilter = findViewById(R.id.detailBlackFilter);
@@ -214,7 +214,7 @@ public class MovieDetails extends AppCompatActivity {
         if(SearchAPI.movieImageUrl.isEmpty()) //Don't show suggestion if it's unavailable
         {
             Products.setVisibility(View.GONE);
-            moreLikeThisPicture1.setVisibility(View.GONE);
+            moreLikeThisPicture.setVisibility(View.GONE);
             MoreLikeThisFilter.setVisibility(View.GONE);
             SuggestionTitleText.setVisibility(View.GONE);
         }
@@ -260,11 +260,11 @@ public class MovieDetails extends AppCompatActivity {
 
         if (!db.getIsLiteMode()) {
             // Lite mode is off
-            Picasso.get().load(SuggestionImg).transform(new RoundedTransformation(50, 0)).fit().centerCrop(300).into(moreLikeThisPicture1);
+            Picasso.get().load(SuggestionImg).transform(new RoundedTransformation(50, 0)).fit().centerCrop(300).into(moreLikeThisPicture);
             Picasso.get().load(R.drawable.black_filer_resource).transform(new RoundedTransformation(55, 0)).fit().centerCrop(700).into(MoreLikeThisFilter);
             SuggestionTitleText.setText(SuggestionTitle);
 
-            moreLikeThisPicture1.setOnClickListener(new View.OnClickListener() {
+            moreLikeThisPicture.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     progressBar.setVisibility(View.VISIBLE);
@@ -276,7 +276,7 @@ public class MovieDetails extends AppCompatActivity {
             //Lite Mode is On
 
             Products.setVisibility(View.GONE);
-            moreLikeThisPicture1.setVisibility(View.GONE);
+            moreLikeThisPicture.setVisibility(View.GONE);
             MoreLikeThisFilter.setVisibility(View.GONE);
             SuggestionTitleText.setVisibility(View.GONE);
 
@@ -286,7 +286,7 @@ public class MovieDetails extends AppCompatActivity {
 
         if (isSuggestionPage || isSaved) {
             Products.setVisibility(View.GONE);
-            moreLikeThisPicture1.setVisibility(View.GONE);
+            moreLikeThisPicture.setVisibility(View.GONE);
             SuggestionTitleText.setVisibility(View.GONE);
             MoreLikeThisFilter.setVisibility(View.GONE);
         }

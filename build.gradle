@@ -3,6 +3,7 @@ buildscript {
     repositories {
         google()
         jcenter()
+
     }
     dependencies {
         classpath "com.android.tools.build:gradle:4.1.3"
@@ -11,6 +12,7 @@ buildscript {
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
     }
+
 }
 
 allprojects {
@@ -31,7 +33,8 @@ ext {
     materialVersion = '1.2.1'
     roomVersion = '2.4.0'
 // testing
-    junitVersion = '4.13.1'
+    junitVersion = '5.7.1'
     espressoVersion = '3.1.0'
     androidxJunitVersion = '1.1.2'
 }
+

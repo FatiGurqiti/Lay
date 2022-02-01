@@ -40,21 +40,24 @@ public class DashboardFragment extends Fragment {
     private static ArrayList<String> name = new ArrayList<>();
     private static ArrayList<String> rate = new ArrayList<>();
 
+    private static String searchbarText;
+
     private ProgressBar pg;
     private ImageView blackfilter;
     private boolean canSearch;
+    private static int quota;
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
 
 
+        quota = MainLoggedIn.getQuota();
         MainLoggedIn.quotaQuery();
-
-        if(MainLoggedIn.getQuota() > 0 ) canSearch = true;
+        if(quota > 0 ) canSearch = true;
         else canSearch = false;
 
-        Log.d("QuotaInPreSearch", String.valueOf(MainLoggedIn.getQuota()));
+        Log.d("QuotaInPreSearch", String.valueOf(quota));
         Log.d("QuotaInPreSearch", String.valueOf(canSearch));
 
         dashboardViewModel =
@@ -90,8 +93,8 @@ public class DashboardFragment extends Fragment {
         Log.d("rateMovie", "RateListinLoop" + MainLoggedIn.getTopRatedRate());
 
 
-        id = MainLoggedIn.getTopRatedId();
-        img = MainLoggedIn.getTopRatedImg();
+        id   = MainLoggedIn.getTopRatedId();
+        img  = MainLoggedIn.getTopRatedImg();
         name = MainLoggedIn.getTopRatedName();
         rate = MainLoggedIn.getTopRatedRate();
 
@@ -137,7 +140,7 @@ public class DashboardFragment extends Fragment {
             coolsearchBtn.setOnClickListener(v -> {
                 if(canClick()) {
                     activateLoad();
-                    String searchbarText = searchBar.getText().toString();
+                     searchbarText = searchBar.getText().toString();
                     if (!searchbarText.isEmpty()) {
 
                         Intent intent = new Intent(getActivity(), Search.class);
@@ -166,7 +169,7 @@ public class DashboardFragment extends Fragment {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             MainLoggedIn.quotaQuery();
 
-            if(MainLoggedIn.getQuota() > 0 ) canSearch = true;
+            if(quota > 0 ) canSearch = true;
             else canSearch = false;
         }
         blackfilter.setVisibility(View.INVISIBLE);
@@ -199,5 +202,15 @@ public class DashboardFragment extends Fragment {
         startActivity(intent);
     }
 
+
+
+
+
+public static int getQuota(){return quota;}
+public static ArrayList<String> getid  () {return  id  ;}
+public static ArrayList<String> getimg () {return  img ;}
+public static ArrayList<String> getname() {return  name;}
+public static ArrayList<String> getrate() {return  rate;}
+public static String getSearchbarText(){return searchbarText;}
 
 }

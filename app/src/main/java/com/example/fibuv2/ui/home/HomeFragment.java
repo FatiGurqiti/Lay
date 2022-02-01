@@ -87,8 +87,16 @@ public class HomeFragment extends Fragment {
     private String currentname;
     private String currentimg;
 
-    private Boolean ShouldShowSeenContent;
-    private Boolean showCurrentContent;
+    private static String username;
+
+    private static boolean ShouldShowSeenContent;
+    private boolean showCurrentContent;
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        username = MainLoggedIn.getUsername();
+    }
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -119,10 +127,10 @@ public class HomeFragment extends Fragment {
         else ShouldShowSeenContent = false;
 
 
-        if (MainLoggedIn.getUsername() == null)
+        if (username == null)
             WelcomeText.setText(" \t Welcome, here's your favourite list");
         else
-            WelcomeText.setText(" \t Hi " + MainLoggedIn.getUsername() + ", here's your favourite list");
+            WelcomeText.setText(" \t Hi " + username + ", here's your favourite list");
 
 
         String TAG = "HomeDataStatus";
@@ -203,25 +211,20 @@ public class HomeFragment extends Fragment {
                                 titleText.setPadding(25, (int) (sizewidth * .2), 50, 0);
 
 
-                                titleText.setOnClickListener(new View.OnClickListener() {
-                                    @Override
-                                    public void onClick(View v) {
+                                titleText.setOnClickListener(v -> {
 
-                                        blackbg.setVisibility(View.VISIBLE);
-                                        progressBar.setVisibility(View.VISIBLE);
+                                    blackbg.setVisibility(View.VISIBLE);
+                                    progressBar.setVisibility(View.VISIBLE);
 
-
-                                        openMovieDetail(
-                                                id.get(finalI),
-                                                img.get(finalI),
-                                                title.get(finalI),
-                                                type.get(finalI),
-                                                year.get(finalI),
-                                                firstText.get(finalI),
-                                                secondText.get(finalI),
-                                                duration.get(finalI));
-
-                                    }
+                                    openMovieDetail(
+                                            id.get(finalI),
+                                            img.get(finalI),
+                                            title.get(finalI),
+                                            type.get(finalI),
+                                            year.get(finalI),
+                                            firstText.get(finalI),
+                                            secondText.get(finalI),
+                                            duration.get(finalI));
                                 });
 
 
@@ -556,4 +559,7 @@ public class HomeFragment extends Fragment {
         return result;
     }
 
+
+    public static String getUsername(){return username;}
+    public static boolean getSeenContentStatus(){return ShouldShowSeenContent;}
 }

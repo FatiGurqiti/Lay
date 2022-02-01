@@ -36,6 +36,10 @@ public class NotificationsFragment extends Fragment {
     private FirebaseAuth mAuth = FirebaseAuth.getInstance();
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
 
+
+    private static boolean liteMode;
+    private static boolean showSeenContent;
+
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         notificationsViewModel =
@@ -60,18 +64,19 @@ public class NotificationsFragment extends Fragment {
 
 
         //Get if show seen content is on
-        if(sqldb.getShowSeenContents())
+        showSeenContent = sqldb.getShowSeenContents();
+        if(showSeenContent)
         {
             showSeenSwitch.setChecked(true);
             showSeenText.setTextColor(Color.parseColor("#b00768"));
         }
         else  showSeenSwitch.setChecked(false);
-        Log.d("showSeenContent", String.valueOf(sqldb.getIsLiteMode()));
+        Log.d("showSeenContent", String.valueOf(showSeenContent));
 
 
 
         showSeenSwitch.setOnClickListener(v -> {
-            if (sqldb.getShowSeenContents()) // if the show seen content is on
+            if (showSeenContent) // if the show seen content is on
             {
                 sqldb.setShowSeenContentsOff(); //set it off
                 showSeenText.setTextColor(Color.parseColor("#66000000"));
@@ -82,16 +87,17 @@ public class NotificationsFragment extends Fragment {
         });
 
 
-
-        if (sqldb.getIsLiteMode())  //check if lite mode is on
+        //check if lite mode is on
+        liteMode = sqldb.getIsLiteMode();
+        if (liteMode)
         {
             litemode.setChecked(true);
             liemodeText.setTextColor(Color.parseColor("#00B612"));
         } else litemode.setChecked(false);
 
-        Log.d("litemode", String.valueOf(sqldb.getIsLiteMode()));
+        Log.d("litemode", String.valueOf(liteMode));
         litemode.setOnClickListener(v -> {
-            if (sqldb.getIsLiteMode()) // if the lite mode is on
+            if (liteMode) // if the lite mode is on
             {
                 sqldb.setLiteModeOff(); //set it off
                 liemodeText.setTextColor(Color.parseColor("#66000000"));
@@ -128,5 +134,7 @@ public class NotificationsFragment extends Fragment {
         return root;
     }
 
+    public static boolean getLiteMode(){return liteMode;}
+    public static boolean getShowSeenContent(){return showSeenContent;}
 
 }

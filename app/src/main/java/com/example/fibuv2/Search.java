@@ -31,7 +31,7 @@ import com.squareup.picasso.Picasso;
 
 public class Search extends AppCompatActivity {
 
-    private String searchContent;
+    private static String searchContent;
     private TextView SecondTextReference;
 
     private ImageView blackfilter;
@@ -250,5 +250,5 @@ public class Search extends AppCompatActivity {
     }
 
 
-
+public static String getSearchContent(){return searchContent;}
 }

@@ -47,6 +47,7 @@ public class MainLoggedIn extends AppCompatActivity {
     private static ArrayList<String> img = new ArrayList<>();
     private static ArrayList<String> name = new ArrayList<>();
     private static ArrayList<String> rate = new ArrayList<>();
+    private static String email;
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
@@ -58,6 +59,9 @@ public class MainLoggedIn extends AppCompatActivity {
         topRateQuery();
         quotaQuery();
         renewQuota();
+
+        Bundle extras = getIntent().getExtras();
+        email=extras.getString("email");
 
 
         BottomNavigationView navView = findViewById(R.id.nav_view);
@@ -213,6 +217,9 @@ public class MainLoggedIn extends AppCompatActivity {
 
     public static String getUsername() {
         return username;
+    }
+    public static String getEmail() {
+        return email;
     }
 
     public static int getQuota() {

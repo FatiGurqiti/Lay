@@ -72,6 +72,7 @@ public class SearchAPI {
             total = 0;
         }
 
+
     }
 
     private static void fixjson(String json) {

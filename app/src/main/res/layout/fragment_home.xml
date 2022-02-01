@@ -40,7 +40,7 @@
 Oh, it seems like \n
 you don't have any \n
 saved movie yet.\n
-Let's fix thatright away!"
+Let's fix that right away!"
         android:layout_marginTop="270dp"
         android:textSize="16sp"
         android:visibility="invisible"

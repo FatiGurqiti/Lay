@@ -127,7 +127,7 @@ public class CreateAccount extends AppCompatActivity {
         user.put("username", username);
         user.put("email", email);
         user.put("password", password);
-        user.put("quota", 10);
+        user.put("quota", 20);
         user.put("last_update_year", year);
         user.put("last_update_month", month);
         user.put("last_update_day", day);

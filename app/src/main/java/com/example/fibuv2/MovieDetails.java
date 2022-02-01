@@ -110,7 +110,15 @@ public class MovieDetails extends AppCompatActivity {
         Log.d("isSuggestion", String.valueOf(isSuggestionPage));
         Log.d("MovieID", movieID);
 
-        DetailsAPI.getDetails(movieID);
+        try {
+            DetailsAPI.getDetails(movieID);
+        } catch (Exception e) {
+            Log.d("MovieDetailsAPIStatus:", e.toString());
+        } finally { //User BackupToken
+            MainActivity.setAPItoken(MainActivity.getBackupAPItoken());
+            DetailsAPI.getDetails(movieID);
+        }
+
 
         if (isSaved) { //if movie is already saved get data from FireBase
             movieTitle = extras.getString("MovieTitle");
@@ -121,7 +129,6 @@ public class MovieDetails extends AppCompatActivity {
             SecondText = extras.getString("MovieSecondText");
 
 
-
         } else { //If movie isn't saved get data from API
 
             MainLoggedIn.lowerQuota();
@@ -130,8 +137,7 @@ public class MovieDetails extends AppCompatActivity {
             movieYear = isNull(DetailsAPI.year);
             Runingtime = isNull(DetailsAPI.runningTimeInMinutes);
             Type = isNull(DetailsAPI.genresList.get(0).toString());
-            for (int j=1;j < DetailsAPI.genresList.size(); j++)
-            {
+            for (int j = 1; j < DetailsAPI.genresList.size(); j++) {
                 Type = Type + ", " + DetailsAPI.genresList.get(j).toString();
             }
 
@@ -158,23 +164,30 @@ public class MovieDetails extends AppCompatActivity {
                 try {
                     //Load Rate Data
                     RateAPI.rate(movieID);
-
                     //Load Suggestion Data
                     GetMoreLikeThisAPI.getmorelikethiss(movieID);
+                    SearchAPI.autoCompleteAPI(GetMoreLikeThisAPI.morelikethis); }
+
+                catch (Exception e) {
+                    Log.d("RateAPIStatus", e.toString()); }
+                finally { //Backup TOKEN
+                    RateAPI.rate(movieID);
+                    MainActivity.setAPItoken(MainActivity.getBackupAPItoken());
+                    GetMoreLikeThisAPI.getmorelikethiss(movieID);
                     SearchAPI.autoCompleteAPI(GetMoreLikeThisAPI.morelikethis);
-
-                    Log.d("APIStatus", "MovieID :" + movieID);
-                    Log.d("APIStatus", "Movie url :" + SearchAPI.movieImageUrl);
-                    Log.d("APIStatus", "Movie suggestion " + GetMoreLikeThisAPI.morelikethis);
-
-                    //Get data
-                    SuggestionImg =    SearchAPI.movieImageUrl.get(0);
-                    SuggestionTitle =  SearchAPI.movieTitle.get(0);
-                    SuggestionID =     GetMoreLikeThisAPI.morelikethis;
-
-                } catch (Exception e) {
-                    Log.d("APIStatus", e.toString());
                 }
+
+
+                Log.d("APIStatus", "MovieID :" + movieID);
+                Log.d("APIStatus", "Movie url :" + SearchAPI.movieImageUrl);
+                Log.d("APIStatus", "Movie suggestion " + GetMoreLikeThisAPI.morelikethis);
+
+                //Get data
+                SuggestionImg = SearchAPI.movieImageUrl.get(0);
+                SuggestionTitle = SearchAPI.movieTitle.get(0);
+                SuggestionID = GetMoreLikeThisAPI.morelikethis;
+
+
             }
         }
 
@@ -214,7 +227,7 @@ public class MovieDetails extends AppCompatActivity {
 
         rateText.bringToFront();
 
-        if(SearchAPI.movieImageUrl.isEmpty()) //Don't show suggestion if it's unavailable
+        if (SearchAPI.movieImageUrl.isEmpty()) //Don't show suggestion if it's unavailable
         {
             Products.setVisibility(View.GONE);
             moreLikeThisPicture.setVisibility(View.GONE);
@@ -222,7 +235,7 @@ public class MovieDetails extends AppCompatActivity {
             SuggestionTitleText.setVisibility(View.GONE);
         }
 
-        if(isSaved) //Don't show rate if this is a saved page
+        if (isSaved || db.getIsLiteMode()) //Don't show rate if this is a saved page or in Lite Mode
         {
             rateText.setVisibility(View.GONE);
             rateStar.setVisibility(View.GONE);
@@ -340,8 +353,6 @@ public class MovieDetails extends AppCompatActivity {
         hours = hour;
         minutes = time;
     }
-
-
 
 
     private void intianalizeOldData() {

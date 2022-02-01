@@ -209,12 +209,11 @@ public class MainLoggedIn extends AppCompatActivity {
                     }
                 });
 
-
     }
 
     private void updateQuota(int monthNow, int dayNow, int yearNow) {
         Map<String, Object> user = new HashMap<>();
-        user.put("quota", 10);
+        user.put("quota", 15);
         user.put("last_update_month", monthNow);
         user.put("last_update_day", dayNow);
         user.put("last_update_year", yearNow);

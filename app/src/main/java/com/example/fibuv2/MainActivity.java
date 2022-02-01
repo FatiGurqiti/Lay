@@ -33,7 +33,11 @@ public class MainActivity extends AppCompatActivity {
     private boolean firsttime;
     private boolean loggedin;
     private DatabaseHandler db = new DatabaseHandler(this);
+
     private static String APItoken;
+
+
+    private static String BackupAPItoken;
 
     @RequiresApi(api = Build.VERSION_CODES.O)
 
@@ -43,7 +47,9 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        APItoken = "b30730a0eemshc261b3851f67015p123219jsnca66e69443cf";
+
+        BackupAPItoken = "BACKUP TOKEN";
+        APItoken = "API TOKEN";
 
         userStatus();
 
@@ -72,7 +78,8 @@ public class MainActivity extends AppCompatActivity {
                                Log.d("IsLoggedInMainMenu", String.valueOf(db.getIsLoggedIn()));
 
                                if (firsttime == true) // User's first time opening the app
-                               { intent = new Intent(MainActivity.this, FirstTime2.class);
+                               {
+                                   intent = new Intent(MainActivity.this, FirstTime2.class);
                                } else if (db.getIsLoggedIn()) {  // User has logged in
                                    intent = new Intent(MainActivity.this, MainLoggedIn.class);
                                } else { // User hasn't logged in
@@ -143,8 +150,15 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    public static void setAPItoken(String APItoken) {
+        MainActivity.APItoken = APItoken;
+    }
 
     public static String getToken() {
         return APItoken;
+    }
+
+    public static String getBackupAPItoken() {
+        return BackupAPItoken;
     }
 }

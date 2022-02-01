@@ -73,7 +73,19 @@ public class Search extends AppCompatActivity {
         progressBar.setVisibility(View.INVISIBLE);
 
         searchContent = extra.getString("coolsearchBtn");
-        SearchAPI.autoCompleteAPI(searchContent);
+
+        try{
+        SearchAPI.autoCompleteAPI(searchContent);}
+        catch (Exception e)
+        {
+            Log.d("SearchStatus: ", e.toString());
+        }
+        finally {
+            //Backup TOKEN
+            MainActivity.setAPItoken(MainActivity.getBackupAPItoken());
+            SearchAPI.autoCompleteAPI(searchContent);
+        }
+
         Log.d("Search Value",searchContent);
         int limit = SearchAPI.total;
         Log.d("Limitin", String.valueOf(limit));
@@ -94,7 +106,7 @@ public class Search extends AppCompatActivity {
             notfoundText.setVisibility(View.INVISIBLE);
 
 
-        RelativeLayout layout = (RelativeLayout) findViewById(R.id.Scroll_Relative);
+        RelativeLayout layout =  findViewById(R.id.Scroll_Relative);
         int j = -1;
         for (int i = 0; i < limit; i++) {
             int sizeheight = (int) (getScreenHeight(Search.this) * 0.5);
@@ -217,7 +229,7 @@ public class Search extends AppCompatActivity {
         if(canSearch)
         {return true;}
         else {
-            Toast.makeText(Search.this, "Sorry, you are out of your daily quota \n Please try again tomorrow. \n  You can turn on Lite Mode to use less of your your quota",
+            Toast.makeText(Search.this, "Sorry, you are out of your daily quota.\nPlease try again tomorrow.",
                     Toast.LENGTH_SHORT).show();
             return false;
         }

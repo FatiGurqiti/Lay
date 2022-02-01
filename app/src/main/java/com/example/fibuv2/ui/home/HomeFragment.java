@@ -92,15 +92,12 @@ public class HomeFragment extends Fragment {
     private static boolean ShouldShowSeenContent;
     private boolean showCurrentContent;
 
-    @Override
-    public void onStart() {
-        super.onStart();
-        username = MainLoggedIn.getUsername();
-    }
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
+        username = MainLoggedIn.getUsername();
+
         getSeenMovies();
         homeViewModel =
                 new ViewModelProvider(this).get(HomeViewModel.class);
@@ -121,16 +118,18 @@ public class HomeFragment extends Fragment {
         TextView WelcomeText = root.findViewById(R.id.welcomeText);
 
 
+        if (username == null){
+            WelcomeText.setText(" \t Welcome, here's your favourite list");}
+        else
+            WelcomeText.setText(" \t Hi " + username + ", here's your favourite list");
+
         //Get status of showing content that are already seen
         DatabaseHandler sqldb = new DatabaseHandler(getContext());
         if (sqldb.getShowSeenContents()) ShouldShowSeenContent = true;
         else ShouldShowSeenContent = false;
 
 
-        if (username == null)
-            WelcomeText.setText(" \t Welcome, here's your favourite list");
-        else
-            WelcomeText.setText(" \t Hi " + username + ", here's your favourite list");
+
 
 
         String TAG = "HomeDataStatus";

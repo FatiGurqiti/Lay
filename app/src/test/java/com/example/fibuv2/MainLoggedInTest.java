@@ -9,7 +9,7 @@ import com.example.fibuv2.ui.login.LoginActivity;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
-public class MainLoggedInTest {
+public class MainLoggedInTest{
 
 
     @Test
@@ -20,24 +20,19 @@ public class MainLoggedInTest {
 
     @Test
     @Tag("Quota")
-    void ShouldGetQuotaCorrent() {
+    void ShouldGetQuotaCorrect() {
         assertEquals(MainLoggedIn.getQuota(), DashboardFragment.getQuota());
     }
 
 
     @Test
     @Tag("TopRates")
-    void ShouldGetTopRatresCorrent() {
+    void ShouldGetTopRatesCorrect() {
         assertEquals(MainLoggedIn.getTopRatedId(), DashboardFragment.getid());
         assertEquals(MainLoggedIn.getTopRatedImg(), DashboardFragment.getimg());
         assertEquals(MainLoggedIn.getTopRatedName(), DashboardFragment.getname());
         assertEquals(MainLoggedIn.getTopRatedId(), DashboardFragment.getrate());
     }
 
-    @Test
-    @Tag("Email")
-    void ShouldGetEmailCorrect(){
-        assertEquals(MainLoggedIn.getEmail(), LoginActivity.getEmailString());
-    }
 
 }

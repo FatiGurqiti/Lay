@@ -217,7 +217,7 @@ public class Search extends AppCompatActivity {
         if(canSearch)
         {return true;}
         else {
-            Toast.makeText(Search.this, "Sorry, you are out of your daily quota. Try again tomorrow",
+            Toast.makeText(Search.this, "Sorry, you are out of your daily quota \n Please try again tomorrow. \n  You can turn on Lite Mode to use less of your your quota",
                     Toast.LENGTH_SHORT).show();
             return false;
         }

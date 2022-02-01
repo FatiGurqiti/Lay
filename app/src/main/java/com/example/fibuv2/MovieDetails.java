@@ -120,6 +120,8 @@ public class MovieDetails extends AppCompatActivity {
             FistText = extras.getString("MovieFirstText");
             SecondText = extras.getString("MovieSecondText");
 
+
+
         } else { //If movie isn't saved get data from API
 
             MainLoggedIn.lowerQuota();
@@ -188,6 +190,7 @@ public class MovieDetails extends AppCompatActivity {
         SuggestionTitleText = findViewById(R.id.morelikethisTitle);
         rateText = findViewById(R.id.rate);
         rateStar = findViewById(R.id.star);
+        ImageView rateBg = findViewById(R.id.RateBackground);
 
 
         Products = findViewById(R.id.products);
@@ -217,6 +220,13 @@ public class MovieDetails extends AppCompatActivity {
             moreLikeThisPicture.setVisibility(View.GONE);
             MoreLikeThisFilter.setVisibility(View.GONE);
             SuggestionTitleText.setVisibility(View.GONE);
+        }
+
+        if(isSaved) //Don't show rate if this is a saved page
+        {
+            rateText.setVisibility(View.GONE);
+            rateStar.setVisibility(View.GONE);
+            rateBg.setVisibility(View.GONE);
         }
 
 

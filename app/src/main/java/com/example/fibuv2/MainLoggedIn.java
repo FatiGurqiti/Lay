@@ -60,8 +60,6 @@ public class MainLoggedIn extends AppCompatActivity {
         renewQuota();
 
 
-
-
         BottomNavigationView navView = findViewById(R.id.nav_view);
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
@@ -185,23 +183,23 @@ public class MainLoggedIn extends AppCompatActivity {
 
                             Calendar cal = Calendar.getInstance();
                             int yearNow = cal.get(Calendar.YEAR);
-                            int monthNow = cal.get(Calendar.MONTH)+1;
+                            int monthNow = cal.get(Calendar.MONTH) + 1;
                             int dayNow = cal.get(Calendar.DAY_OF_MONTH);
 
-                            if (yearNow - year >= 0) {
-                                if (monthNow - month >= 0) {
-                                    if (dayNow - day >= 0) {
-                                        //Renew quota
-                                        Map<String, Object> user = new HashMap<>();
-                                        user.put("quota", 10);
-                                        user.put("last_update_month", monthNow);
-                                        user.put("last_update_day", dayNow);
-                                        user.put("last_update_year", yearNow);
+                            //Renew quota
+                            if (yearNow - year == 0) //It's the same year
+                            {
+                                if (monthNow - month == 0) { //It's the same month
 
-                                        db.collection("users").document(mAuth.getCurrentUser().getEmail())
-                                                .set(user, SetOptions.merge());
+                                    if (dayNow - day > 0) { // It's not the same day
+
+                                        updateQuota(monthNow, dayNow, yearNow);
                                     }
+                                } else { //Not the same month
+                                    updateQuota(monthNow, dayNow, yearNow);
                                 }
+                            } else { //Not the same year
+                                updateQuota(monthNow, dayNow, yearNow);
                             }
 
 
@@ -210,13 +208,25 @@ public class MainLoggedIn extends AppCompatActivity {
                         Log.d("UpdateQuota", "Error getting documents: ", task.getException());
                     }
                 });
+
+
     }
 
+    private void updateQuota(int monthNow, int dayNow, int yearNow) {
+        Map<String, Object> user = new HashMap<>();
+        user.put("quota", 10);
+        user.put("last_update_month", monthNow);
+        user.put("last_update_day", dayNow);
+        user.put("last_update_year", yearNow);
+
+        db.collection("users").document(mAuth.getCurrentUser().getEmail())
+                .set(user, SetOptions.merge());
+    }
 
     public static String getUsername() {
         return username;
     }
-    
+
     public static int getQuota() {
         return quota;
     }

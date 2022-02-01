@@ -105,6 +105,8 @@ public class Search extends AppCompatActivity {
 
             ImageView image = new ImageView(this);
             image.setLayoutParams(new ViewGroup.LayoutParams(1400, (int) (sizeheight)));
+            image.setOutlineAmbientShadowColor(Color.parseColor("#FFFFFF"));
+            image.setOutlineSpotShadowColor(Color.parseColor("#FFFFFF"));
             Picasso.get().load(SearchAPI.movieImageUrl.get(i).trim())
                     .transform(new RoundedTransformation(50, 0)).fit().centerCrop(700).into(image);
             layout.addView(image);

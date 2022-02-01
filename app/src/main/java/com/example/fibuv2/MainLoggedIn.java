@@ -3,6 +3,7 @@ package com.example.fibuv2;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
+
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
@@ -26,6 +27,7 @@ import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -58,7 +60,6 @@ public class MainLoggedIn extends AppCompatActivity {
         renewQuota();
 
 
-
         BottomNavigationView navView = findViewById(R.id.nav_view);
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
@@ -70,18 +71,20 @@ public class MainLoggedIn extends AppCompatActivity {
 
     }
 
-    public void onBackPressed() {}
+    public void onBackPressed() {
+    }
 
 
     String TAG = "rateMovie";
-    private void topRateQuery(){
+
+    private void topRateQuery() {
         CollectionReference collectionRef = db.collection("MovieRate");
         collectionRef.orderBy("rate", Query.Direction.DESCENDING).limit(4)
                 .get()
                 .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
                     @Override
                     public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-                        for (int i =0;i<4;i++){
+                        for (int i = 0; i < 4; i++) {
                             id.add(String.valueOf(queryDocumentSnapshots.getDocuments().get(i).get("id")));
                             img.add(String.valueOf(queryDocumentSnapshots.getDocuments().get(i).get("img")));
                             name.add(String.valueOf(queryDocumentSnapshots.getDocuments().get(i).get("name")));
@@ -92,7 +95,7 @@ public class MainLoggedIn extends AppCompatActivity {
                 });
     }
 
-    private void usernameQuery(){
+    private void usernameQuery() {
         db.collection("users")
                 .whereEqualTo("email", mAuth.getCurrentUser().getEmail())
                 .get()
@@ -114,7 +117,7 @@ public class MainLoggedIn extends AppCompatActivity {
 
 
     @RequiresApi(api = Build.VERSION_CODES.N)
-    public static void quotaQuery(){
+    public static void quotaQuery() {
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         db.collection("users")
@@ -134,7 +137,7 @@ public class MainLoggedIn extends AppCompatActivity {
     }
 
     @RequiresApi(api = Build.VERSION_CODES.N)
-    protected static void lowerQuota(){
+    protected static void lowerQuota() {
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
         FirebaseFirestore db = FirebaseFirestore.getInstance();
 
@@ -146,8 +149,8 @@ public class MainLoggedIn extends AppCompatActivity {
                         for (QueryDocumentSnapshot document : task.getResult()) {
                             quota = Math.toIntExact((document.getLong("quota")));
                             Log.d("QuotainLoop", String.valueOf(quota));
-                            if(quota >0)
-                            quota --;
+                            if (quota > 0)
+                                quota--;
 
                             Map<String, Object> user = new HashMap<>();
                             user.put("quota", quota);
@@ -164,7 +167,7 @@ public class MainLoggedIn extends AppCompatActivity {
     }
 
     @RequiresApi(api = Build.VERSION_CODES.N)
-    private void renewQuota(){
+    private void renewQuota() {
         db.collection("users")
                 .whereEqualTo("email", mAuth.getCurrentUser().getEmail())
                 .get()
@@ -173,24 +176,29 @@ public class MainLoggedIn extends AppCompatActivity {
                         for (QueryDocumentSnapshot document : task.getResult()) {
                             Log.d("UpdateQuota", String.valueOf(document.get("last_update")));
 
+
+                            int year = Math.toIntExact(document.getLong("last_update_year"));
                             int month = Math.toIntExact(document.getLong("last_update_month"));
-                            int day   = Math.toIntExact(document.getLong("last_update_day"));
+                            int day = Math.toIntExact(document.getLong("last_update_day"));
 
-                            int monthNow = Calendar.MONTH;
-                            int dayNow = Calendar.DAY_OF_MONTH;
+                            Calendar cal = Calendar.getInstance();
+                            int yearNow = cal.get(Calendar.YEAR);
+                            int monthNow = cal.get(Calendar.MONTH)+1;
+                            int dayNow = cal.get(Calendar.DAY_OF_MONTH);
 
-                            if(month - monthNow >= 0)
-                            {
-                                if(day - dayNow < 0)
-                                {
-                                    //Renew quota
-                                    Map<String, Object> user = new HashMap<>();
-                                    user.put("quota", 10);
-                                    user.put("last_update_month", monthNow);
-                                    user.put("last_update_day", dayNow);
+                            if (yearNow - year >= 0) {
+                                if (monthNow - month >= 0) {
+                                    if (dayNow - day >= 0) {
+                                        //Renew quota
+                                        Map<String, Object> user = new HashMap<>();
+                                        user.put("quota", 10);
+                                        user.put("last_update_month", monthNow);
+                                        user.put("last_update_day", dayNow);
+                                        user.put("last_update_year", yearNow);
 
-                                    db.collection("users").document(mAuth.getCurrentUser().getEmail())
-                                            .set(user, SetOptions.merge());
+                                        db.collection("users").document(mAuth.getCurrentUser().getEmail())
+                                                .set(user, SetOptions.merge());
+                                    }
                                 }
                             }
 
@@ -203,17 +211,29 @@ public class MainLoggedIn extends AppCompatActivity {
     }
 
 
-
-    public static String getUsername(){
+    public static String getUsername() {
         return username;
     }
-    public static int getQuota(){
+
+    public static int getQuota() {
         return quota;
     }
-    public static ArrayList<String> getTopRatedId  () {return id  ;}
-    public static ArrayList<String> getTopRatedImg () {return img ;}
-    public static ArrayList<String> getTopRatedName() {return name;}
-    public static ArrayList<String> getTopRatedRate() {return rate;}
+
+    public static ArrayList<String> getTopRatedId() {
+        return id;
+    }
+
+    public static ArrayList<String> getTopRatedImg() {
+        return img;
+    }
+
+    public static ArrayList<String> getTopRatedName() {
+        return name;
+    }
+
+    public static ArrayList<String> getTopRatedRate() {
+        return rate;
+    }
 
 
 }

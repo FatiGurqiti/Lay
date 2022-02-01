@@ -120,7 +120,8 @@ public class CreateAccount extends AppCompatActivity {
     private void userData(String email,String password,String username){
 
         Calendar rightNow = Calendar.getInstance();
-        int month = rightNow.get(Calendar.MONTH);
+        int year = rightNow.get(Calendar.YEAR);
+        int month = rightNow.get(Calendar.MONTH) +1;   //It takes January as 0, So I want to avoid that and make it more readable
         int day = rightNow.get(Calendar.DAY_OF_MONTH);
 
         FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -130,6 +131,7 @@ public class CreateAccount extends AppCompatActivity {
         user.put("email", email);
         user.put("password", password);
         user.put("quota", 10);
+        user.put("last_update_year", year);
         user.put("last_update_month", month);
         user.put("last_update_day", day);
 

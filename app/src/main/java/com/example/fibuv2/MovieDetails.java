@@ -130,7 +130,7 @@ public class MovieDetails extends AppCompatActivity {
             Type = isNull(DetailsAPI.genresList.get(0).toString());
             for (int j=1;j < DetailsAPI.genresList.size(); j++)
             {
-                Type = Type + DetailsAPI.genresList.get(j).toString() + ", ";
+                Type = Type + ", " + DetailsAPI.genresList.get(j).toString();
             }
 
 
@@ -208,6 +208,8 @@ public class MovieDetails extends AppCompatActivity {
         firstText.setText(FistText);
         secondText.setText(SecondText);
         secondText.setVisibility(View.INVISIBLE);
+
+        rateText.bringToFront();
 
         if(SearchAPI.movieImageUrl.isEmpty()) //Don't show suggestion if it's unavailable
         {

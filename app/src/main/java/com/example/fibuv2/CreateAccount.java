@@ -23,6 +23,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.sql.Time;
@@ -35,19 +36,10 @@ import java.util.Timer;
 public class CreateAccount extends AppCompatActivity {
 
 
-
-
-
     private boolean canclick = false;
-    private FirebaseAuth mAuth  = FirebaseAuth.getInstance();
-    private FirebaseUser userF;
+    private FirebaseAuth mAuth = FirebaseAuth.getInstance();
+    private FirebaseFirestore db = FirebaseFirestore.getInstance();
 
-    @Override
-    public void onStart() {
-        super.onStart();
-        // Check if user is signed in (non-null) and update UI accordingly.
-        FirebaseUser currentUser = mAuth.getCurrentUser();
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,42 +49,47 @@ public class CreateAccount extends AppCompatActivity {
         final Button signupBtn = findViewById(R.id.create_acct_button);
 
 
-        signupBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        signupBtn.setOnClickListener(v -> {
 
-                EditText username = (EditText) findViewById(R.id.CreateAccounUsernameInput);
-                EditText email =  (EditText) findViewById(R.id.CreateAccountEmailInput);
-                EditText password =  (EditText) findViewById(R.id.CreateAccountPasswordInput);
+            EditText username = findViewById(R.id.CreateAccounUsernameInput);
+            EditText email = findViewById(R.id.CreateAccountEmailInput);
+            EditText password = findViewById(R.id.CreateAccountPasswordInput);
 
-                String usernameString = username.getText().toString();
-                String emailString = email.getText().toString();
-                String passwordString  = password.getText().toString();
+            String usernameString = username.getText().toString();
+            String emailString = email.getText().toString();
+            String passwordString = password.getText().toString();
 
-                if(TextUtils.isEmpty(usernameString) &&
-                        TextUtils.isEmpty(emailString) &&
-                            TextUtils.isEmpty(passwordString)){
+            ifuserExists(emailString);
 
-                    Log.d("Input Status", "Inputs are empty");
-                    Toast.makeText(CreateAccount.this, "Would you mind if you fill the inputs?",
-                            Toast.LENGTH_LONG).show();
-                }
-                else {
-                    Log.d("Input Status", "Inputs are filled");
+            if (canclick){
 
-                    userData(emailString,passwordString,usernameString);
-                    createAccount(emailString,passwordString);
-                    Intent intent = new Intent(CreateAccount.this, LoginActivity.class);
-                    startActivity(intent);
-                    finish();
-                }
+            if (TextUtils.isEmpty(usernameString) &&
+                    TextUtils.isEmpty(emailString) &&
+                    TextUtils.isEmpty(passwordString)) {
+
+                Log.d("Input Status", "Inputs are empty");
+                Toast.makeText(CreateAccount.this, "Would you mind if you fill the inputs?",
+                        Toast.LENGTH_LONG).show();
+            } else {
+                Log.d("Input Status", "Inputs are filled");
+
+                userData(emailString, passwordString, usernameString);
+                createAccount(emailString, passwordString);
+                Intent intent = new Intent(CreateAccount.this, LoginActivity.class);
+                startActivity(intent);
+                finish();
+            }
+            }
+            else {
+                Toast.makeText(CreateAccount.this, "This user is created before",
+                        Toast.LENGTH_LONG).show();
             }
         });
 
 
     }
 
-    private void createAccount(String email,String password){
+    private void createAccount(String email, String password) {
 
 
         mAuth.createUserWithEmailAndPassword(email, password)
@@ -117,11 +114,11 @@ public class CreateAccount extends AppCompatActivity {
                 });
     }
 
-    private void userData(String email,String password,String username){
+    private void userData(String email, String password, String username) {
 
         Calendar rightNow = Calendar.getInstance();
         int year = rightNow.get(Calendar.YEAR);
-        int month = rightNow.get(Calendar.MONTH) +1;   //It takes January as 0, So I want to avoid that and make it more readable
+        int month = rightNow.get(Calendar.MONTH) + 1;   //It takes January as 0, So I want to avoid that and make it more readable
         int day = rightNow.get(Calendar.DAY_OF_MONTH);
 
         FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -137,6 +134,31 @@ public class CreateAccount extends AppCompatActivity {
 
         db.collection("users").document(email)
                 .set(user);
+    }
+
+    private void ifuserExists(String email)
+    {
+        String TAG = "IfUserExists: ";
+        DocumentReference docRef = db.collection("users").document(email);
+        docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if (task.isSuccessful()) {
+                    DocumentSnapshot document = task.getResult();
+                    if (document.exists()) {
+                        Log.d(TAG, "DocumentSnapshot data: " + document.getData());
+                        //This user is created before
+                        canclick = false;
+                    } else {
+                        Log.d(TAG, "No such document");
+                        //This is user isn't created before
+                        canclick = true;
+                    }
+                } else {
+                    Log.d(TAG, "get failed with ", task.getException());
+                }
+            }
+        });
     }
 
 }

@@ -1,0 +1,160 @@
+com/lay/fibuv2/ui/login/LoginViewModel.java
+ com.lay.fibuv2.ui.login.LoginViewModel
+com/lay/fibuv2/ui/notifications/NotificationsViewModel.java
+ com.lay.fibuv2.ui.notifications.NotificationsViewModel
+com/lay/fibuv2/databinding/ActivitySearchBinding.java
+ com.lay.fibuv2.databinding.ActivitySearchBinding
+com/lay/fibuv2/databinding/ActivityMainLoggedInBinding.java
+ com.lay.fibuv2.databinding.ActivityMainLoggedInBinding
+com/lay/fibuv2/ui/dashboard/DashboardViewModel.java
+ com.lay.fibuv2.ui.dashboard.DashboardViewModel
+com/lay/fibuv2/ui/main/PlaceholderFragment.java
+ com.lay.fibuv2.ui.main.PlaceholderFragment
+ com.lay.fibuv2.ui.main.PlaceholderFragment$1
+com/lay/fibuv2/data/LoginRepository.java
+ com.lay.fibuv2.data.LoginRepository
+com/lay/fibuv2/MainActivity.java
+ com.lay.fibuv2.MainActivity
+ com.lay.fibuv2.MainActivity$1
+com/lay/fibuv2/databinding/FragmentDashboardBinding.java
+ com.lay.fibuv2.databinding.FragmentDashboardBinding
+com/lay/fibuv2/ui/main/PageViewModel.java
+ com.lay.fibuv2.ui.main.PageViewModel
+ com.lay.fibuv2.ui.main.PageViewModel$1
+com/lay/fibuv2/databinding/ActivityMainBinding.java
+ com.lay.fibuv2.databinding.ActivityMainBinding
+com/lay/fibuv2/api/DetailsAPI.java
+ com.lay.fibuv2.api.DetailsAPI
+ com.lay.fibuv2.api.DetailsAPI$MovieDetails
+ com.lay.fibuv2.api.DetailsAPI$PlotOutline
+ com.lay.fibuv2.api.DetailsAPI$PlotSummary
+ com.lay.fibuv2.api.DetailsAPI$Title
+com/lay/fibuv2/ui/main/SectionsPagerAdapter.java
+ com.lay.fibuv2.ui.main.SectionsPagerAdapter
+com/lay/fibuv2/database/Account.java
+ com.lay.fibuv2.database.Account
+com/lay/fibuv2/database/DatabaseHandler.java
+ com.lay.fibuv2.database.DatabaseHandler
+com/lay/fibuv2/data/model/LoggedInUser.java
+ com.lay.fibuv2.data.model.LoggedInUser
+com/lay/fibuv2/databinding/ActivityMovieDetails2Binding.java
+ com.lay.fibuv2.databinding.ActivityMovieDetails2Binding
+com/lay/fibuv2/ResetPassword.java
+ com.lay.fibuv2.ResetPassword
+ com.lay.fibuv2.ResetPassword$1
+ com.lay.fibuv2.ResetPassword$1$1
+ com.lay.fibuv2.ResetPassword$1$1$1
+ com.lay.fibuv2.ResetPassword$1$1$2
+com/lay/fibuv2/FirstTime2.java
+ com.lay.fibuv2.FirstTime2
+com/lay/fibuv2/ui/login/LoggedInUserView.java
+ com.lay.fibuv2.ui.login.LoggedInUserView
+com/lay/fibuv2/api/SearchAPI.java
+ com.lay.fibuv2.api.SearchAPI
+ com.lay.fibuv2.api.SearchAPI$Movie
+com/lay/fibuv2/FullscreenActivity.java
+ com.lay.fibuv2.FullscreenActivity
+ com.lay.fibuv2.FullscreenActivity$1
+ com.lay.fibuv2.FullscreenActivity$2
+ com.lay.fibuv2.FullscreenActivity$3
+ com.lay.fibuv2.FullscreenActivity$4
+ com.lay.fibuv2.FullscreenActivity$5
+com/lay/fibuv2/data/Result.java
+ com.lay.fibuv2.data.Result
+ com.lay.fibuv2.data.Result$1
+ com.lay.fibuv2.data.Result$Error
+ com.lay.fibuv2.data.Result$Success
+com/lay/fibuv2/PasswordForgot.java
+ com.lay.fibuv2.PasswordForgot
+ com.lay.fibuv2.PasswordForgot$1
+ com.lay.fibuv2.PasswordForgot$1$1
+com/lay/fibuv2/ui/main/SecondFragment.java
+ com.lay.fibuv2.ui.main.SecondFragment
+com/lay/fibuv2/ui/notifications/NotificationsFragment.java
+ com.lay.fibuv2.ui.notifications.NotificationsFragment
+ com.lay.fibuv2.ui.notifications.NotificationsFragment$1
+ com.lay.fibuv2.ui.notifications.NotificationsFragment$2
+com/lay/fibuv2/databinding/ActivityPasswordForgotBinding.java
+ com.lay.fibuv2.databinding.ActivityPasswordForgotBinding
+com/lay/fibuv2/data/LoginDataSource.java
+ com.lay.fibuv2.data.LoginDataSource
+com/lay/fibuv2/databinding/FragmentFirstBinding.java
+ com.lay.fibuv2.databinding.FragmentFirstBinding
+com/lay/fibuv2/databinding/ActivityLoginBinding.java
+ com.lay.fibuv2.databinding.ActivityLoginBinding
+com/lay/fibuv2/api/GetMoreLikeThisAPI.java
+ com.lay.fibuv2.api.GetMoreLikeThisAPI
+com/lay/fibuv2/ui/home/HomeViewModel.java
+ com.lay.fibuv2.ui.home.HomeViewModel
+com/lay/fibuv2/ThumbnailFullScreen.java
+ com.lay.fibuv2.ThumbnailFullScreen
+ com.lay.fibuv2.ThumbnailFullScreen$1
+ com.lay.fibuv2.ThumbnailFullScreen$2
+ com.lay.fibuv2.ThumbnailFullScreen$3
+ com.lay.fibuv2.ThumbnailFullScreen$4
+com/lay/fibuv2/MainLoggedIn.java
+ com.lay.fibuv2.MainLoggedIn
+ com.lay.fibuv2.MainLoggedIn$1
+ com.lay.fibuv2.MainLoggedIn$2
+com/lay/fibuv2/BuildConfig.java
+ com.lay.fibuv2.BuildConfig
+com/lay/fibuv2/databinding/ActivityCreateAccountBinding.java
+ com.lay.fibuv2.databinding.ActivityCreateAccountBinding
+com/lay/fibuv2/ui/login/LoginResult.java
+ com.lay.fibuv2.ui.login.LoginResult
+com/lay/fibuv2/databinding/ActivityThumbnailFullScreenBinding.java
+ com.lay.fibuv2.databinding.ActivityThumbnailFullScreenBinding
+com/lay/fibuv2/databinding/ActivityResetPasswordBinding.java
+ com.lay.fibuv2.databinding.ActivityResetPasswordBinding
+com/lay/fibuv2/ui/home/IsMovieSaved.java
+ com.lay.fibuv2.ui.home.IsMovieSaved
+com/lay/fibuv2/ui/login/LoginFormState.java
+ com.lay.fibuv2.ui.login.LoginFormState
+com/lay/fibuv2/ui/login/LoginViewModelFactory.java
+ com.lay.fibuv2.ui.login.LoginViewModelFactory
+com/lay/fibuv2/databinding/FragmentNotificationsBinding.java
+ com.lay.fibuv2.databinding.FragmentNotificationsBinding
+com/lay/fibuv2/api/RateAPI.java
+ com.lay.fibuv2.api.RateAPI
+ com.lay.fibuv2.api.RateAPI$MovieRate
+com/lay/fibuv2/databinding/FragmentSecondBinding.java
+ com.lay.fibuv2.databinding.FragmentSecondBinding
+com/lay/fibuv2/databinding/ActivityFirstTimeBinding.java
+ com.lay.fibuv2.databinding.ActivityFirstTimeBinding
+com/lay/fibuv2/databinding/FragmentFirstTime2Binding.java
+ com.lay.fibuv2.databinding.FragmentFirstTime2Binding
+com/lay/fibuv2/ui/main/FirstFragment.java
+ com.lay.fibuv2.ui.main.FirstFragment
+com/lay/fibuv2/ui/login/LoginActivity.java
+ com.lay.fibuv2.ui.login.LoginActivity
+ com.lay.fibuv2.ui.login.LoginActivity$1
+ com.lay.fibuv2.ui.login.LoginActivity$2
+com/lay/fibuv2/databinding/ActivityFullscreenBinding.java
+ com.lay.fibuv2.databinding.ActivityFullscreenBinding
+com/lay/fibuv2/RoundedTransformation.java
+ com.lay.fibuv2.RoundedTransformation
+com/lay/fibuv2/databinding/FragmentHomeBinding.java
+ com.lay.fibuv2.databinding.FragmentHomeBinding
+com/lay/fibuv2/CreateAccount.java
+ com.lay.fibuv2.CreateAccount
+ com.lay.fibuv2.CreateAccount$1
+ com.lay.fibuv2.CreateAccount$2
+com/lay/fibuv2/ui/home/HomeFragment.java
+ com.lay.fibuv2.ui.home.HomeFragment
+ com.lay.fibuv2.ui.home.HomeFragment$1
+ com.lay.fibuv2.ui.home.HomeFragment$2
+ com.lay.fibuv2.ui.home.HomeFragment$3
+ com.lay.fibuv2.ui.home.HomeFragment$4
+ com.lay.fibuv2.ui.home.HomeFragment$5
+ com.lay.fibuv2.ui.home.HomeFragment$6
+ com.lay.fibuv2.ui.home.HomeFragment$7
+ com.lay.fibuv2.ui.home.HomeFragment$8
+com/lay/fibuv2/Search.java
+ com.lay.fibuv2.Search
+ com.lay.fibuv2.Search$1
+com/lay/fibuv2/MovieDetails.java
+ com.lay.fibuv2.MovieDetails
+ com.lay.fibuv2.MovieDetails$1
+com/lay/fibuv2/ui/dashboard/DashboardFragment.java
+ com.lay.fibuv2.ui.dashboard.DashboardFragment
+ com.lay.fibuv2.ui.dashboard.DashboardFragment$1

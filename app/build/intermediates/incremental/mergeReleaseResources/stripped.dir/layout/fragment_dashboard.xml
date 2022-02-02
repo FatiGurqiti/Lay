@@ -1,0 +1,301 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="match_parent"
+    android:adjustViewBounds="true"
+    tools:context=".ui.dashboard.DashboardFragment">
+
+    <ImageView
+        android:id="@+id/homeBlackFilterInSearch"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:elevation="3dp"
+        android:src="@drawable/full_black_filter"
+        android:translationZ="3dp"
+        android:visibility="invisible" />
+
+    <ProgressBar
+        android:id="@+id/progressBarInSearch"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginLeft="150dp"
+        android:layout_marginTop="300dp"
+        android:elevation="4dp"
+        android:translationZ="4dp"
+        android:visibility="invisible" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="5dp"
+        android:textAlignment="center"
+        android:textColor="@color/white"
+        android:fontFamily="@font/plusjakartatextregular"
+        android:textSize="18dp"
+        android:translationZ="1dp"
+        android:text="Search through the movie world!" />
+
+    <EditText
+        android:id="@+id/search_bar"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:hint="Search.."
+        android:fontFamily="@font/plusjakartatextregular"
+        android:paddingLeft="20dp"
+        android:paddingRight="75dp"
+        android:inputType="textAutoComplete"
+        android:maxLines="1"
+        android:background="@drawable/searchbar"
+        android:translationZ="1dp"
+        android:layout_marginTop="50dp"/>
+
+    <ImageButton
+        android:id="@+id/coolsearchbtn"
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:layout_alignRight="@id/search_bar"
+        android:background="@android:color/transparent"
+        android:src="@drawable/searchbarbtn"
+        android:layout_marginTop="50dp"
+        android:translationZ="2dp" />
+
+    <ImageView
+        android:id="@+id/imageView7"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:src="@drawable/mainbackground"
+        android:translationZ="0dp" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/imageView7"
+        android:layout_alignParentStart="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="8dp"
+        android:fontFamily="@font/plusjakartatextregular"
+        android:paddingStart="15dp"
+        android:paddingTop="15dp"
+        android:text="Can't decide what to search? \nHere's top rated contents by Lay users"
+        android:textAlignment="center"
+        android:textColor="@color/black_overlay" />
+
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/blueCard"
+        android:layout_width="180dp"
+        android:layout_height="150dp"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="280dp"
+        android:elevation="2dp"
+        android:outlineAmbientShadowColor="@color/black"
+        android:outlineSpotShadowColor="@color/black"
+        app:cardBackgroundColor="#700B97"
+        app:cardCornerRadius="15dp">
+
+        <TextView
+            android:id="@+id/blueCardText"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginEnd="12dp"
+            android:layout_marginBottom="40dp"
+            android:fontFamily="@font/plusjakartatextregular"
+            android:text="The Lord of the Rings"
+            android:textAlignment="center"
+            android:textColor="@color/white"
+            android:textSize="18dp"
+            android:translationZ="1dp" />
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="115dp"
+            android:layout_marginRight="30dp"
+            android:src="@drawable/up" />
+
+        <TextView
+            android:id="@+id/blueCardRateText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="90dp"
+            android:layout_marginTop="110dp"
+            android:fontFamily="@font/plusjakartatextregular"
+            android:text="445"
+            android:textAlignment="textStart"
+            android:textColor="@color/white"
+            android:textSize="20sp" />
+
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/yellowCard"
+        android:layout_width="180dp"
+        android:layout_height="150dp"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="220dp"
+        android:layout_marginTop="280dp"
+        android:outlineAmbientShadowColor="@color/black"
+        android:outlineSpotShadowColor="@color/black"
+        app:cardBackgroundColor="#020cab"
+        app:cardCornerRadius="15dp">
+
+        <TextView
+            android:id="@+id/yellowCardText"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginEnd="12dp"
+            android:layout_marginBottom="40dp"
+            android:fontFamily="@font/plusjakartatextregular"
+            android:text="Avengers"
+            android:textAlignment="center"
+            android:textColor="@color/white"
+            android:textSize="18dp"
+            android:translationZ="1dp" />
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="115dp"
+            android:layout_marginRight="30dp"
+            android:src="@drawable/up" />
+
+        <TextView
+            android:id="@+id/yellowCardRateText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="90dp"
+            android:layout_marginTop="110dp"
+            android:fontFamily="@font/plusjakartatextregular"
+            android:text="445"
+            android:textAlignment="textStart"
+            android:textColor="@color/white"
+            android:textSize="20sp" />
+
+
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/greenCard"
+        android:layout_width="180dp"
+        android:layout_height="150dp"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="480dp"
+        android:layout_marginEnd="106dp"
+        android:outlineAmbientShadowColor="@color/black"
+        android:outlineSpotShadowColor="@color/black"
+        app:cardBackgroundColor="#2c7811"
+        app:cardCornerRadius="15dp">
+
+        <TextView
+            android:id="@+id/greenCardText"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginEnd="12dp"
+            android:layout_marginBottom="40dp"
+            android:fontFamily="@font/plusjakartatextregular"
+            android:text="Fight Club"
+            android:textAlignment="center"
+            android:textColor="@color/white"
+            android:textSize="18dp"
+            android:translationZ="1dp" />
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="115dp"
+            android:layout_marginRight="30dp"
+            android:src="@drawable/up" />
+
+        <TextView
+            android:id="@+id/greenCardRateText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="90dp"
+            android:layout_marginTop="110dp"
+            android:fontFamily="@font/plusjakartatextregular"
+            android:text="445"
+            android:textAlignment="textStart"
+            android:textColor="@color/white"
+            android:textSize="20sp" />
+
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/redCard"
+        android:layout_width="180dp"
+        android:layout_height="150dp"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="220dp"
+        android:layout_marginTop="480dp"
+        android:outlineAmbientShadowColor="@color/black"
+        android:outlineSpotShadowColor="@color/black"
+        app:cardBackgroundColor="#c2004a"
+        app:cardCornerRadius="15dp">
+
+        <TextView
+            android:id="@+id/redCardText"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginEnd="12dp"
+            android:layout_marginBottom="40dp"
+            android:fontFamily="@font/plusjakartatextregular"
+            android:text="Dune"
+            android:textAlignment="center"
+            android:textColor="@color/white"
+            android:textSize="18dp"
+            android:translationZ="1dp" />
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="115dp"
+            android:layout_marginRight="30dp"
+            android:src="@drawable/up" />
+
+        <TextView
+            android:id="@+id/redCardRateText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="90dp"
+            android:layout_marginTop="110dp"
+            android:fontFamily="@font/plusjakartatextregular"
+            android:text="445"
+            android:textAlignment="textStart"
+            android:textColor="@color/white"
+            android:textSize="20sp" />
+
+    </androidx.cardview.widget.CardView>
+
+
+
+</RelativeLayout>

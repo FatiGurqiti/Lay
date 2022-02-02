@@ -1,0 +1,229 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.home.HomeFragment">
+
+
+    <ImageView
+        android:id="@+id/homeBlackFilter"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="@drawable/full_black_filter"
+        android:visibility="invisible"
+        android:translationZ="1dp"
+        android:elevation="1dp"
+        />
+
+    <ProgressBar
+        android:id="@+id/progressbarinMyList"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginLeft="150dp"
+        android:layout_marginTop="300dp"
+        android:elevation="1dp"
+        android:translationZ="1dp"
+        android:visibility="invisible" />
+
+
+
+    <TextView
+        android:id="@+id/noFavouriteText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#22D9C0"
+        android:fontFamily="@font/plusjakartatextregular"
+        android:textAlignment="center"
+        android:text="
+Oh, it seems like \n
+you don't have any \n
+saved movie yet.\n
+Let's fix that right away!"
+        android:layout_marginTop="270dp"
+        android:textSize="16sp"
+        android:visibility="invisible"
+        android:layout_marginLeft="10dp"/>
+
+    <ImageView
+        android:id="@+id/cuteRobot"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="@drawable/cuterobot"
+        android:layout_marginLeft="180dp"
+        android:layout_marginRight="10dp"
+        android:visibility="invisible"
+        />
+
+    <ImageView
+        android:id="@+id/imageView3"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:src="@drawable/mylistbackground" />
+
+    <TextView
+        android:id="@+id/welcomeText"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignBottom="@+id/imageView3"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="25dp"
+        android:layout_marginBottom="25dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:textAlignment="textStart"
+        android:text=" \t Welcome User, here's your favourite list"
+        android:fontFamily="@font/plusjakartatextregular"
+        android:textColor="@color/white"
+        android:textSize="16sp" />
+
+    <TextView
+        android:id="@+id/text_home"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:textAlignment="center"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/afterRate"
+        android:layout_width="match_parent"
+        android:layout_height="250dp"
+        android:background="@color/black"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="50dp"
+        android:layout_marginEnd="50dp"
+        android:layout_marginTop="250dp"
+        app:cardCornerRadius="15dp"
+        android:visibility="invisible"
+        >
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="Thank you for your contribution"
+            android:textAlignment="center"
+            android:textSize="22dp"
+            android:fontFamily="@font/plusjakartatextregular"
+            android:layout_marginTop="100dp"
+            />
+
+
+    </androidx.cardview.widget.CardView>
+
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/ratepop"
+        android:layout_width="match_parent"
+        android:layout_height="250dp"
+        android:background="@color/black"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="50dp"
+        android:layout_marginEnd="50dp"
+        android:layout_marginTop="250dp"
+        app:cardCornerRadius="15dp"
+        android:visibility="invisible"
+        >
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="So, what do you think?"
+            android:textAlignment="center"
+            android:textSize="22dp"
+            android:fontFamily="@font/plusjakartatextregular"
+            android:layout_marginTop="30dp"
+            />
+
+        <ImageButton
+            android:id="@+id/likeButton"
+            android:layout_width="150dp"
+            android:layout_height="100dp"
+            android:layout_marginTop="80dp"
+            android:background="@android:color/transparent"
+            android:src="@drawable/like" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Nice"
+            android:textAlignment="center"
+            android:textSize="22dp"
+            android:layout_marginRight="170dp"
+            android:fontFamily="@font/plusjakartatextregular"
+            android:layout_marginTop="200dp"
+            />
+
+        <ImageButton
+            android:id="@+id/dislikeButton"
+            android:layout_width="150dp"
+            android:layout_height="100dp"
+            android:layout_marginTop="90dp"
+            android:layout_marginLeft="160dp"
+            android:background="@android:color/transparent"
+            android:src="@drawable/dislike" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Nah"
+            android:textAlignment="center"
+            android:textSize="22dp"
+            android:layout_marginLeft="160dp"
+            android:fontFamily="@font/plusjakartatextregular"
+            android:layout_marginTop="200dp"
+            />
+
+    </androidx.cardview.widget.CardView>
+
+
+    <ScrollView
+        android:id="@+id/scrollViewofHome"
+        android:layout_width="match_parent"
+        android:layout_height="614dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentBottom="true"
+        android:layout_centerVertical="true"
+        android:layout_marginTop="120dp"
+        android:layout_marginBottom="60dp">
+
+
+        <RelativeLayout
+            android:id="@+id/Scroll_Relative"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+
+        </RelativeLayout>
+    </ScrollView>
+
+
+    <TextView
+        android:id="@+id/firstReference"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@id/cuteRobot"
+        android:textAlignment="center"
+        android:autoLink="web"
+        android:text="@string/hyperlink"
+        android:layout_marginBottom="80dp"
+        android:visibility="invisible"
+        />
+
+
+
+</RelativeLayout>

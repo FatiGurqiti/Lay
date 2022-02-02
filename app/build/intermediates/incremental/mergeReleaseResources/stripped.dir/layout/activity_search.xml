@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/search"
+    android:background="@drawable/search_background"
+    tools:context=".Search">
+
+    <ImageView
+        android:id="@+id/BlackFilterInSearch2"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:elevation="3dp"
+        android:src="@drawable/full_black_filter"
+        android:translationZ="3dp"
+        android:visibility="invisible" />
+
+    <ProgressBar
+        android:id="@+id/progressBarInSearch2"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginLeft="150dp"
+        android:layout_marginTop="300dp"
+        android:elevation="4dp"
+        android:translationZ="4dp"
+        android:visibility="invisible" />
+
+    <TextView
+        android:id="@+id/resultText"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        android:paddingStart="15dp"
+        android:paddingTop="20dp"
+        android:fontFamily="@font/plusjakartatextregular"
+        android:layout_marginBottom="25dp"
+        android:textColor="@color/white" />
+
+    <ImageView
+        android:id="@+id/notFoundImage"
+        android:layout_width="match_parent"
+        android:layout_height="350dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_centerInParent="true"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="300dp"
+        android:layout_below="@id/notFoundText"
+        android:layout_marginEnd="1dp"
+        android:visibility="invisible"
+        android:src="@drawable/notfound" />
+
+    <TextView
+        android:id="@+id/notFoundText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="80dp"
+        android:lineSpacingExtra="5dp"
+        android:visibility="invisible"
+        android:fontFamily="@font/plusjakartatextregular"
+        android:text="Yeah... About the thing that you're looking for, \n
+It's either we don't have it (which is super unlikely) or, \n
+You ran out of your daily quota.
+\n Please try again later. Bye. \n \n Remember, your quota renews in every 24 hours.
+\n  Beep boop beep... \n { some robot noices }
+
+"
+        android:textColor="@color/white"
+        android:textAlignment="center" />
+
+    <TextView
+        android:id="@+id/secondTextReference"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:autoLink="all"
+        android:text="@string/hyperlink2"
+        android:textAlignment="center"
+        android:visibility="invisible"
+        android:layout_marginBottom="20dp"
+        />
+
+
+    <ScrollView
+        android:id="@+id/scrollViewofSearch"
+        android:layout_width="match_parent"
+        android:layout_height="614dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentBottom="true"
+        android:layout_centerVertical="true"
+        android:layout_below="@id/resultText"
+        android:layout_marginTop="80dp">
+
+
+        <RelativeLayout
+            android:id="@+id/Scroll_Relative"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+
+        </RelativeLayout>
+    </ScrollView>
+
+
+
+</RelativeLayout>

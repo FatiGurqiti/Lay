@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.example.fibuv2.MainLoggedInTest" tests="3" skipped="0" failures="0" errors="0" timestamp="2022-02-01T12:19:26" hostname="DESKTOP-QHAEDH5" time="0.131">
+  <properties/>
+  <testcase name="ShouldGetTopRatesCorrect()" classname="com.example.fibuv2.MainLoggedInTest" time="0.117"/>
+  <testcase name="ShouldGetQuotaCorrect()" classname="com.example.fibuv2.MainLoggedInTest" time="0.001"/>
+  <testcase name="ShouldGetTheUserNameCorrect()" classname="com.example.fibuv2.MainLoggedInTest" time="0.008"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

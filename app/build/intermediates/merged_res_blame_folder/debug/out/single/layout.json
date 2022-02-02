@@ -1,0 +1,74 @@
+[
+    {
+        "merged": "C:\\Users\\fati-\\AndroidStudioProjects\\Fibuv2\\app\\build\\intermediates\\incremental\\mergeDebugResources\\stripped.dir\\layout\\activity_fullscreen.xml",
+        "source": "C:\\Users\\fati-\\AndroidStudioProjects\\Fibuv2\\app\\src\\main\\res\\layout\\activity_fullscreen.xml"
+    },
+    {
+        "merged": "C:\\Users\\fati-\\AndroidStudioProjects\\Fibuv2\\app\\build\\intermediates\\incremental\\mergeDebugResources\\stripped.dir\\layout\\activity_main.xml",
+        "source": "C:\\Users\\fati-\\AndroidStudioProjects\\Fibuv2\\app\\src\\main\\res\\layout\\activity_main.xml"
+    },
+    {
+        "merged": "C:\\Users\\fati-\\AndroidStudioProjects\\Fibuv2\\app\\build\\intermediates\\incremental\\mergeDebugResources\\stripped.dir\\layout\\activity_create_account.xml",
+        "source": "C:\\Users\\fati-\\AndroidStudioProjects\\Fibuv2\\app\\src\\main\\res\\layout\\activity_create_account.xml"
+    },
+    {
+        "merged": "C:\\Users\\fati-\\AndroidStudioProjects\\Fibuv2\\app\\build\\intermediates\\incremental\\mergeDebugResources\\stripped.dir\\layout\\fragment_home.xml",
+        "source": "C:\\Users\\fati-\\AndroidStudioProjects\\Fibuv2\\app\\src\\main\\res\\layout\\fragment_home.xml"
+    },
+    {
+        "merged": "C:\\Users\\fati-\\AndroidStudioProjects\\Fibuv2\\app\\build\\intermediates\\incremental\\mergeDebugResources\\stripped.dir\\layout\\fragment_first_time2.xml",
+        "source": "C:\\Users\\fati-\\AndroidStudioProjects\\Fibuv2\\app\\src\\main\\res\\layout\\fragment_first_time2.xml"
+    },
+    {
+        "merged": "C:\\Users\\fati-\\AndroidStudioProjects\\Fibuv2\\app\\build\\intermediates\\incremental\\mergeDebugResources\\stripped.dir\\layout\\fragment_first.xml",
+        "source": "C:\\Users\\fati-\\AndroidStudioProjects\\Fibuv2\\app\\src\\main\\res\\layout\\fragment_first.xml"
+    },
+    {
+        "merged": "C:\\Users\\fati-\\AndroidStudioProjects\\Fibuv2\\app\\build\\intermediates\\incremental\\mergeDebugResources\\stripped.dir\\layout\\activity_search.xml",
+        "source": "C:\\Users\\fati-\\AndroidStudioProjects\\Fibuv2\\app\\src\\main\\res\\layout\\activity_search.xml"
+    },
+    {
+        "merged": "C:\\Users\\fati-\\AndroidStudioProjects\\Fibuv2\\app\\build\\intermediates\\incremental\\mergeDebugResources\\stripped.dir\\layout\\activity_movie_details2.xml",
+        "source": "C:\\Users\\fati-\\AndroidStudioProjects\\Fibuv2\\app\\src\\main\\res\\layout\\activity_movie_details2.xml"
+    },
+    {
+        "merged": "C:\\Users\\fati-\\AndroidStudioProjects\\Fibuv2\\app\\build\\intermediates\\incremental\\mergeDebugResources\\stripped.dir\\layout\\activity_reset_password.xml",
+        "source": "C:\\Users\\fati-\\AndroidStudioProjects\\Fibuv2\\app\\src\\main\\res\\layout\\activity_reset_password.xml"
+    },
+    {
+        "merged": "C:\\Users\\fati-\\AndroidStudioProjects\\Fibuv2\\app\\build\\intermediates\\incremental\\mergeDebugResources\\stripped.dir\\layout\\activity_first_time.xml",
+        "source": "C:\\Users\\fati-\\AndroidStudioProjects\\Fibuv2\\app\\src\\main\\res\\layout\\activity_first_time.xml"
+    },
+    {
+        "merged": "C:\\Users\\fati-\\AndroidStudioProjects\\Fibuv2\\app\\build\\intermediates\\incremental\\mergeDebugResources\\stripped.dir\\layout\\fragment_second.xml",
+        "source": "C:\\Users\\fati-\\AndroidStudioProjects\\Fibuv2\\app\\src\\main\\res\\layout\\fragment_second.xml"
+    },
+    {
+        "merged": "C:\\Users\\fati-\\AndroidStudioProjects\\Fibuv2\\app\\build\\intermediates\\incremental\\mergeDebugResources\\stripped.dir\\layout\\activity_password_forgot.xml",
+        "source": "C:\\Users\\fati-\\AndroidStudioProjects\\Fibuv2\\app\\src\\main\\res\\layout\\activity_password_forgot.xml"
+    },
+    {
+        "merged": "C:\\Users\\fati-\\AndroidStudioProjects\\Fibuv2\\app\\build\\intermediates\\incremental\\mergeDebugResources\\stripped.dir\\layout\\activity_first_time2.xml",
+        "source": "C:\\Users\\fati-\\AndroidStudioProjects\\Fibuv2\\app\\src\\main\\res\\layout\\activity_first_time2.xml"
+    },
+    {
+        "merged": "C:\\Users\\fati-\\AndroidStudioProjects\\Fibuv2\\app\\build\\intermediates\\incremental\\mergeDebugResources\\stripped.dir\\layout\\activity_main_logged_in.xml",
+        "source": "C:\\Users\\fati-\\AndroidStudioProjects\\Fibuv2\\app\\src\\main\\res\\layout\\activity_main_logged_in.xml"
+    },
+    {
+        "merged": "C:\\Users\\fati-\\AndroidStudioProjects\\Fibuv2\\app\\build\\intermediates\\incremental\\mergeDebugResources\\stripped.dir\\layout\\activity_thumbnail_full_screen.xml",
+        "source": "C:\\Users\\fati-\\AndroidStudioProjects\\Fibuv2\\app\\src\\main\\res\\layout\\activity_thumbnail_full_screen.xml"
+    },
+    {
+        "merged": "C:\\Users\\fati-\\AndroidStudioProjects\\Fibuv2\\app\\build\\intermediates\\incremental\\mergeDebugResources\\stripped.dir\\layout\\activity_login.xml",
+        "source": "C:\\Users\\fati-\\AndroidStudioProjects\\Fibuv2\\app\\src\\main\\res\\layout\\activity_login.xml"
+    },
+    {
+        "merged": "C:\\Users\\fati-\\AndroidStudioProjects\\Fibuv2\\app\\build\\intermediates\\incremental\\mergeDebugResources\\stripped.dir\\layout\\fragment_dashboard.xml",
+        "source": "C:\\Users\\fati-\\AndroidStudioProjects\\Fibuv2\\app\\src\\main\\res\\layout\\fragment_dashboard.xml"
+    },
+    {
+        "merged": "C:\\Users\\fati-\\AndroidStudioProjects\\Fibuv2\\app\\build\\intermediates\\incremental\\mergeDebugResources\\stripped.dir\\layout\\fragment_notifications.xml",
+        "source": "C:\\Users\\fati-\\AndroidStudioProjects\\Fibuv2\\app\\src\\main\\res\\layout\\fragment_notifications.xml"
+    }
+]

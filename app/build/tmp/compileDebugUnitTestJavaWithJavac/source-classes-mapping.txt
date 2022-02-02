@@ -1,0 +1,6 @@
+com/example/fibuv2/SearchTest.java
+ com.example.fibuv2.SearchTest
+com/example/fibuv2/MainLoggedInTest.java
+ com.example.fibuv2.MainLoggedInTest
+com/example/fibuv2/api/DetailsAPITest.java
+ com.example.fibuv2.api.DetailsAPITest

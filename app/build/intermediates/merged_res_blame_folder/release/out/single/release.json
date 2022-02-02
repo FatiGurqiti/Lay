@@ -1,0 +1,370 @@
+[
+    {
+        "merged": "C:\\Users\\fati-\\AndroidStudioProjects\\Fibuv2\\app\\build\\intermediates\\res\\merged\\release\\drawable-v24_lock.png.flat",
+        "source": "C:\\Users\\fati-\\AndroidStudioProjects\\Fibuv2\\app\\src\\main\\res\\drawable-v24\\lock.png"
+    },
+    {
+        "merged": "C:\\Users\\fati-\\AndroidStudioProjects\\Fibuv2\\app\\build\\intermediates\\res\\merged\\release\\drawable-v24_logout.png.flat",
+        "source": "C:\\Users\\fati-\\AndroidStudioProjects\\Fibuv2\\app\\src\\main\\res\\drawable-v24\\logout.png"
+    },
+    {
+        "merged": "C:\\Users\\fati-\\AndroidStudioProjects\\Fibuv2\\app\\build\\intermediates\\res\\merged\\release\\drawable_create_account_background.xml.flat",
+        "source": "C:\\Users\\fati-\\AndroidStudioProjects\\Fibuv2\\app\\src\\main\\res\\drawable\\create_account_background.xml"
+    },
+    {
+        "merged": "C:\\Users\\fati-\\AndroidStudioProjects\\Fibuv2\\app\\build\\intermediates\\res\\merged\\release\\layout_activity_create_account.xml.flat",
+        "source": "C:\\Users\\fati-\\AndroidStudioProjects\\Fibuv2\\app\\src\\main\\res\\layout\\activity_create_account.xml"
+    },
+    {
+        "merged": "C:\\Users\\fati-\\AndroidStudioProjects\\Fibuv2\\app\\build\\intermediates\\res\\merged\\release\\drawable-v24_searchbarbtn.png.flat",
+        "source": "C:\\Users\\fati-\\AndroidStudioProjects\\Fibuv2\\app\\src\\main\\res\\drawable-v24\\searchbarbtn.png"
+    },
+    {
+        "merged": "C:\\Users\\fati-\\AndroidStudioProjects\\Fibuv2\\app\\build\\intermediates\\res\\merged\\release\\layout_fragment_first_time2.xml.flat",
+        "source": "C:\\Users\\fati-\\AndroidStudioProjects\\Fibuv2\\app\\src\\main\\res\\layout\\fragment_first_time2.xml"
+    },
+    {
+        "merged": "C:\\Users\\fati-\\AndroidStudioProjects\\Fibuv2\\app\\build\\intermediates\\res\\merged\\release\\mipmap-mdpi_launcherlogo_round.png.flat",
+        "source": "C:\\Users\\fati-\\AndroidStudioProjects\\Fibuv2\\app\\src\\main\\res\\mipmap-mdpi\\launcherlogo_round.png"
+    },
+    {
+        "merged": "C:\\Users\\fati-\\AndroidStudioProjects\\Fibuv2\\app\\build\\intermediates\\res\\merged\\release\\layout_activity_first_time2.xml.flat",
+        "source": "C:\\Users\\fati-\\AndroidStudioProjects\\Fibuv2\\app\\src\\main\\res\\layout\\activity_first_time2.xml"
+    },
+    {
+        "merged": "C:\\Users\\fati-\\AndroidStudioProjects\\Fibuv2\\app\\build\\intermediates\\res\\merged\\release\\layout_activity_login.xml.flat",
+        "source": "C:\\Users\\fati-\\AndroidStudioProjects\\Fibuv2\\app\\src\\main\\res\\layout\\activity_login.xml"
+    },
+    {
+        "merged": "C:\\Users\\fati-\\AndroidStudioProjects\\Fibuv2\\app\\build\\intermediates\\res\\merged\\release\\mipmap-xxhdpi_launcherlogo_foreground.png.flat",
+        "source": "C:\\Users\\fati-\\AndroidStudioProjects\\Fibuv2\\app\\src\\main\\res\\mipmap-xxhdpi\\launcherlogo_foreground.png"
+    },
+    {
+        "merged": "C:\\Users\\fati-\\AndroidStudioProjects\\Fibuv2\\app\\build\\intermediates\\res\\merged\\release\\drawable-v24_preview1.png.flat",
+        "source": "C:\\Users\\fati-\\AndroidStudioProjects\\Fibuv2\\app\\src\\main\\res\\drawable-v24\\preview1.png"
+    },
+    {
+        "merged": "C:\\Users\\fati-\\AndroidStudioProjects\\Fibuv2\\app\\build\\intermediates\\res\\merged\\release\\mipmap-xhdpi_launcherlogo.png.flat",
+        "source": "C:\\Users\\fati-\\AndroidStudioProjects\\Fibuv2\\app\\src\\main\\res\\mipmap-xhdpi\\launcherlogo.png"
+    },
+    {
+        "merged": "C:\\Users\\fati-\\AndroidStudioProjects\\Fibuv2\\app\\build\\intermediates\\res\\merged\\release\\drawable-v24_profile.png.flat",
+        "source": "C:\\Users\\fati-\\AndroidStudioProjects\\Fibuv2\\app\\src\\main\\res\\drawable-v24\\profile.png"
+    },
+    {
+        "merged": "C:\\Users\\fati-\\AndroidStudioProjects\\Fibuv2\\app\\build\\intermediates\\res\\merged\\release\\menu_bottom_nav_menu.xml.flat",
+        "source": "C:\\Users\\fati-\\AndroidStudioProjects\\Fibuv2\\app\\src\\main\\res\\menu\\bottom_nav_menu.xml"
+    },
+    {
+        "merged": "C:\\Users\\fati-\\AndroidStudioProjects\\Fibuv2\\app\\build\\intermediates\\res\\merged\\release\\drawable-v24_save.png.flat",
+        "source": "C:\\Users\\fati-\\AndroidStudioProjects\\Fibuv2\\app\\src\\main\\res\\drawable-v24\\save.png"
+    },
+    {
+        "merged": "C:\\Users\\fati-\\AndroidStudioProjects\\Fibuv2\\app\\build\\intermediates\\res\\merged\\release\\drawable_faded_circle.xml.flat",
+        "source": "C:\\Users\\fati-\\AndroidStudioProjects\\Fibuv2\\app\\src\\main\\res\\drawable\\faded_circle.xml"
+    },
+    {
+        "merged": "C:\\Users\\fati-\\AndroidStudioProjects\\Fibuv2\\app\\build\\intermediates\\res\\merged\\release\\layout_activity_search.xml.flat",
+        "source": "C:\\Users\\fati-\\AndroidStudioProjects\\Fibuv2\\app\\src\\main\\res\\layout\\activity_search.xml"
+    },
+    {
+        "merged": "C:\\Users\\fati-\\AndroidStudioProjects\\Fibuv2\\app\\build\\intermediates\\res\\merged\\release\\drawable_mylistbackground.xml.flat",
+        "source": "C:\\Users\\fati-\\AndroidStudioProjects\\Fibuv2\\app\\src\\main\\res\\drawable\\mylistbackground.xml"
+    },
+    {
+        "merged": "C:\\Users\\fati-\\AndroidStudioProjects\\Fibuv2\\app\\build\\intermediates\\res\\merged\\release\\color_ic_launcher_background.xml.flat",
+        "source": "C:\\Users\\fati-\\AndroidStudioProjects\\Fibuv2\\app\\src\\main\\res\\color\\ic_launcher_background.xml"
+    },
+    {
+        "merged": "C:\\Users\\fati-\\AndroidStudioProjects\\Fibuv2\\app\\build\\intermediates\\res\\merged\\release\\mipmap-xhdpi_launcherlogo_round.png.flat",
+        "source": "C:\\Users\\fati-\\AndroidStudioProjects\\Fibuv2\\app\\src\\main\\res\\mipmap-xhdpi\\launcherlogo_round.png"
+    },
+    {
+        "merged": "C:\\Users\\fati-\\AndroidStudioProjects\\Fibuv2\\app\\build\\intermediates\\res\\merged\\release\\drawable-v24_list.png.flat",
+        "source": "C:\\Users\\fati-\\AndroidStudioProjects\\Fibuv2\\app\\src\\main\\res\\drawable-v24\\list.png"
+    },
+    {
+        "merged": "C:\\Users\\fati-\\AndroidStudioProjects\\Fibuv2\\app\\build\\intermediates\\res\\merged\\release\\drawable_circle.xml.flat",
+        "source": "C:\\Users\\fati-\\AndroidStudioProjects\\Fibuv2\\app\\src\\main\\res\\drawable\\circle.xml"
+    },
+    {
+        "merged": "C:\\Users\\fati-\\AndroidStudioProjects\\Fibuv2\\app\\build\\intermediates\\res\\merged\\release\\mipmap-xhdpi_launcherlogo_foreground.png.flat",
+        "source": "C:\\Users\\fati-\\AndroidStudioProjects\\Fibuv2\\app\\src\\main\\res\\mipmap-xhdpi\\launcherlogo_foreground.png"
+    },
+    {
+        "merged": "C:\\Users\\fati-\\AndroidStudioProjects\\Fibuv2\\app\\build\\intermediates\\res\\merged\\release\\mipmap-xxhdpi_launcherlogo.png.flat",
+        "source": "C:\\Users\\fati-\\AndroidStudioProjects\\Fibuv2\\app\\src\\main\\res\\mipmap-xxhdpi\\launcherlogo.png"
+    },
+    {
+        "merged": "C:\\Users\\fati-\\AndroidStudioProjects\\Fibuv2\\app\\build\\intermediates\\res\\merged\\release\\drawable-v24_up.png.flat",
+        "source": "C:\\Users\\fati-\\AndroidStudioProjects\\Fibuv2\\app\\src\\main\\res\\drawable-v24\\up.png"
+    },
+    {
+        "merged": "C:\\Users\\fati-\\AndroidStudioProjects\\Fibuv2\\app\\build\\intermediates\\res\\merged\\release\\drawable_ic_home_black_24dp.xml.flat",
+        "source": "C:\\Users\\fati-\\AndroidStudioProjects\\Fibuv2\\app\\src\\main\\res\\drawable\\ic_home_black_24dp.xml"
+    },
+    {
+        "merged": "C:\\Users\\fati-\\AndroidStudioProjects\\Fibuv2\\app\\build\\intermediates\\res\\merged\\release\\drawable-v24_black_filer_resource.png.flat",
+        "source": "C:\\Users\\fati-\\AndroidStudioProjects\\Fibuv2\\app\\src\\main\\res\\drawable-v24\\black_filer_resource.png"
+    },
+    {
+        "merged": "C:\\Users\\fati-\\AndroidStudioProjects\\Fibuv2\\app\\build\\intermediates\\res\\merged\\release\\drawable-v24_cuterobot.png.flat",
+        "source": "C:\\Users\\fati-\\AndroidStudioProjects\\Fibuv2\\app\\src\\main\\res\\drawable-v24\\cuterobot.png"
+    },
+    {
+        "merged": "C:\\Users\\fati-\\AndroidStudioProjects\\Fibuv2\\app\\build\\intermediates\\res\\merged\\release\\drawable-v24_input.xml.flat",
+        "source": "C:\\Users\\fati-\\AndroidStudioProjects\\Fibuv2\\app\\src\\main\\res\\drawable-v24\\input.xml"
+    },
+    {
+        "merged": "C:\\Users\\fati-\\AndroidStudioProjects\\Fibuv2\\app\\build\\intermediates\\res\\merged\\release\\drawable-v24_logo.png.flat",
+        "source": "C:\\Users\\fati-\\AndroidStudioProjects\\Fibuv2\\app\\src\\main\\res\\drawable-v24\\logo.png"
+    },
+    {
+        "merged": "C:\\Users\\fati-\\AndroidStudioProjects\\Fibuv2\\app\\build\\intermediates\\res\\merged\\release\\drawable-v24_home.png.flat",
+        "source": "C:\\Users\\fati-\\AndroidStudioProjects\\Fibuv2\\app\\src\\main\\res\\drawable-v24\\home.png"
+    },
+    {
+        "merged": "C:\\Users\\fati-\\AndroidStudioProjects\\Fibuv2\\app\\build\\intermediates\\res\\merged\\release\\mipmap-xxxhdpi_launcherlogo_round.png.flat",
+        "source": "C:\\Users\\fati-\\AndroidStudioProjects\\Fibuv2\\app\\src\\main\\res\\mipmap-xxxhdpi\\launcherlogo_round.png"
+    },
+    {
+        "merged": "C:\\Users\\fati-\\AndroidStudioProjects\\Fibuv2\\app\\build\\intermediates\\res\\merged\\release\\drawable_searchbar.xml.flat",
+        "source": "C:\\Users\\fati-\\AndroidStudioProjects\\Fibuv2\\app\\src\\main\\res\\drawable\\searchbar.xml"
+    },
+    {
+        "merged": "C:\\Users\\fati-\\AndroidStudioProjects\\Fibuv2\\app\\build\\intermediates\\res\\merged\\release\\drawable-v24_preview3.png.flat",
+        "source": "C:\\Users\\fati-\\AndroidStudioProjects\\Fibuv2\\app\\src\\main\\res\\drawable-v24\\preview3.png"
+    },
+    {
+        "merged": "C:\\Users\\fati-\\AndroidStudioProjects\\Fibuv2\\app\\build\\intermediates\\res\\merged\\release\\drawable-v24_search.png.flat",
+        "source": "C:\\Users\\fati-\\AndroidStudioProjects\\Fibuv2\\app\\src\\main\\res\\drawable-v24\\search.png"
+    },
+    {
+        "merged": "C:\\Users\\fati-\\AndroidStudioProjects\\Fibuv2\\app\\build\\intermediates\\res\\merged\\release\\drawable-v24_searchbtn.png.flat",
+        "source": "C:\\Users\\fati-\\AndroidStudioProjects\\Fibuv2\\app\\src\\main\\res\\drawable-v24\\searchbtn.png"
+    },
+    {
+        "merged": "C:\\Users\\fati-\\AndroidStudioProjects\\Fibuv2\\app\\build\\intermediates\\res\\merged\\release\\drawable_yellow_circle.xml.flat",
+        "source": "C:\\Users\\fati-\\AndroidStudioProjects\\Fibuv2\\app\\src\\main\\res\\drawable\\yellow_circle.xml"
+    },
+    {
+        "merged": "C:\\Users\\fati-\\AndroidStudioProjects\\Fibuv2\\app\\build\\intermediates\\res\\merged\\release\\drawable_search_background.xml.flat",
+        "source": "C:\\Users\\fati-\\AndroidStudioProjects\\Fibuv2\\app\\src\\main\\res\\drawable\\search_background.xml"
+    },
+    {
+        "merged": "C:\\Users\\fati-\\AndroidStudioProjects\\Fibuv2\\app\\build\\intermediates\\res\\merged\\release\\drawable_mainbackground.xml.flat",
+        "source": "C:\\Users\\fati-\\AndroidStudioProjects\\Fibuv2\\app\\src\\main\\res\\drawable\\mainbackground.xml"
+    },
+    {
+        "merged": "C:\\Users\\fati-\\AndroidStudioProjects\\Fibuv2\\app\\build\\intermediates\\res\\merged\\release\\drawable-v24_check.png.flat",
+        "source": "C:\\Users\\fati-\\AndroidStudioProjects\\Fibuv2\\app\\src\\main\\res\\drawable-v24\\check.png"
+    },
+    {
+        "merged": "C:\\Users\\fati-\\AndroidStudioProjects\\Fibuv2\\app\\build\\intermediates\\res\\merged\\release\\drawable_full_black_filter.xml.flat",
+        "source": "C:\\Users\\fati-\\AndroidStudioProjects\\Fibuv2\\app\\src\\main\\res\\drawable\\full_black_filter.xml"
+    },
+    {
+        "merged": "C:\\Users\\fati-\\AndroidStudioProjects\\Fibuv2\\app\\build\\intermediates\\res\\merged\\release\\layout_fragment_home.xml.flat",
+        "source": "C:\\Users\\fati-\\AndroidStudioProjects\\Fibuv2\\app\\src\\main\\res\\layout\\fragment_home.xml"
+    },
+    {
+        "merged": "C:\\Users\\fati-\\AndroidStudioProjects\\Fibuv2\\app\\build\\intermediates\\res\\merged\\release\\mipmap-hdpi_launcherlogo_foreground.png.flat",
+        "source": "C:\\Users\\fati-\\AndroidStudioProjects\\Fibuv2\\app\\src\\main\\res\\mipmap-hdpi\\launcherlogo_foreground.png"
+    },
+    {
+        "merged": "C:\\Users\\fati-\\AndroidStudioProjects\\Fibuv2\\app\\build\\intermediates\\res\\merged\\release\\drawable_login_background.xml.flat",
+        "source": "C:\\Users\\fati-\\AndroidStudioProjects\\Fibuv2\\app\\src\\main\\res\\drawable\\login_background.xml"
+    },
+    {
+        "merged": "C:\\Users\\fati-\\AndroidStudioProjects\\Fibuv2\\app\\build\\intermediates\\res\\merged\\release\\drawable_black_filter.xml.flat",
+        "source": "C:\\Users\\fati-\\AndroidStudioProjects\\Fibuv2\\app\\src\\main\\res\\drawable\\black_filter.xml"
+    },
+    {
+        "merged": "C:\\Users\\fati-\\AndroidStudioProjects\\Fibuv2\\app\\build\\intermediates\\res\\merged\\release\\mipmap-mdpi_launcherlogo.png.flat",
+        "source": "C:\\Users\\fati-\\AndroidStudioProjects\\Fibuv2\\app\\src\\main\\res\\mipmap-mdpi\\launcherlogo.png"
+    },
+    {
+        "merged": "C:\\Users\\fati-\\AndroidStudioProjects\\Fibuv2\\app\\build\\intermediates\\res\\merged\\release\\drawable-v24_star.png.flat",
+        "source": "C:\\Users\\fati-\\AndroidStudioProjects\\Fibuv2\\app\\src\\main\\res\\drawable-v24\\star.png"
+    },
+    {
+        "merged": "C:\\Users\\fati-\\AndroidStudioProjects\\Fibuv2\\app\\build\\intermediates\\res\\merged\\release\\mipmap-anydpi-v26_launcherlogo_round.xml.flat",
+        "source": "C:\\Users\\fati-\\AndroidStudioProjects\\Fibuv2\\app\\src\\main\\res\\mipmap-anydpi-v26\\launcherlogo_round.xml"
+    },
+    {
+        "merged": "C:\\Users\\fati-\\AndroidStudioProjects\\Fibuv2\\app\\build\\intermediates\\res\\merged\\release\\font_davidlibre_regular.ttf.flat",
+        "source": "C:\\Users\\fati-\\AndroidStudioProjects\\Fibuv2\\app\\src\\main\\res\\font\\davidlibre_regular.ttf"
+    },
+    {
+        "merged": "C:\\Users\\fati-\\AndroidStudioProjects\\Fibuv2\\app\\build\\intermediates\\res\\merged\\release\\drawable-v24_username.png.flat",
+        "source": "C:\\Users\\fati-\\AndroidStudioProjects\\Fibuv2\\app\\src\\main\\res\\drawable-v24\\username.png"
+    },
+    {
+        "merged": "C:\\Users\\fati-\\AndroidStudioProjects\\Fibuv2\\app\\build\\intermediates\\res\\merged\\release\\menu_menu_search.xml.flat",
+        "source": "C:\\Users\\fati-\\AndroidStudioProjects\\Fibuv2\\app\\src\\main\\res\\menu\\menu_search.xml"
+    },
+    {
+        "merged": "C:\\Users\\fati-\\AndroidStudioProjects\\Fibuv2\\app\\build\\intermediates\\res\\merged\\release\\layout_activity_reset_password.xml.flat",
+        "source": "C:\\Users\\fati-\\AndroidStudioProjects\\Fibuv2\\app\\src\\main\\res\\layout\\activity_reset_password.xml"
+    },
+    {
+        "merged": "C:\\Users\\fati-\\AndroidStudioProjects\\Fibuv2\\app\\build\\intermediates\\res\\merged\\release\\layout_fragment_dashboard.xml.flat",
+        "source": "C:\\Users\\fati-\\AndroidStudioProjects\\Fibuv2\\app\\src\\main\\res\\layout\\fragment_dashboard.xml"
+    },
+    {
+        "merged": "C:\\Users\\fati-\\AndroidStudioProjects\\Fibuv2\\app\\build\\intermediates\\res\\merged\\release\\mipmap-anydpi-v26_launcherlogo.xml.flat",
+        "source": "C:\\Users\\fati-\\AndroidStudioProjects\\Fibuv2\\app\\src\\main\\res\\mipmap-anydpi-v26\\launcherlogo.xml"
+    },
+    {
+        "merged": "C:\\Users\\fati-\\AndroidStudioProjects\\Fibuv2\\app\\build\\intermediates\\res\\merged\\release\\drawable-v24_seen.png.flat",
+        "source": "C:\\Users\\fati-\\AndroidStudioProjects\\Fibuv2\\app\\src\\main\\res\\drawable-v24\\seen.png"
+    },
+    {
+        "merged": "C:\\Users\\fati-\\AndroidStudioProjects\\Fibuv2\\app\\build\\intermediates\\res\\merged\\release\\font_davidlibre_bold.ttf.flat",
+        "source": "C:\\Users\\fati-\\AndroidStudioProjects\\Fibuv2\\app\\src\\main\\res\\font\\davidlibre_bold.ttf"
+    },
+    {
+        "merged": "C:\\Users\\fati-\\AndroidStudioProjects\\Fibuv2\\app\\build\\intermediates\\res\\merged\\release\\drawable-v24_dislike.png.flat",
+        "source": "C:\\Users\\fati-\\AndroidStudioProjects\\Fibuv2\\app\\src\\main\\res\\drawable-v24\\dislike.png"
+    },
+    {
+        "merged": "C:\\Users\\fati-\\AndroidStudioProjects\\Fibuv2\\app\\build\\intermediates\\res\\merged\\release\\drawable-v24_time.png.flat",
+        "source": "C:\\Users\\fati-\\AndroidStudioProjects\\Fibuv2\\app\\src\\main\\res\\drawable-v24\\time.png"
+    },
+    {
+        "merged": "C:\\Users\\fati-\\AndroidStudioProjects\\Fibuv2\\app\\build\\intermediates\\res\\merged\\release\\drawable-v24_calendar.png.flat",
+        "source": "C:\\Users\\fati-\\AndroidStudioProjects\\Fibuv2\\app\\src\\main\\res\\drawable-v24\\calendar.png"
+    },
+    {
+        "merged": "C:\\Users\\fati-\\AndroidStudioProjects\\Fibuv2\\app\\build\\intermediates\\res\\merged\\release\\layout_activity_thumbnail_full_screen.xml.flat",
+        "source": "C:\\Users\\fati-\\AndroidStudioProjects\\Fibuv2\\app\\src\\main\\res\\layout\\activity_thumbnail_full_screen.xml"
+    },
+    {
+        "merged": "C:\\Users\\fati-\\AndroidStudioProjects\\Fibuv2\\app\\build\\intermediates\\res\\merged\\release\\drawable-v24_like.png.flat",
+        "source": "C:\\Users\\fati-\\AndroidStudioProjects\\Fibuv2\\app\\src\\main\\res\\drawable-v24\\like.png"
+    },
+    {
+        "merged": "C:\\Users\\fati-\\AndroidStudioProjects\\Fibuv2\\app\\build\\intermediates\\res\\merged\\release\\drawable-v24_mail.png.flat",
+        "source": "C:\\Users\\fati-\\AndroidStudioProjects\\Fibuv2\\app\\src\\main\\res\\drawable-v24\\mail.png"
+    },
+    {
+        "merged": "C:\\Users\\fati-\\AndroidStudioProjects\\Fibuv2\\app\\build\\intermediates\\res\\merged\\release\\drawable_ic_dashboard_black_24dp.xml.flat",
+        "source": "C:\\Users\\fati-\\AndroidStudioProjects\\Fibuv2\\app\\src\\main\\res\\drawable\\ic_dashboard_black_24dp.xml"
+    },
+    {
+        "merged": "C:\\Users\\fati-\\AndroidStudioProjects\\Fibuv2\\app\\build\\intermediates\\res\\merged\\release\\layout_activity_main.xml.flat",
+        "source": "C:\\Users\\fati-\\AndroidStudioProjects\\Fibuv2\\app\\src\\main\\res\\layout\\activity_main.xml"
+    },
+    {
+        "merged": "C:\\Users\\fati-\\AndroidStudioProjects\\Fibuv2\\app\\build\\intermediates\\res\\merged\\release\\drawable_red_circle.xml.flat",
+        "source": "C:\\Users\\fati-\\AndroidStudioProjects\\Fibuv2\\app\\src\\main\\res\\drawable\\red_circle.xml"
+    },
+    {
+        "merged": "C:\\Users\\fati-\\AndroidStudioProjects\\Fibuv2\\app\\build\\intermediates\\res\\merged\\release\\drawable_ic_notifications_black_24dp.xml.flat",
+        "source": "C:\\Users\\fati-\\AndroidStudioProjects\\Fibuv2\\app\\src\\main\\res\\drawable\\ic_notifications_black_24dp.xml"
+    },
+    {
+        "merged": "C:\\Users\\fati-\\AndroidStudioProjects\\Fibuv2\\app\\build\\intermediates\\res\\merged\\release\\mipmap-hdpi_launcherlogo.png.flat",
+        "source": "C:\\Users\\fati-\\AndroidStudioProjects\\Fibuv2\\app\\src\\main\\res\\mipmap-hdpi\\launcherlogo.png"
+    },
+    {
+        "merged": "C:\\Users\\fati-\\AndroidStudioProjects\\Fibuv2\\app\\build\\intermediates\\res\\merged\\release\\layout_fragment_notifications.xml.flat",
+        "source": "C:\\Users\\fati-\\AndroidStudioProjects\\Fibuv2\\app\\src\\main\\res\\layout\\fragment_notifications.xml"
+    },
+    {
+        "merged": "C:\\Users\\fati-\\AndroidStudioProjects\\Fibuv2\\app\\build\\intermediates\\res\\merged\\release\\layout_fragment_second.xml.flat",
+        "source": "C:\\Users\\fati-\\AndroidStudioProjects\\Fibuv2\\app\\src\\main\\res\\layout\\fragment_second.xml"
+    },
+    {
+        "merged": "C:\\Users\\fati-\\AndroidStudioProjects\\Fibuv2\\app\\build\\intermediates\\res\\merged\\release\\font_plusjakartatexbold.otf.flat",
+        "source": "C:\\Users\\fati-\\AndroidStudioProjects\\Fibuv2\\app\\src\\main\\res\\font\\plusjakartatexbold.otf"
+    },
+    {
+        "merged": "C:\\Users\\fati-\\AndroidStudioProjects\\Fibuv2\\app\\build\\intermediates\\res\\merged\\release\\font_comicsans.ttf.flat",
+        "source": "C:\\Users\\fati-\\AndroidStudioProjects\\Fibuv2\\app\\src\\main\\res\\font\\comicsans.ttf"
+    },
+    {
+        "merged": "C:\\Users\\fati-\\AndroidStudioProjects\\Fibuv2\\app\\build\\intermediates\\res\\merged\\release\\drawable-v24_nextbutton.png.flat",
+        "source": "C:\\Users\\fati-\\AndroidStudioProjects\\Fibuv2\\app\\src\\main\\res\\drawable-v24\\nextbutton.png"
+    },
+    {
+        "merged": "C:\\Users\\fati-\\AndroidStudioProjects\\Fibuv2\\app\\build\\intermediates\\res\\merged\\release\\layout_activity_movie_details2.xml.flat",
+        "source": "C:\\Users\\fati-\\AndroidStudioProjects\\Fibuv2\\app\\src\\main\\res\\layout\\activity_movie_details2.xml"
+    },
+    {
+        "merged": "C:\\Users\\fati-\\AndroidStudioProjects\\Fibuv2\\app\\build\\intermediates\\res\\merged\\release\\drawable-v24_saved.png.flat",
+        "source": "C:\\Users\\fati-\\AndroidStudioProjects\\Fibuv2\\app\\src\\main\\res\\drawable-v24\\saved.png"
+    },
+    {
+        "merged": "C:\\Users\\fati-\\AndroidStudioProjects\\Fibuv2\\app\\build\\intermediates\\res\\merged\\release\\mipmap-xxhdpi_launcherlogo_round.png.flat",
+        "source": "C:\\Users\\fati-\\AndroidStudioProjects\\Fibuv2\\app\\src\\main\\res\\mipmap-xxhdpi\\launcherlogo_round.png"
+    },
+    {
+        "merged": "C:\\Users\\fati-\\AndroidStudioProjects\\Fibuv2\\app\\build\\intermediates\\res\\merged\\release\\menu_menu_movie_details.xml.flat",
+        "source": "C:\\Users\\fati-\\AndroidStudioProjects\\Fibuv2\\app\\src\\main\\res\\menu\\menu_movie_details.xml"
+    },
+    {
+        "merged": "C:\\Users\\fati-\\AndroidStudioProjects\\Fibuv2\\app\\build\\intermediates\\res\\merged\\release\\navigation_mobile_navigation.xml.flat",
+        "source": "C:\\Users\\fati-\\AndroidStudioProjects\\Fibuv2\\app\\src\\main\\res\\navigation\\mobile_navigation.xml"
+    },
+    {
+        "merged": "C:\\Users\\fati-\\AndroidStudioProjects\\Fibuv2\\app\\build\\intermediates\\res\\merged\\release\\drawable-anydpi-v24_ic_launcher_foreground.xml.flat",
+        "source": "C:\\Users\\fati-\\AndroidStudioProjects\\Fibuv2\\app\\build\\generated\\res\\pngs\\release\\drawable-anydpi-v24\\ic_launcher_foreground.xml"
+    },
+    {
+        "merged": "C:\\Users\\fati-\\AndroidStudioProjects\\Fibuv2\\app\\build\\intermediates\\res\\merged\\release\\mipmap-hdpi_launcherlogo_round.png.flat",
+        "source": "C:\\Users\\fati-\\AndroidStudioProjects\\Fibuv2\\app\\src\\main\\res\\mipmap-hdpi\\launcherlogo_round.png"
+    },
+    {
+        "merged": "C:\\Users\\fati-\\AndroidStudioProjects\\Fibuv2\\app\\build\\intermediates\\res\\merged\\release\\mipmap-anydpi-v26_ic_launcher_round.xml.flat",
+        "source": "C:\\Users\\fati-\\AndroidStudioProjects\\Fibuv2\\app\\src\\main\\res\\mipmap-anydpi-v26\\ic_launcher_round.xml"
+    },
+    {
+        "merged": "C:\\Users\\fati-\\AndroidStudioProjects\\Fibuv2\\app\\build\\intermediates\\res\\merged\\release\\drawable-v24_preview2.png.flat",
+        "source": "C:\\Users\\fati-\\AndroidStudioProjects\\Fibuv2\\app\\src\\main\\res\\drawable-v24\\preview2.png"
+    },
+    {
+        "merged": "C:\\Users\\fati-\\AndroidStudioProjects\\Fibuv2\\app\\build\\intermediates\\res\\merged\\release\\drawable-v24_notfound.png.flat",
+        "source": "C:\\Users\\fati-\\AndroidStudioProjects\\Fibuv2\\app\\src\\main\\res\\drawable-v24\\notfound.png"
+    },
+    {
+        "merged": "C:\\Users\\fati-\\AndroidStudioProjects\\Fibuv2\\app\\build\\intermediates\\res\\merged\\release\\layout_activity_main_logged_in.xml.flat",
+        "source": "C:\\Users\\fati-\\AndroidStudioProjects\\Fibuv2\\app\\src\\main\\res\\layout\\activity_main_logged_in.xml"
+    },
+    {
+        "merged": "C:\\Users\\fati-\\AndroidStudioProjects\\Fibuv2\\app\\build\\intermediates\\res\\merged\\release\\layout_activity_password_forgot.xml.flat",
+        "source": "C:\\Users\\fati-\\AndroidStudioProjects\\Fibuv2\\app\\src\\main\\res\\layout\\activity_password_forgot.xml"
+    },
+    {
+        "merged": "C:\\Users\\fati-\\AndroidStudioProjects\\Fibuv2\\app\\build\\intermediates\\res\\merged\\release\\mipmap-xxxhdpi_launcherlogo.png.flat",
+        "source": "C:\\Users\\fati-\\AndroidStudioProjects\\Fibuv2\\app\\src\\main\\res\\mipmap-xxxhdpi\\launcherlogo.png"
+    },
+    {
+        "merged": "C:\\Users\\fati-\\AndroidStudioProjects\\Fibuv2\\app\\build\\intermediates\\res\\merged\\release\\drawable_yellow_background.xml.flat",
+        "source": "C:\\Users\\fati-\\AndroidStudioProjects\\Fibuv2\\app\\src\\main\\res\\drawable\\yellow_background.xml"
+    },
+    {
+        "merged": "C:\\Users\\fati-\\AndroidStudioProjects\\Fibuv2\\app\\build\\intermediates\\res\\merged\\release\\layout_activity_first_time.xml.flat",
+        "source": "C:\\Users\\fati-\\AndroidStudioProjects\\Fibuv2\\app\\src\\main\\res\\layout\\activity_first_time.xml"
+    },
+    {
+        "merged": "C:\\Users\\fati-\\AndroidStudioProjects\\Fibuv2\\app\\build\\intermediates\\res\\merged\\release\\layout_fragment_first.xml.flat",
+        "source": "C:\\Users\\fati-\\AndroidStudioProjects\\Fibuv2\\app\\src\\main\\res\\layout\\fragment_first.xml"
+    },
+    {
+        "merged": "C:\\Users\\fati-\\AndroidStudioProjects\\Fibuv2\\app\\build\\intermediates\\res\\merged\\release\\mipmap-xxxhdpi_launcherlogo_foreground.png.flat",
+        "source": "C:\\Users\\fati-\\AndroidStudioProjects\\Fibuv2\\app\\src\\main\\res\\mipmap-xxxhdpi\\launcherlogo_foreground.png"
+    },
+    {
+        "merged": "C:\\Users\\fati-\\AndroidStudioProjects\\Fibuv2\\app\\build\\intermediates\\res\\merged\\release\\mipmap-mdpi_launcherlogo_foreground.png.flat",
+        "source": "C:\\Users\\fati-\\AndroidStudioProjects\\Fibuv2\\app\\src\\main\\res\\mipmap-mdpi\\launcherlogo_foreground.png"
+    },
+    {
+        "merged": "C:\\Users\\fati-\\AndroidStudioProjects\\Fibuv2\\app\\build\\intermediates\\res\\merged\\release\\drawable_coolbtnbackground.xml.flat",
+        "source": "C:\\Users\\fati-\\AndroidStudioProjects\\Fibuv2\\app\\src\\main\\res\\drawable\\coolbtnbackground.xml"
+    },
+    {
+        "merged": "C:\\Users\\fati-\\AndroidStudioProjects\\Fibuv2\\app\\build\\intermediates\\res\\merged\\release\\font_plusjakartatextregular.otf.flat",
+        "source": "C:\\Users\\fati-\\AndroidStudioProjects\\Fibuv2\\app\\src\\main\\res\\font\\plusjakartatextregular.otf"
+    }
+]

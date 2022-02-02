@@ -110,14 +110,7 @@ public class MovieDetails extends AppCompatActivity {
         Log.d("isSuggestion", String.valueOf(isSuggestionPage));
         Log.d("MovieID", movieID);
 
-        try {
             DetailsAPI.getDetails(movieID);
-        } catch (Exception e) {
-            Log.d("MovieDetailsAPIStatus:", e.toString());
-        } finally { //User BackupToken
-            MainActivity.setAPItoken(MainActivity.getBackupAPItoken());
-            DetailsAPI.getDetails(movieID);
-        }
 
 
         if (isSaved) { //if movie is already saved get data from FireBase
@@ -161,21 +154,12 @@ public class MovieDetails extends AppCompatActivity {
 
                 Log.d("IsThisSuggestionPage", "Nope");
 
-                try {
+
                     //Load Rate Data
                     RateAPI.rate(movieID);
                     //Load Suggestion Data
                     GetMoreLikeThisAPI.getmorelikethiss(movieID);
-                    SearchAPI.autoCompleteAPI(GetMoreLikeThisAPI.morelikethis); }
-
-                catch (Exception e) {
-                    Log.d("RateAPIStatus", e.toString()); }
-                finally { //Backup TOKEN
-                    RateAPI.rate(movieID);
-                    MainActivity.setAPItoken(MainActivity.getBackupAPItoken());
-                    GetMoreLikeThisAPI.getmorelikethiss(movieID);
                     SearchAPI.autoCompleteAPI(GetMoreLikeThisAPI.morelikethis);
-                }
 
 
                 Log.d("APIStatus", "MovieID :" + movieID);

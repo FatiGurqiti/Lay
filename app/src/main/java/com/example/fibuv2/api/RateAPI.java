@@ -19,6 +19,8 @@ public class RateAPI {
 
     public static String contentType;
     public static String contentRate;
+    public static String message;
+    public static boolean iftokenisvalid;
 
 
     public static void rate(String jsonString) {
@@ -43,6 +45,12 @@ public class RateAPI {
             reader.setLenient(true);                                                       // to get the null results
             MovieRate movierate = gson.fromJson(reader, MovieRate.class);
 
+            message= movierate.getMessage();
+
+            if(message.isEmpty())iftokenisvalid=true;
+
+            else iftokenisvalid = false;
+
             contentType=movierate.getTitleType();
             contentRate=movierate.getRating();
 
@@ -58,6 +66,12 @@ public class RateAPI {
 
 
     private class MovieRate {
+        private String titleType;
+        private String year;
+        private String rating;
+        private String message;
+
+
         public String getTitleType() {
             return titleType;
         }
@@ -82,9 +96,14 @@ public class RateAPI {
             this.rating = rating;
         }
 
-        private String titleType;
-        private String year;
-        private String rating;
+        public String getMessage() {
+            return message;
+        }
+
+        public void setMessage(String message) {
+            this.message = message;
+        }
+
 
 
         public MovieRate() {

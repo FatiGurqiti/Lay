@@ -24,6 +24,7 @@ import com.google.firebase.firestore.QuerySnapshot;
 import java.util.Calendar;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.concurrent.ThreadLocalRandom;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -36,9 +37,6 @@ public class MainActivity extends AppCompatActivity {
 
     private static String APItoken;
 
-
-    private static String BackupAPItoken;
-
     @RequiresApi(api = Build.VERSION_CODES.O)
 
 
@@ -47,19 +45,16 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        
+        APItoken = "API KEY";
 
-        BackupAPItoken = "BACKUP TOKEN";
-
-        APItoken = "API TOKEN";
+        Log.d("apiKEY",APItoken);
 
         userStatus();
 
-
-        if (Build.VERSION.SDK_INT > 9) {
-            StrictMode.ThreadPolicy policy = new
-                    StrictMode.ThreadPolicy.Builder().permitAll().build();
-            StrictMode.setThreadPolicy(policy);
-        }
+        StrictMode.ThreadPolicy policy = new
+        StrictMode.ThreadPolicy.Builder().permitAll().build();
+        StrictMode.setThreadPolicy(policy);
 
 
         welcome();
@@ -151,15 +146,8 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    public static void setAPItoken(String APItoken) {
-        MainActivity.APItoken = APItoken;
-    }
-
     public static String getToken() {
         return APItoken;
     }
 
-    public static String getBackupAPItoken() {
-        return BackupAPItoken;
-    }
 }

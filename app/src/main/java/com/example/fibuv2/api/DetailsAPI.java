@@ -44,11 +44,8 @@ public class DetailsAPI {
             String result = response.body().string();
 
             Gson gson = new Gson();
-
             MovieDetails movieDetails;
             movieDetails = gson.fromJson(result, MovieDetails.class);
-
-
 
             plotOutlineList.add(movieDetails.getPlotOutline().text);
             plotOutlineList.add(movieDetails.getPlotSummary().text);

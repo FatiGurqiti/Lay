@@ -74,17 +74,7 @@ public class Search extends AppCompatActivity {
 
         searchContent = extra.getString("coolsearchBtn");
 
-        try{
-        SearchAPI.autoCompleteAPI(searchContent);}
-        catch (Exception e)
-        {
-            Log.d("SearchStatus: ", e.toString());
-        }
-        finally {
-            //Backup TOKEN
-            MainActivity.setAPItoken(MainActivity.getBackupAPItoken());
-            SearchAPI.autoCompleteAPI(searchContent);
-        }
+        SearchAPI.autoCompleteAPI(searchContent);
 
         Log.d("Search Value",searchContent);
         int limit = SearchAPI.total;

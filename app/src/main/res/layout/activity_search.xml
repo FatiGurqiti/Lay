@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:id="@+id/search"
     android:background="@drawable/search_background"
-    tools:context=".Search">
+    tools:context="com.lay.fibuv2.Search">
 
     <ImageView
         android:id="@+id/BlackFilterInSearch2"

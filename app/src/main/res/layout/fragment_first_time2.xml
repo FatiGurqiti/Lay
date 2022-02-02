@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#133462"
-    tools:context=".ui.main.PlaceholderFragment">
+    tools:context="com.lay.fibuv2.ui.main.PlaceholderFragment">
 
 
     <ImageView

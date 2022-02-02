@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:background="@drawable/black_filter"
     android:theme="@style/ThemeOverlay.Fibuv2.FullscreenContainer"
-    tools:context=".ThumbnailFullScreen">
+    tools:context="com.lay.fibuv2.ThumbnailFullScreen">
 
     <!-- The primary full-screen view. This can be replaced with whatever view
          is needed to present your content, e.g. VideoView, SurfaceView,

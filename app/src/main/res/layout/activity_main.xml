@@ -8,7 +8,7 @@
     android:gravity="center"
     android:orientation="vertical"
     android:padding="18dp"
-    tools:context=".MainActivity">
+    tools:context="com.lay.fibuv2.MainActivity">
 
 
     <TextView

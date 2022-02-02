@@ -34,7 +34,6 @@ public class MainActivity extends AppCompatActivity {
     private boolean firsttime;
     private boolean loggedin;
     private DatabaseHandler db = new DatabaseHandler(this);
-
     private static String APItoken;
 
     @RequiresApi(api = Build.VERSION_CODES.O)
@@ -45,8 +44,9 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        
-        APItoken = "API KEY";
+
+
+        APItoken = "API KEY ";
 
         Log.d("apiKEY",APItoken);
 
@@ -55,7 +55,6 @@ public class MainActivity extends AppCompatActivity {
         StrictMode.ThreadPolicy policy = new
         StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
-
 
         welcome();
 

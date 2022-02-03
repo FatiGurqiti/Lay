@@ -67,8 +67,9 @@ Since RAPID API give you limit of 500 query per month, I have also added a quota
 This quota is being updated every day with `quotaQuery()` function on _MainLoggedin_ class
 
 <br>
-The contents that can bee seen on _My List_ fragment is getting the data from FireStore. This is done to prevent using API everytime users want to seen their saved contents. You may check the **saveMovie()** function in _MovieDetails_ class. If the user is viewing a page that hasn't been saved before it will get the data from API. You can see there is a bollean named _isSaved_ which get's the status from previos page using Bundle. If the user is coming from _My List_ it will load the daa from Firebase otherwise, the content isn't saved before so, it will load the data from API. 
-You may view all of APIs under the folder of _api_.
+The contents that can bee seen on _My List_ fragment is getting the data from FireStore. This is done to prevent using API everytime users want to seen their saved contents. You may check the `saveMovie()` function in _MovieDetails_ class. If the user is viewing a page that hasn't been saved before it will get the data from API. You can see there is a bollean named `isSaved` which get's the status from previos page using Bundle. If the user is coming from _My List_ it will load the data from Firebase otherwise, the content isn't saved before so, it will load the data from API. 
+You may view all of APIs under the folder of _api_ .
+
 <br>
 
 Finally, there's a 'seen' function. On _My List_ fragment there's a TextView that says "Set as Seen", this makes the user vote for the movie and collectes the votes in _Movie Rate_ document in FireStore. It also put's the movie to _SeenMovies_ document to seperate the ones that are seen from the others. This way, even if the user set's a content seen and unsaves it it will still put the content to Firebase in order to prevent voting again or marking it seen if the movie is going to be saved in future.

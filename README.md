@@ -20,20 +20,20 @@ The app uses RESTful API provided by [RapidAPI's imdb api](https://rapidapi.com/
 
 es will use that String for the token.
 
-For [FireBase](https://firebase.google.com/), You have to replace the existing google-services.json and add your own. 
+For [FireBase](https://firebase.google.com/), You have to replace the existing _google-services.json_ and add your own. 
 
 
 ### Usage of the app
 
 The app contains simple a sqlite database to work with simple tasks like: If its user's first time opening the app, in this case it will show the first time fragements. Or the status wether the user is already signed in or not. Which, in this case it directs to needed Activity. So, that the user won't have to sign in everytime. Keep in mind that sqlite only set's and get's the status of login, the datas are provided by Firebase. You may find the needed codes in _Account_ and _DatabaseHandler_ classes under the database folder.
 
-<br>
+
 ![Image of Sqlite](https://github.com/FatiGurqiti/Lay/blob/develop/Sqlite.png)
 
 On the opening page you should see the log in Activity.If you don't have an account you can simply click on 'Sign Up' and register on the opened page.Once you complete all the inputs,program will check if given e-mail adress does not exist on the _FireBase_,your info's will be saved to the database.
 To check if the user exsits:
 
-``
+```
                 private void ifuserExists(String email)
     {
         String TAG = "IfUserExists: ";
@@ -58,7 +58,8 @@ To check if the user exsits:
             }
         });
     }
-``
+```
+
 <br>
 
 And the if the canclick boolean is true, program can run **createAccount(String email, String password)** function. Which creates the account with Firebase. Auth and **userData(String email, String password, String username)** function. Which add's the user's data to Firebase.

@@ -6,7 +6,7 @@
 
 - Java
 - XML
-- Android Studio
+- Android
 - FireBase
 - Sqlite
 - RESTful API

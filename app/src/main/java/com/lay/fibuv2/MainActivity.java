@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.os.StrictMode;
 import android.util.Log;
 import android.widget.TextView;
+
 import com.lay.fibuv2.R;
 import com.lay.fibuv2.database.Account;
 import com.lay.fibuv2.database.DatabaseHandler;
@@ -40,12 +41,12 @@ public class MainActivity extends AppCompatActivity {
 
         APItoken = "YOUR TOKEN";
 
-        Log.d("apiKEY",APItoken);
+        Log.d("apiKEY", APItoken);
 
         userStatus();
 
         StrictMode.ThreadPolicy policy = new
-        StrictMode.ThreadPolicy.Builder().permitAll().build();
+                StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
 
         welcome();
@@ -66,12 +67,13 @@ public class MainActivity extends AppCompatActivity {
 
                                if (firsttime == true) // User's first time opening the app
                                {
-                                   intent = new Intent(MainActivity.this, FirstTime.class);
+                                   intent = new Intent(MainActivity.this, FirstTime2.class);
                                } else if (db.getIsLoggedIn()) {  // User has logged in
                                    intent = new Intent(MainActivity.this, MainLoggedIn.class);
                                } else { // User hasn't logged in
                                    intent = new Intent(MainActivity.this, LoginActivity.class);
                                }
+
 
                                startActivity(intent);
                                finish();
@@ -90,16 +92,16 @@ public class MainActivity extends AppCompatActivity {
 
         if (db.getaccountsCount() == 0) {
             //It's there is no data created in account table it's first time and it creates the account table in sqlite
-            db.addaccount(new Account(1, 1, 0, 1, 1));
+            db.addaccount(new Account(1, 1, 0, 0, 1));
             firsttime = true;
 
         } else if (db.getaccountsCount() > 1) {
             // to delete extra accounts in case if there's more than one
             for (int i = 0; i > db.getaccountsCount(); i++)
                 try {
-                    db.deleteaccount(new Account(i, 0, 0, 1, 1));
+                    db.deleteaccount(new Account(i, 0, 0, 0, 1));
                 } catch (Exception e) {
-                    db.deleteaccount(new Account(i, 1, 0, 1, 1));
+                    db.deleteaccount(new Account(i, 1, 0, 0, 1));
                     Log.d("Delete Status", e.toString());
                 }
 

@@ -52,42 +52,31 @@ public class CreateAccount extends AppCompatActivity {
             String emailString = email.getText().toString();
             String passwordString = password.getText().toString();
 
-                DocumentReference docRef = db.collection("users").document(emailString);
-                docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                        if (task.isSuccessful()) {
-                            DocumentSnapshot document = task.getResult();
-                            if (document.exists()) {
-                                //This user is created before
-                                Toast.makeText(CreateAccount.this, "This user is created before",
-                                        Toast.LENGTH_LONG).show();
+            ifuserExists(emailString);
 
-                            } else {
-                                //This is user isn't created before
-                                if (TextUtils.isEmpty(usernameString) &&
-                                        TextUtils.isEmpty(emailString) &&
-                                        TextUtils.isEmpty(passwordString)) {
+            if (canclick){
 
-                                    Log.d("Input Status", "Inputs are empty");
-                                    Toast.makeText(CreateAccount.this, "Would you mind if you fill the inputs?",
-                                            Toast.LENGTH_LONG).show();
-                                } else {
-                                    Log.d("Input Status", "Inputs are filled");
+            if (TextUtils.isEmpty(usernameString) &&
+                    TextUtils.isEmpty(emailString) &&
+                    TextUtils.isEmpty(passwordString)) {
 
-                                    userData(emailString, passwordString, usernameString);
-                                    createAccount(emailString, passwordString);
-                                    Intent intent = new Intent(CreateAccount.this, LoginActivity.class);
-                                    startActivity(intent);
-                                    finish();
-                                }
-                            }
-                        }
-                    }
-                });
+                Log.d("Input Status", "Inputs are empty");
+                Toast.makeText(CreateAccount.this, "Would you mind if you fill the inputs?",
+                        Toast.LENGTH_LONG).show();
+            } else {
+                Log.d("Input Status", "Inputs are filled");
 
-
-
+                userData(emailString, passwordString, usernameString);
+                createAccount(emailString, passwordString);
+                Intent intent = new Intent(CreateAccount.this, LoginActivity.class);
+                startActivity(intent);
+                finish();
+            }
+            }
+            else {
+                Toast.makeText(CreateAccount.this, "This user is created before",
+                        Toast.LENGTH_LONG).show();
+            }
         });
 
 
@@ -140,5 +129,29 @@ public class CreateAccount extends AppCompatActivity {
                 .set(user);
     }
 
+    private void ifuserExists(String email)
+    {
+        String TAG = "IfUserExists: ";
+        DocumentReference docRef = db.collection("users").document(email);
+        docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if (task.isSuccessful()) {
+                    DocumentSnapshot document = task.getResult();
+                    if (document.exists()) {
+                        Log.d(TAG, "DocumentSnapshot data: " + document.getData());
+                        //This user is created before
+                        canclick = false;
+                    } else {
+                        Log.d(TAG, "No such document");
+                        //This is user isn't created before
+                        canclick = true;
+                    }
+                } else {
+                    Log.d(TAG, "get failed with ", task.getException());
+                }
+            }
+        });
+    }
 
 }

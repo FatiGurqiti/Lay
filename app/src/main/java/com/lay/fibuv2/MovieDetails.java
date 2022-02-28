@@ -95,6 +95,12 @@ public class MovieDetails extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_movie_details2);
 
+        try {
+            Thread.sleep(1);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
         //Get's data from last page
         Bundle extras = getIntent().getExtras();
 
@@ -169,11 +175,7 @@ public class MovieDetails extends AppCompatActivity {
 
             }
         }
-        try {
-            Thread.sleep(1);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+
 
         ImageView detailsThumbnail = findViewById(R.id.imageThumbnailinDetails);
         moreLikeThisPicture = findViewById(R.id.morelikethisimage1);
@@ -302,6 +304,7 @@ public class MovieDetails extends AppCompatActivity {
             intent.putExtra("moviePhoto", moviePhoto);
             startActivity(intent);
         });
+
         try {
             Thread.sleep(1);
         } catch (InterruptedException e) {

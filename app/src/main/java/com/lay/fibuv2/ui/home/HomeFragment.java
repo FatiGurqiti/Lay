@@ -174,7 +174,7 @@ public class HomeFragment extends Fragment {
                                         .fit()
                                         .centerCrop(700)
                                         .into(image);
-
+                                image.setTranslationZ(0);
                                 layout.addView(image);
                                 Search.setMargins(image, 25, (int) (j * (sizeheight) * .75), 25, 1);
 
@@ -182,8 +182,7 @@ public class HomeFragment extends Fragment {
                                 ImageView filter = new ImageView(getContext());
                                 filter.setLayoutParams(new ViewGroup.LayoutParams(1400, (int) ((int) (sizeheight) * .6)));
                                 Picasso.get().load(R.drawable.black_filer_resource).transform(new RoundedTransformation(50, 0)).fit().centerCrop(700).into(filter);
-                                filter.bringToFront();
-                                filter.setTranslationZ(1);
+                                filter.setTranslationZ(0);
                                 layout.addView(filter);
                                 Search.setMargins(filter, 25, (int) (j * (sizeheight) * .75), 25, 1);
 
@@ -194,13 +193,13 @@ public class HomeFragment extends Fragment {
                                 titleText.setTextColor(Color.WHITE);
                                 titleText.setPadding(25, 250, 25, 0);
                                 titleText.setTextSize(22);
-                                titleText.bringToFront();
                                 titleText.setHeight(300);
-                                titleText.setTranslationZ(1);
+                                titleText.bringToFront();
+                                titleText.setTranslationZ(2);
+                                titleText.setElevation(2);
                                 layout.addView(titleText);
                                 Search.setMargins(titleText, 25, (int) (j * (sizeheight) * .75), 25, 1);
                                 titleText.setPadding(25, (int) (sizewidth * .2), 50, 0);
-
 
                                 titleText.setOnClickListener(v -> {
                                     blackbg.setVisibility(View.VISIBLE);

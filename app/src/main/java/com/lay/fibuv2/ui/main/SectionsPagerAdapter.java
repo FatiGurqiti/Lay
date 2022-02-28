@@ -9,6 +9,9 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 
 import com.lay.fibuv2.R;
+import com.lay.fibuv2.ui.main.FirstFragment;
+import com.lay.fibuv2.ui.main.PlaceholderFragment;
+import com.lay.fibuv2.ui.main.SecondFragment;
 
 /**
  * A [FragmentPagerAdapter] that returns a fragment corresponding to
@@ -45,6 +48,12 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
         }
         assert fragment != null;
         return fragment;
+    }
+
+    @Nullable
+    @Override
+    public CharSequence getPageTitle(int position) {
+        return mContext.getResources().getString(TAB_TITLES[position]);
     }
 
     @Override

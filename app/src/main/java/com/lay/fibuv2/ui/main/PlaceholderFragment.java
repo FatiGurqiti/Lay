@@ -21,7 +21,6 @@ import com.lay.fibuv2.database.Account;
 import com.lay.fibuv2.database.DatabaseHandler;
 import com.lay.fibuv2.databinding.FragmentFirstTime2Binding;
 import com.lay.fibuv2.ui.login.LoginActivity;
-import com.lay.fibuv2.ui.main.PageViewModel;
 
 /**
  * A placeholder fragment containing a simple view.
@@ -67,18 +66,23 @@ public class PlaceholderFragment extends Fragment {
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-        ImageButton endSlider =  getView().findViewById(R.id.endslider);
+        ImageButton endSlider = (ImageButton) getView().findViewById(R.id.endslider);
 
-        endSlider.setOnClickListener(v -> {
-            Log.d("endbtn","clicked");
+        endSlider.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.d("endbtn","clicked");
 
-            DatabaseHandler db = new DatabaseHandler(getContext());
-            db.setFirstTimeFalse();
-
-            Intent intent = new Intent(getActivity(), LoginActivity.class);
-            startActivity(intent);
+                DatabaseHandler db = new DatabaseHandler(getContext());
 
 
+                db.setFirstTimeFalse();
+
+                Intent intent = new Intent(getActivity(), LoginActivity.class);
+                startActivity(intent);
+
+
+            }
         });
 
     }

@@ -203,7 +203,6 @@ public class HomeFragment extends Fragment {
 
 
                                 titleText.setOnClickListener(v -> {
-
                                     blackbg.setVisibility(View.VISIBLE);
                                     progressBar.setVisibility(View.VISIBLE);
 

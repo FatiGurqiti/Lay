@@ -197,6 +197,11 @@ public class DashboardFragment extends Fragment {
         intent.putExtra("MovieID", MovieID);
         intent.putExtra("MoviePhoto", MoviePhoto);
         intent.putExtra("IsSaved", false);
+        try {
+            Thread.sleep(1);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         startActivity(intent);
     }
 

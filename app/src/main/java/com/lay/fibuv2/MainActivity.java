@@ -9,7 +9,6 @@ import android.os.Bundle;
 import android.os.StrictMode;
 import android.util.Log;
 import android.widget.TextView;
-
 import com.lay.fibuv2.R;
 import com.lay.fibuv2.database.Account;
 import com.lay.fibuv2.database.DatabaseHandler;
@@ -39,8 +38,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
 
-
-        APItoken = "API KEY";
+        APItoken = "YOUR TOKEN";
 
         Log.d("apiKEY",APItoken);
 
@@ -68,13 +66,12 @@ public class MainActivity extends AppCompatActivity {
 
                                if (firsttime == true) // User's first time opening the app
                                {
-                                   intent = new Intent(MainActivity.this, FirstTime2.class);
+                                   intent = new Intent(MainActivity.this, FirstTime.class);
                                } else if (db.getIsLoggedIn()) {  // User has logged in
                                    intent = new Intent(MainActivity.this, MainLoggedIn.class);
                                } else { // User hasn't logged in
                                    intent = new Intent(MainActivity.this, LoginActivity.class);
                                }
-
 
                                startActivity(intent);
                                finish();

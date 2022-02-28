@@ -120,8 +120,6 @@ public class LoginActivity extends AppCompatActivity {
                                 // Sign in success, update UI with the signed-in user's information
                                 Log.d("Sign in status", "signInWithEmail:success");
 
-                                Log.d("User ID", user.getUid());
-
                                 Intent intent = new Intent(LoginActivity.this,MainLoggedIn.class);
                                 intent.putExtra("email",email);
                                 startActivity(intent);

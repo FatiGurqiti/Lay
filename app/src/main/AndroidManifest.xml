@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.lay.fibuv2" >
-
+    package="com.lay.fibuv2">
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
@@ -12,13 +11,12 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Fibuv2"
-        android:usesCleartextTraffic="true" >
+        android:usesCleartextTraffic="true">
         <activity
-            android:name=".FullscreenActivity"
-            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:name=".FirstTime"
             android:exported="false"
-            android:label="@string/title_activity_fullscreen"
-            android:theme="@style/Theme.Fibuv2.Fullscreen" />
+            android:label="@string/title_activity_first_time"
+            android:theme="@style/Theme.Fibuv2.NoActionBar" />
         <activity
             android:name=".ThumbnailFullScreen"
             android:configChanges="orientation|keyboardHidden|screenSize"
@@ -51,7 +49,7 @@
         <activity
             android:name=".MainActivity"
             android:exported="true"
-            android:screenOrientation="portrait" >
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

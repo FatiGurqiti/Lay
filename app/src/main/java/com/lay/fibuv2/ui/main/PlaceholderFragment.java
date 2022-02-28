@@ -7,16 +7,21 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.lay.fibuv2.R;
+import com.lay.fibuv2.database.Account;
 import com.lay.fibuv2.database.DatabaseHandler;
 import com.lay.fibuv2.databinding.FragmentFirstTime2Binding;
 import com.lay.fibuv2.ui.login.LoginActivity;
+import com.lay.fibuv2.ui.main.PageViewModel;
 
 /**
  * A placeholder fragment containing a simple view.
@@ -62,23 +67,18 @@ public class PlaceholderFragment extends Fragment {
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-        ImageButton endSlider = (ImageButton) getView().findViewById(R.id.endslider);
+        ImageButton endSlider =  getView().findViewById(R.id.endslider);
 
-        endSlider.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Log.d("endbtn","clicked");
+        endSlider.setOnClickListener(v -> {
+            Log.d("endbtn","clicked");
 
-                DatabaseHandler db = new DatabaseHandler(getContext());
+            DatabaseHandler db = new DatabaseHandler(getContext());
+            db.setFirstTimeFalse();
 
-
-                db.setFirstTimeFalse();
-
-                Intent intent = new Intent(getActivity(), LoginActivity.class);
-                startActivity(intent);
+            Intent intent = new Intent(getActivity(), LoginActivity.class);
+            startActivity(intent);
 
 
-            }
         });
 
     }

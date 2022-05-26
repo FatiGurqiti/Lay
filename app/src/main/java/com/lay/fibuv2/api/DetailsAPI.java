@@ -33,7 +33,6 @@ public class DetailsAPI {
                     .addHeader("x-rapidapi-key", MainActivity.getToken())
                     .build();
 
-
         try (Response response = client.newCall(request).execute()) {
 
             String result = response.body().string();

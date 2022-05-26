@@ -1,4 +1,4 @@
-package com.lay.fibuv2.data.model;
+package com.lay.fibuv2.Login.model;
 
 /**
  * Data class that captures user information for logged in users retrieved from LoginRepository

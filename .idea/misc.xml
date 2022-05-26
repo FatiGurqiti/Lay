@@ -71,10 +71,17 @@
         <entry key="..\:/Users/fati-/AndroidStudioProjects/Interview/Lay-develop/app/src/main/res/layout/activity_movie_details2.xml" value="0.264" />
         <entry key="..\:/Users/fati-/AndroidStudioProjects/Interview/Lay-develop/app/src/main/res/layout/fragment_first.xml" value="0.3020833333333333" />
         <entry key="..\:/Users/fati-/AndroidStudioProjects/Interview/Lay-develop/app/src/main/res/layout/fragment_first_time2.xml" value="0.264" />
+        <entry key="app/src/main/res/layout/activity_movie_details2.xml" value="0.3098958333333333" />
+        <entry key="app/src/main/res/layout/activity_saved_movie_details.xml" value="0.3098958333333333" />
+        <entry key="app/src/main/res/layout/activity_search.xml" value="0.3098958333333333" />
+        <entry key="app/src/main/res/layout/fragment_dashboard.xml" value="0.3098958333333333" />
+        <entry key="app/src/main/res/layout/fragment_home.xml" value="0.3098958333333333" />
+        <entry key="app/src/main/res/layout/fragment_notifications.xml" value="0.3098958333333333" />
+        <entry key="app/src/main/res/layout/fragment_second.xml" value="0.3098958333333333" />
       </map>
     </option>
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="1.8" project-jdk-type="JavaSDK">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" project-jdk-name="1.8" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>
   <component name="ProjectType">

@@ -23,7 +23,7 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.lay.fibuv2.MainLoggedIn;
-import com.lay.fibuv2.MovieDetails;
+import com.lay.fibuv2.movieDetails.MovieDetails;
 import com.lay.fibuv2.R;
 import com.lay.fibuv2.Search;
 
@@ -52,7 +52,7 @@ public class DashboardFragment extends Fragment {
 
         quota = MainLoggedIn.getQuota();
         MainLoggedIn.quotaQuery();
-        if(quota > 0 ) canSearch = true;
+        if (quota > 0) canSearch = true;
         else canSearch = false;
 
         Log.d("QuotaInPreSearch", String.valueOf(quota));
@@ -91,11 +91,10 @@ public class DashboardFragment extends Fragment {
         Log.d("rateMovie", "RateListinLoop" + MainLoggedIn.getTopRatedRate());
 
 
-        id   = MainLoggedIn.getTopRatedId();
-        img  = MainLoggedIn.getTopRatedImg();
+        id = MainLoggedIn.getTopRatedId();
+        img = MainLoggedIn.getTopRatedImg();
         name = MainLoggedIn.getTopRatedName();
         rate = MainLoggedIn.getTopRatedRate();
-
 
         blueText.setText(name.get(0));
         yellowText.setText(name.get(1));
@@ -107,48 +106,47 @@ public class DashboardFragment extends Fragment {
         greenRate.setText(rate.get(2));
         redRate.setText(rate.get(3));
 
-            blue.setOnClickListener(v -> {
-                if(canClick()) {
-                    activateLoad();
-                    openMovieDetail(id.get(0), img.get(0));
+        blue.setOnClickListener(v -> {
+            if (canClick()) {
+                activateLoad();
+                openMovieDetail(id.get(0), img.get(0));
+            }
+        });
+
+        yellow.setOnClickListener(v -> {
+            if (canClick()) {
+                activateLoad();
+                openMovieDetail(id.get(1), img.get(1));
+            }
+        });
+
+        green.setOnClickListener(v -> {
+            if (canClick()) {
+                activateLoad();
+                openMovieDetail(id.get(2), img.get(2));
+            }
+        });
+
+        red.setOnClickListener(v -> {
+            if (canClick()) {
+                activateLoad();
+                openMovieDetail(id.get(3), img.get(3));
+            }
+        });
+
+        coolsearchBtn.setOnClickListener(v -> {
+            if (canClick()) {
+                activateLoad();
+                searchbarText = searchBar.getText().toString();
+                if (!searchbarText.isEmpty()) {
+
+                    Intent intent = new Intent(getActivity(), Search.class);
+                    Log.d("SearchContent", searchbarText);
+                    intent.putExtra("coolsearchBtn", searchbarText);
+                    startActivity(intent);
                 }
-            });
-
-            yellow.setOnClickListener(v -> {
-                if(canClick()) {
-                    activateLoad();
-                    openMovieDetail(id.get(1), img.get(1));
-                }
-            });
-
-            green.setOnClickListener(v -> {
-                if(canClick()) {
-                    activateLoad();
-                    openMovieDetail(id.get(2), img.get(2));
-                }
-            });
-
-            red.setOnClickListener(v -> {
-                if(canClick()) {
-                    activateLoad();
-                    openMovieDetail(id.get(3), img.get(3));
-                }
-            });
-
-            coolsearchBtn.setOnClickListener(v -> {
-                if(canClick()) {
-                    activateLoad();
-                     searchbarText = searchBar.getText().toString();
-                    if (!searchbarText.isEmpty()) {
-
-                        Intent intent = new Intent(getActivity(), Search.class);
-                        Log.d("SearchContent", searchbarText);
-                        intent.putExtra("coolsearchBtn", searchbarText);
-                        startActivity(intent);
-                    }
-                }
-            });
-
+            }
+        });
 
 
         dashboardViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
@@ -167,7 +165,7 @@ public class DashboardFragment extends Fragment {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             MainLoggedIn.quotaQuery();
 
-            if(quota > 0 ) canSearch = true;
+            if (quota > 0) canSearch = true;
             else canSearch = false;
         }
         blackfilter.setVisibility(View.INVISIBLE);
@@ -176,15 +174,15 @@ public class DashboardFragment extends Fragment {
     }
 
 
-    boolean canClick(){
-        if(canSearch)
-        {return true;}
-        else {
+    boolean canClick() {
+        if (canSearch) {
+            return true;
+        } else {
             Toast.makeText(getContext(), "Sorry, you are out of your daily quota.\nPlease try again tomorrow.",
                     Toast.LENGTH_SHORT).show();
             return false;
         }
-     }
+    }
 
     private void activateLoad() {
         pg.setVisibility(View.VISIBLE);
@@ -192,28 +190,34 @@ public class DashboardFragment extends Fragment {
     }
 
     private void openMovieDetail(String MovieID, String MoviePhoto) {
-
         Intent intent = new Intent(getContext(), MovieDetails.class);
         intent.putExtra("MovieID", MovieID);
         intent.putExtra("MoviePhoto", MoviePhoto);
-        intent.putExtra("IsSaved", false);
-        try {
-            Thread.sleep(1);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
         startActivity(intent);
     }
 
+    public static int getQuota() {
+        return quota;
+    }
 
+    public static ArrayList<String> getid() {
+        return id;
+    }
 
+    public static ArrayList<String> getimg() {
+        return img;
+    }
 
+    public static ArrayList<String> getname() {
+        return name;
+    }
 
-public static int getQuota(){return quota;}
-public static ArrayList<String> getid  () {return  id  ;}
-public static ArrayList<String> getimg () {return  img ;}
-public static ArrayList<String> getname() {return  name;}
-public static ArrayList<String> getrate() {return  rate;}
-public static String getSearchbarText(){return searchbarText;}
+    public static ArrayList<String> getrate() {
+        return rate;
+    }
+
+    public static String getSearchbarText() {
+        return searchbarText;
+    }
 
 }

@@ -117,4 +117,13 @@
     <string name="hyperlink">By the way I am from a planet called freepik \n  Here is my creator: <a href="google.com">Freepik</a></string>
     <string name="hyperlink2">By the way I am from a planet called freepik \n  Here is my creator: <a href="shorturl.at/ezBF5">Freepik</a></string>
     <string name="title_activity_fullscreen">FullscreenActivity</string>
+    <string name="title_activity_saved_movie_details">SavedMovieDetails</string>
+    <!-- Strings used for fragments for navigation -->
+    <string name="first_fragment_label">First Fragment</string>
+    <string name="second_fragment_label">Second Fragment</string>
+    <string name="next">Next</string>
+    <string name="previous">Previous</string>
+
+    <string name="hello_first_fragment">Hello first fragment</string>
+    <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
 </resources>

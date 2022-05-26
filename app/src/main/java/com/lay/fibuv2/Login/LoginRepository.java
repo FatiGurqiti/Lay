@@ -1,6 +1,6 @@
-package com.lay.fibuv2.data;
+package com.lay.fibuv2.Login;
 
-import com.lay.fibuv2.data.model.LoggedInUser;
+import com.lay.fibuv2.Login.model.LoggedInUser;
 
 /**
  * Class that requests authentication and user information from the remote data source and

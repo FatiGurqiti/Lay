@@ -4,8 +4,8 @@ import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.annotation.NonNull;
 
-import com.lay.fibuv2.data.LoginDataSource;
-import com.lay.fibuv2.data.LoginRepository;
+import com.lay.fibuv2.Login.LoginDataSource;
+import com.lay.fibuv2.Login.LoginRepository;
 
 /**
  * ViewModel provider factory to instantiate LoginViewModel.

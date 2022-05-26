@@ -138,7 +138,7 @@ public class MainLoggedIn extends AppCompatActivity {
     }
 
     @RequiresApi(api = Build.VERSION_CODES.N)
-    protected static void lowerQuota() {
+    public static void lowerQuota() {
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
         FirebaseFirestore db = FirebaseFirestore.getInstance();
 

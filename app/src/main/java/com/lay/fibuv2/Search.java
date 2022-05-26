@@ -19,9 +19,9 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.lay.fibuv2.R;
 import com.lay.fibuv2.api.SearchAPI;
 import com.lay.fibuv2.database.DatabaseHandler;
+import com.lay.fibuv2.movieDetails.MovieDetails;
 import com.squareup.picasso.Picasso;
 
 public class Search extends AppCompatActivity {
@@ -224,7 +224,6 @@ public class Search extends AppCompatActivity {
         Intent intent = new Intent(Search.this, MovieDetails.class);
         intent.putExtra("MovieID",MovieID);
         intent.putExtra("MoviePhoto",MoviePhoto);
-        intent.putExtra("IsSaved",false);
         try {
             Thread.sleep(1);
         } catch (InterruptedException e) {

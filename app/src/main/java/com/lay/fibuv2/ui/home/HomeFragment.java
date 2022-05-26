@@ -26,9 +26,9 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.lay.fibuv2.MainLoggedIn;
-import com.lay.fibuv2.MovieDetails;
 import com.lay.fibuv2.R;
 import com.lay.fibuv2.RoundedTransformation;
+import com.lay.fibuv2.movieDetails.SavedMovieDetails;
 import com.lay.fibuv2.Search;
 import com.lay.fibuv2.database.DatabaseHandler;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -110,18 +110,15 @@ public class HomeFragment extends Fragment {
         TextView WelcomeText = root.findViewById(R.id.welcomeText);
 
 
-        if (username == null){
-            WelcomeText.setText(" \t Welcome, here's your favourite list");}
-        else
+        if (username == null) {
+            WelcomeText.setText(" \t Welcome, here's your favourite list");
+        } else
             WelcomeText.setText(" \t Hi " + username + ", here's your favourite list");
 
         //Get status of showing content that are already seen
         DatabaseHandler sqldb = new DatabaseHandler(getContext());
         if (sqldb.getShowSeenContents()) ShouldShowSeenContent = true;
         else ShouldShowSeenContent = false;
-
-
-
 
 
         String TAG = "HomeDataStatus";
@@ -163,7 +160,8 @@ public class HomeFragment extends Fragment {
                             //Don't show contents that are already seen if the mode is off
                             if (!ShouldShowSeenContent && isSeen(id.get(finalI))) {
                                 showCurrentContent = false;
-                            } else showCurrentContent = true; //Show Seen Content is on, So show everything
+                            } else
+                                showCurrentContent = true; //Show Seen Content is on, So show everything
 
                             if (showCurrentContent) {
                                 j++;
@@ -377,7 +375,6 @@ public class HomeFragment extends Fragment {
             }
         });
 
-
         afterRate();
     }
 
@@ -389,8 +386,7 @@ public class HomeFragment extends Fragment {
 
     private void openMovieDetail(String MovieID, String MoviePhoto, String MovieTitle, String MovieType, String MovieYear, String MovieFirstText, String MovieSecondText, String MovieDuration) {
 
-
-        Intent intent = new Intent(getContext(), MovieDetails.class);
+        Intent intent = new Intent(getContext(), SavedMovieDetails.class);
         intent.putExtra("MovieID", MovieID);
         intent.putExtra("MoviePhoto", MoviePhoto);
         intent.putExtra("MovieTitle", MovieTitle);
@@ -399,8 +395,6 @@ public class HomeFragment extends Fragment {
         intent.putExtra("MovieFirstText", MovieFirstText);
         intent.putExtra("MovieSecondText", MovieSecondText);
         intent.putExtra("MovieDuration", MovieDuration);
-        intent.putExtra("IsSaved", true);
-        intent.putExtra("isSuggestionPage", false);
         startActivity(intent);
 
     }
@@ -409,18 +403,14 @@ public class HomeFragment extends Fragment {
         Display display = ((AppCompatActivity) context).getWindowManager().getDefaultDisplay();
         DisplayMetrics displayMetrics = new DisplayMetrics();
         display.getMetrics(displayMetrics);
-        int height = displayMetrics.heightPixels;
-
-        return height;
+        return displayMetrics.heightPixels;
     }
 
     public int getScreenWidth(Context context) {
         Display display = ((AppCompatActivity) context).getWindowManager().getDefaultDisplay();
         DisplayMetrics displayMetrics = new DisplayMetrics();
         display.getMetrics(displayMetrics);
-        int width = displayMetrics.widthPixels;
-
-        return width;
+        return displayMetrics.widthPixels;
     }
 
     private void afterRate() {
@@ -549,6 +539,11 @@ public class HomeFragment extends Fragment {
     }
 
 
-    public static String getUsername(){return username;}
-    public static boolean getSeenContentStatus(){return ShouldShowSeenContent;}
+    public static String getUsername() {
+        return username;
+    }
+
+    public static boolean getSeenContentStatus() {
+        return ShouldShowSeenContent;
+    }
 }

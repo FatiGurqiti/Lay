@@ -6,9 +6,9 @@ import androidx.lifecycle.ViewModel;
 
 import android.util.Patterns;
 
-import com.lay.fibuv2.data.LoginRepository;
-import com.lay.fibuv2.data.Result;
-import com.lay.fibuv2.data.model.LoggedInUser;
+import com.lay.fibuv2.Login.LoginRepository;
+import com.lay.fibuv2.Login.Result;
+import com.lay.fibuv2.Login.model.LoggedInUser;
 import com.lay.fibuv2.R;
 
 public class LoginViewModel extends ViewModel {

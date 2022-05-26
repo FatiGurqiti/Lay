@@ -1,4 +1,4 @@
-package com.lay.fibuv2.data;
+package com.lay.fibuv2.Login;
 
 /**
  * A generic class that holds a result success w/ data or an error exception.

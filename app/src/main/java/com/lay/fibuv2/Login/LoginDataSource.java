@@ -1,6 +1,6 @@
-package com.lay.fibuv2.data;
+package com.lay.fibuv2.Login;
 
-import com.lay.fibuv2.data.model.LoggedInUser;
+import com.lay.fibuv2.Login.model.LoggedInUser;
 
 import java.io.IOException;
 

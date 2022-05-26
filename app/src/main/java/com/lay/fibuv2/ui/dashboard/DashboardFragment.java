@@ -49,14 +49,10 @@ public class DashboardFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
 
-
         quota = MainLoggedIn.getQuota();
         MainLoggedIn.quotaQuery();
         if (quota > 0) canSearch = true;
         else canSearch = false;
-
-        Log.d("QuotaInPreSearch", String.valueOf(quota));
-        Log.d("QuotaInPreSearch", String.valueOf(canSearch));
 
         dashboardViewModel =
                 new ViewModelProvider(this).get(DashboardViewModel.class);
@@ -84,27 +80,22 @@ public class DashboardFragment extends Fragment {
         pg = root.findViewById(R.id.progressBarInSearch);
         blackfilter = root.findViewById(R.id.homeBlackFilterInSearch);
 
-
-        Log.d("rateMovie", "IdListinLoop" + MainLoggedIn.getTopRatedId());
-        Log.d("rateMovie", "ImgListinLoop" + MainLoggedIn.getTopRatedImg());
-        Log.d("rateMovie", "NameListinLoop" + MainLoggedIn.getTopRatedName());
-        Log.d("rateMovie", "RateListinLoop" + MainLoggedIn.getTopRatedRate());
-
-
         id = MainLoggedIn.getTopRatedId();
         img = MainLoggedIn.getTopRatedImg();
         name = MainLoggedIn.getTopRatedName();
         rate = MainLoggedIn.getTopRatedRate();
 
-        blueText.setText(name.get(0));
-        yellowText.setText(name.get(1));
-        greenText.setText(name.get(2));
-        redText.setText(name.get(3));
+        if (name.size() > 0) {
+            blueText.setText(name.get(0));
+            yellowText.setText(name.get(1));
+            greenText.setText(name.get(2));
+            redText.setText(name.get(3));
 
-        blueRate.setText(rate.get(0));
-        yellowRate.setText(rate.get(1));
-        greenRate.setText(rate.get(2));
-        redRate.setText(rate.get(3));
+            blueRate.setText(rate.get(0));
+            yellowRate.setText(rate.get(1));
+            greenRate.setText(rate.get(2));
+            redRate.setText(rate.get(3));
+        }
 
         blue.setOnClickListener(v -> {
             if (canClick()) {
@@ -139,15 +130,12 @@ public class DashboardFragment extends Fragment {
                 activateLoad();
                 searchbarText = searchBar.getText().toString();
                 if (!searchbarText.isEmpty()) {
-
                     Intent intent = new Intent(getActivity(), Search.class);
-                    Log.d("SearchContent", searchbarText);
                     intent.putExtra("coolsearchBtn", searchbarText);
                     startActivity(intent);
                 }
             }
         });
-
 
         dashboardViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
             @Override
@@ -170,7 +158,6 @@ public class DashboardFragment extends Fragment {
         }
         blackfilter.setVisibility(View.INVISIBLE);
         pg.setVisibility(View.INVISIBLE);
-
     }
 
 
@@ -180,7 +167,7 @@ public class DashboardFragment extends Fragment {
         } else {
             Toast.makeText(getContext(), "Sorry, you are out of your daily quota.\nPlease try again tomorrow.",
                     Toast.LENGTH_SHORT).show();
-            return false;
+            return true;
         }
     }
 

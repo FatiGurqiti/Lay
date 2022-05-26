@@ -1,7 +1,5 @@
 package com.lay.fibuv2.api;
 
-import android.util.Log;
-
 import com.lay.fibuv2.MainActivity;
 import com.google.gson.Gson;
 import com.google.gson.stream.JsonReader;
@@ -26,7 +24,6 @@ public class SearchAPI {
 
 
     public static void autoCompleteAPI(String querry){
-
         String url = "https://imdb8.p.rapidapi.com/auto-complete?q=";
 
         OkHttpClient client = new OkHttpClient();
@@ -40,47 +37,32 @@ public class SearchAPI {
         try (Response response = client.newCall(request).execute()) {
 
             String result = response.body().string();
-
-            fixjson(result);       //The data result has more than one respose, this splits them all to a list in order to use them all
+            fixjson(result);
 
             for (int i = 0; i < total; i++) {
                 Gson gson = new Gson();
                 JsonReader reader = new JsonReader(new StringReader(splittedJson.get(i)));
-                reader.setLenient(true);                                                       // to get the null results
+                reader.setLenient(true);  // to get the null results as well
                 Movie movie = gson.fromJson(reader, Movie.class);
-
 
                 movieID.add(movie.getId());
                 movieImageUrl.add(movie.getImageUrl());
                 movieTitle.add(movie.getL());
                 movieType.add(movie.getS());
                 movieQ.add(movie.getQ());
-
-
-
-
             }
-            Log.d("SearchAPIData", "Movie Photo" + movieImageUrl);
-
         } catch (Exception e) {
             total = 0;
         }
 
-
     }
 
     private static void fixjson(String json) {
-
-        // This part locates how many results there are
-        // and splits them all to different arrays
-        // so that I can use them all
-
         String[] sJson = new String[json.length()];
         int count = 0;
         StringBuilder newjson = new StringBuilder(json);
         for (int i = 0; i < json.length(); i++) {
             if (json.charAt(i) == '{' && json.charAt(i + 1) == '\"' && json.charAt(i + 2) == 'i' && json.charAt(i + 3) == '\"') {
-
                 count++;
 
                 if (newjson.charAt(i + 19) == ',') {
@@ -104,9 +86,9 @@ public class SearchAPI {
 
         sJson = json.split("\"i\"", count + 1);
 
-        for (String a : sJson) {
+        for (String a : sJson)
             splittedJson.add(a);
-        }
+
         splittedJson.remove(0);
         for (int i = 0; i < splittedJson.size(); i++) {
             String replacementString = "";
@@ -116,8 +98,6 @@ public class SearchAPI {
             splittedJson.set(i, replacementString);
 
         }
-
-
     }
 
 

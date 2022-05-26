@@ -1,37 +1,34 @@
 package com.lay.fibuv2.api;
 
 import android.util.Log;
-
 import com.lay.fibuv2.MainActivity;
 import com.google.gson.*;
-
 import java.util.ArrayList;
 import java.util.List;
-
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 
 public class DetailsAPI {
 
-    public static String name;
-    public static String runningTimeInMinutes;
-    public static ArrayList genresList;
-    public static String year;
-    public static List<String> plotOutlineList = new ArrayList<>();
+    private static String name;
+    private static String runningTimeInMinutes;
+    private static ArrayList genresList;
+    private static String year;
+    private static List<String> plotOutlineList = new ArrayList<>();
 
 
     public static void getDetails(String jsonString) {
 
-            String url = "https://imdb8.p.rapidapi.com/title/get-overview-details?tconst=";
+        String url = "https://imdb8.p.rapidapi.com/title/get-overview-details?tconst=";
 
-            OkHttpClient client = new OkHttpClient();
-            Request request = new Request.Builder()
-                    .url(url+jsonString)
-                    .get()
-                    .addHeader("x-rapidapi-host", "imdb8.p.rapidapi.com")
-                    .addHeader("x-rapidapi-key", MainActivity.getToken())
-                    .build();
+        OkHttpClient client = new OkHttpClient();
+        Request request = new Request.Builder()
+                .url(url + jsonString)
+                .get()
+                .addHeader("x-rapidapi-host", "imdb8.p.rapidapi.com")
+                .addHeader("x-rapidapi-key", MainActivity.getToken())
+                .build();
 
         try (Response response = client.newCall(request).execute()) {
 
@@ -48,7 +45,11 @@ public class DetailsAPI {
             name = movieDetails.getTitle().title;
             genresList = movieDetails.getGenres();
 
-            Log.d("DetailsAPIStatus","GenresList : " + genresList);
+            Log.d("DetailsAPIStatus", "plotOutlineList : " + plotOutlineList +
+                    "\n runningTimeInMinutes : " + runningTimeInMinutes +
+                    "\n year : " + year +
+                    "\n name : " + name +
+                    "\n genresList : " + genresList);
 
         } catch (Exception e) {
             System.out.println(e.toString());
@@ -101,7 +102,8 @@ public class DetailsAPI {
         }
 
 
-        public MovieDetails() { }
+        public MovieDetails() {
+        }
 
         public PlotOutline getPlotOutline() {
             return plotOutline;
@@ -119,7 +121,37 @@ public class DetailsAPI {
             this.plotSummary = plotSummary;
         }
 
+    }
 
+    public String getName() {
+        if (name != null) return name;
+        else return "";
+    }
+
+    public String getRunningTimeInMinutes() {
+        if (runningTimeInMinutes != null) return runningTimeInMinutes;
+        else return "";
+    }
+
+    public String getYear() {
+        if (year != null) return year;
+        else return "";
+    }
+
+    public ArrayList getGenresList() {
+        return genresList;
+    }
+
+    public List<String> getPlotOutlineList() {
+        return plotOutlineList;
+    }
+
+    public void clearGenresList() {
+        genresList.clear();
+    }
+
+    public void clearPlotOutlineList() {
+        plotOutlineList.clear();
     }
 }
 

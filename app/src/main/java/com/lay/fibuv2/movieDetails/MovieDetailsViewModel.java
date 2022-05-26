@@ -7,9 +7,7 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import androidx.lifecycle.ViewModel;
-
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
@@ -41,7 +39,6 @@ public class MovieDetailsViewModel extends ViewModel {
 
     private FirebaseFirestore Firedb = FirebaseFirestore.getInstance();
     FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-    private DocumentReference docRef = Firedb.collection("MovieLists").document(user.getUid());
 
    public void intialanize(Bundle extras, Activity activity, TextView firstText, TextView title, TextView year, TextView time, TextView type, TextView rateText, TextView secondText, TextView products, ImageView moreLikeThisPicture, ImageView moreLikeThisFilter, TextView suggestionTitleText){
         movieID = extras.getString("MovieID");
@@ -50,18 +47,19 @@ public class MovieDetailsViewModel extends ViewModel {
         DatabaseHandler db = new DatabaseHandler(activity);
 
         DetailsAPI.getDetails(movieID);
-        movieTitle = isNull(DetailsAPI.name);
-        movieYear = isNull(DetailsAPI.year);
-        Runingtime = isNull(DetailsAPI.runningTimeInMinutes);
-        Type = isNull(DetailsAPI.genresList.get(0).toString());
-        for (int j = 1; j < DetailsAPI.genresList.size(); j++) {
-            Type += ", " + DetailsAPI.genresList.get(j).toString();
+        DetailsAPI detailsAPI = new DetailsAPI();
+        movieTitle = detailsAPI.getName();
+        movieYear = detailsAPI.getYear();
+        Runingtime = detailsAPI.getRunningTimeInMinutes();
+        Type = detailsAPI.getGenresList().get(0).toString();
+        for (int j = 1; j < detailsAPI.getGenresList().size(); j++) {
+            Type += ", " + detailsAPI.getGenresList().get(j).toString();
         }
 
-        if (DetailsAPI.plotOutlineList.size() > 0) {
-            FistText = isNull(DetailsAPI.plotOutlineList.get(0));
-            SecondText = isNull(DetailsAPI.plotOutlineList.get(1));
-            DetailsAPI.plotOutlineList.clear(); //Clear source data after using it
+        if (detailsAPI.getPlotOutlineList().size() > 0) {
+            FistText = isNull(detailsAPI.getPlotOutlineList().get(0));
+            SecondText = isNull(detailsAPI.getPlotOutlineList().get(0));
+            detailsAPI.clearPlotOutlineList();
         } else {
             FistText = "";
             SecondText = "";
@@ -80,13 +78,13 @@ public class MovieDetailsViewModel extends ViewModel {
        title.setText(movieTitle);
        year.setText(movieYear);
        rateText.setText(RateAPI.contentRate);
-       minutesToHours(Integer.parseInt(Runingtime));
+       if (Runingtime != "") minutesToHours(Integer.parseInt(Runingtime));
+       else minutesToHours(0);
        time.setText(hours + "h " + minutes + "m");
        type.setText(Type);
        firstText.setText(FistText);
        secondText.setText(SecondText);
        secondText.setVisibility(View.INVISIBLE);
-
        rateText.bringToFront();
 
        if (SearchAPI.movieImageUrl.isEmpty()) //Don't show suggestion if it's unavailable

@@ -105,7 +105,6 @@ public class SavedMovieDetails extends AppCompatActivity {
         type.setText(movieType);
         firstText.setText(fistText);
         secondText.setText(SecondText);
-        secondText.setVisibility(View.INVISIBLE);
 
         intianalizeOldData();
 
@@ -132,11 +131,7 @@ public class SavedMovieDetails extends AppCompatActivity {
 
 
         });
-
-        readMore.setOnClickListener(v -> {
-            secondText.setVisibility(View.VISIBLE);
-            readMore.setVisibility(View.INVISIBLE);
-        });
+        
 
         Picasso.get().load(moviePhoto).transform(new RoundedTransformation(25, 0)).fit().centerCrop(700).into(detailsThumbnail);
 

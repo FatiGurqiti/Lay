@@ -224,9 +224,8 @@ public class HomeFragment extends Fragment {
                                 }
                                 seenicon.bringToFront();
                                 layout.addView(seenicon);
-                                Search.setMargins(seenicon, 25, (int) (j * (sizeheight) * .75), 25, 1);
-                                seenicon.setPadding((int) ((sizewidth) * .3), (int) (sizewidth * .5), 50, 0);
-
+                                Search.setMargins(seenicon,  (int) (sizewidth * .05), (int) (j * (sizeheight) * .75), 25, 1);
+                                seenicon.setPadding((int) ((sizewidth) * .3), (int) (sizewidth * .505), 50, 0);
 
                                 TextView seenText = new TextView(getContext());
                                 if (isSeen(id.get(finalI))) {
@@ -238,45 +237,37 @@ public class HomeFragment extends Fragment {
 
                                 seenText.setTypeface(face);
                                 seenText.setTextColor(Color.WHITE);
-                                seenText.setPadding(25, 250, 25, 0);
                                 seenText.setTextSize(16);
-                                seenText.setHeight(500);
                                 seenText.bringToFront();
                                 layout.addView(seenText);
-                                Search.setMargins(seenText, (int) ((sizewidth) * .4), (int) (j * (sizeheight) * .75), 25, 1);
-                                seenText.setPadding(25, (int) (sizewidth * .5), 50, 0);
+                                Search.setMargins(seenText, (int) (sizewidth * .15), (int) (j * (sizeheight) * .75), 25, 1);
+                                seenText.setPadding((int) ((sizewidth) * .3), (int) (sizewidth * .5), 50, 0);
 
 
-                                seenicon.setOnClickListener(new View.OnClickListener() {
-                                    @Override
-                                    public void onClick(View v) {
-                                        setmovieSeen();
-                                        currentid = id.get(finalI);
-                                        currentname = title.get(finalI);
-                                        currentimg = img.get(finalI);
+                                seenicon.setOnClickListener(v -> {
+                                    setmovieSeen();
+                                    currentid = id.get(finalI);
+                                    currentname = title.get(finalI);
+                                    currentimg = img.get(finalI);
 
-                                        Picasso.get().load(R.drawable.check).into(seenicon);
-                                        seenicon.setEnabled(false);
-                                        seenText.setText("Seen");
-                                        seenText.setEnabled(false);
+                                    Picasso.get().load(R.drawable.check).into(seenicon);
+                                    seenicon.setEnabled(false);
+                                    seenText.setText("Seen");
+                                    seenText.setEnabled(false);
 
-                                    }
                                 });
 
-                                seenText.setOnClickListener(new View.OnClickListener() {
-                                    @Override
-                                    public void onClick(View v) {
-                                        setmovieSeen();
+                                seenText.setOnClickListener(v -> {
+                                    setmovieSeen();
 
-                                        currentid = id.get(finalI);
-                                        currentname = title.get(finalI);
-                                        currentimg = img.get(finalI);
+                                    currentid = id.get(finalI);
+                                    currentname = title.get(finalI);
+                                    currentimg = img.get(finalI);
 
-                                        Picasso.get().load(R.drawable.check).into(seenicon);
-                                        seenicon.setEnabled(false);
-                                        seenText.setText("Seen");
-                                        seenText.setEnabled(false);
-                                    }
+                                    Picasso.get().load(R.drawable.check).into(seenicon);
+                                    seenicon.setEnabled(false);
+                                    seenText.setText("Seen");
+                                    seenText.setEnabled(false);
                                 });
 
 

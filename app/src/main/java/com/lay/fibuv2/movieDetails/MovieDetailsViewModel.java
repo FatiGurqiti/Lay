@@ -6,7 +6,9 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+
 import androidx.lifecycle.ViewModel;
+
 import com.lay.fibuv2.api.DetailsAPI;
 import com.lay.fibuv2.api.GetMoreLikeThisAPI;
 import com.lay.fibuv2.api.RateAPI;
@@ -46,10 +48,11 @@ public class MovieDetailsViewModel extends ViewModel {
         movieTitle = detailsAPI.getName();
         movieYear = detailsAPI.getYear();
         Runingtime = detailsAPI.getRunningTimeInMinutes();
-        Type = detailsAPI.getGenresList().get(0).toString();
-        for (int j = 1; j < detailsAPI.getGenresList().size(); j++) {
-            Type += ", " + detailsAPI.getGenresList().get(j).toString();
-        }
+        if (detailsAPI.getGenresList() != null) {
+            Type = detailsAPI.getGenresList().get(0).toString();
+            for (int j = 1; j < detailsAPI.getGenresList().size(); j++)
+                Type += ", " + detailsAPI.getGenresList().get(j).toString();
+        } else Type = "";
 
         if (detailsAPI.getPlotOutlineList().size() > 0) {
             FistText = isNull(detailsAPI.getPlotOutlineList().get(0));
@@ -59,8 +62,8 @@ public class MovieDetailsViewModel extends ViewModel {
             FistText = "";
             SecondText = "";
         }
-        SuggestionImg = SearchAPI.movieImageUrl.get(0);
-        SuggestionTitle = SearchAPI.movieTitle.get(0);
+        SuggestionImg = SearchAPI.movieImageUrl.get(1);
+        SuggestionTitle = SearchAPI.movieTitle.get(1);
         SuggestionID = GetMoreLikeThisAPI.morelikethis;
 
         title.setText(movieTitle);

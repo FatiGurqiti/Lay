@@ -1,6 +1,5 @@
 package com.lay.fibuv2.movieDetails;
 
-
 import android.app.Activity;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -8,10 +7,6 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.lifecycle.ViewModel;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.FirebaseFirestore;
 import com.lay.fibuv2.api.DetailsAPI;
 import com.lay.fibuv2.api.GetMoreLikeThisAPI;
 import com.lay.fibuv2.api.RateAPI;
@@ -33,21 +28,21 @@ public class MovieDetailsViewModel extends ViewModel {
     String SuggestionTitle;
     String SuggestionID;
     boolean isSuggestionPage;
-
     private static int hours;
     private static int minutes;
 
-    private FirebaseFirestore Firedb = FirebaseFirestore.getInstance();
-    FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-
-   public void intialanize(Bundle extras, Activity activity, TextView firstText, TextView title, TextView year, TextView time, TextView type, TextView rateText, TextView secondText, TextView products, ImageView moreLikeThisPicture, ImageView moreLikeThisFilter, TextView suggestionTitleText){
-        movieID = extras.getString("MovieID");
-        moviePhoto = extras.getString("MoviePhoto");
-        isSuggestionPage = extras.getBoolean("IsSuggestedMovie");
-        DatabaseHandler db = new DatabaseHandler(activity);
-
+    public void prepareDetails(String movieID, String moviePhoto) {
         DetailsAPI.getDetails(movieID);
+        RateAPI.rate(movieID);
+        GetMoreLikeThisAPI.getmorelikethiss(movieID);
+        SearchAPI.autoCompleteAPI(GetMoreLikeThisAPI.morelikethis);
+        moviePhoto = this.moviePhoto;
+    }
+
+    public void intialanize(Bundle extras, TextView firstText, TextView title, TextView year, TextView time, TextView type, TextView rateText, TextView secondText, TextView products, ImageView moreLikeThisPicture, ImageView moreLikeThisFilter, TextView suggestionTitleText, ImageView detailsThumbnail) {
+        isSuggestionPage = extras.getBoolean("IsSuggestedMovie");
         DetailsAPI detailsAPI = new DetailsAPI();
+
         movieTitle = detailsAPI.getName();
         movieYear = detailsAPI.getYear();
         Runingtime = detailsAPI.getRunningTimeInMinutes();
@@ -64,36 +59,29 @@ public class MovieDetailsViewModel extends ViewModel {
             FistText = "";
             SecondText = "";
         }
-        if (!db.getIsLiteMode() || !isSuggestionPage) {
-            RateAPI.rate(movieID);
-            //Load Suggestion Data
-            GetMoreLikeThisAPI.getmorelikethiss(movieID);
-            SearchAPI.autoCompleteAPI(GetMoreLikeThisAPI.morelikethis);
-            SuggestionImg = SearchAPI.movieImageUrl.get(0);
-            SuggestionTitle = SearchAPI.movieTitle.get(0);
-            SuggestionID = GetMoreLikeThisAPI.morelikethis;
+        SuggestionImg = SearchAPI.movieImageUrl.get(0);
+        SuggestionTitle = SearchAPI.movieTitle.get(0);
+        SuggestionID = GetMoreLikeThisAPI.morelikethis;
+
+        title.setText(movieTitle);
+        year.setText(movieYear);
+        rateText.setText(RateAPI.contentRate);
+        if (Runingtime != "") minutesToHours(Integer.parseInt(Runingtime));
+        else minutesToHours(0);
+        time.setText(hours + "h " + minutes + "m");
+        type.setText(Type);
+        firstText.setText(FistText);
+        secondText.setText(SecondText);
+        secondText.setVisibility(View.INVISIBLE);
+        rateText.bringToFront();
+
+        if (SearchAPI.movieImageUrl.isEmpty()) //Don't show suggestion if it's unavailable
+        {
+            products.setVisibility(View.GONE);
+            moreLikeThisPicture.setVisibility(View.GONE);
+            moreLikeThisFilter.setVisibility(View.GONE);
+            suggestionTitleText.setVisibility(View.GONE);
         }
-
-
-       title.setText(movieTitle);
-       year.setText(movieYear);
-       rateText.setText(RateAPI.contentRate);
-       if (Runingtime != "") minutesToHours(Integer.parseInt(Runingtime));
-       else minutesToHours(0);
-       time.setText(hours + "h " + minutes + "m");
-       type.setText(Type);
-       firstText.setText(FistText);
-       secondText.setText(SecondText);
-       secondText.setVisibility(View.INVISIBLE);
-       rateText.bringToFront();
-
-       if (SearchAPI.movieImageUrl.isEmpty()) //Don't show suggestion if it's unavailable
-       {
-           products.setVisibility(View.GONE);
-           moreLikeThisPicture.setVisibility(View.GONE);
-           moreLikeThisFilter.setVisibility(View.GONE);
-           suggestionTitleText.setVisibility(View.GONE);
-       }
     }
 
     private String isNull(String text) {

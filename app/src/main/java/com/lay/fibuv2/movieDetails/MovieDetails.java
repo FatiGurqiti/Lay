@@ -3,6 +3,7 @@ package com.lay.fibuv2.movieDetails;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
+
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
@@ -12,6 +13,7 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import com.lay.fibuv2.R;
 import com.lay.fibuv2.RoundedTransformation;
 import com.lay.fibuv2.ThumbnailFullScreen;
@@ -23,6 +25,7 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.SetOptions;
 import com.squareup.picasso.Picasso;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -65,9 +68,7 @@ public class MovieDetails extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_movie_details2);
-
-        Bundle extras = getIntent().getExtras();
-         viewModel = new ViewModelProvider(this).get(MovieDetailsViewModel.class);
+        viewModel = new ViewModelProvider(this).get(MovieDetailsViewModel.class);
 
         ImageView detailsThumbnail = findViewById(R.id.imageThumbnailinDetails);
         ImageView moreLikeThisPicture = findViewById(R.id.morelikethisimage1);
@@ -91,89 +92,87 @@ public class MovieDetails extends AppCompatActivity {
         TextView time = findViewById(R.id.time);
         TextView type = findViewById(R.id.type);
 
-       try {
-           viewModel.intialanize(extras,this,firstText,title,year,time,type,rateText,secondText,products,moreLikeThisPicture,moreLikeThisFilter,suggestionTitleText);
-            Thread.sleep(1);
-           if (db.getIsLiteMode())
-           {
-               rateText.setVisibility(View.GONE);
-               rateStar.setVisibility(View.GONE);
-               rateBg.setVisibility(View.GONE);
-           }
-           intianalizeOldData();
-           save.setOnClickListener(v -> {
+        try {
+            Bundle extras = getIntent().getExtras();
+            viewModel.intialanize(extras, firstText, title, year, time, type, rateText, secondText, products, moreLikeThisPicture, moreLikeThisFilter, suggestionTitleText,detailsThumbnail);
+            Thread.sleep(50);
+            if (db.getIsLiteMode()) {
+                rateText.setVisibility(View.GONE);
+                rateStar.setVisibility(View.GONE);
+                rateBg.setVisibility(View.GONE);
+            }
+            intianalizeOldData();
+            save.setOnClickListener(v -> {
 
-               saveMovie();
-               SetMovieSaved();
-               Toast toast = Toast.makeText(getApplicationContext(),
-                       viewModel.movieTitle + " is added to your list",
-                       Toast.LENGTH_SHORT);
-               toast.show();
+                saveMovie();
+                SetMovieSaved();
+                Toast toast = Toast.makeText(getApplicationContext(),
+                        viewModel.movieTitle + " is added to your list",
+                        Toast.LENGTH_SHORT);
+                toast.show();
 
-               finish();
-               startActivity(getIntent());
-           });
-           saved.setOnClickListener(v -> {
-               SetMovieNotSaved();  //Set's icon unsaved
-               unSaveMovie();      //Unsaves movie
-               Toast toast = Toast.makeText(getApplicationContext(),
-                       viewModel.movieTitle + " is removed from your list",
-                       Toast.LENGTH_SHORT);
-               toast.show();
+                finish();
+                startActivity(getIntent());
+            });
+            saved.setOnClickListener(v -> {
+                SetMovieNotSaved();  //Set's icon unsaved
+                unSaveMovie();      //Unsaves movie
+                Toast toast = Toast.makeText(getApplicationContext(),
+                        viewModel.movieTitle + " is removed from your list",
+                        Toast.LENGTH_SHORT);
+                toast.show();
 
 
-           });
+            });
 
-           readMore.setOnClickListener(v -> {
-               secondText.setVisibility(View.VISIBLE);
-               readMore.setVisibility(View.INVISIBLE);
-           });
+            readMore.setOnClickListener(v -> {
+                secondText.setVisibility(View.VISIBLE);
+                readMore.setVisibility(View.INVISIBLE);
+            });
 
-           Picasso.get().load(viewModel.moviePhoto).transform(new RoundedTransformation(25, 0)).fit().centerCrop(700).into(detailsThumbnail);
+            Picasso.get().load(extras.getString("MoviePhoto")).transform(new RoundedTransformation(25, 0)).fit().centerCrop(700).into(detailsThumbnail);
 
-           if (!db.getIsLiteMode()) {
-               // Lite mode is off
-               Picasso.get().load(viewModel.SuggestionImg).transform(new RoundedTransformation(50, 0)).fit().centerCrop(300).into(moreLikeThisPicture);
-               Picasso.get().load(R.drawable.black_filer_resource).transform(new RoundedTransformation(55, 0)).fit().centerCrop(700).into(moreLikeThisFilter);
-               suggestionTitleText.setText(viewModel.SuggestionTitle);
+            if (!db.getIsLiteMode()) {
+                // Lite mode is off
+                Picasso.get().load(viewModel.SuggestionImg).transform(new RoundedTransformation(50, 0)).fit().centerCrop(300).into(moreLikeThisPicture);
+                Picasso.get().load(R.drawable.black_filer_resource).transform(new RoundedTransformation(55, 0)).fit().centerCrop(700).into(moreLikeThisFilter);
+                suggestionTitleText.setText(viewModel.SuggestionTitle);
 
-               moreLikeThisPicture.setOnClickListener(new View.OnClickListener() {
-                   @Override
-                   public void onClick(View v) {
-                       progressBar.setVisibility(View.VISIBLE);
-                       blackFilter.setVisibility(View.VISIBLE);
-                       openMovieDetail(viewModel.SuggestionID, viewModel.SuggestionImg);
-                   }
-               });
-           } else {
-               //Lite Mode is On
+                moreLikeThisPicture.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        progressBar.setVisibility(View.VISIBLE);
+                        blackFilter.setVisibility(View.VISIBLE);
+                        openMovieDetail(viewModel.SuggestionID, viewModel.SuggestionImg);
+                    }
+                });
+            } else {
+                products.setVisibility(View.GONE);
+                moreLikeThisPicture.setVisibility(View.GONE);
+                moreLikeThisFilter.setVisibility(View.GONE);
+                suggestionTitleText.setVisibility(View.GONE);
 
-               products.setVisibility(View.GONE);
-               moreLikeThisPicture.setVisibility(View.GONE);
-               moreLikeThisFilter.setVisibility(View.GONE);
-               suggestionTitleText.setVisibility(View.GONE);
+                rateText.setVisibility(View.GONE);
+                rateStar.setVisibility(View.GONE);
+            }
 
-               rateText.setVisibility(View.GONE);
-               rateStar.setVisibility(View.GONE);
-           }
+            if (viewModel.isSuggestionPage) {
+                products.setVisibility(View.GONE);
+                moreLikeThisPicture.setVisibility(View.GONE);
+                suggestionTitleText.setVisibility(View.GONE);
+                moreLikeThisFilter.setVisibility(View.GONE);
+            }
 
-           if (viewModel.isSuggestionPage) {
-               products.setVisibility(View.GONE);
-               moreLikeThisPicture.setVisibility(View.GONE);
-               suggestionTitleText.setVisibility(View.GONE);
-               moreLikeThisFilter.setVisibility(View.GONE);
-           }
+            detailsThumbnail.setOnClickListener(v -> {
+                Intent intent = new Intent(MovieDetails.this, ThumbnailFullScreen.class);
+                intent.putExtra("moviePhoto", viewModel.moviePhoto);
+                startActivity(intent);
+            });
 
-           detailsThumbnail.setOnClickListener(v -> {
-               Intent intent = new Intent(MovieDetails.this, ThumbnailFullScreen.class);
-               intent.putExtra("moviePhoto", viewModel.moviePhoto);
-               startActivity(intent);
-           });
-
-       } catch (InterruptedException e) {
-            Log.d("firstOrlast","3");
+        } catch (InterruptedException e) {
+            Log.d("firstOrlast", "3");
             e.printStackTrace();
-            Log.d("firstOrlast","4");
+            Log.d("firstOrlast", "4");
         }
 
     }

@@ -3,6 +3,7 @@ package com.lay.fibuv2.Search;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.content.Intent;
@@ -24,6 +25,7 @@ import com.lay.fibuv2.RoundedTransformation;
 import com.lay.fibuv2.api.SearchAPI;
 import com.lay.fibuv2.database.DatabaseHandler;
 import com.lay.fibuv2.movieDetails.MovieDetails;
+import com.lay.fibuv2.movieDetails.MovieDetailsViewModel;
 import com.squareup.picasso.Picasso;
 
 import org.jetbrains.annotations.Nullable;
@@ -57,7 +59,7 @@ public class Search extends AppCompatActivity {
         viewModel = new ViewModelProvider(this).get(SearchViewModel.class);
         try {
             Thread.sleep(50);
-            int limit =  SearchAPI.movieID.size();
+            int limit = SearchAPI.movieID.size();
             DatabaseHandler db = new DatabaseHandler(Search.this);
             if (db.getIsLiteMode())  // if lite mode is on
                 if (limit > 3) limit = 3;
@@ -71,14 +73,14 @@ public class Search extends AppCompatActivity {
                 for (int i = 0; i < limit; i++) {
                     int sizeheight = (int) (getScreenHeight() * 0.5);
 
-                    if ( SearchAPI.movieQ.get(i) != null) { //Prevents loading useless contents like: trailer, review, etc..
+                    if (SearchAPI.movieQ.get(i) != null) { //Prevents loading useless contents like: trailer, review, etc..
                         j++;
 
                         ImageView image = new ImageView(this);
                         image.setLayoutParams(new ViewGroup.LayoutParams(1400, (int) (sizeheight)));
                         image.setOutlineAmbientShadowColor(Color.parseColor("#FFFFFF"));
                         image.setOutlineSpotShadowColor(Color.parseColor("#FFFFFF"));
-                        Picasso.get().load( SearchAPI.movieImageUrl.get(i).trim())
+                        Picasso.get().load(SearchAPI.movieImageUrl.get(i).trim())
                                 .transform(new RoundedTransformation(50, 0)).fit().centerCrop(700).into(image);
                         layout.addView(image);
                         setMargins(image, 25, (int) (j * (sizeheight) * 1.2), 25, 1);
@@ -86,11 +88,16 @@ public class Search extends AppCompatActivity {
 
                         int finalI = i;
                         image.setOnClickListener(v -> {
-                            progressBar.setVisibility(View.VISIBLE);
-                            blackfilter.setVisibility(View.VISIBLE);
-                            if (finalI <=  SearchAPI.movieID.size())
-                                openMovieDetail( SearchAPI.movieID.get(finalI),  SearchAPI.movieImageUrl.get(finalI).trim());
-
+                            if (finalI <= SearchAPI.movieID.size()) {
+                                try {
+                                    progressBar.setVisibility(View.VISIBLE);
+                                    blackfilter.setVisibility(View.VISIBLE);
+                                    Thread.sleep(50);
+                                    openMovieDetail(SearchAPI.movieID.get(finalI), SearchAPI.movieImageUrl.get(finalI).trim());
+                                } catch (InterruptedException e) {
+                                    e.printStackTrace();
+                                }
+                            }
                         });
 
 
@@ -103,7 +110,7 @@ public class Search extends AppCompatActivity {
 
 
                         TextView title = new TextView(this);
-                        title.setText( SearchAPI.movieTitle.get(i));
+                        title.setText(SearchAPI.movieTitle.get(i));
                         title.setTypeface(boldface);
                         title.setTextColor(Color.WHITE);
                         title.setPadding(25, 250, 25, 0);
@@ -115,7 +122,7 @@ public class Search extends AppCompatActivity {
 
 
                         TextView type = new TextView(this);
-                        type.setText( SearchAPI.movieQ.get(i));
+                        type.setText(SearchAPI.movieQ.get(i));
                         type.setTextColor(Color.WHITE);
                         type.setTypeface(face);
                         type.setPadding(25, 370, 50, 0);
@@ -126,7 +133,7 @@ public class Search extends AppCompatActivity {
                         type.setPadding(25, (int) (sizeheight * .5), 50, 0);
 
                         TextView cast = new TextView(this);
-                        cast.setText( SearchAPI.movieType.get(i));
+                        cast.setText(SearchAPI.movieType.get(i));
                         cast.setTypeface(face);
                         cast.setTextColor(Color.WHITE);
                         cast.setPadding(25, 430, 50, 0);
@@ -149,9 +156,7 @@ public class Search extends AppCompatActivity {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-
     }
-
 
     @Override
     protected void onResume() {
@@ -161,16 +166,14 @@ public class Search extends AppCompatActivity {
     }
 
     private void openMovieDetail(String MovieID, String MoviePhoto) {
+        MovieDetailsViewModel movieDetailsViewModel = new ViewModelProvider(this).get(MovieDetailsViewModel.class);
+        movieDetailsViewModel.prepareDetails(MovieID, MoviePhoto);
         Intent intent = new Intent(Search.this, MovieDetails.class);
         intent.putExtra("MovieID", MovieID);
         intent.putExtra("MoviePhoto", MoviePhoto);
-        try {
-            Thread.sleep(1000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
         startActivity(intent);
     }
+
 
     public static void setMargins(View v, int l, int t, int r, int b) {
         if (v.getLayoutParams() instanceof ViewGroup.MarginLayoutParams) {

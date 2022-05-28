@@ -29,7 +29,7 @@ import com.lay.fibuv2.MainLoggedIn;
 import com.lay.fibuv2.R;
 import com.lay.fibuv2.RoundedTransformation;
 import com.lay.fibuv2.movieDetails.SavedMovieDetails;
-import com.lay.fibuv2.Search;
+import com.lay.fibuv2.Search.Search;
 import com.lay.fibuv2.database.DatabaseHandler;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;

@@ -2,7 +2,7 @@ package com.lay.fibuv2;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import com.lay.fibuv2.Search;
+import com.lay.fibuv2.Search.Search;
 import com.lay.fibuv2.ui.dashboard.DashboardFragment;
 
 import org.junit.jupiter.api.Tag;

@@ -1,7 +1,10 @@
-package com.lay.fibuv2;
+package com.lay.fibuv2.Search;
 
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
+
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
@@ -15,18 +18,25 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+
+import com.lay.fibuv2.R;
+import com.lay.fibuv2.RoundedTransformation;
 import com.lay.fibuv2.api.SearchAPI;
 import com.lay.fibuv2.database.DatabaseHandler;
 import com.lay.fibuv2.movieDetails.MovieDetails;
 import com.squareup.picasso.Picasso;
+
+import org.jetbrains.annotations.Nullable;
+
 import java.util.List;
 
 public class Search extends AppCompatActivity {
 
+    private SearchViewModel viewModel;
     private static String searchContent;
     private TextView SecondTextReference;
     private ImageView blackfilter;
-    private  ProgressBar progressBar;
+    private ProgressBar progressBar;
 
     @RequiresApi(api = Build.VERSION_CODES.S)
     @Override
@@ -44,18 +54,10 @@ public class Search extends AppCompatActivity {
         SecondTextReference = findViewById(R.id.secondTextReference);
         progressBar.setVisibility(View.INVISIBLE);
 
+        viewModel = new ViewModelProvider(this).get(SearchViewModel.class);
         try {
-            Bundle extra = getIntent().getExtras();
-            searchContent = extra.getString("coolsearchBtn");
-            SearchAPI.autoCompleteAPI(searchContent);
-            Thread.sleep(1);
-            int limit = SearchAPI.total;
-            List<String> movieContent = SearchAPI.movieQ;
-            List<String> movieImageUrl = SearchAPI.movieImageUrl;
-            List<String> movieID = SearchAPI.movieID;
-            List<String> movieTitle = SearchAPI.movieTitle;
-            List<String> movieType = SearchAPI.movieType;
-
+            Thread.sleep(50);
+            int limit =  SearchAPI.movieID.size();
             DatabaseHandler db = new DatabaseHandler(Search.this);
             if (db.getIsLiteMode())  // if lite mode is on
                 if (limit > 3) limit = 3;
@@ -64,19 +66,19 @@ public class Search extends AppCompatActivity {
                 notfoundIMAGE.setVisibility(View.INVISIBLE);
                 notfoundText.setVisibility(View.INVISIBLE);
 
-                RelativeLayout layout =  findViewById(R.id.Scroll_Relative);
+                RelativeLayout layout = findViewById(R.id.Scroll_Relative);
                 int j = -1;
                 for (int i = 0; i < limit; i++) {
                     int sizeheight = (int) (getScreenHeight() * 0.5);
 
-                    if (movieContent.get(i) != null) { //Prevents loading useless contents like: trailer, review, etc..
+                    if ( SearchAPI.movieQ.get(i) != null) { //Prevents loading useless contents like: trailer, review, etc..
                         j++;
 
                         ImageView image = new ImageView(this);
                         image.setLayoutParams(new ViewGroup.LayoutParams(1400, (int) (sizeheight)));
                         image.setOutlineAmbientShadowColor(Color.parseColor("#FFFFFF"));
                         image.setOutlineSpotShadowColor(Color.parseColor("#FFFFFF"));
-                        Picasso.get().load(movieImageUrl.get(i).trim())
+                        Picasso.get().load( SearchAPI.movieImageUrl.get(i).trim())
                                 .transform(new RoundedTransformation(50, 0)).fit().centerCrop(700).into(image);
                         layout.addView(image);
                         setMargins(image, 25, (int) (j * (sizeheight) * 1.2), 25, 1);
@@ -86,8 +88,8 @@ public class Search extends AppCompatActivity {
                         image.setOnClickListener(v -> {
                             progressBar.setVisibility(View.VISIBLE);
                             blackfilter.setVisibility(View.VISIBLE);
-                            if(finalI <= movieID.size())
-                                openMovieDetail(movieID.get(finalI), movieImageUrl.get(finalI).trim());
+                            if (finalI <=  SearchAPI.movieID.size())
+                                openMovieDetail( SearchAPI.movieID.get(finalI),  SearchAPI.movieImageUrl.get(finalI).trim());
 
                         });
 
@@ -101,7 +103,7 @@ public class Search extends AppCompatActivity {
 
 
                         TextView title = new TextView(this);
-                        title.setText(movieTitle.get(i));
+                        title.setText( SearchAPI.movieTitle.get(i));
                         title.setTypeface(boldface);
                         title.setTextColor(Color.WHITE);
                         title.setPadding(25, 250, 25, 0);
@@ -113,7 +115,7 @@ public class Search extends AppCompatActivity {
 
 
                         TextView type = new TextView(this);
-                        type.setText(movieContent.get(i));
+                        type.setText( SearchAPI.movieQ.get(i));
                         type.setTextColor(Color.WHITE);
                         type.setTypeface(face);
                         type.setPadding(25, 370, 50, 0);
@@ -124,7 +126,7 @@ public class Search extends AppCompatActivity {
                         type.setPadding(25, (int) (sizeheight * .5), 50, 0);
 
                         TextView cast = new TextView(this);
-                        cast.setText(movieType.get(i));
+                        cast.setText( SearchAPI.movieType.get(i));
                         cast.setTypeface(face);
                         cast.setTextColor(Color.WHITE);
                         cast.setPadding(25, 430, 50, 0);
@@ -136,23 +138,20 @@ public class Search extends AppCompatActivity {
                     }
                 }
 
-                int totalResult = j+1;
-                result.setText("There are " + totalResult  + " results");
+                int totalResult = j + 1;
+                result.setText("There are " + totalResult + " results");
 
-            }
-            else{
-                // There are no results
+            } else {
                 notfoundIMAGE.setVisibility(View.VISIBLE);
                 notfoundText.setVisibility(View.VISIBLE);
                 SecondTextReference.setVisibility(View.VISIBLE);
             }
         } catch (InterruptedException e) {
             e.printStackTrace();
-
         }
 
-
     }
+
 
     @Override
     protected void onResume() {
@@ -161,28 +160,14 @@ public class Search extends AppCompatActivity {
         blackfilter.setVisibility(View.INVISIBLE);
     }
 
-    @Override
-    protected void onPause() {
-        super.onPause();
-//        SearchAPI.total = 0;
-//        SearchAPI.movieImageUrl.clear();
-//        SearchAPI.movieQ.clear();
-//        SearchAPI.movieTitle.clear();
-//        SearchAPI.movieID.clear();
-//        SearchAPI.movieType.clear();
-//        SearchAPI.splittedJson.clear();
-    }
-
-    private void openMovieDetail(String MovieID, String MoviePhoto){
+    private void openMovieDetail(String MovieID, String MoviePhoto) {
         Intent intent = new Intent(Search.this, MovieDetails.class);
-        intent.putExtra("MovieID",MovieID);
-        intent.putExtra("MoviePhoto",MoviePhoto);
+        intent.putExtra("MovieID", MovieID);
+        intent.putExtra("MoviePhoto", MoviePhoto);
         try {
             Thread.sleep(1000);
         } catch (InterruptedException e) {
-            Log.d("after","1");
             e.printStackTrace();
-            Log.d("after","2");
         }
         startActivity(intent);
     }
@@ -202,5 +187,7 @@ public class Search extends AppCompatActivity {
     }
 
 
-public static String getSearchContent(){return searchContent;}
+    public static String getSearchContent() {
+        return searchContent;
+    }
 }

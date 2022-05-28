@@ -3,7 +3,6 @@ package com.lay.fibuv2.ui.dashboard;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,7 +11,6 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -23,9 +21,11 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.lay.fibuv2.MainLoggedIn;
+import com.lay.fibuv2.Search.SearchViewModel;
+import com.lay.fibuv2.api.SearchAPI;
 import com.lay.fibuv2.movieDetails.MovieDetails;
 import com.lay.fibuv2.R;
-import com.lay.fibuv2.Search;
+import com.lay.fibuv2.Search.Search;
 
 import java.util.ArrayList;
 
@@ -37,27 +37,21 @@ public class DashboardFragment extends Fragment {
     private static ArrayList<String> img = new ArrayList<>();
     private static ArrayList<String> name = new ArrayList<>();
     private static ArrayList<String> rate = new ArrayList<>();
-
     private static String searchbarText;
 
     private ProgressBar pg;
     private ImageView blackfilter;
-    private boolean canSearch;
     private static int quota;
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
+        View root = inflater.inflate(R.layout.fragment_dashboard, container, false);
 
         quota = MainLoggedIn.getQuota();
         MainLoggedIn.quotaQuery();
-        if (quota > 0) canSearch = true;
-        else canSearch = false;
 
-        dashboardViewModel =
-                new ViewModelProvider(this).get(DashboardViewModel.class);
-        View root = inflater.inflate(R.layout.fragment_dashboard, container, false);
-
+        dashboardViewModel = new ViewModelProvider(this).get(DashboardViewModel.class);
 
         ImageButton coolsearchBtn = root.findViewById(R.id.coolsearchbtn);
         EditText searchBar = root.findViewById(R.id.search_bar);
@@ -98,42 +92,38 @@ public class DashboardFragment extends Fragment {
         }
 
         blue.setOnClickListener(v -> {
-            if (canClick()) {
-                activateLoad();
-                openMovieDetail(id.get(0), img.get(0));
-            }
+            activateLoad();
+            openMovieDetail(id.get(0), img.get(0));
         });
 
         yellow.setOnClickListener(v -> {
-            if (canClick()) {
-                activateLoad();
-                openMovieDetail(id.get(1), img.get(1));
-            }
+            activateLoad();
+            openMovieDetail(id.get(1), img.get(1));
+
         });
 
         green.setOnClickListener(v -> {
-            if (canClick()) {
-                activateLoad();
-                openMovieDetail(id.get(2), img.get(2));
-            }
+            activateLoad();
+            openMovieDetail(id.get(2), img.get(2));
+
         });
 
         red.setOnClickListener(v -> {
-            if (canClick()) {
-                activateLoad();
-                openMovieDetail(id.get(3), img.get(3));
-            }
+            activateLoad();
+            openMovieDetail(id.get(3), img.get(3));
+
         });
 
         coolsearchBtn.setOnClickListener(v -> {
-            if (canClick()) {
-                activateLoad();
-                searchbarText = searchBar.getText().toString();
-                if (!searchbarText.isEmpty()) {
-                    Intent intent = new Intent(getActivity(), Search.class);
-                    intent.putExtra("coolsearchBtn", searchbarText);
-                    startActivity(intent);
-                }
+            activateLoad();
+            searchbarText = searchBar.getText().toString();
+            if (!searchbarText.isEmpty()) {
+                SearchViewModel searchViewModel = new ViewModelProvider(this).get(SearchViewModel.class);
+                searchViewModel.prepareResults(searchbarText);
+                Intent intent = new Intent(getActivity(), Search.class);
+                intent.putExtra("coolsearchBtn", searchbarText);
+                startActivity(intent);
+
             }
         });
 
@@ -149,26 +139,16 @@ public class DashboardFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            MainLoggedIn.quotaQuery();
-
-            if (quota > 0) canSearch = true;
-            else canSearch = false;
-        }
         blackfilter.setVisibility(View.INVISIBLE);
         pg.setVisibility(View.INVISIBLE);
-    }
 
-
-    boolean canClick() {
-        if (canSearch) {
-            return true;
-        } else {
-            Toast.makeText(getContext(), "Sorry, you are out of your daily quota.\nPlease try again tomorrow.",
-                    Toast.LENGTH_SHORT).show();
-            return true;
-        }
+        SearchAPI.movieType.clear();
+        SearchAPI.movieTitle.clear();
+        SearchAPI.movieID.clear();
+        SearchAPI.movieQ.clear();
+        SearchAPI.movieType.clear();
+        SearchAPI.movieImageUrl.clear();
+        SearchAPI.splittedJson.clear();
     }
 
     private void activateLoad() {

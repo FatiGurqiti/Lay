@@ -45,12 +45,6 @@ public class DetailsAPI {
             name = movieDetails.getTitle().title;
             genresList = movieDetails.getGenres();
 
-            Log.d("DetailsAPIStatus", "plotOutlineList : " + plotOutlineList +
-                    "\n runningTimeInMinutes : " + runningTimeInMinutes +
-                    "\n year : " + year +
-                    "\n name : " + name +
-                    "\n genresList : " + genresList);
-
         } catch (Exception e) {
             System.out.println(e.toString());
         }
@@ -130,7 +124,7 @@ public class DetailsAPI {
 
     public String getRunningTimeInMinutes() {
         if (runningTimeInMinutes != null) return runningTimeInMinutes;
-        else return "";
+        else return "0";
     }
 
     public String getYear() {

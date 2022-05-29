@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModelProvider;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
@@ -116,9 +117,6 @@ public class SavedMovieDetails extends AppCompatActivity {
                     movieTitle + " is added to your list",
                     Toast.LENGTH_SHORT);
             toast.show();
-
-            finish();
-            startActivity(getIntent());
         });
         saved.setOnClickListener(v -> {
             SetMovieNotSaved();  //Set's icon unsaved
@@ -240,39 +238,49 @@ public class SavedMovieDetails extends AppCompatActivity {
         }
     }
 
-    public void unSaveMovie( ) {
+    private void unSaveMovie() {
 
-        if (mapid != null) {
-            for (int i = 0; i < mapid.size(); i++) {
+        Bundle extras = getIntent().getExtras();
+        docRef.get().addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                DocumentSnapshot document = task.getResult();
+                if (document.exists()) {
 
-                if (!String.valueOf(mapid.get(i)).equals(movieID)) {   // to prevent saving the same data
+                    mapid = (List<Map<String, ArrayList>>) document.get("id");
+                    mapimg = (List<Map<String, ArrayList>>) document.get("img");
+                    maptitle = (List<Map<String, ArrayList>>) document.get("title");
+                    maptype = (List<Map<String, ArrayList>>) document.get("type");
+                    mapyear = (List<Map<String, ArrayList>>) document.get("year");
+                    mapfirstText = (List<Map<String, ArrayList>>) document.get("firstText");
+                    mapsecondText = (List<Map<String, ArrayList>>) document.get("secondText");
+                    mapduration = (List<Map<String, ArrayList>>) document.get("duration");
 
-                    id.add(String.valueOf(mapid.get(i)));
-                    img.add(String.valueOf(mapimg.get(i)));
-                    title.add(String.valueOf(maptitle.get(i)));
-                    year.add(String.valueOf(mapyear.get(i)));
-                    duration.add(String.valueOf(mapduration.get(i)));
-                    type.add(String.valueOf(maptype.get(i)));
-                    firstText.add(String.valueOf(mapfirstText.get(i)));
-                    secondText.add(String.valueOf(mapsecondText.get(i)));
+                    int index = 0;
+                    for (int i = 0; i < mapid.size(); i++) {
+                        Log.d("Mapinyo",String.valueOf(mapid.get(i)));
+                        if (String.valueOf(mapid.get(i)).equals(extras.getString("MovieID")))
+                            index = i;
+                    }
+
+                    update("id",mapid,index);
+                    update("img",mapimg,index);
+                    update("title",maptitle,index);
+                    update("type",maptype,index);
+                    update("year",mapyear,index);
+                    update("firstText",mapfirstText,index);
+                    update("secondText",mapsecondText,index);
+                    update("duration",mapduration,index);
+
                 }
             }
+        });
+    }
 
-            Map<String, Object> data = new HashMap<>();
-
-            data.put("id", id);
-            data.put("img", img);
-            data.put("title", title);
-            data.put("year", year);
-            data.put("duration", duration);
-            data.put("type", type);
-            data.put("firstText", firstText);
-            data.put("secondText", secondText);
-
-            Firedb.collection("MovieLists")
-                    .document(user.getUid())
-                    .set(data, SetOptions.merge());
-        }
+    private void update(String field, List list, int index) {
+        list.remove(index);
+        Firedb.collection("MovieLists")
+                .document(user.getUid())
+                .update(field, list);
     }
 
 

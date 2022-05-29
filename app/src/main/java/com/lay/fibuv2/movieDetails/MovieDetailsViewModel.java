@@ -66,8 +66,7 @@ public class MovieDetailsViewModel extends ViewModel {
         title.setText(movieTitle);
         year.setText(movieYear);
         rateText.setText(RateAPI.contentRate);
-        if (Runingtime != "") minutesToHours(Integer.parseInt(Runingtime));
-        else minutesToHours(0);
+        minutesToHours(Integer.parseInt(Runingtime));
         time.setText(hours + "h " + minutes + "m");
         type.setText(Type);
         firstText.setText(FistText);

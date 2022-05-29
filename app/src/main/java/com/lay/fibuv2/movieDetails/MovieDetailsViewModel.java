@@ -2,14 +2,20 @@ package com.lay.fibuv2.movieDetails;
 
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+
 import androidx.lifecycle.ViewModel;
+
 import com.lay.fibuv2.api.DetailsAPI;
 import com.lay.fibuv2.api.GetMoreLikeThisAPI;
 import com.lay.fibuv2.api.RateAPI;
 import com.lay.fibuv2.api.SearchAPI;
+
+import java.util.Objects;
+import java.util.Random;
 
 
 public class MovieDetailsViewModel extends ViewModel {
@@ -61,8 +67,17 @@ public class MovieDetailsViewModel extends ViewModel {
         }
 
         SearchAPI.autoCompleteAPI(GetMoreLikeThisAPI.morelikethis);
-        SuggestionImg = SearchAPI.movieImageUrl.get(1);
-        SuggestionTitle = SearchAPI.movieTitle.get(1);
+        int index = 0;
+        for (int i = 1;i < SearchAPI.movieTitle.size();i ++) {
+
+            if ((SearchAPI.movieQ.get(i) != null) &&
+                    !Objects.equals(SearchAPI.movieQ.get(i), "video game")) {
+                index = i;
+                break;
+            }
+        }
+        SuggestionImg = SearchAPI.movieImageUrl.get(index);
+        SuggestionTitle = SearchAPI.movieTitle.get(index);
         SuggestionID = GetMoreLikeThisAPI.morelikethis;
 
         title.setText(extras.getString("MovieTitle"));

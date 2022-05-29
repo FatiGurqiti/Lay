@@ -155,12 +155,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
         Log.d("FirstTimeResult", String.valueOf(cursor.moveToFirst()));
 
-        if(String.valueOf(cursor.moveToFirst()).equals("1"))
-        {
-            return true;
-        }
-        else
-            return false;
+        return String.valueOf(cursor.moveToFirst()).equals("true");
 
     }
 

@@ -3,6 +3,7 @@ package com.lay.fibuv2.ui.dashboard;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -115,16 +116,16 @@ public class DashboardFragment extends Fragment {
         });
 
         coolsearchBtn.setOnClickListener(v -> {
-            activateLoad();
-            searchbarText = searchBar.getText().toString();
-            if (!searchbarText.isEmpty()) {
-                SearchViewModel searchViewModel = new ViewModelProvider(this).get(SearchViewModel.class);
-                searchViewModel.prepareResults(searchbarText);
-                Intent intent = new Intent(getActivity(), Search.class);
-                intent.putExtra("coolsearchBtn", searchbarText);
-                startActivity(intent);
+                searchbarText = searchBar.getText().toString();
+                if (!searchbarText.isEmpty()) {
+                    activateLoad();
+                    SearchViewModel searchViewModel = new ViewModelProvider(this).get(SearchViewModel.class);
+                    searchViewModel.prepareResults(searchbarText);
+                    Intent intent = new Intent(getActivity(), Search.class);
+                    intent.putExtra("coolsearchBtn", searchbarText);
+                    startActivity(intent);
 
-            }
+                }
         });
 
         dashboardViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {

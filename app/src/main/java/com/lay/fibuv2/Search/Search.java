@@ -2,8 +2,6 @@ package com.lay.fibuv2.Search;
 
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.content.Intent;
@@ -12,7 +10,6 @@ import android.graphics.Typeface;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -80,13 +77,14 @@ public class Search extends AppCompatActivity {
 
 
                         int finalI = i;
+                        int finalI1 = i;
                         image.setOnClickListener(v -> {
                             if (finalI <= SearchAPI.movieID.size()) {
                                 try {
                                     progressBar.setVisibility(View.VISIBLE);
                                     blackfilter.setVisibility(View.VISIBLE);
                                     Thread.sleep(50);
-                                    openMovieDetail(SearchAPI.movieID.get(finalI), SearchAPI.movieImageUrl.get(finalI).trim());
+                                    openMovieDetail(SearchAPI.movieID.get(finalI), SearchAPI.movieImageUrl.get(finalI).trim(),SearchAPI.movieTitle.get(finalI1));
                                 } catch (InterruptedException e) {
                                     e.printStackTrace();
                                 }
@@ -158,12 +156,13 @@ public class Search extends AppCompatActivity {
         blackfilter.setVisibility(View.INVISIBLE);
     }
 
-    private void openMovieDetail(String MovieID, String MoviePhoto) {
+    private void openMovieDetail(String MovieID, String MoviePhoto,String MovieTitle) {
         MovieDetailsViewModel movieDetailsViewModel = new ViewModelProvider(this).get(MovieDetailsViewModel.class);
-        movieDetailsViewModel.prepareDetails(MovieID, MoviePhoto);
+        movieDetailsViewModel.prepareDetails(MovieID, MoviePhoto,MovieTitle);
         Intent intent = new Intent(Search.this, MovieDetails.class);
         intent.putExtra("MovieID", MovieID);
         intent.putExtra("MoviePhoto", MoviePhoto);
+        intent.putExtra("MovieTitle", MovieTitle);
         startActivity(intent);
     }
 

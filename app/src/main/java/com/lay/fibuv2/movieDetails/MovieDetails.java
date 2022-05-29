@@ -23,7 +23,6 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.SetOptions;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -138,7 +137,7 @@ public class MovieDetails extends AppCompatActivity {
                     public void onClick(View v) {
                         progressBar.setVisibility(View.VISIBLE);
                         blackFilter.setVisibility(View.VISIBLE);
-                        openMovieDetail(viewModel.SuggestionID, viewModel.SuggestionImg);
+                        openMovieDetail(viewModel.SuggestionID, viewModel.SuggestionImg,viewModel.SuggestionTitle);
                     }
                 });
             } else {
@@ -375,11 +374,12 @@ public class MovieDetails extends AppCompatActivity {
         saved.setVisibility(View.GONE);
     }
 
-    private void openMovieDetail(String MovieID, String MoviePhoto) {
+    private void openMovieDetail(String MovieID, String MoviePhoto, String MovieTitle) {
         Intent intent = new Intent(this, MovieDetails.class);
-        viewModel.prepareDetails(MovieID, MoviePhoto);
+        viewModel.prepareDetails(MovieID, MoviePhoto, MovieTitle);
         intent.putExtra("MovieID", MovieID);
         intent.putExtra("MoviePhoto", MoviePhoto);
+        intent.putExtra("MovieTitle", MovieTitle);
         intent.putExtra("IsSuggestedMovie", true); //For not showing more suggestion in next page
         startActivity(intent);
     }

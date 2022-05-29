@@ -29,19 +29,19 @@ public class MovieDetailsViewModel extends ViewModel {
     private static int hours;
     private static int minutes;
 
-    public void prepareDetails(String movieID, String moviePhoto) {
+    public void prepareDetails(String movieID, String moviePhoto, String movieTitle) {
         DetailsAPI.getDetails(movieID);
         RateAPI.rate(movieID);
         GetMoreLikeThisAPI.getmorelikethiss(movieID);
-        SearchAPI.autoCompleteAPI(GetMoreLikeThisAPI.morelikethis);
         this.moviePhoto = moviePhoto;
+        this.movieTitle = movieTitle;
     }
 
     public void intialanize(Bundle extras, TextView firstText, TextView title, TextView year, TextView time, TextView type, TextView rateText, TextView secondText, TextView products, ImageView moreLikeThisPicture, ImageView moreLikeThisFilter, TextView suggestionTitleText, ImageView detailsThumbnail) {
         isSuggestionPage = extras.getBoolean("IsSuggestedMovie");
         DetailsAPI detailsAPI = new DetailsAPI();
 
-        movieTitle = detailsAPI.getName();
+        movieTitle = extras.getString("MovieTitle");
         movieYear = detailsAPI.getYear();
         Runingtime = detailsAPI.getRunningTimeInMinutes();
         moviePhoto = extras.getString("MoviePhoto");
@@ -59,11 +59,13 @@ public class MovieDetailsViewModel extends ViewModel {
             FistText = "";
             SecondText = "";
         }
+
+        SearchAPI.autoCompleteAPI(GetMoreLikeThisAPI.morelikethis);
         SuggestionImg = SearchAPI.movieImageUrl.get(1);
         SuggestionTitle = SearchAPI.movieTitle.get(1);
         SuggestionID = GetMoreLikeThisAPI.morelikethis;
 
-        title.setText(movieTitle);
+        title.setText(extras.getString("MovieTitle"));
         year.setText(movieYear);
         rateText.setText(RateAPI.contentRate);
         minutesToHours(Integer.parseInt(Runingtime));

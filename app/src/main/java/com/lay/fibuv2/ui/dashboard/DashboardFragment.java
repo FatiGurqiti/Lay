@@ -27,6 +27,7 @@ import com.lay.fibuv2.api.SearchAPI;
 import com.lay.fibuv2.movieDetails.MovieDetails;
 import com.lay.fibuv2.R;
 import com.lay.fibuv2.Search.Search;
+import com.lay.fibuv2.movieDetails.MovieDetailsViewModel;
 
 import java.util.ArrayList;
 
@@ -94,24 +95,24 @@ public class DashboardFragment extends Fragment {
 
         blue.setOnClickListener(v -> {
             activateLoad();
-            openMovieDetail(id.get(0), img.get(0));
+            openMovieDetail(id.get(0), img.get(0),name.get(0));
         });
 
         yellow.setOnClickListener(v -> {
             activateLoad();
-            openMovieDetail(id.get(1), img.get(1));
+            openMovieDetail(id.get(1), img.get(1),name.get(0));
 
         });
 
         green.setOnClickListener(v -> {
             activateLoad();
-            openMovieDetail(id.get(2), img.get(2));
+            openMovieDetail(id.get(2), img.get(2),name.get(0));
 
         });
 
         red.setOnClickListener(v -> {
             activateLoad();
-            openMovieDetail(id.get(3), img.get(3));
+            openMovieDetail(id.get(3), img.get(3),name.get(0));
 
         });
 
@@ -157,10 +158,13 @@ public class DashboardFragment extends Fragment {
         blackfilter.setVisibility(View.VISIBLE);
     }
 
-    private void openMovieDetail(String MovieID, String MoviePhoto) {
-        Intent intent = new Intent(getContext(), MovieDetails.class);
+    private void openMovieDetail(String MovieID, String MoviePhoto,String MovieTitle) {
+        MovieDetailsViewModel movieDetailsViewModel = new ViewModelProvider(this).get(MovieDetailsViewModel.class);
+        movieDetailsViewModel.prepareDetails(MovieID, MoviePhoto,MovieTitle);
+        Intent intent = new Intent(requireActivity(), MovieDetails.class);
         intent.putExtra("MovieID", MovieID);
         intent.putExtra("MoviePhoto", MoviePhoto);
+        intent.putExtra("MovieTitle", MovieTitle);
         startActivity(intent);
     }
 

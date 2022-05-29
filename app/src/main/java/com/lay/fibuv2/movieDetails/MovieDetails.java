@@ -75,14 +75,12 @@ public class MovieDetails extends AppCompatActivity {
         ImageView moreLikeThisFilter = findViewById(R.id.morelikethisfilter);
         progressBar = findViewById(R.id.progressbarindetail);
         blackFilter = findViewById(R.id.detailBlackFilter);
-
         save = findViewById(R.id.save);
         saved = findViewById(R.id.saved);
         TextView suggestionTitleText = findViewById(R.id.morelikethisTitle);
         TextView rateText = findViewById(R.id.rate);
         ImageView rateStar = findViewById(R.id.star);
         ImageView rateBg = findViewById(R.id.RateBackground);
-
         TextView products = findViewById(R.id.products);
         TextView readMore = findViewById(R.id.readMore);
         TextView firstText = findViewById(R.id.firstText);
@@ -111,8 +109,8 @@ public class MovieDetails extends AppCompatActivity {
                         Toast.LENGTH_SHORT);
                 toast.show();
 
-                finish();
-                startActivity(getIntent());
+//                finish();
+//                startActivity(getIntent());
             });
             saved.setOnClickListener(v -> {
                 SetMovieNotSaved();  //Set's icon unsaved
@@ -181,12 +179,12 @@ public class MovieDetails extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-
         progressBar.setVisibility(View.INVISIBLE);
         blackFilter.setVisibility(View.INVISIBLE);
 
         Bundle extras = getIntent().getExtras();
         viewModel.movieID = extras.getString("MovieID");
+        viewModel.moviePhoto = extras.getString("MoviePhoto");
 
     }
 
@@ -374,6 +372,7 @@ public class MovieDetails extends AppCompatActivity {
 
     private void openMovieDetail(String MovieID, String MoviePhoto) {
         Intent intent = new Intent(this, MovieDetails.class);
+        viewModel.prepareDetails(MovieID, MoviePhoto);
         intent.putExtra("MovieID", MovieID);
         intent.putExtra("MoviePhoto", MoviePhoto);
         intent.putExtra("IsSuggestedMovie", true); //For not showing more suggestion in next page

@@ -28,14 +28,8 @@ import com.lay.fibuv2.movieDetails.MovieDetails;
 import com.lay.fibuv2.movieDetails.MovieDetailsViewModel;
 import com.squareup.picasso.Picasso;
 
-import org.jetbrains.annotations.Nullable;
-
-import java.util.List;
-
 public class Search extends AppCompatActivity {
 
-    private SearchViewModel viewModel;
-    private static String searchContent;
     private TextView SecondTextReference;
     private ImageView blackfilter;
     private ProgressBar progressBar;
@@ -56,7 +50,6 @@ public class Search extends AppCompatActivity {
         SecondTextReference = findViewById(R.id.secondTextReference);
         progressBar.setVisibility(View.INVISIBLE);
 
-        viewModel = new ViewModelProvider(this).get(SearchViewModel.class);
         try {
             Thread.sleep(50);
             int limit = SearchAPI.movieID.size();
@@ -187,10 +180,5 @@ public class Search extends AppCompatActivity {
         DisplayMetrics displayMetrics = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
         return displayMetrics.heightPixels;
-    }
-
-
-    public static String getSearchContent() {
-        return searchContent;
     }
 }

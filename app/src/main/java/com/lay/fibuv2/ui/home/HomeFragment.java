@@ -158,9 +158,9 @@ public class HomeFragment extends Fragment {
 
 
                             //Don't show contents that are already seen if the mode is off
-                            if (!ShouldShowSeenContent && isSeen(id.get(finalI))) {
+                            if (!ShouldShowSeenContent && isSeen(id.get(finalI)))
                                 showCurrentContent = false;
-                            } else
+                            else
                                 showCurrentContent = true; //Show Seen Content is on, So show everything
 
                             if (showCurrentContent) {
@@ -191,7 +191,6 @@ public class HomeFragment extends Fragment {
                                 titleText.setTextColor(Color.WHITE);
                                 titleText.setPadding(25, 250, 25, 0);
                                 titleText.setTextSize(22);
-                                titleText.setHeight(300);
                                 titleText.bringToFront();
                                 titleText.setTranslationZ(2);
                                 titleText.setElevation(2);

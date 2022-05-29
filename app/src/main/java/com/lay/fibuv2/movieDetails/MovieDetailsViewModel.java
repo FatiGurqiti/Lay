@@ -1,19 +1,15 @@
 package com.lay.fibuv2.movieDetails;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import androidx.lifecycle.ViewModel;
-
 import com.lay.fibuv2.api.DetailsAPI;
 import com.lay.fibuv2.api.GetMoreLikeThisAPI;
 import com.lay.fibuv2.api.RateAPI;
 import com.lay.fibuv2.api.SearchAPI;
-import com.lay.fibuv2.database.DatabaseHandler;
 
 
 public class MovieDetailsViewModel extends ViewModel {
@@ -38,7 +34,7 @@ public class MovieDetailsViewModel extends ViewModel {
         RateAPI.rate(movieID);
         GetMoreLikeThisAPI.getmorelikethiss(movieID);
         SearchAPI.autoCompleteAPI(GetMoreLikeThisAPI.morelikethis);
-        moviePhoto = this.moviePhoto;
+        this.moviePhoto = moviePhoto;
     }
 
     public void intialanize(Bundle extras, TextView firstText, TextView title, TextView year, TextView time, TextView type, TextView rateText, TextView secondText, TextView products, ImageView moreLikeThisPicture, ImageView moreLikeThisFilter, TextView suggestionTitleText, ImageView detailsThumbnail) {
@@ -48,6 +44,7 @@ public class MovieDetailsViewModel extends ViewModel {
         movieTitle = detailsAPI.getName();
         movieYear = detailsAPI.getYear();
         Runingtime = detailsAPI.getRunningTimeInMinutes();
+        moviePhoto = extras.getString("MoviePhoto");
         if (detailsAPI.getGenresList() != null) {
             Type = detailsAPI.getGenresList().get(0).toString();
             for (int j = 1; j < detailsAPI.getGenresList().size(); j++)

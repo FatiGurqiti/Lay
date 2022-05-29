@@ -160,7 +160,7 @@ public class DashboardFragment extends Fragment {
 
     private void openMovieDetail(String MovieID, String MoviePhoto,String MovieTitle) {
         MovieDetailsViewModel movieDetailsViewModel = new ViewModelProvider(this).get(MovieDetailsViewModel.class);
-        movieDetailsViewModel.prepareDetails(MovieID, MoviePhoto,MovieTitle);
+        movieDetailsViewModel.prepareDetails(MovieID, MoviePhoto,MovieTitle,requireActivity());
         Intent intent = new Intent(requireActivity(), MovieDetails.class);
         intent.putExtra("MovieID", MovieID);
         intent.putExtra("MoviePhoto", MoviePhoto);

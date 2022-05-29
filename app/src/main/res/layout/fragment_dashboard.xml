@@ -88,7 +88,7 @@
         android:fontFamily="@font/plusjakartatextregular"
         android:paddingStart="15dp"
         android:paddingTop="15dp"
-        android:text="Can't decide what to search? \nHere's top rated contents by Lay users"
+        android:text="Can't decide what to search? \nHere's top contents rated by Lay users"
         android:textAlignment="center"
         android:textColor="@color/black_overlay" />
 

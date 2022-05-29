@@ -50,9 +50,6 @@ public class Search extends AppCompatActivity {
         try {
             Thread.sleep(50);
             int limit = SearchAPI.movieID.size();
-            DatabaseHandler db = new DatabaseHandler(Search.this);
-            if (db.getIsLiteMode())  // if lite mode is on
-                if (limit > 3) limit = 3;
 
             if (limit > 0) {
                 notfoundIMAGE.setVisibility(View.INVISIBLE);
@@ -158,7 +155,7 @@ public class Search extends AppCompatActivity {
 
     private void openMovieDetail(String MovieID, String MoviePhoto,String MovieTitle) {
         MovieDetailsViewModel movieDetailsViewModel = new ViewModelProvider(this).get(MovieDetailsViewModel.class);
-        movieDetailsViewModel.prepareDetails(MovieID, MoviePhoto,MovieTitle);
+        movieDetailsViewModel.prepareDetails(MovieID, MoviePhoto,MovieTitle,this);
         Intent intent = new Intent(Search.this, MovieDetails.class);
         intent.putExtra("MovieID", MovieID);
         intent.putExtra("MoviePhoto", MoviePhoto);

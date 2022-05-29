@@ -91,7 +91,7 @@ public class MovieDetails extends AppCompatActivity {
 
         try {
             Bundle extras = getIntent().getExtras();
-            viewModel.intialanize(extras, firstText, title, year, time, type, rateText, secondText, products, moreLikeThisPicture, moreLikeThisFilter, suggestionTitleText, detailsThumbnail);
+            viewModel.intialanize(extras, firstText, title, year, time, type, rateText, secondText, products, moreLikeThisPicture, moreLikeThisFilter, suggestionTitleText, detailsThumbnail,rateBg);
             Thread.sleep(50);
             if (db.getIsLiteMode()) {
                 rateText.setVisibility(View.GONE);
@@ -376,7 +376,7 @@ public class MovieDetails extends AppCompatActivity {
 
     private void openMovieDetail(String MovieID, String MoviePhoto, String MovieTitle) {
         Intent intent = new Intent(this, MovieDetails.class);
-        viewModel.prepareDetails(MovieID, MoviePhoto, MovieTitle);
+        viewModel.prepareDetails(MovieID, MoviePhoto, MovieTitle,this);
         intent.putExtra("MovieID", MovieID);
         intent.putExtra("MoviePhoto", MoviePhoto);
         intent.putExtra("MovieTitle", MovieTitle);

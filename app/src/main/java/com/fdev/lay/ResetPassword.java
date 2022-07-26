@@ -1,36 +1,36 @@
 package com.fdev.lay;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
-import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.Timer;
 import java.util.TimerTask;
 
 public class ResetPassword extends AppCompatActivity {
 
-    private FirebaseAuth mAuth = FirebaseAuth.getInstance();
-    private FirebaseFirestore db = FirebaseFirestore.getInstance();
-    private CollectionReference collectionReference = db.collection("users");
+    private FirebaseAuth mAuth;
+    private CollectionReference collectionReference ;
+    FirebaseUser user;
+
+    private EditText passwordCheck;
+    private EditText resetPasswordInput;
+    private TextView resetAfterText;
+    private ProgressBar pg;
+    private Button resetButton;
     Timer timer;
 
     @Override
@@ -38,80 +38,74 @@ public class ResetPassword extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_reset_password);
 
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        collectionReference = db.collection("users");
         mAuth = FirebaseAuth.getInstance();
-        FirebaseUser user = mAuth.getCurrentUser();
+        user = mAuth.getCurrentUser();
         assert user != null;
 
-        ProgressBar pg = findViewById(R.id.resetprogressBar);
-        Button resetbtn = findViewById(R.id.restetresetbtn);
-        EditText passwordcheck = findViewById(R.id.passwordreset);
-        EditText resetpasswordinput = findViewById(R.id.passwordreset);
-        TextView resetaftertext = findViewById(R.id.restetaftertext);
+        pg = findViewById(R.id.resetprogressBar);
+        resetButton = findViewById(R.id.restetresetbtn);
+        passwordCheck = findViewById(R.id.passwordreset);
+        resetPasswordInput = findViewById(R.id.passwordreset);
+        resetAfterText = findViewById(R.id.restetaftertext);
         pg.setVisibility(View.INVISIBLE);
 
-        resetbtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                pg.setVisibility(View.VISIBLE);
-                String passwordCheck = passwordcheck.getText().toString();
-
-                collectionReference
-                        .whereEqualTo("email", user.getEmail().toString())
-                        .addSnapshotListener(new EventListener<QuerySnapshot>() {
-                            @Override
-                            public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
-
-                                assert value != null;
-                                if (!value.isEmpty()) {
-
-                                    for (QueryDocumentSnapshot snapshot : value) {
-
-                                        String remotePassword = snapshot.getString("password");
-
-                                        if (passwordCheck.equals(remotePassword)) {
-                                            resetpasswordinput.setVisibility(View.INVISIBLE);
-                                            resetaftertext.setVisibility(View.VISIBLE);
-                                            resetbtn.setEnabled(false);
-
-                                            timer = new Timer();
-                                            timer.schedule(new TimerTask() {
-                                                               @Override
-                                                               public void run() {
-
-                                                                   mAuth = FirebaseAuth.getInstance();
-                                                                   FirebaseAuth.getInstance().signOut();
-                                                                   FirebaseUser user = mAuth.getCurrentUser();
-                                                                   user = null;
-                                                                   System.exit(0);
-
-
-                                                               }
-                                                           }
-                                                    , 2500
-                                            );
-
-                                            FirebaseAuth.getInstance().sendPasswordResetEmail(user.getEmail())
-                                                    .addOnCompleteListener(new OnCompleteListener<Void>() {
-                                                        @Override
-                                                        public void onComplete(@NonNull Task<Void> task) {
-                                                            if (!task.isSuccessful())
-                                                                resetaftertext.setText("No such user");
-                                                        }
-                                                    });
-                                        } else {
-                                            Toast.makeText(ResetPassword.this, "Umm. It just doesn't feel right",
-                                                    Toast.LENGTH_LONG).show();
-                                        }
-                                    }
-                                }
-                            }
-
-                        });
-
-
-                pg.setVisibility(View.INVISIBLE);
-
-            }
+        resetButton.setOnClickListener(v -> {
+            resetPassword();
         });
+
+        resetPasswordInput.setOnEditorActionListener((v, actionId, event) -> {
+            if ((actionId & EditorInfo.IME_MASK_ACTION) != 0) {
+                resetPassword();
+                return true;
+            } else
+                return false;
+        });
+    }
+
+    private void resetPassword() {
+        pg.setVisibility(View.VISIBLE);
+        String passwordCheck = this.passwordCheck.getText().toString();
+
+        collectionReference
+                .whereEqualTo("email", user.getEmail())
+                .addSnapshotListener((value, error) -> {
+
+                    assert value != null;
+                    if (!value.isEmpty()) {
+                        for (QueryDocumentSnapshot snapshot : value) {
+                            String remotePassword = snapshot.getString("password");
+
+                            if (passwordCheck.equals(remotePassword)) {
+                                resetPasswordInput.setVisibility(View.INVISIBLE);
+                                resetAfterText.setVisibility(View.VISIBLE);
+                                resetButton.setEnabled(false);
+
+                                timer = new Timer();
+                                timer.schedule(new TimerTask() {
+                                                   @Override
+                                                   public void run() {
+                                                       mAuth = FirebaseAuth.getInstance();
+                                                       FirebaseAuth.getInstance().signOut();
+                                                       System.exit(0);
+                                                   }
+                                               }
+                                        , 2500
+                                );
+
+                                FirebaseAuth.getInstance().sendPasswordResetEmail(user.getEmail())
+                                        .addOnCompleteListener(task -> {
+                                            if (!task.isSuccessful())
+                                                resetAfterText.setText("No such user");
+                                        });
+                            } else {
+                                Toast.makeText(ResetPassword.this, "Umm. It just doesn't feel right",
+                                        Toast.LENGTH_LONG).show();
+                            }
+                        }
+                    }
+                });
+        pg.setVisibility(View.INVISIBLE);
     }
 }

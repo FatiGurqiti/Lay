@@ -24,8 +24,6 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import java.util.Objects;
 
 public class ProfileFragment extends Fragment {
-
-    private NotificationsViewModel notificationsViewModel;
     private FirebaseAuth mAuth = FirebaseAuth.getInstance();
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
 
@@ -35,8 +33,7 @@ public class ProfileFragment extends Fragment {
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        notificationsViewModel =
-                new ViewModelProvider(this).get(NotificationsViewModel.class);
+
         View root = inflater.inflate(R.layout.fragment_profile, container, false);
         final TextView username = root.findViewById(R.id.text_username);
         final TextView email = root.findViewById(R.id.text_email);

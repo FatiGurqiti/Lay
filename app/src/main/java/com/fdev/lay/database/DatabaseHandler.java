@@ -1,4 +1,4 @@
-package com.lay.fibuv2.database;
+package com.fdev.lay.database;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -152,9 +152,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         String countQuery = "SELECT FirstTime FROM " + TABLE_ACCOUNTS;
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery(countQuery, null);
-
-        Log.d("FirstTimeResult", String.valueOf(cursor.moveToFirst()));
-
         return String.valueOf(cursor.moveToFirst()).equals("true");
 
     }
@@ -170,14 +167,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         if (cursor != null)
             cursor.moveToFirst();
 
-        Log.d("isLoggedInDBHandler", cursor.getString(0));
-
-        if(cursor.getString(0).equals("1"))
-        {
-            return true;
-        }
-        else
-            return false;
+        return cursor.getString(0).equals("1");
 
     }
 
@@ -192,14 +182,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         if (cursor != null)
             cursor.moveToFirst();
 
-        Log.d("isLoggedInDBHandler", cursor.getString(0));
-
-        if(cursor.getString(0).equals("1"))
-        {
-            return true;
-        }
-        else
-            return false;
+        return cursor.getString(0).equals("1");
 
     }
     // Getting if lite mode status
@@ -212,18 +195,11 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         if (cursor != null)
             cursor.moveToFirst();
 
-        Log.d("SeenContents", cursor.getString(0));
 
-        if(cursor.getString(0).equals("1"))
-        {
-            return true;
-        }
-        else
-            return false;
+        return cursor.getString(0).equals("1");
 
     }
 
-    // set user's first time false
     public void setFirstTimeFalse() {
         SQLiteDatabase db = this.getWritableDatabase();
 

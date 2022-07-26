@@ -5,7 +5,7 @@
     android:layout_width="wrap_content"
     android:layout_height="match_parent"
     android:adjustViewBounds="true"
-    tools:context="com.lay.fibuv2.ui.dashboard.DashboardFragment">
+    tools:context=".presentation.ui.dashboard.DashboardFragment">
 
     <ImageView
         android:id="@+id/homeBlackFilterInSearch"

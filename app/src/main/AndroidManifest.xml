@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.fdev.lay">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/launcherlogo"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.Fibuv2"
+        android:usesCleartextTraffic="true">
+        <activity
+            android:name="com.fdev.lay.FullscreenActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:exported="false"
+            android:label="@string/title_activity_fullscreen"
+            android:theme="@style/Theme.Fibuv2.Fullscreen" />
+        <activity
+            android:name="com.fdev.lay.ThumbnailFullScreen"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:exported="false"
+            android:label="@string/title_activity_thumbnail_full_screen"
+            android:theme="@style/Theme.Fibuv2.Fullscreen" />
+        <activity
+            android:name="com.fdev.lay.movieDetails.MovieDetails"
+            android:exported="false" />        <activity
+            android:name="com.fdev.lay.movieDetails.SavedMovieDetails"
+            android:exported="false" />
+        <activity
+            android:name="com.fdev.lay.presentation.ui.Search.Search"
+            android:exported="false" />
+        <activity android:name="com.fdev.lay.ResetPassword" />
+        <activity
+            android:name="com.fdev.lay.FirstTime2"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.fdev.lay.MainLoggedIn"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.fdev.lay.CreateAccount"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.fdev.lay.PasswordForgot"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".presentation.ui.login.LoginActivity"
+            android:label="@string/title_activity_login"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.fdev.lay.MainActivity"
+            android:exported="true"
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+    </application>
+
+</manifest>

@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="..\:/Users/fati-/AndroidStudioProjects/Fibuv2/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.16905537459283387" />
+        <entry key="..\:/Users/fati-/AndroidStudioProjects/Fibuv2/app/src/main/res/drawable-v24/movie_card.xml" value="0.20925925925925926" />
+        <entry key="..\:/Users/fati-/AndroidStudioProjects/Fibuv2/app/src/main/res/drawable/black_filter.xml" value="0.1" />
+        <entry key="..\:/Users/fati-/AndroidStudioProjects/Fibuv2/app/src/main/res/drawable/circle.xml" value="0.1" />
+        <entry key="..\:/Users/fati-/AndroidStudioProjects/Fibuv2/app/src/main/res/drawable/coolbtnbackground.xml" value="0.1707236842105263" />
+        <entry key="..\:/Users/fati-/AndroidStudioProjects/Fibuv2/app/src/main/res/drawable/create_account_background.xml" value="0.1707236842105263" />
+        <entry key="..\:/Users/fati-/AndroidStudioProjects/Fibuv2/app/src/main/res/drawable/faded_circle.xml" value="0.10230263157894737" />
+        <entry key="..\:/Users/fati-/AndroidStudioProjects/Fibuv2/app/src/main/res/drawable/first_gradient_bg.xml" value="0.10296052631578947" />
+        <entry key="..\:/Users/fati-/AndroidStudioProjects/Fibuv2/app/src/main/res/drawable/frame.xml" value="0.16905537459283387" />
+        <entry key="..\:/Users/fati-/AndroidStudioProjects/Fibuv2/app/src/main/res/drawable/full_black_filter.xml" value="0.18175895765472314" />
+        <entry key="..\:/Users/fati-/AndroidStudioProjects/Fibuv2/app/src/main/res/drawable/greenctangle.xml" value="0.1707236842105263" />
+        <entry key="..\:/Users/fati-/AndroidStudioProjects/Fibuv2/app/src/main/res/drawable/login_background.xml" value="0.2703125" />
+        <entry key="..\:/Users/fati-/AndroidStudioProjects/Fibuv2/app/src/main/res/drawable/mainbackground.xml" value="0.1707236842105263" />
+        <entry key="..\:/Users/fati-/AndroidStudioProjects/Fibuv2/app/src/main/res/drawable/movie_card.xml" value="0.15694444444444444" />
+        <entry key="..\:/Users/fati-/AndroidStudioProjects/Fibuv2/app/src/main/res/drawable/mylistbackground.xml" value="0.16677524429967427" />
+        <entry key="..\:/Users/fati-/AndroidStudioProjects/Fibuv2/app/src/main/res/drawable/profile_top_background.xml" value="0.2703125" />
+        <entry key="..\:/Users/fati-/AndroidStudioProjects/Fibuv2/app/src/main/res/drawable/purplerectangle.xml" value="0.1707236842105263" />
+        <entry key="..\:/Users/fati-/AndroidStudioProjects/Fibuv2/app/src/main/res/drawable/radius.xml" value="0.1" />
+        <entry key="..\:/Users/fati-/AndroidStudioProjects/Fibuv2/app/src/main/res/drawable/red_circle.xml" value="0.1707236842105263" />
+        <entry key="..\:/Users/fati-/AndroidStudioProjects/Fibuv2/app/src/main/res/drawable/redrectangle.xml" value="0.1707236842105263" />
+        <entry key="..\:/Users/fati-/AndroidStudioProjects/Fibuv2/app/src/main/res/drawable/search_background.xml" value="0.16905537459283387" />
+        <entry key="..\:/Users/fati-/AndroidStudioProjects/Fibuv2/app/src/main/res/drawable/searchbar.xml" value="0.1707236842105263" />
+        <entry key="..\:/Users/fati-/AndroidStudioProjects/Fibuv2/app/src/main/res/drawable/second_gradient_bg.xml" value="0.16905537459283387" />
+        <entry key="..\:/Users/fati-/AndroidStudioProjects/Fibuv2/app/src/main/res/drawable/shadow.xml" value="0.16905537459283387" />
+        <entry key="..\:/Users/fati-/AndroidStudioProjects/Fibuv2/app/src/main/res/drawable/yellow_background.xml" value="0.16905537459283387" />
+        <entry key="..\:/Users/fati-/AndroidStudioProjects/Fibuv2/app/src/main/res/drawable/yellow_circle.xml" value="0.14166666666666666" />
+        <entry key="..\:/Users/fati-/AndroidStudioProjects/Fibuv2/app/src/main/res/drawable/yellowrectangle.xml" value="0.1707236842105263" />
+        <entry key="..\:/Users/fati-/AndroidStudioProjects/Fibuv2/app/src/main/res/font/david_libre.xml" value="0.1778501628664495" />
+        <entry key="..\:/Users/fati-/AndroidStudioProjects/Fibuv2/app/src/main/res/layout/activity_admin.xml" value="0.1118421052631579" />
+        <entry key="..\:/Users/fati-/AndroidStudioProjects/Fibuv2/app/src/main/res/layout/activity_create_account.xml" value="0.13269927536231885" />
+        <entry key="..\:/Users/fati-/AndroidStudioProjects/Fibuv2/app/src/main/res/layout/activity_faq.xml" value="0.136" />
+        <entry key="..\:/Users/fati-/AndroidStudioProjects/Fibuv2/app/src/main/res/layout/activity_first_time.xml" value="0.1" />
+        <entry key="..\:/Users/fati-/AndroidStudioProjects/Fibuv2/app/src/main/res/layout/activity_first_time2.xml" value="0.16052631578947368" />
+        <entry key="..\:/Users/fati-/AndroidStudioProjects/Fibuv2/app/src/main/res/layout/activity_fullscreen.xml" value="0.1" />
+        <entry key="..\:/Users/fati-/AndroidStudioProjects/Fibuv2/app/src/main/res/layout/activity_login.xml" value="0.13451086956521738" />
+        <entry key="..\:/Users/fati-/AndroidStudioProjects/Fibuv2/app/src/main/res/layout/activity_main.xml" value="0.2" />
+        <entry key="..\:/Users/fati-/AndroidStudioProjects/Fibuv2/app/src/main/res/layout/activity_main_logged_in.xml" value="0.16052631578947368" />
+        <entry key="..\:/Users/fati-/AndroidStudioProjects/Fibuv2/app/src/main/res/layout/activity_movie_details.xml" value="0.6" />
+        <entry key="..\:/Users/fati-/AndroidStudioProjects/Fibuv2/app/src/main/res/layout/activity_movie_details2.xml" value="0.176" />
+        <entry key="..\:/Users/fati-/AndroidStudioProjects/Fibuv2/app/src/main/res/layout/activity_password_forgot.xml" value="0.13269927536231885" />
+        <entry key="..\:/Users/fati-/AndroidStudioProjects/Fibuv2/app/src/main/res/layout/activity_reset_password.xml" value="0.128" />
+        <entry key="..\:/Users/fati-/AndroidStudioProjects/Fibuv2/app/src/main/res/layout/activity_search.xml" value="0.10400000000000001" />
+        <entry key="..\:/Users/fati-/AndroidStudioProjects/Fibuv2/app/src/main/res/layout/activity_thumbnail_full_screen.xml" value="0.1" />
+        <entry key="..\:/Users/fati-/AndroidStudioProjects/Fibuv2/app/src/main/res/layout/content_scrolling.xml" value="0.128" />
+        <entry key="..\:/Users/fati-/AndroidStudioProjects/Fibuv2/app/src/main/res/layout/fragment_dashboard.xml" value="0.2" />
+        <entry key="..\:/Users/fati-/AndroidStudioProjects/Fibuv2/app/src/main/res/layout/fragment_first.xml" value="0.176" />
+        <entry key="..\:/Users/fati-/AndroidStudioProjects/Fibuv2/app/src/main/res/layout/fragment_first_slider.xml" value="0.1" />
+        <entry key="..\:/Users/fati-/AndroidStudioProjects/Fibuv2/app/src/main/res/layout/fragment_first_time2.xml" value="0.16" />
+        <entry key="..\:/Users/fati-/AndroidStudioProjects/Fibuv2/app/src/main/res/layout/fragment_home.xml" value="0.16" />
+        <entry key="..\:/Users/fati-/AndroidStudioProjects/Fibuv2/app/src/main/res/layout/fragment_notifications.xml" value="0.2" />
+        <entry key="..\:/Users/fati-/AndroidStudioProjects/Fibuv2/app/src/main/res/layout/fragment_second.xml" value="0.264" />
+        <entry key="..\:/Users/fati-/AndroidStudioProjects/Fibuv2/app/src/main/res/layout/movie_card.xml" value="0.1" />
+        <entry key="..\:/Users/fati-/AndroidStudioProjects/Fibuv2/app/src/main/res/menu/bottom_nav_menu.xml" value="0.15895765472312703" />
+        <entry key="..\:/Users/fati-/AndroidStudioProjects/Fibuv2/app/src/main/res/menu/menu_movie_details.xml" value="0.10208333333333333" />
+        <entry key="..\:/Users/fati-/AndroidStudioProjects/Fibuv2/app/src/main/res/menu/menu_search.xml" value="0.10208333333333333" />
+        <entry key="..\:/Users/fati-/AndroidStudioProjects/Fibuv2/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.10394736842105264" />
+        <entry key="..\:/Users/fati-/AndroidStudioProjects/Fibuv2/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.10394736842105264" />
+        <entry key="..\:/Users/fati-/AndroidStudioProjects/Fibuv2/app/src/main/res/mipmap-anydpi-v26/launcherlogo.xml" value="0.10394736842105264" />
+        <entry key="..\:/Users/fati-/AndroidStudioProjects/Fibuv2/app/src/main/res/mipmap-anydpi-v26/launcherlogo_round.xml" value="0.10394736842105264" />
+        <entry key="..\:/Users/fati-/AndroidStudioProjects/Fibuv2/app/src/main/res/mipmap-anydpi-v26/secondarylauncherlogo.xml" value="0.16905537459283387" />
+        <entry key="..\:/Users/fati-/AndroidStudioProjects/Fibuv2/app/src/main/res/mipmap-anydpi-v26/secondarylauncherlogo_round.xml" value="0.10394736842105264" />
+        <entry key="..\:/Users/fati-/AndroidStudioProjects/Fibuv2/app/src/main/res/mipmap-anydpi-v26/secondarylogo.xml" value="0.10394736842105264" />
+        <entry key="..\:/Users/fati-/AndroidStudioProjects/Fibuv2/app/src/main/res/mipmap-anydpi-v26/secondarylogo_round.xml" value="0.10394736842105264" />
+        <entry key="..\:/Users/fati-/AndroidStudioProjects/Interview/Lay-develop/app/src/main/res/layout/activity_first_time.xml" value="0.14035087719298245" />
+        <entry key="..\:/Users/fati-/AndroidStudioProjects/Interview/Lay-develop/app/src/main/res/layout/activity_fullscreen.xml" value="0.18796296296296297" />
+        <entry key="..\:/Users/fati-/AndroidStudioProjects/Interview/Lay-develop/app/src/main/res/layout/activity_movie_details2.xml" value="0.264" />
+        <entry key="..\:/Users/fati-/AndroidStudioProjects/Interview/Lay-develop/app/src/main/res/layout/fragment_first.xml" value="0.3020833333333333" />
+        <entry key="..\:/Users/fati-/AndroidStudioProjects/Interview/Lay-develop/app/src/main/res/layout/fragment_first_time2.xml" value="0.264" />
+        <entry key="app/src/main/res/layout/activity_login.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/activity_movie_details2.xml" value="0.2985122680664063" />
+        <entry key="app/src/main/res/layout/activity_saved_movie_details.xml" value="0.3098958333333333" />
+        <entry key="app/src/main/res/layout/activity_search.xml" value="0.3098958333333333" />
+        <entry key="app/src/main/res/layout/fragment_dashboard.xml" value="0.2125748502994012" />
+        <entry key="app/src/main/res/layout/fragment_first_time2.xml" value="0.18958333333333333" />
+        <entry key="app/src/main/res/layout/fragment_home.xml" value="0.3098958333333333" />
+        <entry key="app/src/main/res/layout/fragment_notifications.xml" value="0.3098958333333333" />
+        <entry key="app/src/main/res/layout/fragment_second.xml" value="0.3098958333333333" />
+        <entry key="app/src/main/res/menu/menu_movie_details.xml" value="0.3098958333333333" />
+        <entry key="app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.1485" />
+        <entry key="app/src/main/res/mipmap-anydpi-v26/launcherlogo.xml" value="0.1485" />
+      </map>
+    </option>
+  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" project-jdk-name="1.8" project-jdk-type="JavaSDK">
+    <output url="file://$PROJECT_DIR$/build/classes" />
+  </component>
+  <component name="ProjectType">
+    <option name="id" value="Android" />
+  </component>
+</project>

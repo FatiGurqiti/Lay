@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -40,6 +41,7 @@ public class DashboardFragment extends Fragment {
     private static ArrayList<String> rate = new ArrayList<>();
     private static String searchbarText;
 
+    private EditText searchBar;
     private ProgressBar pg;
     private ImageView blackfilter;
     private static int quota;
@@ -53,9 +55,9 @@ public class DashboardFragment extends Fragment {
         MainLoggedIn.quotaQuery();
 
         dashboardViewModel = new ViewModelProvider(this).get(DashboardViewModel.class);
+        searchBar = root.findViewById(R.id.search_bar);
 
         ImageButton coolsearchBtn = root.findViewById(R.id.coolsearchbtn);
-        EditText searchBar = root.findViewById(R.id.search_bar);
 
         CardView blue = root.findViewById(R.id.blueCard);
         CardView yellow = root.findViewById(R.id.yellowCard);
@@ -116,16 +118,15 @@ public class DashboardFragment extends Fragment {
         });
 
         coolsearchBtn.setOnClickListener(v -> {
-                searchbarText = searchBar.getText().toString();
-                if (!searchbarText.isEmpty()) {
-                    activateLoad();
-                    SearchViewModel searchViewModel = new ViewModelProvider(this).get(SearchViewModel.class);
-                    searchViewModel.prepareResults(searchbarText);
-                    Intent intent = new Intent(getActivity(), Search.class);
-                    intent.putExtra("coolsearchBtn", searchbarText);
-                    startActivity(intent);
+            search();
+        });
 
-                }
+        searchBar.setOnEditorActionListener((v, actionId, event) -> {
+            if ((actionId & EditorInfo.IME_MASK_ACTION) != 0) {
+                search();
+                return true;
+            } else
+                return false;
         });
 
         dashboardViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
@@ -135,6 +136,18 @@ public class DashboardFragment extends Fragment {
             }
         });
         return root;
+    }
+
+    private void search(){
+        searchbarText = searchBar.getText().toString();
+        if (!searchbarText.isEmpty()) {
+            activateLoad();
+            SearchViewModel searchViewModel = new ViewModelProvider(this).get(SearchViewModel.class);
+            searchViewModel.prepareResults(searchbarText);
+            Intent intent = new Intent(getActivity(), Search.class);
+            intent.putExtra("coolsearchBtn", searchbarText);
+            startActivity(intent);
+        }
     }
 
     @Override

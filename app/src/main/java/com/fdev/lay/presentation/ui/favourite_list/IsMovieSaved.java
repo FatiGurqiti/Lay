@@ -1,4 +1,4 @@
-package com.fdev.lay.presentation.ui.home;
+package com.fdev.lay.presentation.ui.favourite_list;
 
 import java.util.ArrayList;
 

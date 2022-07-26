@@ -1,4 +1,4 @@
-package com.fdev.lay.presentation.ui.dashboard;
+package com.fdev.lay.presentation.ui.search_fragment;
 
 import android.content.Intent;
 import android.os.Build;
@@ -31,9 +31,9 @@ import com.fdev.lay.movieDetails.MovieDetailsViewModel;
 
 import java.util.ArrayList;
 
-public class DashboardFragment extends Fragment {
+public class SearchFragment extends Fragment {
 
-    private DashboardViewModel dashboardViewModel;
+    private SearchFragmentViewModel dashboardViewModel;
 
     private static ArrayList<String> id = new ArrayList<>();
     private static ArrayList<String> img = new ArrayList<>();
@@ -49,12 +49,12 @@ public class DashboardFragment extends Fragment {
     @RequiresApi(api = Build.VERSION_CODES.N)
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        View root = inflater.inflate(R.layout.fragment_dashboard, container, false);
+        View root = inflater.inflate(R.layout.search_fragment, container, false);
 
         quota = MainLoggedIn.getQuota();
         MainLoggedIn.quotaQuery();
 
-        dashboardViewModel = new ViewModelProvider(this).get(DashboardViewModel.class);
+        dashboardViewModel = new ViewModelProvider(this).get(SearchFragmentViewModel.class);
         searchBar = root.findViewById(R.id.search_bar);
 
         ImageButton coolsearchBtn = root.findViewById(R.id.coolsearchbtn);

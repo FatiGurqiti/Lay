@@ -1,4 +1,4 @@
-package com.fdev.lay.presentation.ui.notifications;
+package com.fdev.lay.presentation.ui.profile;
 
 import android.content.Intent;
 import android.graphics.Color;
@@ -23,7 +23,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.Objects;
 
-public class NotificationsFragment extends Fragment {
+public class ProfileFragment extends Fragment {
 
     private NotificationsViewModel notificationsViewModel;
     private FirebaseAuth mAuth = FirebaseAuth.getInstance();
@@ -37,7 +37,7 @@ public class NotificationsFragment extends Fragment {
                              ViewGroup container, Bundle savedInstanceState) {
         notificationsViewModel =
                 new ViewModelProvider(this).get(NotificationsViewModel.class);
-        View root = inflater.inflate(R.layout.fragment_notifications, container, false);
+        View root = inflater.inflate(R.layout.fragment_profile, container, false);
         final TextView username = root.findViewById(R.id.text_username);
         final TextView email = root.findViewById(R.id.text_email);
         final TextView reset = root.findViewById(R.id.change_password);

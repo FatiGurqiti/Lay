@@ -5,7 +5,7 @@
     android:layout_width="wrap_content"
     android:layout_height="match_parent"
     android:adjustViewBounds="true"
-    tools:context=".presentation.ui.dashboard.DashboardFragment">
+    tools:context=".presentation.ui.search_fragment.SearchFragment">
 
     <ImageView
         android:id="@+id/homeBlackFilterInSearch"

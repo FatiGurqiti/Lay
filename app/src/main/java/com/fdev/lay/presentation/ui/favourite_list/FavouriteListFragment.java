@@ -1,4 +1,4 @@
-package com.fdev.lay.presentation.ui.home;
+package com.fdev.lay.presentation.ui.favourite_list;
 
 import android.content.Context;
 import android.content.Intent;
@@ -46,9 +46,9 @@ import java.util.Map;
 import java.util.Timer;
 import java.util.TimerTask;
 
-public class HomeFragment extends Fragment {
+public class FavouriteListFragment extends Fragment {
 
-    private HomeViewModel homeViewModel;
+    private FavouriteListViewModel homeViewModel;
 
     private ArrayList<String> id = new ArrayList<>();
     private ArrayList<String> img = new ArrayList<>();
@@ -89,7 +89,7 @@ public class HomeFragment extends Fragment {
         username = MainLoggedIn.getUsername();
 
         getSeenMovies();
-        View root = inflater.inflate(R.layout.fragment_home, container, false);
+        View root = inflater.inflate(R.layout.fragment_favourite_list, container, false);
 
         Typeface face = getResources().getFont(R.font.plusjakartatextregular);   // Font-Family
         Typeface boldface = getResources().getFont(R.font.plusjakartatexbold);  // Font-Family

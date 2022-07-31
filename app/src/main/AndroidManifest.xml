@@ -47,7 +47,7 @@
             android:name="com.fdev.lay.PasswordForgot"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".presentation.ui.login.LoginActivity"
+            android:name="com.fdev.lay.presentation.ui.login.LoginActivity"
             android:label="@string/title_activity_login"
             android:screenOrientation="portrait" />
         <activity

@@ -14,44 +14,44 @@
         android:theme="@style/Theme.Fibuv2"
         android:usesCleartextTraffic="true">
         <activity
-            android:name="com.fdev.lay.FullscreenActivity"
+            android:name="com.fdev.lay.ui.FullScreen.FullscreenActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:exported="false"
             android:label="@string/title_activity_fullscreen"
             android:theme="@style/Theme.Fibuv2.Fullscreen" />
         <activity
-            android:name="com.fdev.lay.ThumbnailFullScreen"
+            android:name="com.fdev.lay.ui.FullScreen.ThumbnailFullScreen"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:exported="false"
             android:label="@string/title_activity_thumbnail_full_screen"
             android:theme="@style/Theme.Fibuv2.Fullscreen" />
         <activity
-            android:name="com.fdev.lay.movieDetails.MovieDetails"
+            android:name=".ui.movieDetails.MovieDetails"
             android:exported="false" />        <activity
-            android:name="com.fdev.lay.movieDetails.SavedMovieDetails"
+            android:name=".ui.movieDetails.SavedMovieDetails"
             android:exported="false" />
         <activity
             android:name="com.fdev.lay.presentation.ui.Search.Search"
             android:exported="false" />
-        <activity android:name="com.fdev.lay.ResetPassword" />
+        <activity android:name="com.fdev.lay.ui.resetPassword.ResetPassword" />
         <activity
-            android:name="com.fdev.lay.FirstTime2"
+            android:name="com.fdev.lay.ui.FirstTime.FirstTime2"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.fdev.lay.MainLoggedIn"
+            android:name="com.fdev.lay.presentation.ui.main.HomePage"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.fdev.lay.CreateAccount"
+            android:name="com.fdev.lay.ui.create_account.CreateAccount"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.fdev.lay.PasswordForgot"
+            android:name="com.fdev.lay.ui.forgotPassword.PasswordForgot"
             android:screenOrientation="portrait" />
         <activity
             android:name="com.fdev.lay.presentation.ui.login.LoginActivity"
             android:label="@string/title_activity_login"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.fdev.lay.MainActivity"
+            android:name="com.fdev.lay.ui.base.MainActivity"
             android:exported="true"
             android:screenOrientation="portrait">
             <intent-filter>

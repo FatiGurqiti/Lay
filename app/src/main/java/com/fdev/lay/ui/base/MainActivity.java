@@ -2,6 +2,8 @@ package com.fdev.lay.ui.base;
 
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -23,6 +25,8 @@ import java.util.concurrent.ThreadLocalRandom;
 
 public class MainActivity extends AppCompatActivity {
 
+    MainMainViewModel viewModel;
+
     private boolean firstTime;
     private DatabaseHandler dbHandler = new DatabaseHandler(this);
     private static String apiToken;
@@ -35,11 +39,20 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void setup() {
+        viewModel = new ViewModelProvider(this).get(MainMainViewModel.class);
+
+        prepareUserName();
         setAPIKey();
         strictMode();
         userStatus();
         welcome();
         redirect();
+    }
+
+    private void prepareUserName() {
+        final Observer<String> usernameObserver = LayConstant.Constants.INSTANCE::setUsername;
+        viewModel.getUsername().observe(this, usernameObserver);
+        viewModel.setCurrentName();
     }
 
     private void setAPIKey() {

@@ -8,7 +8,7 @@
     android:gravity="center"
     android:orientation="vertical"
     android:padding="18dp"
-    tools:context="com.fdev.lay.MainActivity">
+    tools:context="com.fdev.lay.ui.base.MainActivity">
 
 
     <TextView

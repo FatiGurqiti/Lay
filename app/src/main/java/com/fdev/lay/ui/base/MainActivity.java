@@ -11,11 +11,12 @@ import android.os.StrictMode;
 import android.widget.TextView;
 
 import com.fdev.lay.R;
-import com.fdev.lay.common.LayConstant;
+import com.fdev.lay.common.Constants;
+import com.fdev.lay.common.utils.Utils;
 import com.fdev.lay.data.local.database.Account;
 import com.fdev.lay.data.local.database.DatabaseHandler;
-import com.fdev.lay.presentation.ui.login.LoginActivity;
-import com.fdev.lay.presentation.ui.main.HomePage;
+import com.fdev.lay.ui.login.LoginActivity;
+import com.fdev.lay.ui.main.HomePage;
 import com.fdev.lay.ui.FirstTime.FirstTime2;
 
 import java.util.Calendar;
@@ -41,6 +42,7 @@ public class MainActivity extends AppCompatActivity {
     private void setup() {
         viewModel = new ViewModelProvider(this).get(MainMainViewModel.class);
 
+        checkInternet();
         prepareUserName();
         setAPIKey();
         strictMode();
@@ -50,14 +52,14 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void prepareUserName() {
-        final Observer<String> usernameObserver = LayConstant.Constants.INSTANCE::setUsername;
-        viewModel.getUsername().observe(this, usernameObserver);
-        viewModel.setCurrentName();
+            final Observer<String> usernameObserver = Constants.INSTANCE::setUsername;
+            viewModel.getUsername().observe(this, usernameObserver);
+            viewModel.setCurrentName();
     }
 
     private void setAPIKey() {
         int random = Math.abs(ThreadLocalRandom.current().nextInt() % 10);
-        apiToken = LayConstant.Constants.INSTANCE.getKey().get(random);
+        apiToken = Constants.INSTANCE.getKey().get(random);
     }
 
     private void strictMode() {
@@ -109,7 +111,10 @@ public class MainActivity extends AppCompatActivity {
                            public void run() {
                                Intent intent;
                                if (firstTime) intent = new Intent(MainActivity.this, FirstTime2.class);
-                               else if (dbHandler.getIsLoggedIn()) intent = new Intent(MainActivity.this, HomePage.class);
+                               else if (dbHandler.getIsLoggedIn()) {
+                                   Constants.INSTANCE.setCanShowUserName(true);
+                                   intent = new Intent(MainActivity.this, HomePage.class);
+                               }
                                else intent = new Intent(MainActivity.this, LoginActivity.class);
                                startActivity(intent);
                                finish();
@@ -117,6 +122,11 @@ public class MainActivity extends AppCompatActivity {
                        }
                 , delay
         );
+    }
+
+    private void checkInternet(){
+        Constants.INSTANCE.setInternetAvailable(Utils.isNetworkAvailable(this));
+        Constants.INSTANCE.setCanShowUserName(Utils.isNetworkAvailable(this));
     }
 
     public static String getToken() {

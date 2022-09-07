@@ -1,10 +1,6 @@
 @file:JvmName("ConstantUtils")
 package com.fdev.lay.common
 
-class LayConstant{
-
-    fun a(): String { return "asd"}
-
 object Constants {
     var username = ""
 
@@ -19,5 +15,8 @@ object Constants {
         "0cbd83e564msh837c6ee47e07343p19551cjsn7cafb1080993",
         "bcac102b38msh3b43e6b9039840fp1a8bdcjsn03aa36bb3eb1"
     )
-}
+
+    var canShowUserName = false
+
+    var isInternetAvailable = false
 }

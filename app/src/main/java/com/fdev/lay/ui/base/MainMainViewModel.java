@@ -2,6 +2,8 @@ package com.fdev.lay.ui.base;
 
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
+
+import com.fdev.lay.common.Constants;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
@@ -22,16 +24,19 @@ public class MainMainViewModel extends ViewModel {
 
     public void setCurrentName() {
         if (username != null) {
-            db.collection("users")
-                    .whereEqualTo("email", mAuth.getCurrentUser().getEmail())
-                    .get()
-                    .addOnCompleteListener(task -> {
-                        if (task.isSuccessful()) {
-                            for (QueryDocumentSnapshot document : task.getResult()) {
-                                username.setValue((document.getString("username")));
+            if (Constants.INSTANCE.getCanShowUserName()) {
+                db.collection("users")
+                        .whereEqualTo("email", mAuth.getCurrentUser().getEmail())
+                        .get()
+                        .addOnCompleteListener(task -> {
+                            if (task.isSuccessful()) {
+                                for (QueryDocumentSnapshot document : task.getResult()) {
+                                    username.setValue((document.getString("username")));
+                                }
                             }
-                        }
-                    });
+                        });
+            }
+            username.setValue("");
         }
     }
 }

@@ -31,14 +31,14 @@
             android:name=".ui.movieDetails.SavedMovieDetails"
             android:exported="false" />
         <activity
-            android:name="com.fdev.lay.presentation.ui.Search.Search"
+            android:name="com.fdev.lay.ui.Search.Search"
             android:exported="false" />
         <activity android:name="com.fdev.lay.ui.resetPassword.ResetPassword" />
         <activity
             android:name="com.fdev.lay.ui.FirstTime.FirstTime2"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.fdev.lay.presentation.ui.main.HomePage"
+            android:name="com.fdev.lay.ui.main.HomePage"
             android:screenOrientation="portrait" />
         <activity
             android:name="com.fdev.lay.ui.create_account.CreateAccount"
@@ -47,7 +47,7 @@
             android:name="com.fdev.lay.ui.forgotPassword.PasswordForgot"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.fdev.lay.presentation.ui.login.LoginActivity"
+            android:name="com.fdev.lay.ui.login.LoginActivity"
             android:label="@string/title_activity_login"
             android:screenOrientation="portrait" />
         <activity

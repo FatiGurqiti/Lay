@@ -5,7 +5,7 @@ import android.os.Bundle;
 import androidx.viewpager.widget.ViewPager;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.fdev.lay.presentation.ui.main.SectionsPagerAdapter;
+import com.fdev.lay.ui.main.SectionsPagerAdapter;
 import com.fdev.lay.databinding.ActivityFirstTimeBinding;
 
 public class FirstTime2 extends AppCompatActivity {

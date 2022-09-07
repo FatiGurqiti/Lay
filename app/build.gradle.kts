@@ -1,6 +1,7 @@
 plugins {
     id("com.android.application")
     id("com.google.gms.google-services")
+    kotlin("android")
 }
 
 android {
@@ -46,6 +47,12 @@ android {
        // compose = true
         viewBinding = true
     }
+
+    sourceSets {
+        getByName("main") {
+            java.srcDir("src/main/kotlin")
+        }
+    }
 }
 
 dependencies {
@@ -80,8 +87,6 @@ dependencies {
     implementation("androidx.appcompat:appcompat:$rootProject.appCompatVersion")
 
 // Dependencies for working with Architecture components
-// You'll probably have to update the version numbers in build.gradle (Project)
-
 
 // Lifecycle components
     implementation("androidx.lifecycle:lifecycle-viewmodel:2.5.0")
@@ -91,12 +96,14 @@ dependencies {
     implementation("androidx.appcompat:appcompat-resources:1.4.2")
 
 // Dependencies for working with Architecture components
-// You'll probably have to update the version numbers in build.gradle (Project)
-
 
 // Lifecycle components
     implementation("androidx.lifecycle:lifecycle-viewmodel:$rootProject.lifecycleVersion")
     implementation("androidx.lifecycle:lifecycle-livedata:$rootProject.lifecycleVersion")
     implementation("androidx.lifecycle:lifecycle-common-java8:$rootProject.lifecycleVersion")
+
+    //Kotlin
+    implementation("androidx.core:core-ktx:1.3.2")
+    implementation("org.jetbrains.kotlin:kotlin-stdlib:1.4.0")
 }
 

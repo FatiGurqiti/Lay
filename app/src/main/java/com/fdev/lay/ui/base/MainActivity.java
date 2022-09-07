@@ -43,10 +43,11 @@ public class MainActivity extends AppCompatActivity {
         viewModel = new ViewModelProvider(this).get(MainMainViewModel.class);
 
         checkInternet();
+        userStatus();
+        canSetUserName();
         prepareUserName();
         setAPIKey();
         strictMode();
-        userStatus();
         welcome();
         redirect();
     }
@@ -68,7 +69,7 @@ public class MainActivity extends AppCompatActivity {
         StrictMode.setThreadPolicy(policy);
     }
 
-    private void userStatus() {
+    void userStatus() {
         //If there is no data created in account table it's user's first time and it creates the account table in sqlite
         if (dbHandler.getaccountsCount() == 0) {
             dbHandler.addaccount(new Account(1, 1, 0, 0, 1));
@@ -84,11 +85,9 @@ public class MainActivity extends AppCompatActivity {
 
         } else if (dbHandler.getIsFirtsTime()) firstTime = true;
         else firstTime = false;
-
     }
 
     private void welcome() {
-
         Calendar rightNow = Calendar.getInstance();
         int hour = rightNow.get(Calendar.HOUR_OF_DAY);
         TextView welcomeText = findViewById(R.id.creativeText);
@@ -111,10 +110,7 @@ public class MainActivity extends AppCompatActivity {
                            public void run() {
                                Intent intent;
                                if (firstTime) intent = new Intent(MainActivity.this, FirstTime2.class);
-                               else if (dbHandler.getIsLoggedIn()) {
-                                   Constants.INSTANCE.setCanShowUserName(true);
-                                   intent = new Intent(MainActivity.this, HomePage.class);
-                               }
+                               else if (dbHandler.getIsLoggedIn()) intent = new Intent(MainActivity.this, HomePage.class);
                                else intent = new Intent(MainActivity.this, LoginActivity.class);
                                startActivity(intent);
                                finish();
@@ -126,7 +122,11 @@ public class MainActivity extends AppCompatActivity {
 
     private void checkInternet(){
         Constants.INSTANCE.setInternetAvailable(Utils.isNetworkAvailable(this));
-        Constants.INSTANCE.setCanShowUserName(Utils.isNetworkAvailable(this));
+    }
+
+    private void canSetUserName(){
+        if (Constants.INSTANCE.isInternetAvailable() && !firstTime && dbHandler.getIsLoggedIn())
+            Constants.INSTANCE.setCanShowUserName(true);
     }
 
     public static String getToken() {

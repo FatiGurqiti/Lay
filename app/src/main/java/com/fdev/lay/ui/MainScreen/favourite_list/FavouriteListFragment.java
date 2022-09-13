@@ -1,4 +1,4 @@
-package com.fdev.lay.ui.favourite_list;
+package com.fdev.lay.ui.MainScreen.favourite_list;
 
 import android.content.Context;
 import android.content.Intent;
@@ -7,7 +7,6 @@ import android.graphics.Typeface;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,16 +16,17 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
-
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 import com.fdev.lay.common.Constants;
 import com.fdev.lay.R;
 import com.fdev.lay.common.RoundedTransformation;
+import com.fdev.lay.ui.MainScreen.MainScreenViewModel;
 import com.fdev.lay.ui.Search.Search;
 import com.fdev.lay.ui.movieDetails.SavedMovieDetails;
 import com.fdev.lay.data.local.database.DatabaseHandler;
@@ -50,6 +50,7 @@ import java.util.TimerTask;
 public class FavouriteListFragment extends Fragment {
 
     private FavouriteListViewModel homeViewModel;
+    private MainScreenViewModel sharedViewModel;
 
     private ArrayList<String> id = new ArrayList<>();
     private ArrayList<String> img = new ArrayList<>();
@@ -87,7 +88,8 @@ public class FavouriteListFragment extends Fragment {
     @RequiresApi(api = Build.VERSION_CODES.O)
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        username = Constants.INSTANCE.getUsername();
+
+        sharedViewModel = new ViewModelProvider(requireActivity()).get(MainScreenViewModel.class);
 
         getSeenMovies();
         View root = inflater.inflate(R.layout.fragment_favourite_list, container, false);
@@ -106,12 +108,11 @@ public class FavouriteListFragment extends Fragment {
         FirstReference = root.findViewById(R.id.firstReference);
         TextView WelcomeText = root.findViewById(R.id.welcomeText);
 
-        Log.d("usernameInFavoruite", Constants.INSTANCE.getUsername());
-
-        if (username == null || username.isEmpty())
-            WelcomeText.setText(" \t Welcome, here's your favourite list");
-        else
-            WelcomeText.setText(" \t Hi " + username + ", here's your favourite list");
+        final Observer<String> usernameObserver = observedUsername -> {
+            WelcomeText.setText(" \t Welcome,"+ observedUsername +" here's your favourite list");
+            Constants.INSTANCE.setUsername(observedUsername);
+        };
+        sharedViewModel.getUsername().observe(getViewLifecycleOwner(), usernameObserver);
 
         //Get status of showing content that are already seen
         DatabaseHandler sqldb = new DatabaseHandler(getContext());

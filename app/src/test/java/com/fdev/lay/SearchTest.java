@@ -1,8 +1,5 @@
 package com.fdev.lay;
 
-import com.fdev.lay.ui.Search.Search;
-import com.fdev.lay.ui.search_fragment.SearchFragment;
-
 class SearchTest {
 
 //    @Test

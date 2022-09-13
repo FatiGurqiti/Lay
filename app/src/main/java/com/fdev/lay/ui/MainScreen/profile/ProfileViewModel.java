@@ -1,16 +1,16 @@
-package com.fdev.lay.ui.search_fragment;
+package com.fdev.lay.ui.MainScreen.profile;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-public class SearchFragmentViewModel extends ViewModel {
+class NotificationsViewModel extends ViewModel {
 
     private MutableLiveData<String> mText;
 
-    public SearchFragmentViewModel() {
+    public NotificationsViewModel() {
         mText = new MutableLiveData<>();
-        mText.setValue("This is dashboard fragment");
+        mText.setValue("This is notifications fragment");
     }
 
     public LiveData<String> getText() {

@@ -1,4 +1,4 @@
-package com.fdev.lay.ui.profile;
+package com.fdev.lay.ui.MainScreen.profile;
 
 import android.content.Intent;
 import android.graphics.Color;
@@ -6,27 +6,22 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.Switch;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-
-import com.fdev.lay.common.Constants;
 import com.fdev.lay.R;
+import com.fdev.lay.common.Constants;
 import com.fdev.lay.ui.login.LoginActivity;
 import com.fdev.lay.ui.resetPassword.ResetPassword;
 import com.fdev.lay.data.local.database.DatabaseHandler;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.Objects;
 
 public class ProfileFragment extends Fragment {
-    private FirebaseAuth mAuth = FirebaseAuth.getInstance();
-    private FirebaseFirestore db = FirebaseFirestore.getInstance();
-
-
+    private final FirebaseAuth mAuth = FirebaseAuth.getInstance();
     private static boolean liteMode;
     private static boolean showSeenContent;
 
@@ -34,7 +29,8 @@ public class ProfileFragment extends Fragment {
                              ViewGroup container, Bundle savedInstanceState) {
 
         View root = inflater.inflate(R.layout.fragment_profile, container, false);
-        final TextView username = root.findViewById(R.id.text_username);
+        final TextView usernameTextView = root.findViewById(R.id.text_username);
+        final ImageView usernameIcon = root.findViewById(R.id.usernameIcon);
         final TextView email = root.findViewById(R.id.text_email);
         final TextView reset = root.findViewById(R.id.change_password);
         final TextView logout = root.findViewById(R.id.logout);
@@ -45,13 +41,15 @@ public class ProfileFragment extends Fragment {
 
 
         email.setText(Objects.requireNonNull(mAuth.getCurrentUser()).getEmail());
-        username.setText(Constants.INSTANCE.getUsername());
+        String username = Constants.INSTANCE.getUsername();
 
+        if (username.isEmpty() || username == null) {
+            usernameTextView.setVisibility(View.INVISIBLE);
+            usernameIcon.setVisibility(View.INVISIBLE);
+        } else usernameTextView.setText(username);
 
         //Get's lite mode status and set's the switch widget according to that
         DatabaseHandler sqldb = new DatabaseHandler(getContext());
-
-
         //Get if show seen content is on
         showSeenContent = sqldb.getShowSeenContents();
         if(sqldb.getShowSeenContents())
@@ -64,8 +62,6 @@ public class ProfileFragment extends Fragment {
             showSeenText.setTextColor(Color.parseColor("#66000000"));
         }
 
-
-
         showSeenSwitch.setOnClickListener(v -> {
             if (sqldb.getShowSeenContents()) // if the show seen content is on
             {
@@ -77,8 +73,6 @@ public class ProfileFragment extends Fragment {
             }
         });
 
-
-        //check if lite mode is on
         liteMode = sqldb.getIsLiteMode();
         if (sqldb.getIsLiteMode())
         {
@@ -98,7 +92,6 @@ public class ProfileFragment extends Fragment {
 
         });
 
-
         logout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -111,7 +104,6 @@ public class ProfileFragment extends Fragment {
             }
         });
 
-
         reset.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -119,12 +111,9 @@ public class ProfileFragment extends Fragment {
                 startActivity(intent);
             }
         });
-
-
         return root;
     }
 
     public static boolean getLiteMode(){return liteMode;}
     public static boolean getShowSeenContent(){return showSeenContent;}
-
 }

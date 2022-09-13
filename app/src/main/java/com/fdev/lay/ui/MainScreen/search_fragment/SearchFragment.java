@@ -1,4 +1,4 @@
-package com.fdev.lay.ui.search_fragment;
+package com.fdev.lay.ui.MainScreen.search_fragment;
 
 import android.content.Intent;
 import android.os.Build;

@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.profile.ProfileFragment">
+    tools:context=".ui.MainScreen.profile.ProfileFragment">
 
     <ImageView
         android:id="@+id/imageView"
@@ -70,7 +70,7 @@
 
 
     <ImageView
-        android:id="@+id/usernameicon"
+        android:id="@+id/usernameIcon"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -88,7 +88,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="362dp"
         android:layout_marginEnd="8dp"
-        android:layout_toEndOf="@+id/usernameicon"
+        android:layout_toEndOf="@+id/usernameIcon"
         android:fontFamily="@font/davidlibre_regular"
         android:textAlignment="textStart"
         android:textColor="@color/black"
@@ -97,7 +97,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
 
     <ImageView
         android:id="@+id/emailicon"
@@ -110,25 +109,24 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-
     <TextView
         android:id="@+id/text_email"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:layout_marginStart="8dp"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="412dp"
         android:layout_marginEnd="8dp"
-        android:layout_toEndOf="@+id/usernameicon"
+        android:layout_toEndOf="@+id/usernameIcon"
         android:fontFamily="@font/davidlibre_regular"
         android:textAlignment="textStart"
+        android:text="email"
         android:textColor="@color/black"
         android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/change_password"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toEndOf="@id/emailicon"
         app:layout_constraintTop_toTopOf="parent" />
-
 
     <ImageView
         android:id="@+id/changepasswordicon"

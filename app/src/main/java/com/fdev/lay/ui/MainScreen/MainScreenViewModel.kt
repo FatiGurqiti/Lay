@@ -3,9 +3,11 @@ package com.fdev.lay.ui.MainScreen
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.fdev.lay.common.Constants
 import com.fdev.lay.common.Constants.canShowUserName
 import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.QuerySnapshot
 import kotlinx.coroutines.Dispatchers
@@ -19,7 +21,23 @@ class MainScreenViewModel : ViewModel() {
     private val db = FirebaseFirestore.getInstance()
 
     init {
-        viewModelScope.launch(Dispatchers.IO) { setCurrentName() }
+        viewModelScope.launch(Dispatchers.IO) {
+            setCurrentName()
+            isFavouriteListEmpty()
+        }
+    }
+
+    private fun isFavouriteListEmpty() {
+        val firebase = FirebaseFirestore.getInstance()
+        val user = FirebaseAuth.getInstance().currentUser
+        val docRef = firebase.collection("MovieLists").document(user!!.uid)
+
+        docRef.get().addOnCompleteListener { task ->
+            if (task.isSuccessful) {
+                val document: DocumentSnapshot = task.getResult()
+                Constants.isEmptyFavouriteList.value = (document.exists())
+            }
+        }
     }
 
     fun getUsername(): MutableLiveData<String?>? {

@@ -24,7 +24,7 @@ import androidx.lifecycle.ViewModelProvider;
 import com.fdev.lay.data.remote.api.SearchAPI;
 import com.fdev.lay.ui.Search.Search;
 import com.fdev.lay.ui.Search.SearchViewModel;
-import com.fdev.lay.ui.main.HomePage;
+import com.fdev.lay.ui.MainScreen.HomePage;
 import com.fdev.lay.ui.movieDetails.MovieDetails;
 import com.fdev.lay.R;
 import com.fdev.lay.ui.movieDetails.MovieDetailsViewModel;

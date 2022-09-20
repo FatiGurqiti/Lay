@@ -1,5 +1,6 @@
-package com.fdev.lay.ui.base;
+package com.fdev.lay.ui.base
 
-import androidx.lifecycle.ViewModel;
+import androidx.lifecycle.ViewModel
 
-public class MainMainViewModel extends ViewModel { }
+class MainMainViewModel : ViewModel() {
+}

@@ -1,4 +1,4 @@
-package com.fdev.lay.common;
+package com.fdev.lay.common.utils;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapShader;

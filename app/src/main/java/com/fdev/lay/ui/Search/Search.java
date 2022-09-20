@@ -18,7 +18,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.fdev.lay.R;
-import com.fdev.lay.common.RoundedTransformation;
+import com.fdev.lay.common.utils.RoundedTransformation;
 import com.fdev.lay.data.remote.api.SearchAPI;
 import com.fdev.lay.ui.movieDetails.MovieDetails;
 import com.fdev.lay.ui.movieDetails.MovieDetailsViewModel;

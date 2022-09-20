@@ -15,7 +15,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.fdev.lay.R;
-import com.fdev.lay.common.RoundedTransformation;
+import com.fdev.lay.common.utils.RoundedTransformation;
 import com.fdev.lay.ui.FullScreen.ThumbnailFullScreen;
 import com.fdev.lay.data.local.database.DatabaseHandler;
 import com.google.firebase.auth.FirebaseAuth;

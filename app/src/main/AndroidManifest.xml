@@ -38,7 +38,7 @@
             android:name="com.fdev.lay.ui.FirstTime.FirstTime2"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.fdev.lay.ui.main.HomePage"
+            android:name="com.fdev.lay.ui.MainScreen.HomePage"
             android:screenOrientation="portrait" />
         <activity
             android:name="com.fdev.lay.ui.create_account.CreateAccount"

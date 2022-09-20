@@ -71,13 +71,23 @@
         <entry key="..\:/Users/fati-/AndroidStudioProjects/Interview/Lay-develop/app/src/main/res/layout/activity_movie_details2.xml" value="0.264" />
         <entry key="..\:/Users/fati-/AndroidStudioProjects/Interview/Lay-develop/app/src/main/res/layout/fragment_first.xml" value="0.3020833333333333" />
         <entry key="..\:/Users/fati-/AndroidStudioProjects/Interview/Lay-develop/app/src/main/res/layout/fragment_first_time2.xml" value="0.264" />
+        <entry key="app/src/main/res/drawable/coolbtnbackground.xml" value="0.1885" />
+        <entry key="app/src/main/res/drawable/faded_circle.xml" value="0.1885" />
+        <entry key="app/src/main/res/drawable/favourite_card_background.xml" value="0.1885" />
+        <entry key="app/src/main/res/drawable/login_background.xml" value="0.1885" />
+        <entry key="app/src/main/res/drawable/mainbackground.xml" value="0.1885" />
+        <entry key="app/src/main/res/drawable/mylistbackground.xml" value="0.1885" />
         <entry key="app/src/main/res/layout/activity_login.xml" value="0.1" />
-        <entry key="app/src/main/res/layout/activity_main_logged_in.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/activity_main_logged_in.xml" value="0.24354248046875004" />
         <entry key="app/src/main/res/layout/activity_movie_details2.xml" value="0.2985122680664063" />
         <entry key="app/src/main/res/layout/activity_saved_movie_details.xml" value="0.3098958333333333" />
         <entry key="app/src/main/res/layout/activity_search.xml" value="0.3098958333333333" />
+        <entry key="app/src/main/res/layout/favourites_card_item.xml" value="0.44963989257812487" />
         <entry key="app/src/main/res/layout/fragment_dashboard.xml" value="0.2125748502994012" />
+        <entry key="app/src/main/res/layout/fragment_empty_favourites.xml" value="0.17916666666666667" />
         <entry key="app/src/main/res/layout/fragment_favourite_list.xml" value="0.23097826086956522" />
+        <entry key="app/src/main/res/layout/fragment_favourite_list2.xml" value="0.3098958333333333" />
+        <entry key="app/src/main/res/layout/fragment_favourite_list_view.xml" value="0.35722723545172275" />
         <entry key="app/src/main/res/layout/fragment_first.xml" value="0.23097826086956522" />
         <entry key="app/src/main/res/layout/fragment_first_time2.xml" value="0.18958333333333333" />
         <entry key="app/src/main/res/layout/fragment_home.xml" value="0.3098958333333333" />
@@ -85,6 +95,7 @@
         <entry key="app/src/main/res/layout/fragment_profile.xml" value="0.23097826086956522" />
         <entry key="app/src/main/res/layout/fragment_second.xml" value="0.3098958333333333" />
         <entry key="app/src/main/res/layout/search_fragment.xml" value="0.23097826086956522" />
+        <entry key="app/src/main/res/menu/bottom_nav_menu.xml" value="0.1" />
         <entry key="app/src/main/res/menu/menu_movie_details.xml" value="0.3098958333333333" />
         <entry key="app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.1485" />
         <entry key="app/src/main/res/mipmap-anydpi-v26/launcherlogo.xml" value="0.1485" />

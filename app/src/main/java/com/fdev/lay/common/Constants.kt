@@ -1,6 +1,8 @@
 @file:JvmName("ConstantUtils")
 package com.fdev.lay.common
 
+import androidx.lifecycle.MutableLiveData
+
 object Constants {
     var username = ""
 
@@ -19,4 +21,5 @@ object Constants {
     var canShowUserName = false
 
     var isInternetAvailable = false
+    val isEmptyFavouriteList: MutableLiveData<Boolean> by lazy { MutableLiveData<Boolean>() }
 }

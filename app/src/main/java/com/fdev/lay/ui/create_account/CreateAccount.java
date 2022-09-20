@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -54,7 +55,6 @@ public class CreateAccount extends AppCompatActivity {
             ifuserExists(emailString);
 
             if (canclick) {
-
                 if (TextUtils.isEmpty(usernameString) &&
                         TextUtils.isEmpty(emailString) &&
                         TextUtils.isEmpty(passwordString)) {
@@ -119,15 +119,12 @@ public class CreateAccount extends AppCompatActivity {
 
     private void ifuserExists(String email) {
         DocumentReference docRef = db.collection("users").document(email);
-        docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                if (task.isSuccessful()) {
-                    DocumentSnapshot document = task.getResult();
-                    canclick = !document.exists();
-                }
+        docRef.get().addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                DocumentSnapshot document = task.getResult();
+                canclick = !document.exists();
+                Log.d("hajde",String.valueOf(canclick));
             }
         });
     }
-
 }

@@ -6,7 +6,6 @@
     android:layout_height="match_parent"
     tools:context=".ui.MainScreen.favourite_list.FavouriteListFragment">
 
-
     <ImageView
         android:id="@+id/homeBlackFilter"
         android:layout_width="match_parent"
@@ -27,33 +26,13 @@
         android:translationZ="1dp"
         android:visibility="invisible" />
 
-
-
-    <TextView
-        android:id="@+id/noFavouriteText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textColor="#22D9C0"
-        android:fontFamily="@font/plusjakartatextregular"
-        android:textAlignment="center"
-        android:text="
-Oh, it seems like \n
-you don't have any \n
-saved movie yet.\n
-Let's fix that right away!"
-        android:layout_marginTop="270dp"
-        android:textSize="16sp"
-        android:visibility="invisible"
-        android:layout_marginLeft="10dp"/>
-
-    <ImageView
-        android:id="@+id/cuteRobot"
+    <FrameLayout
+        android:id="@+id/fragment_favourite_list_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:src="@drawable/cuterobot"
-        android:layout_marginLeft="180dp"
-        android:layout_marginRight="10dp"
-        android:visibility="invisible"
+        android:clickable="true"
+        android:focusable="true"
+        android:layout_marginTop="80dp"
         />
 
     <ImageView
@@ -202,24 +181,8 @@ Let's fix that right away!"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical">
-
-
         </RelativeLayout>
     </ScrollView>
-
-
-    <TextView
-        android:id="@+id/firstReference"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@id/cuteRobot"
-        android:textAlignment="center"
-        android:autoLink="web"
-        android:text="@string/hyperlink"
-        android:layout_marginBottom="80dp"
-        android:visibility="invisible"
-        />
-
 
 
 </RelativeLayout>

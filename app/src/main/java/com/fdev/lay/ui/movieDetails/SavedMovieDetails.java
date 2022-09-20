@@ -15,7 +15,7 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.fdev.lay.R;
-import com.fdev.lay.common.RoundedTransformation;
+import com.fdev.lay.common.utils.RoundedTransformation;
 import com.fdev.lay.ui.FullScreen.ThumbnailFullScreen;
 import com.squareup.picasso.Picasso;
 

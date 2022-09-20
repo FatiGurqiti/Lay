@@ -2,6 +2,8 @@ package com.fdev.lay.ui.base;
 
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProvider;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.StrictMode;
@@ -12,7 +14,7 @@ import com.fdev.lay.common.utils.Utils;
 import com.fdev.lay.data.local.database.Account;
 import com.fdev.lay.data.local.database.DatabaseHandler;
 import com.fdev.lay.ui.login.LoginActivity;
-import com.fdev.lay.ui.main.HomePage;
+import com.fdev.lay.ui.MainScreen.HomePage;
 import com.fdev.lay.ui.FirstTime.FirstTime2;
 import java.util.Calendar;
 import java.util.Timer;
@@ -21,6 +23,7 @@ import java.util.concurrent.ThreadLocalRandom;
 
 public class MainActivity extends AppCompatActivity {
 
+    private MainMainViewModel viewModel;
     private boolean firstTime;
     private DatabaseHandler dbHandler = new DatabaseHandler(this);
     private static String apiToken;
@@ -29,6 +32,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        viewModel = new ViewModelProvider(this).get(MainMainViewModel.class);
         setup();
     }
 

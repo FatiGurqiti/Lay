@@ -7,6 +7,7 @@ import android.graphics.Typeface;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -25,8 +26,10 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import com.fdev.lay.common.Constants;
 import com.fdev.lay.R;
-import com.fdev.lay.common.RoundedTransformation;
+import com.fdev.lay.common.utils.RoundedTransformation;
 import com.fdev.lay.ui.MainScreen.MainScreenViewModel;
+import com.fdev.lay.ui.MainScreen.favourite_list.List_Fragment.EmptyFavouritesFragment;
+import com.fdev.lay.ui.MainScreen.favourite_list.List_Fragment.FavouriteListViewFragment;
 import com.fdev.lay.ui.Search.Search;
 import com.fdev.lay.ui.movieDetails.SavedMovieDetails;
 import com.fdev.lay.data.local.database.DatabaseHandler;
@@ -40,6 +43,8 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.SetOptions;
 import com.squareup.picasso.Picasso;
+
+import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -122,6 +127,22 @@ public class FavouriteListFragment extends Fragment {
         FirebaseFirestore Firedb = FirebaseFirestore.getInstance();
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         DocumentReference docRef = Firedb.collection("MovieLists").document(user.getUid());
+
+
+        final Observer<Boolean> nameObserver = hasSavedMovies -> {
+            if (hasSavedMovies) {
+                FavouriteListViewFragment favouriteListViewFragment = new FavouriteListViewFragment();
+                requireActivity().getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.fragment_favourite_list_view, favouriteListViewFragment)
+                        .commit();
+            } else {
+                EmptyFavouritesFragment emptyFavouritesFragment = new EmptyFavouritesFragment();
+                requireActivity().getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.fragment_favourite_list_view, emptyFavouritesFragment)
+                        .commit();
+            }
+        };
+        Constants.INSTANCE.isEmptyFavouriteList().observe(getViewLifecycleOwner(),nameObserver);
 
 
         docRef.get().addOnCompleteListener(task -> {
@@ -289,10 +310,6 @@ public class FavouriteListFragment extends Fragment {
 
                     }
 
-                } else {
-                    CuteRobot.setVisibility(View.VISIBLE);
-                    NoFavouriteText.setVisibility(View.VISIBLE);
-                    FirstReference.setVisibility(View.VISIBLE);
                 }
             }
         });

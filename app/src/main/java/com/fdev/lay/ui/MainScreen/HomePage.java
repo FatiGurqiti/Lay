@@ -1,13 +1,12 @@
-package com.fdev.lay.ui.main;
+package com.fdev.lay.ui.MainScreen;
 
 import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
 
 import com.fdev.lay.R;
-import com.google.android.gms.tasks.OnCompleteListener;
+import com.fdev.lay.ui.MainScreen.favourite_list.List_Fragment.EmptyFavouritesFragment;
+import com.fdev.lay.ui.MainScreen.favourite_list.List_Fragment.FavouriteListViewFragment;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -18,7 +17,6 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.firestore.SetOptions;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.navigation.NavController;
@@ -50,17 +48,11 @@ public class HomePage extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        try {
-            setContentView(R.layout.activity_main_logged_in);
-        }
-        catch (Exception e){
-            Log.e("problemvar",e.toString());
-        }
+        setContentView(R.layout.activity_main_logged_in);
 
         topRateQuery();
         quotaQuery();
         renewQuota();
-
 
         BottomNavigationView navView = findViewById(R.id.nav_view);
         // Passing each menu ID as a set of Ids because each
@@ -71,8 +63,6 @@ public class HomePage extends AppCompatActivity {
                     .build();
             NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
             NavigationUI.setupWithNavController(navView, navController);
-
-
 
     }
 

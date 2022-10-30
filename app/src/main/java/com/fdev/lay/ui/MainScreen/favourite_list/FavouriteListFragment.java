@@ -2,12 +2,10 @@ package com.fdev.lay.ui.MainScreen.favourite_list;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,7 +13,6 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
@@ -26,11 +23,9 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import com.fdev.lay.common.Constants;
 import com.fdev.lay.R;
-import com.fdev.lay.common.utils.RoundedTransformation;
 import com.fdev.lay.ui.MainScreen.MainScreenViewModel;
 import com.fdev.lay.ui.MainScreen.favourite_list.List_Fragment.EmptyFavouritesFragment;
 import com.fdev.lay.ui.MainScreen.favourite_list.List_Fragment.FavouriteListViewFragment;
-import com.fdev.lay.ui.Search.Search;
 import com.fdev.lay.ui.movieDetails.SavedMovieDetails;
 import com.fdev.lay.data.local.database.DatabaseHandler;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -42,9 +37,6 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.SetOptions;
-import com.squareup.picasso.Picasso;
-
-import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -102,7 +94,7 @@ public class FavouriteListFragment extends Fragment {
         Typeface face = getResources().getFont(R.font.plusjakartatextregular);   // Font-Family
         Typeface boldface = getResources().getFont(R.font.plusjakartatexbold);  // Font-Family
 
-        pop = root.findViewById(R.id.ratepop);
+        pop = root.findViewById(R.id.ratePop);
         popafter = root.findViewById(R.id.afterRate);
         blackbg = root.findViewById(R.id.homeBlackFilter);
         progressBar = root.findViewById(R.id.progressbarinMyList);
@@ -129,9 +121,9 @@ public class FavouriteListFragment extends Fragment {
         DocumentReference docRef = Firedb.collection("MovieLists").document(user.getUid());
 
 
-        final Observer<Boolean> nameObserver = hasSavedMovies -> {
+        final Observer<Boolean> hasSavedMoviesObserver = hasSavedMovies -> {
             if (hasSavedMovies) {
-                FavouriteListViewFragment favouriteListViewFragment = new FavouriteListViewFragment();
+                FavouriteListViewFragment favouriteListViewFragment = new FavouriteListViewFragment(pop, blackbg);
                 requireActivity().getSupportFragmentManager().beginTransaction()
                         .replace(R.id.fragment_favourite_list_view, favouriteListViewFragment)
                         .commit();
@@ -142,177 +134,177 @@ public class FavouriteListFragment extends Fragment {
                         .commit();
             }
         };
-        Constants.INSTANCE.isEmptyFavouriteList().observe(getViewLifecycleOwner(),nameObserver);
-
-
-        docRef.get().addOnCompleteListener(task -> {
-            if (task.isSuccessful()) {
-                DocumentSnapshot document = task.getResult();
-                if (document.exists()) {
-
-                    id = (ArrayList<String>) document.get("id");
-                    img = (ArrayList<String>) document.get("img");
-                    title = (ArrayList<String>) document.get("title");
-                    type = (ArrayList<String>) document.get("type");
-                    year = (ArrayList<String>) document.get("year");
-                    firstText = (ArrayList<String>) document.get("firstText");
-                    secondText = (ArrayList<String>) document.get("secondText");
-                    duration = (ArrayList<String>) document.get("duration");
-
-                    int limit = id.size();
-                    if (limit > 0) {
-
-                        RelativeLayout layout = root.findViewById(R.id.Scroll_Relative);
-                        int j = -1;
-                        for (int i = 0; i < limit; i++) {
-
-                            int sizeheight = (int) (getScreenHeight(getContext()) * 0.5);
-                            int sizewidth = (getScreenWidth(getContext()));
-                            int finalI = i;
-
-
-                            //Don't show contents that are already seen if the mode is off
-                            if (!ShouldShowSeenContent && isSeen(id.get(finalI)))
-                                showCurrentContent = false;
-                            else
-                                showCurrentContent = true; //Show Seen Content is on, So show everything
-
-                            if (showCurrentContent) {
-                                j++;
-                                ImageView image = new ImageView(getContext());
-                                image.setLayoutParams(new ViewGroup.LayoutParams(1400, (int) ((int) (sizeheight) * .6)));
-                                Picasso.get().load(img.get(i).trim())
-                                        .transform(new RoundedTransformation(50, 0))
-                                        .fit()
-                                        .centerCrop(700)
-                                        .into(image);
-                                image.setTranslationZ(0);
-                                layout.addView(image);
-                                Search.setMargins(image, 25, (int) (j * (sizeheight) * .75), 25, 1);
-
-
-                                ImageView filter = new ImageView(getContext());
-                                filter.setLayoutParams(new ViewGroup.LayoutParams(1400, (int) ((int) (sizeheight) * .6)));
-                                Picasso.get().load(R.drawable.black_filer_resource).transform(new RoundedTransformation(50, 0)).fit().centerCrop(700).into(filter);
-                                filter.setTranslationZ(0);
-                                layout.addView(filter);
-                                Search.setMargins(filter, 25, (int) (j * (sizeheight) * .75), 25, 1);
-
-
-                                TextView titleText = new TextView(getContext());
-                                titleText.setText(title.get(i));
-                                titleText.setTypeface(boldface);
-                                titleText.setTextColor(Color.WHITE);
-                                titleText.setPadding(25, 250, 25, 0);
-                                titleText.setTextSize(22);
-                                titleText.bringToFront();
-                                titleText.setTranslationZ(2);
-                                titleText.setElevation(2);
-                                layout.addView(titleText);
-                                Search.setMargins(titleText, 25, (int) (j * (sizeheight) * .75), 25, 1);
-                                titleText.setPadding(25, (int) (sizewidth * .2), 50, 0);
-
-                                titleText.setOnClickListener(v -> {
-                                    blackbg.setVisibility(View.VISIBLE);
-                                    progressBar.setVisibility(View.VISIBLE);
-
-                                    openMovieDetail(
-                                            id.get(finalI),
-                                            img.get(finalI),
-                                            title.get(finalI),
-                                            type.get(finalI),
-                                            year.get(finalI),
-                                            firstText.get(finalI),
-                                            secondText.get(finalI),
-                                            duration.get(finalI));
-                                });
-
-
-                                ImageView seenicon = new ImageView(getContext());
-                                if (isSeen(id.get(finalI))) {
-                                    Picasso.get().load(R.drawable.check).into(seenicon);
-                                    seenicon.setEnabled(false);
-                                } else {
-                                    Picasso.get().load(R.drawable.seen).into(seenicon);
-                                }
-                                seenicon.bringToFront();
-                                layout.addView(seenicon);
-                                Search.setMargins(seenicon, (int) (sizewidth * .05), (int) (j * (sizeheight) * .75), 25, 1);
-                                seenicon.setPadding((int) ((sizewidth) * .3), (int) (sizewidth * .505), 50, 0);
-
-                                TextView seenText = new TextView(getContext());
-                                if (isSeen(id.get(finalI))) {
-                                    seenText.setText("Seen");
-                                    seenText.setEnabled(false);
-                                } else {
-                                    seenText.setText("Set as seen");
-                                }
-
-                                seenText.setTypeface(face);
-                                seenText.setTextColor(Color.WHITE);
-                                seenText.setTextSize(16);
-                                seenText.bringToFront();
-                                layout.addView(seenText);
-                                Search.setMargins(seenText, (int) (sizewidth * .15), (int) (j * (sizeheight) * .75), 25, 1);
-                                seenText.setPadding((int) ((sizewidth) * .3), (int) (sizewidth * .5), 50, 0);
-
-
-                                seenicon.setOnClickListener(v -> {
-                                    setmovieSeen();
-                                    currentid = id.get(finalI);
-                                    currentname = title.get(finalI);
-                                    currentimg = img.get(finalI);
-
-                                    Picasso.get().load(R.drawable.check).into(seenicon);
-                                    seenicon.setEnabled(false);
-                                    seenText.setText("Seen");
-                                    seenText.setEnabled(false);
-
-                                });
-
-                                seenText.setOnClickListener(v -> {
-                                    setmovieSeen();
-
-                                    currentid = id.get(finalI);
-                                    currentname = title.get(finalI);
-                                    currentimg = img.get(finalI);
-
-                                    Picasso.get().load(R.drawable.check).into(seenicon);
-                                    seenicon.setEnabled(false);
-                                    seenText.setText("Seen");
-                                    seenText.setEnabled(false);
-                                });
-
-
-                                likeButton.setOnClickListener(new View.OnClickListener() {
-                                    @Override
-                                    public void onClick(View v) {
-                                        like(currentid, currentname, currentimg, true);
-                                        addSeenMovies(currentid);
-
-                                    }
-                                });
-
-                                dislikeButton.setOnClickListener(new View.OnClickListener() {
-                                    @Override
-                                    public void onClick(View v) {
-
-                                        like(currentid, currentname, currentimg, false);
-                                        addSeenMovies(currentid);
-
-                                    }
-
-                                });
-
-                            }
-
-                        }
-
-                    }
-
-                }
-            }
-        });
+        Constants.INSTANCE.isEmptyFavouriteList().observe(getViewLifecycleOwner(),hasSavedMoviesObserver);
+//
+//
+//        docRef.get().addOnCompleteListener(task -> {
+//            if (task.isSuccessful()) {
+//                DocumentSnapshot document = task.getResult();
+//                if (document.exists()) {
+//
+//                    id = (ArrayList<String>) document.get("id");
+//                    img = (ArrayList<String>) document.get("img");
+//                    title = (ArrayList<String>) document.get("title");
+//                    type = (ArrayList<String>) document.get("type");
+//                    year = (ArrayList<String>) document.get("year");
+//                    firstText = (ArrayList<String>) document.get("firstText");
+//                    secondText = (ArrayList<String>) document.get("secondText");
+//                    duration = (ArrayList<String>) document.get("duration");
+//
+//                    int limit = id.size();
+//                    if (limit > 0) {
+//
+//                        RelativeLayout layout = root.findViewById(R.id.Scroll_Relative);
+//                        int j = -1;
+//                        for (int i = 0; i < limit; i++) {
+//
+//                            int sizeheight = (int) (getScreenHeight(getContext()) * 0.5);
+//                            int sizewidth = (getScreenWidth(getContext()));
+//                            int finalI = i;
+//
+//
+//                            //Don't show contents that are already seen if the mode is off
+//                            if (!ShouldShowSeenContent && isSeen(id.get(finalI)))
+//                                showCurrentContent = false;
+//                            else
+//                                showCurrentContent = true; //Show Seen Content is on, So show everything
+//
+//                            if (showCurrentContent) {
+//                                j++;
+//                                ImageView image = new ImageView(getContext());
+//                                image.setLayoutParams(new ViewGroup.LayoutParams(1400, (int) ((int) (sizeheight) * .6)));
+//                                Picasso.get().load(img.get(i).trim())
+//                                        .transform(new RoundedTransformation(50, 0))
+//                                        .fit()
+//                                        .centerCrop(700)
+//                                        .into(image);
+//                                image.setTranslationZ(0);
+//                                layout.addView(image);
+//                                Search.setMargins(image, 25, (int) (j * (sizeheight) * .75), 25, 1);
+//
+//
+//                                ImageView filter = new ImageView(getContext());
+//                                filter.setLayoutParams(new ViewGroup.LayoutParams(1400, (int) ((int) (sizeheight) * .6)));
+//                                Picasso.get().load(R.drawable.black_filer_resource).transform(new RoundedTransformation(50, 0)).fit().centerCrop(700).into(filter);
+//                                filter.setTranslationZ(0);
+//                                layout.addView(filter);
+//                                Search.setMargins(filter, 25, (int) (j * (sizeheight) * .75), 25, 1);
+//
+//
+//                                TextView titleText = new TextView(getContext());
+//                                titleText.setText(title.get(i));
+//                                titleText.setTypeface(boldface);
+//                                titleText.setTextColor(Color.WHITE);
+//                                titleText.setPadding(25, 250, 25, 0);
+//                                titleText.setTextSize(22);
+//                                titleText.bringToFront();
+//                                titleText.setTranslationZ(2);
+//                                titleText.setElevation(2);
+//                                layout.addView(titleText);
+//                                Search.setMargins(titleText, 25, (int) (j * (sizeheight) * .75), 25, 1);
+//                                titleText.setPadding(25, (int) (sizewidth * .2), 50, 0);
+//
+//                                titleText.setOnClickListener(v -> {
+//                                    blackbg.setVisibility(View.VISIBLE);
+//                                    progressBar.setVisibility(View.VISIBLE);
+//
+//                                    openMovieDetail(
+//                                            id.get(finalI),
+//                                            img.get(finalI),
+//                                            title.get(finalI),
+//                                            type.get(finalI),
+//                                            year.get(finalI),
+//                                            firstText.get(finalI),
+//                                            secondText.get(finalI),
+//                                            duration.get(finalI));
+//                                });
+//
+//
+//                                ImageView seenicon = new ImageView(getContext());
+//                                if (isSeen(id.get(finalI))) {
+//                                    Picasso.get().load(R.drawable.check).into(seenicon);
+//                                    seenicon.setEnabled(false);
+//                                } else {
+//                                    Picasso.get().load(R.drawable.seen).into(seenicon);
+//                                }
+//                                seenicon.bringToFront();
+//                                layout.addView(seenicon);
+//                                Search.setMargins(seenicon, (int) (sizewidth * .05), (int) (j * (sizeheight) * .75), 25, 1);
+//                                seenicon.setPadding((int) ((sizewidth) * .3), (int) (sizewidth * .505), 50, 0);
+//
+//                                TextView seenText = new TextView(getContext());
+//                                if (isSeen(id.get(finalI))) {
+//                                    seenText.setText("Seen");
+//                                    seenText.setEnabled(false);
+//                                } else {
+//                                    seenText.setText("Set as seen");
+//                                }
+//
+//                                seenText.setTypeface(face);
+//                                seenText.setTextColor(Color.WHITE);
+//                                seenText.setTextSize(16);
+//                                seenText.bringToFront();
+//                                layout.addView(seenText);
+//                                Search.setMargins(seenText, (int) (sizewidth * .15), (int) (j * (sizeheight) * .75), 25, 1);
+//                                seenText.setPadding((int) ((sizewidth) * .3), (int) (sizewidth * .5), 50, 0);
+//
+//
+//                                seenicon.setOnClickListener(v -> {
+//                                    setmovieSeen();
+//                                    currentid = id.get(finalI);
+//                                    currentname = title.get(finalI);
+//                                    currentimg = img.get(finalI);
+//
+//                                    Picasso.get().load(R.drawable.check).into(seenicon);
+//                                    seenicon.setEnabled(false);
+//                                    seenText.setText("Seen");
+//                                    seenText.setEnabled(false);
+//
+//                                });
+//
+//                                seenText.setOnClickListener(v -> {
+//                                    setmovieSeen();
+//
+//                                    currentid = id.get(finalI);
+//                                    currentname = title.get(finalI);
+//                                    currentimg = img.get(finalI);
+//
+//                                    Picasso.get().load(R.drawable.check).into(seenicon);
+//                                    seenicon.setEnabled(false);
+//                                    seenText.setText("Seen");
+//                                    seenText.setEnabled(false);
+//                                });
+//
+//
+//                                likeButton.setOnClickListener(new View.OnClickListener() {
+//                                    @Override
+//                                    public void onClick(View v) {
+//                                        like(currentid, currentname, currentimg, true);
+//                                        addSeenMovies(currentid);
+//
+//                                    }
+//                                });
+//
+//                                dislikeButton.setOnClickListener(new View.OnClickListener() {
+//                                    @Override
+//                                    public void onClick(View v) {
+//
+//                                        like(currentid, currentname, currentimg, false);
+//                                        addSeenMovies(currentid);
+//
+//                                    }
+//
+//                                });
+//
+//                            }
+//
+//                        }
+//
+//                    }
+//
+//                }
+//            }
+//        });
 
 
         return root;

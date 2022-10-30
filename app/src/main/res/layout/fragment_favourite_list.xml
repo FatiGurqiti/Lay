@@ -11,9 +11,9 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:src="@drawable/full_black_filter"
-        android:visibility="invisible"
-        android:translationZ="1dp"
-        android:elevation="1dp"
+        android:visibility="gone"
+        android:translationZ="3dp"
+        android:elevation="3dp"
         />
 
     <ProgressBar
@@ -30,9 +30,9 @@
         android:id="@+id/fragment_favourite_list_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:clickable="true"
-        android:focusable="true"
         android:layout_marginTop="80dp"
+        android:translationZ="2dp"
+        android:elevation="2dp"
         />
 
     <ImageView
@@ -69,8 +69,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-
-
     <androidx.cardview.widget.CardView
         android:id="@+id/afterRate"
         android:layout_width="match_parent"
@@ -94,13 +92,10 @@
             android:fontFamily="@font/plusjakartatextregular"
             android:layout_marginTop="100dp"
             />
-
-
     </androidx.cardview.widget.CardView>
 
-
     <androidx.cardview.widget.CardView
-        android:id="@+id/ratepop"
+        android:id="@+id/ratePop"
         android:layout_width="match_parent"
         android:layout_height="250dp"
         android:background="@color/black"
@@ -110,6 +105,8 @@
         android:layout_marginEnd="50dp"
         android:layout_marginTop="250dp"
         app:cardCornerRadius="15dp"
+        android:elevation="4dp"
+        android:translationZ="4dp"
         android:visibility="invisible"
         >
 
@@ -174,7 +171,6 @@
         android:layout_centerVertical="true"
         android:layout_marginTop="120dp"
         android:layout_marginBottom="60dp">
-
 
         <RelativeLayout
             android:id="@+id/Scroll_Relative"

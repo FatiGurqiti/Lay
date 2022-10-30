@@ -34,7 +34,7 @@ class MainScreenViewModel : ViewModel() {
 
         docRef.get().addOnCompleteListener { task ->
             if (task.isSuccessful) {
-                val document: DocumentSnapshot = task.getResult()
+                val document: DocumentSnapshot = task.result
                 Constants.isEmptyFavouriteList.value = (document.exists())
             }
         }

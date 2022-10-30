@@ -21,5 +21,6 @@ object Constants {
     var canShowUserName = false
 
     var isInternetAvailable = false
+
     val isEmptyFavouriteList: MutableLiveData<Boolean> by lazy { MutableLiveData<Boolean>() }
 }

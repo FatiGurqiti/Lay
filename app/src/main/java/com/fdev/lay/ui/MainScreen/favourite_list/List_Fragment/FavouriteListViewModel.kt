@@ -2,7 +2,7 @@ package com.fdev.lay.ui.MainScreen.favourite_list.List_Fragment
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.fdev.lay.common.models.local.SavedMovieModel
+import com.fdev.lay.models.SavedMovieModel
 import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.DocumentSnapshot

@@ -11,14 +11,8 @@ import androidx.core.view.isGone
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
 import com.fdev.lay.R
+import com.fdev.lay.models.MovieAdapterModel
 import com.squareup.picasso.Picasso
-
-data class MovieAdapterModel(
-    val id: String,
-    val cardImageUrl: String,
-    val cardTitleText: String,
-    val isSeen: Boolean
-)
 
 class FavouriteListAdapter(
     private val items: List<MovieAdapterModel>,

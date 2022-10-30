@@ -112,7 +112,6 @@
     <string name="title_activity_first_time2">FirstTime2</string>
     <string name="tab_text_1">Tab 1</string>
     <string name="tab_text_2">Tab 2</string>
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="hyperlink">By the way I am from a planet called freepik \n  Here is my creator: <a href="google.com">Freepik</a></string>
     <string name="hyperlink2">By the way I am from a planet called freepik \n  Here is my creator: <a href="shorturl.at/ezBF5">Freepik</a></string>

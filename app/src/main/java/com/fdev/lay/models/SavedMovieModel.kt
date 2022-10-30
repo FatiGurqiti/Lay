@@ -1,4 +1,4 @@
-package com.fdev.lay.common.models.local
+package com.fdev.lay.models
 
 data class SavedMovieModel(
     val id: ArrayList<String>,

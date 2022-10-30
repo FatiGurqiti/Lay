@@ -10,11 +10,10 @@
         android:id="@+id/homeBlackFilter"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:src="@drawable/full_black_filter"
-        android:visibility="gone"
-        android:translationZ="3dp"
         android:elevation="3dp"
-        />
+        android:src="@drawable/full_black_filter"
+        android:translationZ="3dp"
+        android:visibility="gone" />
 
     <ProgressBar
         android:id="@+id/progressbarinMyList"
@@ -32,9 +31,8 @@
         android:layout_height="match_parent"
         android:layout_marginTop="80dp"
         android:layout_marginBottom="50dp"
-        android:translationZ="2dp"
         android:elevation="2dp"
-        />
+        android:translationZ="2dp" />
 
     <ImageView
         android:id="@+id/imageView3"
@@ -51,9 +49,9 @@
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
         android:layout_centerHorizontal="true"
+        android:fontFamily="@font/plusjakartatextregular"
         android:gravity="left|center"
         android:text=" \t Welcome, here's your favourite list"
-        android:fontFamily="@font/plusjakartatextregular"
         android:textColor="@color/white"
         android:textSize="16sp" />
 
@@ -74,91 +72,113 @@
         android:id="@+id/afterRate"
         android:layout_width="match_parent"
         android:layout_height="250dp"
-        android:background="@color/black"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:layout_marginStart="50dp"
-        android:layout_marginEnd="50dp"
         android:layout_marginTop="250dp"
+        android:layout_marginEnd="50dp"
+        android:background="@color/black"
         android:foregroundGravity="center"
-        app:cardCornerRadius="15dp"
         android:visibility="invisible"
-        >
+        app:cardCornerRadius="15dp">
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_marginTop="100dp"
+            android:fontFamily="@font/plusjakartatextregular"
             android:text="Thank you for your contribution"
             android:textAlignment="center"
-            android:textSize="22dp"
-            android:fontFamily="@font/plusjakartatextregular"
-            android:layout_marginTop="100dp"
-            />
+            android:textSize="22dp" />
     </androidx.cardview.widget.CardView>
 
     <androidx.cardview.widget.CardView
         android:id="@+id/ratePop"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/black"
-        android:layout_margin="15dp"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
-        app:cardCornerRadius="15dp"
+        android:layout_margin="15dp"
+        android:background="@color/black"
         android:elevation="4dp"
         android:translationZ="4dp"
         android:visibility="gone"
-        >
+        app:cardCornerRadius="15dp">
 
-        <TextView
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="So, what do you think?"
-            android:textAlignment="center"
-            android:textSize="22dp"
-            android:fontFamily="@font/plusjakartatextregular"
-            android:layout_marginTop="30dp"
-            />
+            android:layout_height="match_parent">
 
-        <ImageButton
-            android:id="@+id/likeButton"
-            android:layout_width="150dp"
-            android:layout_height="100dp"
-            android:layout_marginTop="80dp"
-            android:background="@android:color/transparent"
-            android:src="@drawable/like" />
+            <TextView
+                android:id="@+id/rateText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:fontFamily="@font/plusjakartatextregular"
+                android:text="So, what do you think?"
+                android:textAlignment="center"
+                android:textSize="22dp"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                />
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Nice"
-            android:textAlignment="center"
-            android:textSize="22dp"
-            android:layout_marginRight="170dp"
-            android:fontFamily="@font/plusjakartatextregular"
-            android:layout_marginTop="200dp"
-            />
+            <ImageButton
+                android:id="@+id/likeButton"
+                android:layout_width="150dp"
+                android:layout_height="100dp"
+                android:layout_margin="20dp"
+                android:background="@android:color/transparent"
+                android:clickable="true"
+                android:src="@drawable/like"
+                app:layout_constraintTop_toBottomOf="@+id/rateText"
+                app:layout_constraintStart_toStartOf="parent"
 
-        <ImageButton
-            android:id="@+id/dislikeButton"
-            android:layout_width="150dp"
-            android:layout_height="100dp"
-            android:layout_marginTop="90dp"
-            android:layout_marginLeft="160dp"
-            android:background="@android:color/transparent"
-            android:src="@drawable/dislike" />
+                />
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Nah"
-            android:textAlignment="center"
-            android:textSize="22dp"
-            android:layout_marginLeft="160dp"
-            android:fontFamily="@font/plusjakartatextregular"
-            android:layout_marginTop="200dp"
-            />
+            <TextView
+                android:id="@+id/niceText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:fontFamily="@font/plusjakartatextregular"
+                android:text="Nice"
+                android:textAlignment="center"
+                android:textSize="22dp"
+                app:layout_constraintTop_toBottomOf="@+id/likeButton"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="@+id/likeButton"
+                app:layout_constraintBottom_toBottomOf="parent"
+                />
 
+            <ImageButton
+                android:id="@+id/dislikeButton"
+                android:layout_width="150dp"
+                android:layout_height="100dp"
+                android:layout_margin="20dp"
+                android:background="@android:color/transparent"
+                android:src="@drawable/dislike"
+                android:clickable="true"
+                app:layout_constraintTop_toBottomOf="@+id/rateText"
+                app:layout_constraintEnd_toEndOf="parent"
+                />
+
+            <TextView
+                android:id="@+id/nahText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:fontFamily="@font/plusjakartatextregular"
+                android:text="Nah"
+                android:textAlignment="center"
+                android:textSize="22dp"
+                app:layout_constraintTop_toBottomOf="@+id/dislikeButton"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/dislikeButton"
+                app:layout_constraintBottom_toBottomOf="parent"
+                />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
 
 
@@ -176,8 +196,7 @@
             android:id="@+id/Scroll_Relative"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
-        </RelativeLayout>
+            android:orientation="vertical"></RelativeLayout>
     </ScrollView>
 
 

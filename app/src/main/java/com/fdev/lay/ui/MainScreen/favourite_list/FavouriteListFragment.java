@@ -88,7 +88,6 @@ public class FavouriteListFragment extends Fragment {
 
         sharedViewModel = new ViewModelProvider(requireActivity()).get(MainScreenViewModel.class);
 
-        getSeenMovies();
         View root = inflater.inflate(R.layout.fragment_favourite_list, container, false);
 
         Typeface face = getResources().getFont(R.font.plusjakartatextregular);   // Font-Family
@@ -123,7 +122,7 @@ public class FavouriteListFragment extends Fragment {
 
         final Observer<Boolean> hasSavedMoviesObserver = hasSavedMovies -> {
             if (hasSavedMovies) {
-                FavouriteListViewFragment favouriteListViewFragment = new FavouriteListViewFragment(pop, blackbg);
+                FavouriteListViewFragment favouriteListViewFragment = new FavouriteListViewFragment(pop, likeButton, dislikeButton, blackbg);
                 requireActivity().getSupportFragmentManager().beginTransaction()
                         .replace(R.id.fragment_favourite_list_view, favouriteListViewFragment)
                         .commit();
@@ -318,56 +317,9 @@ public class FavouriteListFragment extends Fragment {
         progressBar.setVisibility(View.INVISIBLE);
     }
 
-    private void like(String id, String name, String img, Boolean like) {
-
-
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
-        CollectionReference movieRate = db.collection("MovieRate");
-
-
-        String TAG = "rateMovie";
-        DocumentReference docRef = db.collection("MovieRate").document(id);
-        docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                if (task.isSuccessful()) {
-                    DocumentSnapshot document = task.getResult();
-                    if (document.exists()) {
-                        int rate = document.getLong("rate").intValue();
-
-                        if (like) docRef.update("rate", rate + 1);
-                        else {
-                            if (rate > 1) docRef.update("rate", rate - 1);
-                        }
-
-                    } else {
-
-                        Map<String, String> MovieRate = new HashMap<>();
-                        MovieRate.put("id", id);
-                        MovieRate.put("name", name);
-                        MovieRate.put("img", img);
-                        if (like) MovieRate.put("rate", "1");
-
-                        db.collection("MovieRate").document(id)
-                                .set(MovieRate);
-
-                        docRef.update("rate", 1);
-                    }
-                }
-            }
-        });
-
-        afterRate();
-    }
-
-
-    private void setmovieSeen() {
-        pop.setVisibility(View.VISIBLE);
-        blackbg.setVisibility(View.VISIBLE);
-    }
-
     private void openMovieDetail(String MovieID, String MoviePhoto, String MovieTitle, String MovieType, String MovieYear, String MovieFirstText, String MovieSecondText, String MovieDuration) {
 
+        //TODO(//Make whole this data as a data class and pass it from favouritelistviewFragment)
         Intent intent = new Intent(getContext(), SavedMovieDetails.class);
         intent.putExtra("MovieID", MovieID);
         intent.putExtra("MoviePhoto", MoviePhoto);
@@ -395,103 +347,6 @@ public class FavouriteListFragment extends Fragment {
         return displayMetrics.widthPixels;
     }
 
-    private void afterRate() {
-
-        popafter.setVisibility(View.VISIBLE);
-        pop.setVisibility(View.INVISIBLE);
-        Timer timer = new Timer();
-        timer.schedule(new TimerTask() {
-                           @Override
-                           public void run() {
-                               popafter.setVisibility(View.INVISIBLE);
-                               blackbg.setVisibility(View.INVISIBLE);
-                           }
-                       }
-                , 1000
-        );
-    }
-
-    private void getSeenMovies() {
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-
-        DocumentReference docRef = db.collection("SeenMovies").document(user.getUid());
-        docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-
-                if (task.isSuccessful()) {
-                    DocumentSnapshot document = task.getResult();
-                    if (document.exists()) {
-                        localarrayList = (ArrayList<String>) document.get("id");
-                    }
-                }
-            }
-        });
-    }
-
-    private void addSeenMovies(String id) {
-
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-
-        String TAG = "SeenMoviesFirebaseStatus";
-        DocumentReference docRef = db.collection("SeenMovies").document(user.getUid());
-
-        //Get previous data
-        docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-
-                if (task.isSuccessful()) {
-                    DocumentSnapshot document = task.getResult();
-                    if (document.exists()) {
-                        arrayList = (ArrayList<String>) document.get("id");
-
-                    } else {
-                        arrayList.add(id);
-                        Map<String, ArrayList> seenMovie = new HashMap<>();
-                        seenMovie.put("id", arrayList);
-
-                        db.collection("SeenMovies")
-                                .document(user.getUid())
-                                .set(seenMovie);
-                    }
-                }
-                if (arrayList.size() > 0) {
-                    for (int i = 0; i < arrayList.size(); i++) {
-                        if (!arrayList.get(i).equals(id)) {
-                            arrayList.add(id);
-                        }
-                        //Removes duplicated data
-                        if (i + 1 < arrayList.size()) {
-                            if (arrayList.get(i).equals(arrayList.get(i + 1))) {
-                                arrayList.remove(i + 1);
-                            }
-                        }
-                    }
-                    Map<String, ArrayList> data = new HashMap<>();
-                    data.put("id", arrayList);
-
-                    db.collection("SeenMovies").document(user.getUid())
-                            .set(data, SetOptions.merge());
-
-                }
-            }
-        });
-
-
-    }
-
-    private boolean isSeen(String id) {
-        boolean result = false;
-        for (int i = 0; i < localarrayList.size(); i++) {
-            if (id.equals(localarrayList.get(i))) {
-                result = true;
-            }
-        }
-        return result;
-    }
 
 
     public static String getUsername() {

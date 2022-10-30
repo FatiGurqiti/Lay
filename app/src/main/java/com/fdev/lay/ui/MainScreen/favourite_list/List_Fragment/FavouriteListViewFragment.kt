@@ -1,24 +1,25 @@
 package com.fdev.lay.ui.MainScreen.favourite_list.List_Fragment
 
-import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageButton
 import android.widget.ImageView
 import androidx.cardview.widget.CardView
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.RecyclerView
 import com.fdev.lay.R
 
 class FavouriteListViewFragment(
-    pop: CardView,
-    blackBg: ImageView
+    private val pop: CardView,
+    private val likeButton: ImageButton,
+    private val dislikeButton: ImageButton,
+    private val blackBg: ImageView
 ) : Fragment() {
 
     private lateinit var viewModel: FavouriteListViewModel
-    private val ratePop = pop
-    private val blackFilter = blackBg
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -32,23 +33,31 @@ class FavouriteListViewFragment(
         viewModel = ViewModelProvider(this)[FavouriteListViewModel::class.java]
 
         viewModel.savedMovieDetailsLiveData.observe(viewLifecycleOwner) { savedMovie ->
-
-            val items: MutableList<MovieAdapterModel> = arrayListOf()
-
-            for (i in 0 until savedMovie.id.size) {
-                items.add(
-                    MovieAdapterModel(
-                        cardTitleText = savedMovie.title[i],
-                        cardImageUrl = savedMovie.imgURL[i],
-                        isSeen = false
+            viewModel.savedMovieIds.observe(viewLifecycleOwner) { seenMovie ->
+                val items: MutableList<MovieAdapterModel> = arrayListOf()
+                for (i in 0 until savedMovie.id.size) {
+                    items.add(
+                        MovieAdapterModel(
+                            id = savedMovie.id[i],
+                            cardTitleText = savedMovie.title[i],
+                            cardImageUrl = savedMovie.imgURL[i],
+                            isSeen = savedMovie.id[i] in seenMovie
+                        )
                     )
-                )
-            }
-            FavouriteListAdapter(items, ratePop, blackFilter).also { movieAdapter ->
-                view.findViewById<RecyclerView>(R.id.favouriteListRecycleView)
-                    .apply {
-                        adapter = movieAdapter
-                    }
+                }
+                FavouriteListAdapter(
+                    items,
+                    viewModel,
+                    pop,
+                    likeButton,
+                    dislikeButton,
+                    blackBg
+                ).also { movieAdapter ->
+                    view.findViewById<RecyclerView>(R.id.favouriteListRecycleView)
+                        .apply {
+                            adapter = movieAdapter
+                        }
+                }
             }
         }
     }

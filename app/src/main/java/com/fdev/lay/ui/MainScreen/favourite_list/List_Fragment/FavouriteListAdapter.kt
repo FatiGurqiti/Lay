@@ -1,9 +1,9 @@
 package com.fdev.lay.ui.MainScreen.favourite_list.List_Fragment
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.cardview.widget.CardView
@@ -14,6 +14,7 @@ import com.fdev.lay.R
 import com.squareup.picasso.Picasso
 
 data class MovieAdapterModel(
+    val id: String,
     val cardImageUrl: String,
     val cardTitleText: String,
     val isSeen: Boolean
@@ -21,11 +22,12 @@ data class MovieAdapterModel(
 
 class FavouriteListAdapter(
     private val items: List<MovieAdapterModel>,
-    ratePop: CardView,
+    private val viewModel: FavouriteListViewModel,
+    private val ratePop: CardView,
+    private val likeButton: ImageView,
+    private val dislikeButton: ImageButton,
     private val blackFilter: ImageView
 ) : RecyclerView.Adapter<FavouriteListAdapter.ViewHolder>() {
-
-    private val pop = ratePop
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val image: ImageView = itemView.findViewById(R.id.cardImage)
@@ -58,21 +60,46 @@ class FavouriteListAdapter(
             holder.text.text = "Seen"
             holder.icon.setImageResource(R.drawable.check)
 
-            holder.text.setOnClickListener {
-                Log.i("naber", "zaten seen amk")
-            }
         } else {
             holder.text.text = "Set as seen"
             holder.icon.setImageResource(R.drawable.calendar)
 
             holder.text.setOnClickListener {
                 blackFilter.isVisible = true
-                pop.isVisible = true
+                ratePop.isVisible = true
             }
 
             blackFilter.setOnClickListener {
                 it.isGone = true
-                pop.isGone = true
+                ratePop.isGone = true
+            }
+
+            likeButton.setOnClickListener {
+                viewModel.like(
+                    itemModel.id,
+                    itemModel.cardTitleText,
+                    itemModel.cardImageUrl,
+                    true
+                )
+                viewModel.addSeenMovies(itemModel.id)
+                ratePop.isGone = true
+                blackFilter.isGone = true
+                holder.text.text = "Seen"
+                holder.icon.setImageResource(R.drawable.check)
+            }
+
+            dislikeButton.setOnClickListener {
+                viewModel.like(
+                    itemModel.id,
+                    itemModel.cardTitleText,
+                    itemModel.cardImageUrl,
+                    false
+                )
+                viewModel.addSeenMovies(itemModel.id)
+                ratePop.isGone = true
+                blackFilter.isGone = true
+                holder.text.text = "Seen"
+                holder.icon.setImageResource(R.drawable.check)
             }
         }
 

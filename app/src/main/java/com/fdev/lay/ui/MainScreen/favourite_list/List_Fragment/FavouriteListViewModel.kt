@@ -35,14 +35,14 @@ class FavouriteListViewModel : ViewModel() {
                 val document: DocumentSnapshot = task.getResult()
                 if (document.exists()) {
                     savedMovieDetailsLiveData.value = SavedMovieListModel(
-                        id = document.get("id") as ArrayList<String>,
-                        imgURL = document.get("img") as ArrayList<String>,
-                        title = document.get("title") as ArrayList<String>,
-                        type = document.get("type") as ArrayList<String>,
-                        year = document.get("year") as ArrayList<String>,
-                        firstText = document.get("firstText") as ArrayList<String>,
-                        secondText = document.get("secondText") as ArrayList<String>,
-                        duration = document.get("duration") as ArrayList<String>
+                        id = (document.get("id") as ArrayList<*>).distinct() as ArrayList<String>,
+                        imgURL = (document.get("img") as ArrayList<*>).distinct() as ArrayList<String>,
+                        title = (document.get("title") as ArrayList<*>).distinct() as ArrayList<String>,
+                        type = (document.get("type") as ArrayList<*>).distinct() as ArrayList<String>,
+                        year = (document.get("year") as ArrayList<*>).distinct() as ArrayList<String>,
+                        firstText = (document.get("firstText") as ArrayList<*>).distinct() as ArrayList<String>,
+                        secondText = (document.get("secondText")as ArrayList<*>).distinct() as ArrayList<String>,
+                        duration = (document.get("duration") as ArrayList<*>).distinct() as ArrayList<String>
                     )
                 }
             }

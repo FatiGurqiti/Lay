@@ -119,6 +119,9 @@ public class MovieDetails extends AppCompatActivity {
 
             });
 
+            if (firstText.getText().toString().equals(secondText.getText().toString()))
+                readMore.setVisibility(View.GONE);
+
             readMore.setOnClickListener(v -> {
                 secondText.setVisibility(View.VISIBLE);
                 readMore.setVisibility(View.INVISIBLE);

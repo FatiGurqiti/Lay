@@ -80,7 +80,9 @@ public class MovieDetailsViewModel extends ViewModel {
         type.setText(Type);
         firstText.setText(FistText);
         secondText.setText(SecondText);
-        secondText.setVisibility(View.INVISIBLE);
+
+        if (FistText.equals(SecondText))
+            secondText.setVisibility(View.GONE);
 
         if (!isLiteMode){
 

@@ -9,7 +9,6 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
-import com.fdev.lay.common.models.MovieModel;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
@@ -88,7 +87,6 @@ public class SavedMovieDetails extends AppCompatActivity {
         save = findViewById(R.id.save);
         saved = findViewById(R.id.saved);
 
-        TextView readMore = findViewById(R.id.readMore);
         TextView firstText = findViewById(R.id.firstText);
         TextView secondText = findViewById(R.id.secondText);
         TextView title = findViewById(R.id.title);
@@ -103,6 +101,7 @@ public class SavedMovieDetails extends AppCompatActivity {
         type.setText(movieType);
         firstText.setText(fistText);
         secondText.setText(SecondText);
+        if (fistText.equals(SecondText)) secondText.setVisibility(View.GONE);
 
         intianalizeOldData();
 
@@ -142,7 +141,6 @@ public class SavedMovieDetails extends AppCompatActivity {
 
 
     void saveMovie() {
-
         // add new array list to the old one
         if (mapid != null) // User has previously saved data
         {

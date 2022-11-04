@@ -23,6 +23,7 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import com.fdev.lay.common.Constants;
 import com.fdev.lay.R;
+import com.fdev.lay.common.Instants;
 import com.fdev.lay.ui.MainScreen.MainScreenViewModel;
 import com.fdev.lay.ui.MainScreen.favourite_list.List_Fragment.EmptyFavouritesFragment;
 import com.fdev.lay.ui.MainScreen.favourite_list.List_Fragment.FavouriteListViewFragment;
@@ -99,9 +100,6 @@ public class FavouriteListFragment extends Fragment {
         progressBar = root.findViewById(R.id.progressbarinMyList);
         ImageButton likeButton = root.findViewById(R.id.likeButton);
         ImageButton dislikeButton = root.findViewById(R.id.dislikeButton);
-        CuteRobot = root.findViewById(R.id.cuteRobot);
-        NoFavouriteText = root.findViewById(R.id.noFavouriteText);
-        FirstReference = root.findViewById(R.id.firstReference);
         TextView WelcomeText = root.findViewById(R.id.welcomeText);
 
         final Observer<String> usernameObserver = observedUsername -> {
@@ -133,7 +131,7 @@ public class FavouriteListFragment extends Fragment {
                         .commit();
             }
         };
-        Constants.INSTANCE.isEmptyFavouriteList().observe(getViewLifecycleOwner(),hasSavedMoviesObserver);
+        Instants.INSTANCE.isEmptyFavouriteList().observe(getViewLifecycleOwner(),hasSavedMoviesObserver);
 //
 //
 //        docRef.get().addOnCompleteListener(task -> {
@@ -330,7 +328,6 @@ public class FavouriteListFragment extends Fragment {
         intent.putExtra("MovieSecondText", MovieSecondText);
         intent.putExtra("MovieDuration", MovieDuration);
         startActivity(intent);
-
     }
 
     public int getScreenHeight(Context context) {

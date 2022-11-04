@@ -1,5 +1,13 @@
 @file:JvmName("InstantsUtils")
+
 package com.fdev.lay.common
 
-class Instants {
+import androidx.lifecycle.MutableLiveData
+
+object Instants {
+    var canShowUserName = false
+
+    var isInternetAvailable = false
+
+    val isEmptyFavouriteList: MutableLiveData<Boolean> by lazy { MutableLiveData<Boolean>() }
 }

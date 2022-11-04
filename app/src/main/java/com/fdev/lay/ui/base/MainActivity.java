@@ -10,6 +10,7 @@ import android.os.StrictMode;
 import android.widget.TextView;
 import com.fdev.lay.R;
 import com.fdev.lay.common.Constants;
+import com.fdev.lay.common.Instants;
 import com.fdev.lay.common.utils.Utils;
 import com.fdev.lay.data.local.database.Account;
 import com.fdev.lay.data.local.database.DatabaseHandler;
@@ -109,12 +110,12 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void checkInternet(){
-        Constants.INSTANCE.setInternetAvailable(Utils.isNetworkAvailable(this));
+        Instants.INSTANCE.setInternetAvailable(Utils.isNetworkAvailable(this));
     }
 
     private void canSetUserName(){
-        if (Constants.INSTANCE.isInternetAvailable() && !firstTime && dbHandler.getIsLoggedIn())
-            Constants.INSTANCE.setCanShowUserName(true);
+        if (Instants.INSTANCE.isInternetAvailable() && !firstTime && dbHandler.getIsLoggedIn())
+        Instants.INSTANCE.setCanShowUserName(true);
     }
 
     public static String getToken() {

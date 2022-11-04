@@ -4,7 +4,8 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.fdev.lay.common.Constants
-import com.fdev.lay.common.Constants.canShowUserName
+import com.fdev.lay.common.Instants
+import com.fdev.lay.common.Instants.canShowUserName
 import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.DocumentSnapshot
@@ -35,7 +36,7 @@ class MainScreenViewModel : ViewModel() {
         docRef.get().addOnCompleteListener { task ->
             if (task.isSuccessful) {
                 val document: DocumentSnapshot = task.result
-                Constants.isEmptyFavouriteList.value = (document.exists())
+                Instants.isEmptyFavouriteList.value = (document.exists())
             }
         }
     }

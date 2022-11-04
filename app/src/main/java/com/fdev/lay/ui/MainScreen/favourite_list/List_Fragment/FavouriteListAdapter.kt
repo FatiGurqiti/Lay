@@ -13,7 +13,7 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.fdev.lay.R
-import com.fdev.lay.models.MovieAdapterModel
+import com.fdev.lay.common.models.MovieAdapterModel
 import com.fdev.lay.ui.movieDetails.SavedMovieDetails
 import com.squareup.picasso.Picasso
 

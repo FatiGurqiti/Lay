@@ -1,6 +1,6 @@
-package com.fdev.lay.models
+package com.fdev.lay.common.models
 
-data class SavedMovieModel(
+data class SavedMovieListModel(
     val id: ArrayList<String>,
     val imgURL: ArrayList<String>,
     val title: ArrayList<String>,

@@ -2,7 +2,7 @@ package com.fdev.lay.ui.MainScreen.favourite_list.List_Fragment
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.fdev.lay.models.SavedMovieModel
+import com.fdev.lay.common.models.SavedMovieListModel
 import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.DocumentSnapshot
@@ -15,7 +15,7 @@ import java.util.*
 import kotlin.collections.ArrayList
 
 class FavouriteListViewModel : ViewModel() {
-    val savedMovieDetailsLiveData: MutableLiveData<SavedMovieModel> by lazy { MutableLiveData<SavedMovieModel>() }
+    val savedMovieDetailsLiveData: MutableLiveData<SavedMovieListModel> by lazy { MutableLiveData<SavedMovieListModel>() }
     val savedMovieIds: MutableLiveData<ArrayList<String>> by lazy { MutableLiveData<ArrayList<String>>() }
 
     init {
@@ -34,7 +34,7 @@ class FavouriteListViewModel : ViewModel() {
             if (task.isSuccessful) {
                 val document: DocumentSnapshot = task.getResult()
                 if (document.exists()) {
-                    savedMovieDetailsLiveData.value = SavedMovieModel(
+                    savedMovieDetailsLiveData.value = SavedMovieListModel(
                         id = document.get("id") as ArrayList<String>,
                         imgURL = document.get("img") as ArrayList<String>,
                         title = document.get("title") as ArrayList<String>,

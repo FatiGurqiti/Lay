@@ -11,7 +11,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.RecyclerView
 import com.fdev.lay.R
-import com.fdev.lay.models.MovieAdapterModel
+import com.fdev.lay.common.models.MovieAdapterModel
 
 class FavouriteListViewFragment(
     private val pop: CardView,

@@ -1,4 +1,4 @@
-package com.fdev.lay.models
+package com.fdev.lay.common.models
 
 data class MovieAdapterModel(
     val id: String,

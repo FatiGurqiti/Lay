@@ -1,5 +1,6 @@
 package com.fdev.lay.ui.MainScreen.favourite_list.List_Fragment
 
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,9 +10,11 @@ import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.core.view.isGone
 import androidx.core.view.isVisible
+import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.fdev.lay.R
 import com.fdev.lay.models.MovieAdapterModel
+import com.fdev.lay.ui.movieDetails.SavedMovieDetails
 import com.squareup.picasso.Picasso
 
 class FavouriteListAdapter(
@@ -20,7 +23,8 @@ class FavouriteListAdapter(
     private val ratePop: CardView,
     private val likeButton: ImageView,
     private val dislikeButton: ImageButton,
-    private val blackFilter: ImageView
+    private val blackFilter: ImageView,
+    private val activity: FragmentActivity
 ) : RecyclerView.Adapter<FavouriteListAdapter.ViewHolder>() {
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -49,6 +53,25 @@ class FavouriteListAdapter(
             .fit()
             .centerCrop()
             .into(holder.image)
+
+        holder.title.setOnClickListener {
+            with(activity) {
+                viewModel.savedMovieDetailsLiveData.observe(this) {
+                    val intent = Intent(this, SavedMovieDetails::class.java)
+                    intent.apply {
+                        putExtra("MovieID", it.id[position])
+                        putExtra("MoviePhoto", it.imgURL[position])
+                        putExtra("MovieTitle", it.title[position])
+                        putExtra("MovieType", it.type[position])
+                        putExtra("MovieYear", it.year[position])
+                        putExtra("MovieFirstText", it.firstText[position])
+                        putExtra("MovieSecondText", it.secondText[position])
+                        putExtra("MovieDuration", it.duration[position])
+                        startActivity(this)
+                    }
+                }
+            }
+        }
 
         if (itemModel.isSeen) {
             holder.text.text = "Seen"

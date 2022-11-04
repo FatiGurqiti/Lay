@@ -52,7 +52,8 @@ class FavouriteListViewFragment(
                     pop,
                     likeButton,
                     dislikeButton,
-                    blackBg
+                    blackBg,
+                    requireActivity()
                 ).also { movieAdapter ->
                     view.findViewById<RecyclerView>(R.id.favouriteListRecycleView)
                         .apply {

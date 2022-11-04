@@ -97,7 +97,7 @@ public class SavedMovieDetails extends AppCompatActivity {
 
         title.setText(movieTitle);
         year.setText(movieYear);
-        minutesToHours(Integer.parseInt(runTime));
+        if (runTime != null) minutesToHours(Integer.parseInt(runTime));
         time.setText(hours + "h " + minutes + "m");
         type.setText(movieType);
         firstText.setText(fistText);

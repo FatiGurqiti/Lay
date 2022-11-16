@@ -8,6 +8,8 @@ import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.fdev.lay.common.enums.UserLoginStatus
+import com.fdev.lay.common.enums.setUserStatus
 import com.fdev.lay.data.local.database.DatabaseHandler
 import com.fdev.lay.ui.MainScreen.HomePage
 import com.google.android.gms.tasks.Task
@@ -44,8 +46,8 @@ class LoginViewModel : ViewModel() {
                                 //Set's the log in true. So, the user won't have to sign in again
                                 withContext(Dispatchers.Main) {
                                     with(activity) {
-                                        val db = DatabaseHandler(activity)
-                                        db.setLoginTrue()
+                                        setUserStatus(activity, UserLoginStatus.LOGGED_IN)
+                                        DatabaseHandler(activity).setLoginTrue()
                                         val intent = Intent(activity, HomePage::class.java)
                                         intent.putExtra("email", email)
                                         startActivity(intent)

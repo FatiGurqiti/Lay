@@ -1,5 +1,7 @@
 package com.fdev.lay.ui.MainScreen.profile;
 
+import static com.fdev.lay.common.enums.UserLoginStatusKt.setUserStatus;
+
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -13,6 +15,8 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import com.fdev.lay.R;
 import com.fdev.lay.common.Constants;
+import com.fdev.lay.common.Instants;
+import com.fdev.lay.common.enums.UserLoginStatus;
 import com.fdev.lay.ui.login.LoginActivity;
 import com.fdev.lay.ui.resetPassword.ResetPassword;
 import com.fdev.lay.data.local.database.DatabaseHandler;
@@ -98,6 +102,8 @@ public class ProfileFragment extends Fragment {
 
                 DatabaseHandler db = new DatabaseHandler(getContext());
                 db.setLoginFalse(); // sign in with sqlite
+                Instants.isSavedMovieDataLoaded = false;
+                setUserStatus(requireActivity(), UserLoginStatus.LOGGED_OUT);
 
                 Intent intent = new Intent(getActivity(), LoginActivity.class);
                 startActivity(intent);

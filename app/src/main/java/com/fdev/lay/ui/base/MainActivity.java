@@ -1,16 +1,19 @@
 package com.fdev.lay.ui.base;
 
 
+import static com.fdev.lay.common.enums.UserLoginStatusKt.getLastStatus;
+import static com.fdev.lay.common.enums.UserLoginStatusKt.setUserStatus;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
-
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.os.StrictMode;
 import android.widget.TextView;
 import com.fdev.lay.R;
 import com.fdev.lay.common.Constants;
 import com.fdev.lay.common.Instants;
+import com.fdev.lay.common.enums.UserLoginStatus;
 import com.fdev.lay.common.utils.Utils;
 import com.fdev.lay.data.local.database.Account;
 import com.fdev.lay.data.local.database.DatabaseHandler;
@@ -18,16 +21,14 @@ import com.fdev.lay.ui.login.LoginActivity;
 import com.fdev.lay.ui.MainScreen.HomePage;
 import com.fdev.lay.ui.FirstTime.FirstTime2;
 import java.util.Calendar;
-import java.util.Timer;
-import java.util.TimerTask;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class MainActivity extends AppCompatActivity {
-
     private MainMainViewModel viewModel;
     private boolean firstTime;
     private DatabaseHandler dbHandler = new DatabaseHandler(this);
     private static String apiToken;
+    private Intent intent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,8 +54,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void strictMode() {
-        StrictMode.ThreadPolicy policy = new
-                StrictMode.ThreadPolicy.Builder().permitAll().build();
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
     }
 
@@ -90,32 +90,33 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void redirect() {
-        int delay;
-        if (dbHandler.getIsLiteMode()) delay = 0;
-        else delay = 1200;
-        Timer timer = new Timer();
-        timer.schedule(new TimerTask() {
-                           @Override
-                           public void run() {
-                               Intent intent;
-                               if (firstTime) intent = new Intent(MainActivity.this, FirstTime2.class);
-                               else if (dbHandler.getIsLoggedIn()) intent = new Intent(MainActivity.this, HomePage.class);
-                               else intent = new Intent(MainActivity.this, LoginActivity.class);
-                               startActivity(intent);
-                               finish();
-                           }
-                       }
-                , delay
-        );
+        switch (getLastStatus(this)) {
+            case FIRST_TIME:
+                setUserStatus(this, UserLoginStatus.LOGGED_OUT);
+                intent = new Intent(MainActivity.this, FirstTime2.class);
+                break;
+            case LOGGED_IN:
+                viewModel.loadMovies();
+                intent = new Intent(MainActivity.this, HomePage.class);
+                break;
+            case LOGGED_OUT:
+                Instants.isSavedMovieDataLoaded = true;
+                intent = new Intent(MainActivity.this, LoginActivity.class);
+                break;
+        }
+        new Handler().postDelayed(() -> {
+            startActivity(intent);
+            finish();
+        }, 1000);
     }
 
-    private void checkInternet(){
+    private void checkInternet() {
         Instants.INSTANCE.setInternetAvailable(Utils.isNetworkAvailable(this));
     }
 
-    private void canSetUserName(){
-        if (Instants.INSTANCE.isInternetAvailable() && !firstTime && dbHandler.getIsLoggedIn())
-        Instants.INSTANCE.setCanShowUserName(true);
+    private void canSetUserName() {
+        if (Instants.INSTANCE.isInternetAvailable() && getLastStatus(this) != UserLoginStatus.FIRST_TIME && dbHandler.getIsLoggedIn())
+            Instants.INSTANCE.setCanShowUserName(true);
     }
 
     public static String getToken() {

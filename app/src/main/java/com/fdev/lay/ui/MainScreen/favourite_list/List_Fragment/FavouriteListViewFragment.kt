@@ -11,6 +11,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.RecyclerView
 import com.fdev.lay.R
+import com.fdev.lay.common.Instants
 import com.fdev.lay.common.models.MovieAdapterModel
 
 class FavouriteListViewFragment(
@@ -33,8 +34,8 @@ class FavouriteListViewFragment(
         super.onViewCreated(view, savedInstanceState)
         viewModel = ViewModelProvider(this)[FavouriteListViewModel::class.java]
 
-        viewModel.savedMovieDetailsLiveData.observe(viewLifecycleOwner) { savedMovie ->
-            viewModel.savedMovieIds.observe(viewLifecycleOwner) { seenMovie ->
+        Instants.savedMovieDetailsLiveData.observe(viewLifecycleOwner) { savedMovie ->
+            Instants.savedMovieIds.observe(viewLifecycleOwner) { seenMovie ->
                 val items: MutableList<MovieAdapterModel> = arrayListOf()
                 for (i in 0 until savedMovie.id.size) {
                     items.add(
@@ -46,19 +47,9 @@ class FavouriteListViewFragment(
                         )
                     )
                 }
-                FavouriteListAdapter(
-                    items,
-                    viewModel,
-                    pop,
-                    likeButton,
-                    dislikeButton,
-                    blackBg,
-                    requireActivity()
+                FavouriteListAdapter( items, viewModel, pop, likeButton, dislikeButton, blackBg, requireActivity()
                 ).also { movieAdapter ->
-                    view.findViewById<RecyclerView>(R.id.favouriteListRecycleView)
-                        .apply {
-                            adapter = movieAdapter
-                        }
+                    view.findViewById<RecyclerView>(R.id.favouriteListRecycleView).adapter = movieAdapter
                 }
             }
         }

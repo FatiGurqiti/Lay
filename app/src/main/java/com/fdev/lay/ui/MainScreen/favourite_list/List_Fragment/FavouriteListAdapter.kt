@@ -13,6 +13,7 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.fdev.lay.R
+import com.fdev.lay.common.Instants
 import com.fdev.lay.common.models.MovieAdapterModel
 import com.fdev.lay.ui.movieDetails.SavedMovieDetails
 import com.squareup.picasso.Picasso
@@ -56,7 +57,7 @@ class FavouriteListAdapter(
 
         holder.title.setOnClickListener {
             with(activity) {
-                viewModel.savedMovieDetailsLiveData.observe(this) {
+                Instants.savedMovieDetailsLiveData.observe(this) {
                     val intent = Intent(this, SavedMovieDetails::class.java)
                     intent.apply {
                         putExtra("MovieID", it.id[position])

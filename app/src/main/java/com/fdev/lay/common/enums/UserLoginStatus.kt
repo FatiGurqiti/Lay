@@ -1,6 +1,6 @@
 package com.fdev.lay.common.enums
 
-import androidx.appcompat.app.AppCompatActivity
+import android.app.Activity
 import com.fdev.lay.data.local.sharedpreferences.LayDefaults
 
 val FIRST_TIME = 0
@@ -11,7 +11,7 @@ enum class UserLoginStatus {
     FIRST_TIME, LOGGED_IN, LOGGED_OUT
 }
 
-fun UserLoginStatus.invokeStatus(activity: AppCompatActivity, loginStatus: UserLoginStatus) {
+fun setUserStatus(activity: Activity, loginStatus: UserLoginStatus) {
     when (loginStatus) {
         UserLoginStatus.FIRST_TIME -> LayDefaults(activity).setLoginStatus(FIRST_TIME)
         UserLoginStatus.LOGGED_IN -> LayDefaults(activity).setLoginStatus(LOGGED_IN)
@@ -20,7 +20,7 @@ fun UserLoginStatus.invokeStatus(activity: AppCompatActivity, loginStatus: UserL
     }
 }
 
-fun getLastStatus(activity: AppCompatActivity): UserLoginStatus {
+fun getLastStatus(activity: Activity): UserLoginStatus {
     return LayDefaults(activity).getLoginStatus()?.let {
         when (it) {
             FIRST_TIME -> UserLoginStatus.FIRST_TIME

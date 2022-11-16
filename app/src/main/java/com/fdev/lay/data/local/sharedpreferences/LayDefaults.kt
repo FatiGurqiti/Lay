@@ -1,10 +1,10 @@
 package com.fdev.lay.data.local.sharedpreferences
 
+import android.app.Activity
 import android.content.Context
 import android.content.SharedPreferences
-import androidx.appcompat.app.AppCompatActivity
 
-class LayDefaults(activity: AppCompatActivity) {
+class LayDefaults(activity: Activity) {
 
     private val LOGIN_KEY = "lay_loging_status"
 

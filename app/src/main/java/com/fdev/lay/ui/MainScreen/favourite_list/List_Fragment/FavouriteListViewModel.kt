@@ -1,7 +1,8 @@
 package com.fdev.lay.ui.MainScreen.favourite_list.List_Fragment
 
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.fdev.lay.common.Instants
+import com.fdev.lay.common.Instants.savedMovieIds
 import com.fdev.lay.common.models.SavedMovieListModel
 import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.FirebaseAuth
@@ -11,17 +12,15 @@ import com.google.firebase.firestore.SetOptions
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import java.util.*
-import kotlin.collections.ArrayList
 
 class FavouriteListViewModel : ViewModel() {
-    val savedMovieDetailsLiveData: MutableLiveData<SavedMovieListModel> by lazy { MutableLiveData<SavedMovieListModel>() }
-    val savedMovieIds: MutableLiveData<ArrayList<String>> by lazy { MutableLiveData<ArrayList<String>>() }
 
     init {
-        CoroutineScope(Dispatchers.IO).launch {
-            getSavedMovies()
-            getSeenMovies()
+        if (!Instants.isSavedMovieDataLoaded) {
+            CoroutineScope(Dispatchers.IO).launch {
+                getSavedMovies()
+                getSeenMovies()
+            }
         }
     }
 
@@ -34,7 +33,7 @@ class FavouriteListViewModel : ViewModel() {
             if (task.isSuccessful) {
                 val document: DocumentSnapshot = task.getResult()
                 if (document.exists()) {
-                    savedMovieDetailsLiveData.value = SavedMovieListModel(
+                    Instants.savedMovieDetailsLiveData.value = SavedMovieListModel(
                         id = (document.get("id") as ArrayList<*>).distinct() as ArrayList<String>,
                         imgURL = (document.get("img") as ArrayList<*>).distinct() as ArrayList<String>,
                         title = (document.get("title") as ArrayList<*>).distinct() as ArrayList<String>,
@@ -45,6 +44,18 @@ class FavouriteListViewModel : ViewModel() {
                         duration = (document.get("duration") as ArrayList<*>).distinct() as ArrayList<String>
                     )
                 }
+            }
+        }
+    }
+
+    private fun getSeenMovies() {
+        val db = FirebaseFirestore.getInstance()
+        val user = FirebaseAuth.getInstance().currentUser
+        val docRef = db.collection("SeenMovies").document(user!!.uid)
+        docRef.get().addOnCompleteListener { task: Task<DocumentSnapshot> ->
+            if (task.isSuccessful) {
+                val document = task.result
+                if (document.exists()) savedMovieIds.value = document["id"] as ArrayList<String>
             }
         }
     }
@@ -107,18 +118,6 @@ class FavouriteListViewModel : ViewModel() {
                     data["id"] = seenMovieId
                     db.collection("SeenMovies").document(user.uid)[data] = SetOptions.merge()
                 }
-            }
-        }
-    }
-
-    private fun getSeenMovies() {
-        val db = FirebaseFirestore.getInstance()
-        val user = FirebaseAuth.getInstance().currentUser
-        val docRef = db.collection("SeenMovies").document(user!!.uid)
-        docRef.get().addOnCompleteListener { task: Task<DocumentSnapshot> ->
-            if (task.isSuccessful) {
-                val document = task.result
-                if (document.exists()) savedMovieIds.value = document["id"] as ArrayList<String>
             }
         }
     }
